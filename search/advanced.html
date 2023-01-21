@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Quarere Advanced</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="/web-projects/search/static/style.css">
+    </head>
+    <body>
+        <main>
+            <!-- Navigation bar -->
+            <div class="nav-bar">
+                <!-- Logo-->
+                <a href="/web-projects/search/index.html"><img src="ressource/Quarere.svg" alt=""></a>
+                <!-- Buttons -->
+                <div class="nav">
+                    <a href="/web-projects/search/index.html"><img src="/web-projects/search/ressource/home 2.svg" alt=""></a>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <div class="advanced-container">
+                <!-- Header and form-->
+                <div class="form-wrapper">
+                    <h1>Find pages with...</h1>
+                    <!-- Form container-->
+                    <form action="https://google.com/advanced_search">
+
+                            <!-- input 1 -->
+                            <label for="input1">all these words:</label>
+                            <div class="input">
+                                <input id="input1" autofocus autocomplete="off"  type="text" name="as_q">
+                            </div>
+
+                            <!-- input 2 -->
+                            <label for="input2">this exact word or phrase:</label>
+                            <div class="input">
+                                <input id="input2" autofocus autocomplete="off" type="text" name="as_epq">
+                            </div>
+
+                            <!-- input 3 -->
+                            <label for="input3">any of these words:</label>
+                            <div class="input">
+                                <input id="input3" autofocus autocomplete="off" type="text" name="as_oq">
+                            </div>
+
+                            <!-- input 4 -->
+                            <label for="input4">none of these words:</label>
+                            <div class="input">
+                                <input id="input4" autofocus autocomplete="off" type="text" name="as_eq">
+                            </div>
+
+                            <!-- Search Button-->
+                            <input class="advanced-btn" type="submit" value="Advanced Search">
+                    </form>
+                </div>
+                <!-- Background image -->
+                <img src="ressource/ai woman portrait 1.png" alt="">
+            </div>
+        </main>
+    </body>
+</html>

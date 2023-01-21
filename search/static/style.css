@@ -1,0 +1,264 @@
+@font-face {
+    font-family: "Inter";
+    src: url(ressource/Inter-VariableFont_slnt\,wght.ttf)
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: linear-gradient(180deg, #483522 0%, #1F2222 100%);
+    background-repeat: no-repeat;
+    align-items: center;
+}
+
+main {
+    margin: 40px;
+}
+
+a {
+    display: inline;
+    text-decoration: none;
+    color: aliceblue;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+/* Navigation bar*/
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.nav {
+    display: flex;
+    gap: 1.85em;
+}
+.nav-bar > img {
+    height: 2.94em;
+}
+
+.btn-primary {
+    color: aliceblue;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 600;
+    font-size: .81rem;
+    text-align: center;
+
+    box-sizing: border-box;
+    padding: .9rem .64rem;
+    border-radius: .75rem;
+
+    background: radial-gradient(113.37% 303.17% at 7.76% 9.04%, rgba(255, 255, 255, 0.175) 4.1%, rgba(255, 255, 255, 0.0974156) 53.7%, rgba(255, 255, 255, 0.0554687) 80.52%, rgba(255, 255, 255, 0.025) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+    background-blend-mode: overlay;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(4spx);
+}
+
+/* Search form*/
+.form-container {
+    width: 37.50em;
+    height: 31.25em;
+    margin: 10.31em auto;
+}
+
+.form-container > img {
+    position: absolute;
+    margin-left: 3.12em;
+    margin-right: 3.12em;
+    z-index: -9;
+}
+
+.form {
+    position: absolute;
+    width: 37.50em;
+    height: 9.19em;
+    margin-top: 13.19em;
+}
+
+.search-bar {
+    box-sizing: border-box;
+    
+    display: flex;
+    width: 37.50rem;
+    height: 3.62rem;
+    border-radius: 6.25rem;
+
+    background: radial-gradient(87.77% 250.54% at 7.76% 9.04%, rgba(255, 255, 255, 0.21) 0%, rgba(255, 255, 255, 0.03) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+    background-blend-mode: overlay;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(4px);
+}
+
+.search-bar > img {
+    margin: 1rem 1.19rem;
+}
+
+.search-input {
+    flex-grow: 1;
+    background-color: transparent;
+    border: 0;
+    outline: none;
+    border-top-right-radius: 6.25rem;
+    border-bottom-right-radius: 6.25rem;
+
+    color: #fff;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 0.74rem;
+}
+
+.button-container {
+    width: 19.06rem;
+    height: 2.81rem;
+    margin-top: 1.69rem;
+    margin-left: 9.18rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.search-btn {
+    box-sizing: border-box;
+
+    width: 8.75rem;
+    height: 2.69rem;
+    border-radius: 0.75rem;
+
+    color: #fff;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 0.94rem;
+    text-align: center;
+
+    background: radial-gradient(87.77% 250.54% at 7.76% 9.04%, rgba(255, 255, 255, 0.21) 0%, rgba(255, 255, 255, 0.03) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+    background-blend-mode: overlay;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(4px);
+}
+
+/* Advanced Search form*/
+.advanced-container {
+    width: 62.31em;
+    height: 31.25em;
+    margin:  6.31rem auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-wrapper {
+    width: 25.63em;
+    height: 29.69em;
+    margin-top: .81em;
+}
+
+.form-wrapper > form {
+    margin-top: 2.06rem;
+} 
+
+h1 {
+    width: 8.06em;
+
+    color: #fff;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 1.81rem;
+
+}
+
+label {
+    color: #fff;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 500;
+    font-size: .87rem;
+}
+
+.input {
+    box-sizing: border-box;
+    display: flex;
+    width: 25.62em;
+    height: 1.98em;
+    margin-top: .62rem;
+    margin-bottom: 1.12rem;
+    border-radius: .75em;
+
+    background: radial-gradient(87.77% 250.54% at 7.76% 9.04%, rgba(255, 255, 255, 0.21) 0%, rgba(255, 255, 255, 0.03) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+    background-blend-mode: overlay;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(4px);
+}
+
+.input > input {
+    color: #fff;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 300;
+    font-size: .75rem;
+
+    flex-grow: 1;
+    margin-left: 0.56rem;
+    border: 0;
+
+    outline: none;
+    background-color: transparent;
+}
+
+.advanced-btn {
+    width: 10.13rem;
+    height: 2.69rem;
+    margin-top: 1.38rem;
+    margin-left: 15.5rem;
+    border-radius: .75rem;
+
+    color: #fff;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 600;
+    font-size: .94rem;
+
+
+    background: radial-gradient(87.77% 250.54% at 7.76% 9.04%, rgba(255, 255, 255, 0.21) 0%, rgba(255, 255, 255, 0.03) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+    background-blend-mode: overlay;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(4px);
+}
+
+/* Image search form*/
+.search-img {
+    box-sizing: border-box;
+
+    width: 8.75rem;
+    height: 2.69rem;
+    margin-left: 5.13rem;
+    border-radius: 0.75rem;
+
+    color: #fff;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 0.94rem;
+    text-align: center;
+
+    background: radial-gradient(87.77% 250.54% at 7.76% 9.04%, rgba(255, 255, 255, 0.21) 0%, rgba(255, 255, 255, 0.03) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+    background-blend-mode: overlay;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(4px);
+
+}
