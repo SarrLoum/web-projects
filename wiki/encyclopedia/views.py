@@ -8,3 +8,13 @@ def index(request):
         "entries": util.list_entries()
     })
 
+def entry(request):
+    return render(request, "encyclopedia/entry.html", {
+    })
+
+def newpage(request):
+    return render(request, "encyclopedia/entry.html", {
+    })
+
+def random(request):
+    return render(request, "encyclopedia/random.html")
