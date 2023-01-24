@@ -4,7 +4,7 @@ from django.shortcuts import render
 from . import util
 
 
-# Function that converts the content of a given page title from markdown to html
+
 def convert_md_to_html(title):
 
     # Get the content using get_entry function from util.py
@@ -25,16 +25,27 @@ def index(request):
         "entries": util.list_entries()
     })
 
-# Function that render entries
-def entry(request,):
 
-    return render(request, "encyclopedia/entry.html")
+def entry(request, title):
+    # Converts content to html
+    html_content = convert_md_to_html(title)
+    
+    # Check if content exist and render content or error message
+    if html_content == None:
+        return render(request, "encyclopedia/error.html", {
+            "message": "This entry does not exist"
+        })
+    else: 
+        return render(request, "encyclopedia/entry.html", {
+            "title": title,
+            "content": html_content
+        })
 
-# Function that render create new page
+
 def newpage(request):
     return render(request, "encyclopedia/entry.html", {
     })
 
-# Function that randomly render entries
+
 def random(request):
     return render(request, "encyclopedia/random.html")
