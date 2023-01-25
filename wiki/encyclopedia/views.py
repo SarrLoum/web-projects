@@ -2,6 +2,7 @@ from markdown2 import Markdown
 from django.shortcuts import render
 
 from . import util
+from .forms import NewPageForm
 
 
 
@@ -61,7 +62,30 @@ def search(request):
 
 
 def newpage(request):
-    return render(request, "encyclopedia/entry.html", {
+
+    # if this is a POST request we need to process the form data
+    if request.method == "POST":
+        form = NewPageForm(request.POST)
+        data = []
+
+        # Check if form is valid
+        if form.is_valid():
+            # Stores the form's data into the empty list
+            data = form.cleaned_data
+
+            # Save the newly created page 
+            save_entry(data[0], data[1])
+
+            return render(request, "encyclopedia, entry.html", {
+                "content": get_entry(data[0])
+            })
+
+    # if this is a Get (or any other method) we'll create a blank form
+    else:
+        form = NewPageForm()
+
+    return render(request, "encyclopedia/newpage.html", {
+        "newpage": form
     })
 
 
