@@ -28,22 +28,32 @@ def entry(request, title):
 
 
 def search(request):
+    # if this is a POST request we need to process the form data
     if request.method == "POST":
+
+        # Get the input value and convert the content of that entry to html
         search_entry = request.POST['q']
         html_content = convert_md_to_html(search_entry)
+
+        # if the title exist return its content
         if html_content is not None:
             return render(request, "encyclopedia/entry.html", {
             "title": search_entry,
             "content": html_content
         })
+
         else:
+            # Get list of all the entries and declare an Empty list(recommendations) 
             entries = util.list_entries()
             recommendations = []
 
+            # Loop through entries  
             for entry in entries:
+                #check if input match one of the entries and append it to recommendations
                 if search_entry.lower() in entry.lower():
                     recommendations.append(entry)
 
+            # return the list of recommendtions and render it
             return render(request, "encyclopedia/search.html", {
                 "recommendations": recommendations
             })

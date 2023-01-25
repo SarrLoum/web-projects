@@ -5,10 +5,9 @@
 {% endblock %}
 
 {% block body %}
-    <div>
-        <label for="title">Title</label><input name="title" type="text">
-    </div>
-    <div>
-        <label for="page-content">Page Content</label><input id="page-content" type="text">
-    </div>  
+<form action="{% url 'newpage' %}" method="POST">
+    {% csrf_token %}
+    {{ NewPageForm }}
+</form>
+
 {% endblock %}
