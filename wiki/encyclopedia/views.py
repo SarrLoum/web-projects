@@ -5,21 +5,6 @@ from . import util
 
 
 
-def convert_md_to_html(title):
-
-    # Get the content using get_entry function from util.py
-    content = util.get_entry(title)
-    markdowner = Markdown()
-
-    # check if file exist/or not and return the content in html 
-    if content == None:
-        return None
-    else:
-        return markdowner.convert(content)
-
-
-
-
 def index(request):
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries()
@@ -42,6 +27,29 @@ def entry(request, title):
         })
 
 
+def search(request):
+    if request.method == "POST":
+        search_entry = request.POST['q']
+        html_content = convert_md_to_html(search_entry)
+        if html_content is not None:
+            return render(request, "encyclopedia/entry.html", {
+            "title": search_entry,
+            "content": html_content
+        })
+        else:
+            entries = util.list_entries()
+            recommendations = []
+
+            for entry in entries:
+                if search_entry.lower() in entry.lower():
+                    recommendations.append(entry)
+
+            return render(request, "encyclopedia/search.html", {
+                "recommendations": recommendations
+            })
+
+
+
 def newpage(request):
     return render(request, "encyclopedia/entry.html", {
     })
@@ -49,3 +57,18 @@ def newpage(request):
 
 def random(request):
     return render(request, "encyclopedia/random.html")
+
+
+
+def convert_md_to_html(title):
+    # Get the content using get_entry function from util.py
+    content = util.get_entry(title)
+    markdowner = Markdown()
+
+    # check if file exist/or not and return the content in html 
+    if content == None:
+        return None
+    else:
+        return markdowner.convert(content)
+
+    
