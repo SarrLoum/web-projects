@@ -6,12 +6,12 @@
 
 {% block body %}
 <h1>Create a New Page</h1>
-<form action="{% url 'newpage' %}" method="POST">
+<form action="{% url 'save_edit' %}" method="POST">
     {% csrf_token %}
     <label for="title">Title</label>
     <input type="text" name="title" value="{{ title }}" id="">
     <label for="content">Markdown content</label>
-    <input type="text" name="content" value="{{ content }}" id="">
+    <textarea name="content" id="">{{ content }}</textarea>
     <input type="submit" name="" id="" value="Edit">
 </form>
 

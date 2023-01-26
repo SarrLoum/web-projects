@@ -13,6 +13,7 @@ def index(request):
     })
 
 
+
 def entry(request, title):
     # Converts content to html
     html_content = convert_md_to_html(title)
@@ -27,6 +28,7 @@ def entry(request, title):
             "title": title,
             "content": html_content
         })
+
 
 
 def search(request):
@@ -91,20 +93,40 @@ def newpage(request):
         form = PageForm()
 
     return render(request, "encyclopedia/newpage.html", {
-        "NewPageForm": form
+        "newpageform": form
     })
 
-def editpage(request):
+
+
+def edit(request):
     # if this is a POST request we need to process the form data
     if request.method == "POST":
         # Get the tile of the entry and its content
         title = request.POST['entry_title']
         entry_content = util.get_entry(title)
-
-        return render(request, "encyclopedia/editpage.html", {
+        # store the page to render into an httpresponse object 
+        response = render(request, "encyclopedia/editpage.html", {
             "title": title,
-            "content": entry_contentssss
+            "content": entry_content
         })
+        return response
+
+
+
+def save_edit(request):
+    # This is a POST request we need to process the form data
+    if request.method == "POST":
+        title = request.POST['title']
+        content = request.POST['content']
+
+        # Save the edit
+        util.save_entry(title, content)
+
+        return render(request, "encyclopedia/entry.html", {
+            "title": title,
+            "content": convert_md_to_html(util.get_entry(title))
+        })
+
 
 
 def random(request):
@@ -119,6 +141,8 @@ def random(request):
 
 
 
+
+# Function that convert content from markdown to hmtl
 def convert_md_to_html(title):
     # Get the content using get_entry function from util.py
     content = util.get_entry(title)
