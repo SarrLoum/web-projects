@@ -83,9 +83,12 @@ def newpage(request):
             # Save the newly created page 
             util.save_entry(title, content)
 
+            # Convert content to html
+            html_content = convert_md_to_html(title)
+
             return render(request, "encyclopedia/entry.html", {
                 "title": title,
-                "content": convert_md_to_html(util.get_entry(title))
+                "content": html_content
             })
 
     # if this is a Get (or any other method) we'll create a blank form
@@ -95,7 +98,6 @@ def newpage(request):
     return render(request, "encyclopedia/newpage.html", {
         "newpageform": form
     })
-
 
 
 def edit(request):
@@ -122,9 +124,13 @@ def save_edit(request):
         # Save the edit
         util.save_entry(title, content)
 
+        # convert to html
+        html_content = convert_md_to_html(title)
+    
+        # Check if content exist and render content or error message
         return render(request, "encyclopedia/entry.html", {
             "title": title,
-            "content": convert_md_to_html(util.get_entry(title))
+            "content": html_content
         })
 
 
