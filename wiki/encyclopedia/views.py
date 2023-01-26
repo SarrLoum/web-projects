@@ -4,6 +4,7 @@ from django.shortcuts import render
 from . import util
 from .forms import PageForm
 
+from random import choice
 
 
 def index(request):
@@ -102,12 +103,19 @@ def editpage(request):
 
         return render(request, "encyclopedia/editpage.html", {
             "title": title,
-            "content": entry_content
+            "content": entry_contentssss
         })
 
 
 def random(request):
-    return render(request, "encyclopedia/random.html")
+    # get the list of al entries and randomly choose a entry title to render
+    entries = util.list_entries()
+    entry_title = choice(entries)
+
+    return render(request, "encyclopedia/entry.html", {
+        "title": entry_title,
+        "content": convert_md_to_html(entry_title)
+    })
 
 
 
