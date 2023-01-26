@@ -96,15 +96,14 @@ def newpage(request):
 def editpage(request):
     # if this is a POST request we need to process the form data
     if request.method == "POST":
-        title =
-        return
+        # Get the tile of the entry and its content
+        title = request.POST['entry_title']
+        entry_content = util.get_entry(title)
 
-    # if this is a Get (or any other method) we'll create a pre-populated form
-    else: 
-        form = NewPageForm()
-    return render(request, "encyclopedia/editpage.html", {
-        "EditPageForm": form
-    })
+        return render(request, "encyclopedia/editpage.html", {
+            "title": title,
+            "content": entry_content
+        })
 
 
 def random(request):
