@@ -2,7 +2,7 @@ from markdown2 import Markdown
 from django.shortcuts import render
 
 from . import util
-from .forms import NewPageForm
+from .forms import PageForm
 
 
 
@@ -65,27 +65,45 @@ def newpage(request):
 
     # if this is a POST request we need to process the form data
     if request.method == "POST":
-        form = NewPageForm(request.POST)
-        data = []
+
+        title = ""
+        content = ""
+
+        form = PageForm(request.POST)
 
         # Check if form is valid
         if form.is_valid():
-            # Stores the form's data into the empty list
-            data = form.cleaned_data
+            # get data from each form field
+            title = form.cleaned_data.get("title")
+            content = form.cleaned_data.get("content")
 
             # Save the newly created page 
-            save_entry(data[0], data[1])
+            util.save_entry(title, content)
 
-            return render(request, "encyclopedia, entry.html", {
-                "content": get_entry(data[0])
+            return render(request, "encyclopedia/entry.html", {
+                "title": title,
+                "content": convert_md_to_html(util.get_entry(title))
             })
 
     # if this is a Get (or any other method) we'll create a blank form
     else:
-        form = NewPageForm()
+        form = PageForm()
 
     return render(request, "encyclopedia/newpage.html", {
-        "newpage": form
+        "NewPageForm": form
+    })
+
+def editpage(request):
+    # if this is a POST request we need to process the form data
+    if request.method == "POST":
+        title =
+        return
+
+    # if this is a Get (or any other method) we'll create a pre-populated form
+    else: 
+        form = NewPageForm()
+    return render(request, "encyclopedia/editpage.html", {
+        "EditPageForm": form
     })
 
 
