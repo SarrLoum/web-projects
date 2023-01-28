@@ -9,7 +9,7 @@
 <form action="{% url 'newpage' %}" method="POST">
     {% csrf_token %}
     {{ newpageform }}
-    <input class="btn btn-success" type="submit" name="" id="" value="save">
+    <input class="btn btn-outline-success" type="submit" name="" id="" value="save">
 </form>
 
 {% endblock %}
