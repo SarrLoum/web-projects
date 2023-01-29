@@ -5,7 +5,7 @@ from django.db import models
 class User(AbstractUser):
     pass
 
-class List(models.Model):
+class Listing(models.Model):
 
     art = "Collectibles & Art"
     electronics = "Electronics"
@@ -18,7 +18,6 @@ class List(models.Model):
     other = "Other categories"
 
     CATEGORIES = [
-
         (art, "Collectibles & art"),
         (electronics, "Electronics"),
         (fashion, "Fashion"),
@@ -31,18 +30,19 @@ class List(models.Model):
     ]
 
     title = models.CharField(max_length=100)
-    category = models.CharField(max_leght=1, choices=CATEGORIES)
+    category = models.CharField(max_lenght=1, choices=CATEGORIES)
     starting_bid = models.IntegerField()
     image = models.ImageField()
     description = models.TextField(blank=True)
+    publication_date = models.DateField
 
 
 
 class bids(models.Model):
-    bid_id = models.ForeignKey(pk=List, )
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE )
     bid = models.IntegerField()
 
 
 class Comments(models.Model):
-    comment_id = models.ForeignKey(pk=List, )
-    comment = models.CharField(widget=form.textarea)
+    listing = models.ForeignKey(Listing, )
+    comment = models.TextField()
