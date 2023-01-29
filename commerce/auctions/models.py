@@ -30,19 +30,21 @@ class Listing(models.Model):
     ]
 
     title = models.CharField(max_length=100)
-    category = models.CharField(max_lenght=1, choices=CATEGORIES)
-    starting_bid = models.IntegerField()
+    category = models.CharField(max_length=100, choices=CATEGORIES)
+    starting_bid = models.FloatField()
     image = models.ImageField()
-    description = models.TextField(blank=True)
-    publication_date = models.DateField
+    description = models.CharField(max_length=200)
+    publication_date = models.DateField()
 
 
 
 class bids(models.Model):
-    listing = models.ForeignKey(Listing, on_delete=models.CASCADE )
-    bid = models.IntegerField()
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    bid = models.FloatField()
 
 
 class Comments(models.Model):
-    listing = models.ForeignKey(Listing, )
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.TextField()
