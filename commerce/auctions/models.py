@@ -34,11 +34,11 @@ class Listing(models.Model):
     starting_bid = models.FloatField()
     image = models.ImageField()
     description = models.CharField(max_length=200)
-    publication_date = models.DateField()
+    publication_date = models.DateTimeField(auto_now_add=True)
 
 
 
-class bids(models.Model):
+class Bids(models.Model):
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     bid = models.FloatField()
