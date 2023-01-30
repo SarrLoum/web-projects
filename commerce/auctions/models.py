@@ -35,16 +35,18 @@ class Listing(models.Model):
     image = models.ImageField()
     description = models.CharField(max_length=200)
     publication_date = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
 
 
 
 class Bids(models.Model):
+    bid = models.FloatField()
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    bid = models.FloatField()
 
 
 class Comments(models.Model):
+    comment = models.TextField()
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    comment = models.TextField()
