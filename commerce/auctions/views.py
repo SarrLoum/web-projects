@@ -60,14 +60,14 @@ def register(request):
                 "message": "Username already taken."
             })
         login(request, user)
-        return HttpResponseRedirect(render("auctions/index"))
+        return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "auctions/register.html")
 
 
 @login_required
 def new_listing(request):
-    # if it is POST (resquest) method then we need to process the form data
+    # if it is POST (resquest) method then we need to proceed the form data
     if request.method == "POST":
         listing_form = ListingForm(request.POST, request.FILES)
 
