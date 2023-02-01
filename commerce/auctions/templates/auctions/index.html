@@ -2,6 +2,21 @@
 
 {% block body %}
     <h2>Active Listings</h2>
-
-    TODO
+    <br>
+    {% for listing in active_listing %}
+    <div class="item-wrapper">
+        <div class="img-wrapper">
+        <a href=""><img src="{{ listing.image.url }}" alt=""></a>
+        </div>
+        <div class="item-details">
+            <a href="">{{ listing.title }}</a>
+            <div>
+                ${{ listing.starting_bid }}
+            </div>
+            <div>
+                {{ listing.description }}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 {% endblock %}

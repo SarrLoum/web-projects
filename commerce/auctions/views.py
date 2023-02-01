@@ -5,12 +5,16 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User
+from .models import User, Listing, Bid, Comment
 from .forms import ListingForm
 
 
 def index(request):
-    return render(request, "auctions/index.html")
+    active = Listing.objects.all()
+
+    return render(request, "auctions/index.html", {
+        "active_listing": active
+    })
 
 
 def login_view(request):
@@ -71,14 +75,19 @@ def new_listing(request):
     if request.method == "POST":
         listing_form = ListingForm(request.POST, request.FILES)
 
-        if listing_form.is_valid:
-            new_listing = listing_form.save()
+        if listing_form.is_valid():
+            # Create the new listing object and store the current logged in user and then save it to the database
+            new_listing = listing_form.save(commit=False)
+            new_listing.user = request.user
+            new_listing.save()
 
-        return render(request, "auctions/index.html")
+        return HttpResponseRedirect(reverse("index"))
 
-    # if it is a Get method render the form 
+    # if it is a Get method then render the form 
     else:
         form = ListingForm()
         return render(request, "auctions/new_listing.html", {
             "listing_form" : form
         })
+
+
