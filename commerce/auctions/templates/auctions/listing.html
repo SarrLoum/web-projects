@@ -1,0 +1,24 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <div class="item-wrapper">
+        <div class="img-wrapper">
+            <img src="{{ listing.image.url }}" alt="">
+        </div>
+        <div class="item-details-page">
+            <div>
+                <strong>{{ listing.title }}</strong>
+                <br>
+                {{ listing.category }}
+            </div>
+            <div>
+                {{ listing.description }}
+            </div>
+            <div>
+                ${{ listing.starting_bid }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

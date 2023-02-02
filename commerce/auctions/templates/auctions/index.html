@@ -3,20 +3,24 @@
 {% block body %}
     <h2>Active Listings</h2>
     <br>
-    {% for listing in active_listing %}
-    <div class="item-wrapper">
-        <div class="img-wrapper">
-        <a href=""><img src="{{ listing.image.url }}" alt=""></a>
+    <ul class="item-list">
+        {% for listing in active_listing %}
+        <div class="item-wrapper">
+            <li>
+                <div class="img-wrapper">
+                <a href="{% url 'listing-page' listing.id %}"><img src="{{ listing.image.url }}" alt=""></a>
+                </div>
+                <div class="item-details">
+                    <a href="{% url 'listing-page' listing.id %}">{{ listing.title }}</a>
+                    <div>
+                        ${{ listing.starting_bid }}
+                    </div>
+                    <div>
+                        {{ listing.description }}
+                    </div>
+                </div>
+            </li>
         </div>
-        <div class="item-details">
-            <a href="">{{ listing.title }}</a>
-            <div>
-                ${{ listing.starting_bid }}
-            </div>
-            <div>
-                {{ listing.description }}
-            </div>
-        </div>
-    </div>
-    {% endfor %}
+        {% endfor %}
+    </ul>
 {% endblock %}

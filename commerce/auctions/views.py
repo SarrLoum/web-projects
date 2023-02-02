@@ -10,10 +10,10 @@ from .forms import ListingForm
 
 
 def index(request):
-    active = Listing.objects.all()
+    active_list = Listing.objects.all()
 
     return render(request, "auctions/index.html", {
-        "active_listing": active
+        "active_listing": active_list
     })
 
 
@@ -91,3 +91,8 @@ def new_listing(request):
         })
 
 
+def listing_page(request, listing_id):
+    listing = Listing.objects.get(pk=listing_id)
+    return render(request, "auctions/listing.html", {
+        "listing": listing
+    })
