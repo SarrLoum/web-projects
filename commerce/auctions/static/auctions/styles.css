@@ -2,8 +2,28 @@ body {
     padding: 10px;
 }
 
+.flex {
+
+}
+
 .item-list {
+    margin-top: 1.25em;
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto auto auto;
     list-style-type: none;
+}
+
+.item-list > li {
+    width: 15.3em;
+    padding: .31em;
+}
+
+.listing-container {
+    display: grid;
+    grid-template-columns: 40% 35% 25%;
+}
+
+.img-wrapper > img {
+    max-width: 100%;
+    max-height: 100%;
 }
