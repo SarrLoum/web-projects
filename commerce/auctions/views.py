@@ -96,3 +96,10 @@ def listing_page(request, listing_id):
     return render(request, "auctions/listing.html", {
         "listing": listing
     })
+
+
+@login_required
+def watchlist(request, listing_id):
+    # if it is a POST method we need to process the form data
+    if request.method == "POST":
+        

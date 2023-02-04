@@ -2,21 +2,57 @@
 
 {% block body %}
     <div class="listing-container">
-        <div class="img-wrapper">
+        <div class="listing-img">
             <img src="{{ listing.image.url }}" alt="">
         </div>
-        <div class="listing-details-page">
-            <div>
-                <strong>{{ listing.title }}</strong>
-                <br>
-                {{ listing.category }}
+        <div class="listing-details">
+            <div class="title-category">
+                <h4><strong>{{ listing.title }}</strong></h4>
+                <span>{{ listing.category }}</span>
             </div>
-            <div>
-                {{ listing.description }}
+            <hr>
+            <div class="listing-description">
+                <p>{{ listing.description }}</p>
             </div>
-            <div>
-                ${{ listing.starting_bid }}
+            <hr>
+            <div class="purchase-action">
+                <div class="price-details">
+                    <span class="span0">Current price:</span>
+                    <span class="span1"> US</span>
+                    <span class="span2">${{ listing.starting_bid }}</span>
+                </div>
+                <div class="purchase-btn">
+                    <form action="">
+                        <input type="hidden">
+                        <input class=" btn-general btn-buy" type="submit" value="Buy It Now">
+                    </form>
+                    <form action="">
+                        <input type="hidden">
+                        <input class=" btn-general btn-bid" type="submit" value="Place a Bid">
+                    </form>
+                    <form action="">
+                        <input type="hidden">
+                        <input class=" btn-general btn-watchlist" type="submit" value="Add to Watchlist">
+                    </form>
+                </div>
             </div>
+        </div>
+        <div style="border-left:1px solid #EAE8E8; height:398px"></div>
+        <div class="top5-bids">
+            <div>
+                <h3>Top 5 Bids</h3>
+                <img src="" alt="">
+            </div>
+            <span>winner</span>
+            <hr> 
+        </div>
+    </div>
+    <hr>
+    <div>
+        <h5>Comments</h5>
+        <div>
+            <h6></h6>
+            <p></p>
         </div>
     </div>
 

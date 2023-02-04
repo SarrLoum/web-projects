@@ -10,11 +10,11 @@
                     <a href="{% url 'listing-page' listing.id %}"><img src="{{ listing.image.url }}" alt=""></a>
                     </div>
                     <div class="item-details">
-                        <a href="{% url 'listing-page' listing.id %}">{{ listing.title }}</a>
-                        <div>
-                            ${{ listing.starting_bid }}
-                        </div>
-                        <div>
+                        <a class="title-link" href="{% url 'listing-page' listing.id %}">{{ listing.title }}</a>
+                        
+                        <span>${{ listing.starting_bid }}</span>
+                        
+                        <div class="description">
                             {{ listing.description }}
                         </div>
                     </div>

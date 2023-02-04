@@ -2,28 +2,172 @@ body {
     padding: 10px;
 }
 
-.flex {
-
-}
-
+/* Active Listing*/
 .item-list {
     margin-top: 1.25em;
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: 25% 25% 25% 25%;
     list-style-type: none;
 }
 
 .item-list > li {
     width: 15.3em;
     padding: .31em;
+    background-color: #FFFDFD;
+    border-radius: .62em;
 }
 
+.img-wrapper {
+    width: 14.62em;
+    height: 14.62em;
+    margin-bottom: 1.5em;
+    background-color:  #FCFAFA;
+}
+
+.title-link {
+    color: #3A3A3A;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+span {
+    color: #3A3A3A;
+    font-style: bold;
+    font-weight: 600;
+    font-size: 1.0625rem;
+    display: block;
+    margin-top: .5em;
+}
+
+.description {
+    color: #908F8F;
+}
+
+/* Listing Page*/
 .listing-container {
-    display: grid;
-    grid-template-columns: 40% 35% 25%;
+    display: flex;
+    gap: 3.5em;
+    margin-top: 3.5em;
+    margin-left: 4em;
 }
 
-.img-wrapper > img {
-    max-width: 100%;
-    max-height: 100%;
+.listing-img {
+    width: 32%;
+    height: 32%;
 }
+
+.listing-img > img {
+    padding: .31em;
+    min-width: 100%;
+}
+
+/* Listing Details */
+.listing-details {
+    width: 21.50em;
+}
+.title-category {
+    margin-bottom: 1.06em;
+}
+
+h4 {
+    margin: 0;
+    color: #3A3A3A;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 44px;
+}
+
+.title-category > span {
+    margin: 0;
+    color: #A6A5A5;
+    font-size: 1.25em;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5em;
+}
+
+.listing-description {
+    max-width: 100%;
+}
+
+/* Purchase Action*/
+.purchase-action {
+    margin-top: 1.56em;
+    margin-left: .81em;
+    display: flex;
+    justify-content: space-between;
+    gap: 5em;
+}
+
+/* Price */
+.price-details {
+    width: auto;
+    height: 4.06em;
+    margin-top: 1.66em;
+}
+
+.price-details > .span0 {
+    margin: 0;
+    color: #3A3A3A;
+    font-size: .87rem;
+    font-weight: 300;
+    line-height: 1.06rem;
+    letter-spacing: 0em;
+}
+
+.span1 {
+    margin-top: .31em;
+    color: #3A3A3A;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.19rem;
+    letter-spacing: 0em;
+
+}
+
+.span2 {
+    margin: 0;
+    color: #3A3A3A;
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+    letter-spacing: 0em;
+
+}
+
+/* form action */
+.purchase-btn > form {
+    margin-bottom: .81em;
+}
+
+.btn-general {
+    width: 9em;
+    height: 2em;
+    border: none;
+    border-radius: 6.25em;
+}
+.btn-buy { 
+    background: #365FF3;
+    color: #fff;
+}
+
+.btn-bid { 
+    background: #4A9CFD;
+    color: #fff;
+}
+
+.btn-watchlist {
+    background: #FFFFFF;
+    color: #365FF3;
+    border: .125em solid #365FF3;
+}
+
+.top5-bids {
+    width: 11.88em;
+    height: 12.19em;
+    margin-top: 4.12em;
+}
+
+
