@@ -111,19 +111,16 @@ def watchlist(request):
         user_id = request.user.id
 
         # Insert to WatchList
-        listing_check = WatchList.objects.filter(listing=listing_id)
+        if WatchList.objects.filter(listing=listing_id).exist():
 
-        if listing_check.exist():
             add_watchlist = WatchList(listing = listing_id, user = user_id )
             add_watchlist.save()
-
-            return 
-
-
-
+            return messages.success(request, 'Listing added successfully.(already exist in watchlist)')
         else:
-                        add_watchlist = WatchList(listing = listing_id, user = user_id )
+            add_watchlist = WatchList(listing = listing_id, user = user_id )
             add_watchlist.save()
+            return messages.success(request, 'Listing added successfully.')
+
 
     
 @login_required
