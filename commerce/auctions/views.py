@@ -101,31 +101,8 @@ def listing_page(request, listing_id):
     })
 
 
-@login_required
-def watchlist(request):
-    # if it is a POST method we need to process the form data
-    if request.method == "POST":
-
-        # Get listing and the user id
-        listing_id = request.POST['listing-id']
-        user_id = request.user.id
-
-        # Insert to WatchList
-        if WatchList.objects.filter(listing=listing_id).exist():
-
-            add_watchlist = WatchList(listing = listing_id, user = user_id )
-            add_watchlist.save()
-            return messages.success(request, 'Listing added successfully.(already exist in watchlist)')
-        else:
-            add_watchlist = WatchList(listing = listing_id, user = user_id )
-            add_watchlist.save()
-            return messages.success(request, 'Listing added successfully.')
-
-
-    
-@login_required
-def watched(request):
-
-    # Create and object of all the listin added to watchlist
-    watched = WatchList.objects.all()
-        
+def add_watchlist(request, listing_id):
+        listing = Listing.objects.get(pk=listing_id)
+        current_user = request.user
+        listing.watchlist.add(current_user)
+        return

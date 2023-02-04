@@ -1,6 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+from django.core.validators import MaxValueValidator, MinValueValidator
+
 
 class User(AbstractUser):
     pass
@@ -35,8 +37,9 @@ class Listing(models.Model):
     image = models.ImageField()
     description = models.CharField(max_length=200)
     publication_date = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True,related_name="owners")
     active = models.BooleanField(default=True)
+    watchlist = models.ManyToManyField(User, blank=True, null=True, related_name="watchlistings")
 
     def __str__(self):
         return self.title
@@ -46,30 +49,23 @@ class Listing(models.Model):
 
 class Bid(models.Model):
     bid = models.FloatField()
-    listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="bids")
+    client = models.ForeignKey(User, on_delete=models.CASCADE, related_name="clients")
 
-        def __str__(self):
+    def __int__(self):
         return self.bid
-
 
 
 class Comment(models.Model):
     comment = models.TextField()
-    rating = models.IntegerField(default=5, min=1, max=5)
-    listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-        def __str__(self):
+    rating = models.IntegerField(default=5, validators=[MinValueValidator(0), MaxValueValidator(5)])
+    pub_date = models.DateTimeField(auto_now=True)
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="comments")
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="authors")
+
+    def __str__(self):
         return self.comment
 
-
-
-class WatchList(models.Model):
-    listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-        def __str__(self):
-        return self.listing
 
 
 

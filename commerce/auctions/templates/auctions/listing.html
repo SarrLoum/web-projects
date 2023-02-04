@@ -22,21 +22,17 @@
                     <span class="span2">${{ listing.starting_bid }}</span>
                 </div>
                 <div class="purchase-btn">
-                    <form action="">
+                    <form action="" method="post">
                         {% csrf_token %}
-                        <input type="hidden" value="{{ listing.id }}">
                         <input class=" btn-general btn-buy" type="submit" value="Buy It Now">
                     </form>
-                    <form action="">
+                    <form action="" method="post">
                         {% csrf_token %}
-                        <input type="hidden" value="{{ listing.id }}">
                         <input class=" btn-general btn-bid" type="submit" value="Place a Bid">
                     </form>
 
-                    {% include 'messages.html' %}
-                    <form action="">
+                    <form action="{% url 'add-watchlist'  %}" method="post">
                         {% csrf_token %}
-                        <input type="hidden" name="listing-id" value="{{ listing.id }}">
                         <input class=" btn-general btn-watchlist" type="submit" value="Add to Watchlist">
                     </form>
                 </div>
