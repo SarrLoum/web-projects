@@ -49,15 +49,27 @@ class Bid(models.Model):
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+        def __str__(self):
+        return self.bid
+
+
 
 class Comment(models.Model):
     comment = models.TextField()
+    rating = models.IntegerField(default=5, min=1, max=5)
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+        def __str__(self):
+        return self.comment
+
 
 
 class WatchList(models.Model):
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+        def __str__(self):
+        return self.listing
+
 
 

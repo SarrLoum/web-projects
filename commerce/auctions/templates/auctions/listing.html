@@ -23,15 +23,20 @@
                 </div>
                 <div class="purchase-btn">
                     <form action="">
-                        <input type="hidden">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{ listing.id }}">
                         <input class=" btn-general btn-buy" type="submit" value="Buy It Now">
                     </form>
                     <form action="">
-                        <input type="hidden">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{ listing.id }}">
                         <input class=" btn-general btn-bid" type="submit" value="Place a Bid">
                     </form>
+
+                    {% include 'messages.html' %}
                     <form action="">
-                        <input type="hidden">
+                        {% csrf_token %}
+                        <input type="hidden" name="listing-id" value="{{ listing.id }}">
                         <input class=" btn-general btn-watchlist" type="submit" value="Add to Watchlist">
                     </form>
                 </div>

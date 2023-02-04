@@ -10,7 +10,9 @@ from .forms import ListingForm
 
 
 def index(request):
-    active_list = Listing.objects.all()
+
+    # Create an objects of all the active listing
+    active_list = Listing.objects.filter(active=True)
 
     return render(request, "auctions/index.html", {
         "active_listing": active_list
@@ -92,6 +94,7 @@ def new_listing(request):
 
 
 def listing_page(request, listing_id):
+    # get listing id and render all its details 
     listing = Listing.objects.get(pk=listing_id)
     return render(request, "auctions/listing.html", {
         "listing": listing
@@ -99,7 +102,33 @@ def listing_page(request, listing_id):
 
 
 @login_required
-def watchlist(request, listing_id):
+def watchlist(request):
     # if it is a POST method we need to process the form data
     if request.method == "POST":
+
+        # Get listing and the user id
+        listing_id = request.POST['listing-id']
+        user_id = request.user.id
+
+        # Insert to WatchList
+        listing_check = WatchList.objects.filter(listing=listing_id)
+
+        if listing_check.exist():
+            add_watchlist = WatchList(listing = listing_id, user = user_id )
+            add_watchlist.save()
+
+            return 
+
+
+
+        else:
+                        add_watchlist = WatchList(listing = listing_id, user = user_id )
+            add_watchlist.save()
+
+    
+@login_required
+def watched(request):
+
+    # Create and object of all the listin added to watchlist
+    watched = WatchList.objects.all()
         
