@@ -56,6 +56,7 @@ class Bid(models.Model):
         return self.bid
 
 
+
 class Comment(models.Model):
     comment = models.TextField()
     rating = models.IntegerField(default=5, validators=[MinValueValidator(0), MaxValueValidator(5)])
