@@ -6,9 +6,10 @@
         {% for listing in active_listing %}
             <li>
                 <div class="list-item">
-                    <div class="img-wrapper">
-                    <a href="{% url 'listing-page' listing.id %}"><img src="{{ listing.image.url }}" alt=""></a>
-                    </div>
+                    <a href="{% url 'listing-page' listing.id %}">
+                        <div class="img-wrapper">
+                            <img src="{{ listing.image.url }}" alt="">
+                        </div></a>                    
                     <div class="item-details">
                         <a class="title-link" href="{% url 'listing-page' listing.id %}">{{ listing.title }}</a>
                         
