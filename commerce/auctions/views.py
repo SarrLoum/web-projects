@@ -133,5 +133,5 @@ def watchlist(request):
 def makebid(request, listing_id):
     if requestmethod == "POST":
         amount = requestPOST['bidding']
-        new_bidding = Bidreate(bid=amount)    
+        new_bidding = Bid.create(bid=amount)    
     return HttpResponseRedirect(reverse("listing-page", args=(listing_id, )))   
