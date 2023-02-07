@@ -26,7 +26,7 @@
                 </li>
                 <li class="nav-item">
                     
-                    <a class="nav-link" href="">Watchlist</a>
+                    <a class="nav-link" href="{% url 'watched' %}">Watchlist</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
@@ -43,5 +43,10 @@
         <hr>
         {% block body %}
         {% endblock %}
+        <script src="{% static 'assets/js/bootstrap.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.js' %}"></script>
+        <script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+        <!-- You can alternatively load the minified version -->
+        <script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
     </body>
 </html>

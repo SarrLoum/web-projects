@@ -24,19 +24,24 @@
                 <div class="purchase-btn">
                     <form action="" method="post">
                         {% csrf_token %}
+                        <input type="hidden" name="id" value="listing.id">
                         <input class=" btn-general btn-buy" type="submit" value="Buy It Now">
                     </form>
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        <input class=" btn-general btn-bid" type="submit" value="Place a Bid">
-                    </form>
 
-                    <form action="{% url 'add-watchlist'  %}" method="post">
+
+                    <!-- Button trigger modal -->
+                    <a class="btn-bid" name="bid-btn" id="bid-btn" data-bs-toggle="modal" data-bs-target="#BidModal">Place a Bid</a>
+                    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Place a Bid</button>-->
+                    <!-- Add to watchlist form -->
+                    <form action="{% url 'add-watchlist' listing.id %}" method="post">
                         {% csrf_token %}
                         <input class=" btn-general btn-watchlist" type="submit" value="Add to Watchlist">
                     </form>
                 </div>
             </div>
+
+            <!-- INCLUDE-->
+            {% include "auctions/bid.html" %}
         </div>
         <div style="border-left:1px solid #EAE8E8; height:398px"></div>
         <div class="top5-bids">

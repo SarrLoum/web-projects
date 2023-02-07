@@ -1,5 +1,9 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    TODO
+    <ul>
+        {% for item in watched %}
+            <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
 {% endblock%}

@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
@@ -102,7 +103,35 @@ def listing_page(request, listing_id):
 
 
 def add_watchlist(request, listing_id):
-        listing = Listing.objects.get(pk=listing_id)
-        current_user = request.user
-        listing.watchlist.add(current_user)
-        return
+    # Get Listing Objects and current user 
+    listing = Listing.objects.get(pk=listing_id)
+    current_user = request.user
+
+    # Add listing object to user's watchlist and redirect
+    listing.watchlist.add(current_user)
+    return HttpResponseRedirect(reverse("listing-page", args=(listing_id, )))
+
+
+def rmwatchlist(request, listing_id):
+    # Get Listing Objects and current user 
+    listing = Listing.objects.get(pk=listing_id)
+    current_user = request.user
+
+    # Add listing object to user's watchlist and redirect
+    listing.watchlist.delete(current_user)
+    return HttpResponseRedirect(reverse("listing-page", args=(listing_id, )))
+
+
+def watchlist(request):
+    current_user = request.user
+    watched = User.objects.filter(pk=current_user.id).watchlisting
+    return render(request, "auctions/watchlist.html", {
+        "watched": watched
+    })
+
+
+def makebid(request, listing_id):
+    if requestmethod == "POST":
+        amount = requestPOST['bidding']
+        new_bidding = Bidreate(bid=amount)    
+    return HttpResponseRedirect(reverse("listing-page", args=(listing_id, )))   
