@@ -147,17 +147,21 @@ h4 {
 
 }
 
-/* form action */
+/* form action 
 .purchase-btn > form {
     margin-bottom: .81em;
-}
+} */
+
 
 .btn-general {
     width: 9em;
     height: 2em;
     border: none;
     border-radius: 6.25em;
+    margin-bottom: .81em;
 }
+
+
 .btn-buy { 
     background: #365FF3;
     color: #fff;
@@ -166,10 +170,22 @@ h4 {
 .btn-bid { 
     background: #4A9CFD;
     color: #fff;
-    padding: 1em 4.5em;
-    border: none;
-    border-radius: 6.25em;
-    margin-bottom: .81em;
+}
+.btn-buy:hover {
+    background: #551DCD;
+}
+
+.btn-buy:active {
+    background: #551DCD;
+}
+
+.btn-bid:hover {
+    background: #551DCD;
+}
+
+.btn-bid:active {
+    background: #551DCD;
+    border: none
 }
 
 .btn-watchlist {
@@ -178,10 +194,101 @@ h4 {
     border: .125em solid #365FF3;
 }
 
+.btn-watchlist:hover {
+    background: #FBCBE2;
+    color: #fff;
+    border: none;
+}
+
+.btn-watchlist:active {
+    background: #551DCD;
+}
+
 .top5-bids {
     width: 11.88em;
     height: 12.19em;
     margin-top: 4.12em;
 }
 
+
+/* Bid Form modal */
+.mon-model  {
+    width: 23.75em;
+    height: 15.88em;
+    margin: auto;
+    border-radius: 1.25em;
+    background: #F6F6F6;
+}
+
+.close-btn-container {
+    height: 1.26em;
+    text-align: center;
+}
+
+.close-btn {
+    width: 1em;
+    margin-left: 17.2em; 
+
+    border: none;
+    background: none;
+
+    font-size: 1.25rem;
+    text-align: center;
+    align-items: center;
+}
+
+h5 {
+    margin-top: .37em;
+
+    font-size: 1.56rem;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.56rem;
+
+    text-align: center;
+    color: #3A3A3A;
+}
+
+.input-container {
+    width: 17.38em;
+    height: 1.75em;
+    margin: 2.5em auto;
+    border-radius: 6.25em;
+    background-color: #fff;
+}
+
+.input-container > input {
+    width: 17.38em;
+    height: 1.75em;
+    border-top-right-radius: 6.25rem;
+    border-bottom-right-radius: 6.25rem;
+
+    background-color: transparent;
+    border: 0;
+    outline: none;
+}
+
+.btn-confirm {
+    width: 6.88rem;
+    height: 2.25em;
+    margin-left: 7.94em;
+    border-radius: .63em;
+
+    background: #4A9CFD;
+    color: #FFFFFF;
+    text-align: center;
+
+    font-weight: 600;
+    font-size: 1.1rem;
+}  
+
+.btn-confirm:hover {
+    background: #551DCD;
+    color: #fff;
+}
+
+.btn-confirm:active {
+    background: #551DCD;
+    border: none;
+}
 

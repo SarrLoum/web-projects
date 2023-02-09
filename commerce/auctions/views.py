@@ -8,6 +8,7 @@ from django.urls import reverse
 
 from .models import User, Listing, Bid, Comment
 from .forms import ListingForm
+from .util import get_price
 
 
 def index(request):
@@ -81,7 +82,7 @@ def new_listing(request):
         if listing_form.is_valid():
             # Create the new listing object and store the current logged in user and then save it to the database
             new_listing = listing_form.save(commit=False)
-            new_listing.user = request.user
+            new_listing.owner = request.user
             new_listing.save()
 
         return HttpResponseRedirect(reverse("index"))
@@ -97,6 +98,10 @@ def new_listing(request):
 def listing_page(request, listing_id):
     # get listing id and render all its details 
     listing = Listing.objects.get(pk=listing_id)
+
+    # Get the listing's current price
+    listing_price = get_price(request, listing_id)
+
     return render(request, "auctions/listing.html", {
         "listing": listing
     })
@@ -124,14 +129,31 @@ def rmwatchlist(request, listing_id):
 
 def watchlist(request):
     current_user = request.user
-    watched = User.objects.filter(pk=current_user.id).watchlisting
+    user = User.objects.get(pk=current_user.id)
+    watched = user.watchlistings.all()
     return render(request, "auctions/watchlist.html", {
         "watched": watched
     })
 
 
-def makebid(request, listing_id):
-    if requestmethod == "POST":
-        amount = requestPOST['bidding']
-        new_bidding = Bid.create(bid=amount)    
-    return HttpResponseRedirect(reverse("listing-page", args=(listing_id, )))   
+def makebid(request):
+
+    # If it is a POST (method) we need to process the data
+    if request.method == "POST":
+        amount = request.POST['bidding']
+        listing_id = request.POST['id']
+
+        #Get listing's current price
+        current_price = get_price(request, listing_id)
+
+
+        if amount > current_price:
+            new_bidding = Bid.create(bid=amount)
+            new_bidding.save(commit=False)
+
+            # add isting id and user id
+            new_bidding.listing = listing_id
+            new_bidding.client = request.user
+            new_bidding.save() 
+
+        return HttpResponseRedirect(reverse("listing-page", args=(listing_id, )))

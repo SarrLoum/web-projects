@@ -28,10 +28,12 @@
                         <input class=" btn-general btn-buy" type="submit" value="Buy It Now">
                     </form>
 
-
                     <!-- Button trigger modal -->
-                    <a class="btn-bid" name="bid-btn" id="bid-btn" data-bs-toggle="modal" data-bs-target="#BidModal">Place a Bid</a>
-                    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Place a Bid</button>-->
+                    <button type="button" class="btn-general btn-bid" data-bs-toggle="modal" data-bs-target="#bidModal">Place a Bid</button>
+
+                    <!-- INCLUDE-->
+                    {% include "auctions/bid.html" %}
+
                     <!-- Add to watchlist form -->
                     <form action="{% url 'add-watchlist' listing.id %}" method="post">
                         {% csrf_token %}
@@ -39,9 +41,6 @@
                     </form>
                 </div>
             </div>
-
-            <!-- INCLUDE-->
-            {% include "auctions/bid.html" %}
         </div>
         <div style="border-left:1px solid #EAE8E8; height:398px"></div>
         <div class="top5-bids">
@@ -61,6 +60,5 @@
             <p></p>
         </div>
     </div>
-
 {% endblock %}
 

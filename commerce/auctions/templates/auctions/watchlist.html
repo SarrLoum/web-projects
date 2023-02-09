@@ -3,7 +3,23 @@
 {% block body %}
     <ul>
         {% for item in watched %}
-            <li>{{ item }}</li>
-        {% endfor %}
+            <li>
+                <div class="list-item">
+                    <a href="{% url 'listing-page' item.id %}">
+                        <div class="img-wrapper">
+                            <img src="{{ item.image.url }}" alt="">
+                        </div></a>                    
+                    <div class="item-details">
+                        <a class="title-link" href="{% url 'listing-page' item.id %}">{{ item.title }}</a>
+                        
+                        <span>${{ item.starting_bid }}</span>
+                        
+                        <div class="description">
+                            {{ item.description }}
+                        </div>
+                    </div>
+                </div>
+            </li>
+    {% endfor %}
     </ul>
 {% endblock%}
