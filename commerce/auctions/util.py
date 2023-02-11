@@ -16,7 +16,11 @@ def get_price(resquest, id):
         price = startingBid
         return price
         
-    else:
-        price = bids.aggregate(Max("bid"))['bid__max']
-        return price
+    price = bids.aggregate(Max("bid"))['bid__max']
+    return price
 
+
+def is_owner(listing, user):
+    if listing.owner == user:
+        return True
+    return False

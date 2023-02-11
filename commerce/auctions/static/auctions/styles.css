@@ -161,31 +161,40 @@ h4 {
     margin-bottom: .81em;
 }
 
-
 .btn-buy { 
     background: #365FF3;
     color: #fff;
+}
+
+.btn-buy:hover {
+    background: #fff;
+    color: #365FF3;
+    border: .125em solid #365FF3;
+
 }
 
 .btn-bid { 
     background: #4A9CFD;
     color: #fff;
 }
-.btn-buy:hover {
-    background: #551DCD;
-}
-
-.btn-buy:active {
-    background: #551DCD;
-}
 
 .btn-bid:hover {
-    background: #551DCD;
+    background: #fff;
+    color: #4A9CFD;
+    border: .125em solid #4A9CFD;
+
 }
 
-.btn-bid:active {
-    background: #551DCD;
-    border: none
+.btn-clause {
+    background: #F64949;
+    color: #fff;
+}
+
+.btn-clause:hover {
+    background: #fff;
+    color: #F64949;
+    border: .125em solid #F64949;
+
 }
 
 .btn-watchlist {
@@ -200,10 +209,7 @@ h4 {
     border: none;
 }
 
-.btn-watchlist:active {
-    background: #551DCD;
-}
-
+/* TOP 5 BIDS*/
 .top5-bids {
     width: 11.88em;
     height: 12.19em;

@@ -1,48 +1,84 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
+    <!-- ======LISTING PAGE===== -->
     <div class="listing-container">
+        <!--Listing image -->
         <div class="listing-img">
             <img src="{{ listing.image.url }}" alt="">
         </div>
+
+        <!-- ===LISTING DETAILS=== -->
         <div class="listing-details">
+            <!-- Title and Category -->
             <div class="title-category">
                 <h4><strong>{{ listing.title }}</strong></h4>
                 <span>{{ listing.category }}</span>
             </div>
             <hr>
+            <!-- Description -->
             <div class="listing-description">
                 <p>{{ listing.description }}</p>
             </div>
             <hr>
+            <!-- ==PURCHASE ACTION== -->
             <div class="purchase-action">
                 <div class="price-details">
                     <span class="span0">Current price:</span>
                     <span class="span1"> US</span>
                     <span class="span2">${{ listing.starting_bid }}</span>
                 </div>
+
+                <!-- PURCHASE BUTTON-->
                 <div class="purchase-btn">
+
+                    {% if usr_is_owner %}
+                    <!-- clause listing -->
                     <form action="" method="post">
                         {% csrf_token %}
-                        <input type="hidden" name="id" value="listing.id">
-                        <input class=" btn-general btn-buy" type="submit" value="Buy It Now">
+                        {% if listing.active %}
+                            <input class=" btn-general btn-clause" type="submit" value="Close">
+                        {% else %}
+                            <input disabled class=" btn-general btn-clause" type="submit" value="Closed">
+                        {% endif %}
                     </form>
-
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn-general btn-bid" data-bs-toggle="modal" data-bs-target="#bidModal">Place a Bid</button>
-
-                    <!-- INCLUDE-->
-                    {% include "auctions/bid.html" %}
-
+                    <!-- Check Bids -->
+                    <form action="{% url 'add-watchlist' listing.id %}" method="post">
+                        {% csrf_token %}
+                        <input class=" btn-general btn-bid" type="submit" value="Check Bids">
+                    </form>
                     <!-- Add to watchlist form -->
                     <form action="{% url 'add-watchlist' listing.id %}" method="post">
                         {% csrf_token %}
-                        <input class=" btn-general btn-watchlist" type="submit" value="Add to Watchlist">
+                        <input class=" btn-general btn-watchlist" type="submit" value="Edit comments">
                     </form>
+
+                    {% else %}
+                    <!-- Buy Now Button-->
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <input {% if not listing.active %} desabled {% endif %} class=" btn-general btn-buy" type="submit" value="Buy It Now" >
+                        </form>
+
+                        <!-- Trigger Modal Bid's Button -->
+                        <button {% if not listing.active %} desabled {% endif %} type="button" class="btn-general btn-bid" data-bs-toggle="modal" data-bs-target="#bidModal">Place a Bid</button>
+                    
+                        <!-- INCLUDE-->
+                        {% include "auctions/bid.html" %}
+
+                        <!-- Add to watchlist form -->
+                        <form action="{% url 'add-watchlist' listing.id %}" method="post">
+                            {% csrf_token %}
+                            <input {% if not listing.active %} desabled {% endif %} class=" btn-general btn-watchlist" type="submit" value="Add to Watchlist">
+                        </form>
+                    {% endif %}
+
                 </div>
             </div>
         </div>
         <div style="border-left:1px solid #EAE8E8; height:398px"></div>
+
+        <!-- TOP5 BIDS-->
         <div class="top5-bids">
             <div>
                 <h3>Top 5 Bids</h3>
@@ -53,6 +89,8 @@
         </div>
     </div>
     <hr>
+
+    <!-- COMMENTS-->
     <div>
         <h5>Comments</h5>
         <div>

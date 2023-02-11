@@ -10,7 +10,7 @@ from django.contrib import messages
 
 from .models import User, Listing, Bid, Comment
 from .forms import ListingForm
-from .util import get_price
+from .util import get_price, is_owner
 
 
 def index(request):
@@ -101,12 +101,27 @@ def listing_page(request, listing_id):
     # get listing id and render all its details 
     listing = Listing.objects.get(pk=listing_id)
 
+    # Check if the listing is posted(owned) by the current user 
+    current_usr = request.user 
+
+    owner = is_owner(listing, current_usr) 
+
     # Get the listing's current price
     listing_price = get_price(request, listing_id)
 
     return render(request, "auctions/listing.html", {
-        "listing": listing
+        "listing": listing,
+        "usr_is_owner": owner
     })
+
+def close_listing(request, listing_id):
+    # Get the listing and close it
+    listing = Listing.objects.get(pk=listing_id)
+    listing.active = False
+    listing.save()
+
+    return HttpResponseRedirect(reverse("listing-page", args=(listing_id, )))
+
 
 
 def add_watchlist(request, listing_id):
