@@ -12,10 +12,11 @@ def get_price(resquest, id):
     bids = listing.bids.all()
 
     # Return the current price
-    if bids == None:
+    if len(bids) == 0:
         price = startingBid
         return price
         
-    price = bids.aggregate(Max("bid"))['bid__max']
-    return price
+    else:
+        price = bids.aggregate(Max("bid"))['bid__max']
+        return price
 

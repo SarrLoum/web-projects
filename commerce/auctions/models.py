@@ -33,11 +33,11 @@ class Listing(models.Model):
 
     title = models.CharField(max_length=100)
     category = models.CharField(max_length=100, choices=CATEGORIES)
-    price = models.ForeignKey(Bid, on_delete=models.CASCADE, related_name="onlisting")
+    starting_bid = models.FloatField()
     image = models.ImageField()
     description = models.CharField(max_length=200)
     publication_date = models.DateTimeField(auto_now_add=True)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True,related_name="owners")
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True,related_name="listings")
     active = models.BooleanField(default=True)
     watchlist = models.ManyToManyField(User, blank=True, null=True, related_name="watchlistings")
 
@@ -49,6 +49,7 @@ class Listing(models.Model):
 
 class Bid(models.Model):
     bid = models.FloatField()
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="bids")
     client = models.ForeignKey(User, on_delete=models.CASCADE, related_name="clients")
 
     def __int__(self):

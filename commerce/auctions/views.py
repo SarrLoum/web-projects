@@ -1,10 +1,12 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+
+from django.contrib import messages
+
 
 from .models import User, Listing, Bid, Comment
 from .forms import ListingForm
@@ -117,7 +119,7 @@ def add_watchlist(request, listing_id):
     return HttpResponseRedirect(reverse("listing-page", args=(listing_id, )))
 
 
-def rmwatchlist(request, listing_id):
+def rm_watchlist(request, listing_id):
     # Get Listing Objects and current user 
     listing = Listing.objects.get(pk=listing_id)
     current_user = request.user
@@ -136,16 +138,13 @@ def watchlist(request):
     })
 
 
-def makebid(request):
+def add_bid(request, listing_id):
 
     # If it is a POST (method) we need to process the data
     if request.method == "POST":
-        amount = request.POST['bidding']
-        listing_id = request.POST['id']
-
+        amount = int(request.POST['bidding'])
         #Get listing's current price
         current_price = get_price(request, listing_id)
-
 
         if amount > current_price:
             new_bidding = Bid.create(bid=amount)
@@ -155,5 +154,9 @@ def makebid(request):
             new_bidding.listing = listing_id
             new_bidding.client = request.user
             new_bidding.save() 
+        
+            messages.success(request, 'Bid submitted successfully.')
+            return HttpResponseRedirect(reverse("listing-page", args=(listing_id, )))
+        else:
+            messages.error(request, 'Invalid submission, Your bid is lower than the current price.')
 
-        return HttpResponseRedirect(reverse("listing-page", args=(listing_id, )))
