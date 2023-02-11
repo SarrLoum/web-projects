@@ -108,6 +108,10 @@ def listing_page(request, listing_id):
     # Get all the comments of the listing
     comments = listing.comments.all()
 
+    # listing's comment form
+
+    comment_form = CommentForm()
+
     # Get the listing's current price
     #listing_price = get_price(request, listing_id)
 
@@ -115,7 +119,8 @@ def listing_page(request, listing_id):
     return render(request, "auctions/listing.html", {
         "listing": listing,
         "usr_is_owner": owner,
-        "comments": comments
+        "comments": comments,
+        "comment_form": comment_form,
     })
 
 def close_listing(request, listing_id):
@@ -193,6 +198,4 @@ def add_comment(request, listing_id):
             new_comment.author = request.user
 
         return HttpResponseRedirect(reverse("listing-page", agrs=(listing_id, )))
-
-
 

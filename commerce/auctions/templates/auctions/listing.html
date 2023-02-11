@@ -1,14 +1,14 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <!-- ======LISTING PAGE===== -->
+    <!-- ====== LISTING PAGE ====== -->
     <div class="listing-container">
         <!--Listing image -->
         <div class="listing-img">
             <img src="{{ listing.image.url }}" alt="">
         </div>
 
-        <!-- ===LISTING DETAILS=== -->
+        <!-- ==== LISTING DETAILS ==== -->
         <div class="listing-details">
             <!-- Title and Category -->
             <div class="title-category">
@@ -21,7 +21,7 @@
                 <p>{{ listing.description }}</p>
             </div>
             <hr>
-            <!-- ==PURCHASE ACTION== -->
+            <!-- == PURCHASE ACTION == -->
             <div class="purchase-action">
                 <!--price details -->
                 <div class="price-details">
@@ -79,7 +79,7 @@
         </div>
 
         <div style="border-left:1px solid #EAE8E8; height:398px"></div>
-        <!-- TOP5 BIDS-->
+        <!-- ==== TOP5 BIDS ====-->
         <div class="top5-bids">
             <div>
                 <h3>Top 5 Bids</h3>
@@ -91,19 +91,32 @@
     </div>
     <hr>
 
-    <!-- COMMENTS-->
+    <!-- ====== COMMENTS ====== -->
     <div>
         <h5>Comments</h5>
-        <ul class="item-list">
-            {% for comment in comments %}
-                <li>
-                    <div>
-                        <h6>{{ comment.user }}</h6>
-                        <p>{{ comment.comment }}</p>
-                    </div>            
-                </li>
-            {% endfor %}
-        </ul>
+        <div>
+            <form action="{% url 'add_comment' listing.id %}">
+                {% csrf_token %}
+                {{comment_form}}
+                <button type="submit" ></button>
+            </form>
+        </div>
+
+        <br>
+        <!---->
+        <div>
+            <ul class="item-list">
+                {% for comment in comments %}
+                    <li>
+                        <div>
+                            <h6>{{ comment.user }}</h6>
+                            <p>{{ comment.comment }}</p>
+                        </div>            
+                    </li>
+                {% endfor %}
+            </ul>
+    
+        </div>
     </div>
 {% endblock %}
 
