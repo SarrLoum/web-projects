@@ -152,7 +152,7 @@ h4 {
     margin-bottom: .81em;
 } */
 
-
+/* Purchase Button */
 .btn-general {
     width: 9em;
     height: 2em;
@@ -198,10 +198,24 @@ h4 {
 }
 
 .btn-watchlist {
-    background: #FFFFFF;
+    background: #fff;
     color: #365FF3;
     border: .125em solid #365FF3;
 }
+
+.btn-comment {
+    background: #fff;
+    color: #50e481;
+    border: .125em solid #50e4c4;
+}
+/* #50e481 */
+.btn-comment:hover {
+    background: #50e481;
+    color: #fff;
+    border: none;
+}
+
+
 
 .btn-watchlist:hover {
     background: #FBCBE2;

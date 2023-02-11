@@ -9,7 +9,7 @@ from django.contrib import messages
 
 
 from .models import User, Listing, Bid, Comment
-from .forms import ListingForm
+from .forms import ListingForm, CommentForm
 from .util import get_price, is_owner
 
 
@@ -103,15 +103,19 @@ def listing_page(request, listing_id):
 
     # Check if the listing is posted(owned) by the current user 
     current_usr = request.user 
+    owner = is_owner(listing, current_usr)
 
-    owner = is_owner(listing, current_usr) 
+    # Get all the comments of the listing
+    comments = listing.comments.all()
 
     # Get the listing's current price
-    listing_price = get_price(request, listing_id)
+    #listing_price = get_price(request, listing_id)
+
 
     return render(request, "auctions/listing.html", {
         "listing": listing,
-        "usr_is_owner": owner
+        "usr_is_owner": owner,
+        "comments": comments
     })
 
 def close_listing(request, listing_id):
@@ -174,4 +178,21 @@ def add_bid(request, listing_id):
             return HttpResponseRedirect(reverse("listing-page", args=(listing_id, )))
         else:
             messages.error(request, 'Invalid submission, Your bid is lower than the current price.')
+
+
+def add_comment(request, listing_id):
+
+    #if it is a POST (method) we need to process the form data
+    if request.method == "POST":
+        comment_form = CommentForm(request.POST)
+
+        # save the comment the form is valid
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.listing = listing_id
+            new_comment.author = request.user
+
+        return HttpResponseRedirect(reverse("listing-page", agrs=(listing_id, )))
+
+
 

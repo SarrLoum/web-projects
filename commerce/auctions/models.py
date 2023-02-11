@@ -59,10 +59,10 @@ class Bid(models.Model):
 
 class Comment(models.Model):
     comment = models.TextField()
-    rating = models.IntegerField(default=5, validators=[MinValueValidator(0), MaxValueValidator(5)])
+    rating = models.IntegerField(default=3, validators=[MinValueValidator(0), MaxValueValidator(5)])
     pub_date = models.DateTimeField(auto_now=True)
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="comments")
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="authors")
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
 
     def __str__(self):
         return self.comment

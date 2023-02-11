@@ -23,6 +23,7 @@
             <hr>
             <!-- ==PURCHASE ACTION== -->
             <div class="purchase-action">
+                <!--price details -->
                 <div class="price-details">
                     <span class="span0">Current price:</span>
                     <span class="span1"> US</span>
@@ -50,7 +51,7 @@
                     <!-- Add to watchlist form -->
                     <form action="{% url 'add-watchlist' listing.id %}" method="post">
                         {% csrf_token %}
-                        <input class=" btn-general btn-watchlist" type="submit" value="Edit comments">
+                        <input class=" btn-general btn-comment" type="submit" value="Edit comments">
                     </form>
 
                     {% else %}
@@ -76,8 +77,8 @@
                 </div>
             </div>
         </div>
-        <div style="border-left:1px solid #EAE8E8; height:398px"></div>
 
+        <div style="border-left:1px solid #EAE8E8; height:398px"></div>
         <!-- TOP5 BIDS-->
         <div class="top5-bids">
             <div>
@@ -93,10 +94,16 @@
     <!-- COMMENTS-->
     <div>
         <h5>Comments</h5>
-        <div>
-            <h6></h6>
-            <p></p>
-        </div>
+        <ul class="item-list">
+            {% for comment in comments %}
+                <li>
+                    <div>
+                        <h6>{{ comment.user }}</h6>
+                        <p>{{ comment.comment }}</p>
+                    </div>            
+                </li>
+            {% endfor %}
+        </ul>
     </div>
 {% endblock %}
 
