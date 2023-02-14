@@ -6,13 +6,9 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelector('#archived').addEventListener('click', () => load_mailbox('archive'));
   document.querySelector('#compose').addEventListener('click', compose_email);
 
-  // When the form is submited
-  document.querySelector('#compose-form').addEventListener('submit', send_email); 
-
   // By default, load the inbox
   load_mailbox('inbox');
-  
-});    
+});
 
 function compose_email() {
 
@@ -34,12 +30,4 @@ function load_mailbox(mailbox) {
 
   // Show the mailbox name
   document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
-}
-
-function send_email(event) {
-  event.preventDefault();
-
-  // Get the value of each of the form's input 
-  console.log('hi');
-
 }
