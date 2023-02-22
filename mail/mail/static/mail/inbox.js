@@ -114,7 +114,7 @@ function load_emails(mailbox) {
         id = element.dataset.email_id;
         view_email(id);
         asRead(id);
-        element.target.style.BackgroundColor = '#F2F5FC';
+        Event.target.style.Background = '#F2F5FC';
       })
     })
   })
@@ -136,8 +136,14 @@ function view_email(email_id) {
                             <p>Body: ${email.body}</p>
                           </div>
                           <button id="response">Respond</button>
+                          <script>
+                            document.querySelector('#response').addEventListener('click', function() {
+                              load_mailbox('archived');
+                              asArchived(${email.id});
+                              console.log('The response button is clicked');
+                            });
+                        </script>
                         </div>`;
-
 
     document.querySelector('#emails-view').innerHTML = displayEmail;
     console.log('From the view_email function');
