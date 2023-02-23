@@ -81,7 +81,7 @@ function load_emails(mailbox) {
       // For each email create div inside a li element
       let eachEmail = `<li class="email-list-item">
                     <div id="email-details">
-                      <button style="background: none; border: none; text-align: left;" class="email" id="email${email.id}" data-email_id="${email.id}">
+                      <button style="background: none; border: none; text-align: left;" class="email" id="${email.id}" data-email_id="${email.id}">
                         <h5 class="subject">${email.subject}</h5>
                         <p class="body">${email.body}</p>
                         <span class="sender">${email.sender}</span>
@@ -109,12 +109,13 @@ function load_emails(mailbox) {
 
     // Loop through the collection 
     Array.from(elements).forEach((element) => {
-      element.addEventListener('click', function() {
+      element.addEventListener('click', function(event) {
         console.log('Baw hello');
         id = element.dataset.email_id;
         view_email(id);
         asRead(id);
-        Event.target.style.Background = '#F2F5FC';
+
+        element.style.BackgroundColor = '#F2F5FC';
       })
     })
   })
@@ -125,7 +126,7 @@ function view_email(email_id) {
   .then(response => response.json())
   .then(email => {
     let displayEmail = `<div class="email-nav">
-                          <button id="archive">archive</button>
+                          <button id="archive-email">archive</button>
                         </div>
 
                         <div class="email-content">
@@ -135,25 +136,25 @@ function view_email(email_id) {
                           <div class="email-body">
                             <p>Body: ${email.body}</p>
                           </div>
-                          <button id="response">Respond</button>
-                          <script>
-                            document.querySelector('#response').addEventListener('click', function() {
-                              load_mailbox('archived');
-                              asArchived(${email.id});
-                              console.log('The response button is clicked');
-                            });
-                        </script>
+                          <button id="response-email">Respond</button>
                         </div>`;
 
     document.querySelector('#emails-view').innerHTML = displayEmail;
     console.log('From the view_email function');
     console.log(id);
+
+    document.body.addEventListener('click', function(event) {
+      if (event.target.id == 'archive-email') {
+        console.log('Archive Button clicked');
+      }
+      else if ( event.target.id == 'response-email') {
+        console.log('Response Button clicked');
+        respondEmail(email);
+      }
+    });
+
   }) 
-  /*<script>
-  document.querySelecor('#response').addEventListener('click', function() {
-    console.log('The response button is clicked');
-  });
-</script>*/
+
 
 }
 
@@ -175,8 +176,13 @@ function asArchived(email_id) {
   })
 }
 
-// separator COL ?ROW?     Change the column and row separators
-// .mode MODE ?TABLE?       Set output mode
-// .headers on|off          Turn display of headers on or off
-// .excel                   Display the output of next command in spreadsheet
-// .width NUM1 NUM2 ...     Set column widths for "column" mode
+function respondEmail(email) {
+  compose_email();
+  document.querySelector('#compose-recipients').value = `${email.sender}`;
+
+  // To delete Later
+  console.log('RespondEmail working now');
+  console.log(`Email Sender: ${email.sender}`);
+
+
+}
