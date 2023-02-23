@@ -102,7 +102,6 @@ function load_emails(mailbox) {
 
     emailView.appendChild(emailsContainer);
 
-
     // LOAD THE EMAIL WHEN IT'S CLICKED
     // First get the HTMLCollection of all the emails element
     let elements = document.getElementsByClassName('email');
@@ -111,11 +110,12 @@ function load_emails(mailbox) {
     Array.from(elements).forEach((element) => {
       element.addEventListener('click', function(event) {
         console.log('Baw hello');
+        console.log(element)
         id = element.dataset.email_id;
         view_email(id);
         asRead(id);
 
-        element.style.BackgroundColor = '#F2F5FC';
+        //element.style.BackgroundColor = '#F2F5FC';
       })
     })
   })
