@@ -43,7 +43,6 @@ function load_mailbox(mailbox) {
 }
 
 
-
 function send_email(event) {
   // Prevent default browser response to events
   event.preventDefault();
@@ -79,6 +78,7 @@ function load_emails(mailbox) {
 
     emails.forEach((email) => {
 
+      // Change background color if the is read
       if (email.read == true) {
         color = '#F2F5FC';
       } else {
@@ -106,6 +106,7 @@ function load_emails(mailbox) {
 
     emailView.appendChild(emailsContainer);
 
+
     // LOAD THE EMAIL WHEN IT'S CLICKED
     // First get the HTMLCollection of all the emails element
     let elements = document.querySelectorAll('.email');
@@ -113,26 +114,24 @@ function load_emails(mailbox) {
     // Loop through the collection 
     Array.from(elements).forEach((element) => {
       element.addEventListener('click', function(e) {
-        console.log('Baw hello');
-        console.log(element)
+
         id = element.dataset.email_id;
-        
         view_email(id);
         asRead(id);
-
       })
     })
   })
 };
 
+
 function view_email(email_id) {
   fetch(`/emails/${email_id}`)
   .then(response => response.json())
   .then(email => {
+    // Create a div that display the emmail and all its details
     let displayEmail = `<div class="email-nav">
                           <button id="archive-email">archive</button>
                         </div>
-
                         <div class="email-content">
                           <h6>Subject: ${email.subject}</h6>
                           <span>Sender: ${email.sender}</span>
@@ -144,23 +143,20 @@ function view_email(email_id) {
                         </div>`;
 
     document.querySelector('#emails-view').innerHTML = displayEmail;
-    console.log('From the view_email function');
-    console.log(id);
 
+    // add event listener to the archive and response button
     document.body.addEventListener('click', function(event) {
       if (event.target.id == 'archive-email') {
+        asArchived(email.id);
         console.log('Archive Button clicked');
       }
       else if ( event.target.id == 'response-email') {
-        console.log('Response Button clicked');
         respondEmail(email);
       }
     });
-
   }) 
-
-
 }
+
 
 function asRead(email_id) {
   fetch(`/emails/${email_id}`, {
@@ -171,6 +167,7 @@ function asRead(email_id) {
   })
 }
 
+
 function asArchived(email_id) {
   fetch(`/emails/${email_id}`, {
     method: 'PUT',
@@ -180,13 +177,8 @@ function asArchived(email_id) {
   })
 }
 
+
 function respondEmail(email) {
   compose_email();
   document.querySelector('#compose-recipients').value = `${email.sender}`;
-
-  // To delete Later
-  console.log('RespondEmail working now');
-  console.log(`Email Sender: ${email.sender}`);
-
-
 }
