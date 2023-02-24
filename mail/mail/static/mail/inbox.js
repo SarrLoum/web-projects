@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
+
 function compose_email() {
 
   // Show compose view and hide other views
@@ -25,7 +26,6 @@ function compose_email() {
   document.querySelector('#compose-subject').value = '';
   document.querySelector('#compose-body').value = '';
 }
-
 
 
 function load_mailbox(mailbox) {
@@ -67,7 +67,6 @@ function send_email(event) {
 }
 
 
-
 function load_emails(mailbox) {
   // Get a list of all the emails of the mailbox via a get request to api
   fetch(`/emails/${mailbox}`)
@@ -76,20 +75,25 @@ function load_emails(mailbox) {
 
     // Create an empty email section
     let emailSection = '';
+    let color = '';
 
     emails.forEach((email) => {
+
+      if (email.read == true) {
+        color = '#F2F5FC';
+      } else {
+        color = '#fff';
+      }
       // For each email create div inside a li element
-      let eachEmail = `<li class="email-list-item">
-                    <div id="email-details">
-                      <button style="background: none; border: none; text-align: left;" class="email" id="${email.id}" data-email_id="${email.id}">
-                        <h5 class="subject">${email.subject}</h5>
-                        <p class="body">${email.body}</p>
-                        <span class="sender">${email.sender}</span>
-                        <span>${email.timestamp}
-                        </span>
-                      </button>
-                    </div>
-                  </li>`;
+      let eachEmail = `<li class="email-list-item"><div id="email-details">
+                        <button style="background: ${color}; border: none; text-align: left;" class="email" id="${email.id}" data-email_id="${email.id}">
+                          <h5 class="subject">${email.subject}</h5>
+                          <p class="body">${email.body}</p>
+                          <span class="sender">${email.sender}</span>
+                          <span>${email.timestamp}
+                          </span>
+                        </button></div></li>
+                        <hr>`;
       // Append email inside the email section
       emailSection += eachEmail;
     })
@@ -104,18 +108,18 @@ function load_emails(mailbox) {
 
     // LOAD THE EMAIL WHEN IT'S CLICKED
     // First get the HTMLCollection of all the emails element
-    let elements = document.getElementsByClassName('email');
+    let elements = document.querySelectorAll('.email');
 
     // Loop through the collection 
     Array.from(elements).forEach((element) => {
-      element.addEventListener('click', function(event) {
+      element.addEventListener('click', function(e) {
         console.log('Baw hello');
         console.log(element)
         id = element.dataset.email_id;
+        
         view_email(id);
         asRead(id);
 
-        //element.style.BackgroundColor = '#F2F5FC';
       })
     })
   })
