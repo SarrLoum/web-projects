@@ -2,4 +2,38 @@ textarea {
     min-height: 400px;
 }
 
+ul, li {
+    list-style-type: none;
+    padding: 0;
+}
 
+header{
+    display: flex;
+    padding: .56em;
+}
+
+main{
+    display: flex;
+}
+
+.container {
+    max-width: 100vw;
+    margin: 0;
+    padding: 0;
+}
+
+.header-container {
+    height: 4.06em
+}
+
+.flex {
+    display: flex;
+}
+
+.search-form {
+    height: 2.94em;
+    width: 39.75em;
+    border-radius: .50em;
+
+    background: #EAF1FB;
+}

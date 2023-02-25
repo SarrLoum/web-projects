@@ -3,36 +3,84 @@
 
 {% block body %}
 
-    
-    <div>
-        <h2>{{ request.user.email }}</h2>
+    <!-- ====== HEADER ====== -->
+    <div class="header-container">
+        <header>
+            <!-- Logo link and sidebar button-->
+            <div class="flex">
+                <div class="btn-3bar"><img src="static/mail/media/3bars_menu.svg" alt=""></div>
+                <div class="logo-link">
+                    <img src="static/mail/media/X logo.svg" alt="">
+                    <img src="static/mail/media/Mailer.svg" alt="">
+                </div>
+            </div>
 
-        <button name="mailbox" class="btn btn-sm btn-outline-primary" id="inbox">Inbox</button>
-        <button class="btn btn-sm btn-outline-primary" id="compose">Compose</button>
-        <button name="mailbox" class="btn btn-sm btn-outline-primary" id="sent">Sent</button>
-        <button name="mailbox" class="btn btn-sm btn-outline-primary" id="archived">Archived</button>
-        <a class="btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>    
+            <!-- Email search bar-->
+            <div class="search-bar">
+                <form action="">
+                    <div class="search-form"></div>
+                </form>
+
+            </div>
+
+            <!-- Cuurent user email -->
+            <div class="current-user">
+                <h2>{{ request.user.email }}</h2>
+            </div>
+        </header>
     </div>
 
-    <div id="emails-view">
-    </div>
+    <main>
+        <!-- ======= LEFT SIDE (SIDEBAR) ======= -->
+        <div class="side-bar">
+            <!-- Compose New email button -->
+            <div class="btn-compose">
+                <button class="btn btn-sm btn-outline-primary" id="compose">New Message</button>
+            </div>
 
-    <div id="compose-view">
-        <h3>New Email</h3>
-        <form id="compose-form">
-            <div class="form-group">
-                From: <input disabled class="form-control" value="{{ request.user.email }}">
+            <!-- Nav button container -->
+            <div class="nav-container">
+                <ul>
+                    <li><button name="mailbox" class="btn btn-sm btn-outline-primary" id="inbox">Inbox</button></li>
+                    <li><button class="btn btn-sm btn-outline-primary" id="compose">Compose</button></li>
+                    <li><button name="mailbox" class="btn btn-sm btn-outline-primary" id="sent">Sent</button></li>
+                    <li><button name="mailbox" class="btn btn-sm btn-outline-primary" id="archived">Archived</button></li>
+                    <li><a class="btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a></li>
+        
+                </ul>
             </div>
-            <div class="form-group">
-                To: <input id="compose-recipients" class="form-control">
+        </div>
+
+        <!-- ======= RIGHT SIDE (CONTENT) ======= -->
+        <div class="emails-content">
+
+            <!-- ==== CONTENT BODY (emails and compose view) ==== -->
+            <div class="content-body">
+
+                <!-- Emails view -->
+                <div id="emails-view">
+                </div>
+        
+                <!-- Compose view -->
+                <div id="compose-view">
+                    <h3>New Email</h3>
+                    <form id="compose-form">
+                        <div class="form-group">
+                            From: <input disabled class="form-control" value="{{ request.user.email }}">
+                        </div>
+                        <div class="form-group">
+                            To: <input id="compose-recipients" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" id="compose-subject" placeholder="Subject">
+                        </div>
+                        <textarea class="form-control" id="compose-body" placeholder="Body"></textarea>
+                        <input type="submit" class="btn btn-primary"/>
+                    </form>
+                </div>    
             </div>
-            <div class="form-group">
-                <input class="form-control" id="compose-subject" placeholder="Subject">
-            </div>
-            <textarea class="form-control" id="compose-body" placeholder="Body"></textarea>
-            <input type="submit" class="btn btn-primary"/>
-        </form>
-    </div>
+        </div>
+    </main>
 {% endblock %}
 
 {% block script %}
