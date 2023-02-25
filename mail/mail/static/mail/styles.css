@@ -37,3 +37,7 @@ main{
 
     background: #EAF1FB;
 }
+
+.current-user {
+    flex-grow: 1;
+}
