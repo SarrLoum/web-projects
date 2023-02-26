@@ -7,9 +7,9 @@
     <div class="header-container">
         <header>
             <!-- Logo link and sidebar button-->
-            <div class="flex">
-                <div class="btn-3bar">
-                    <img src="" alt="">
+            <div class="logos flex">
+                <div class="btn-3bar" role="button">
+                    <img src="static/mail/media/3bars menu.svg" alt="">
                 </div>
                 <div class="logo-link">
                     <img src="static/mail/media/X logo.svg" alt="">
@@ -26,8 +26,9 @@
             </div>
 
             <!-- Cuurent user email -->
-            <div class="current-user">
-                <h2>{{ request.user.email }}</h2>
+            <div class="current-user flex">
+                <h4>{{ request.user.email }}</h4>
+                <img src="" alt="">
             </div>
         </header>
     </div>
@@ -36,17 +37,17 @@
         <!-- ======= LEFT SIDE (SIDEBAR) ======= -->
         <div class="side-bar">
             <!-- Compose New email button -->
-            <div class="btn-compose">
-                <button class="btn btn-sm btn-outline-primary" id="compose">New Message</button>
+            <div class="compose-button">
+                <button class="btn-compose" id="compose">New Message</button>
             </div>
 
             <!-- Nav button container -->
             <div class="nav-container">
                 <ul>
-                    <li><button name="mailbox" class="btn btn-sm btn-outline-primary" id="inbox">Inbox</button></li>
-                    <li><button class="btn btn-sm btn-outline-primary" id="compose">Compose</button></li>
-                    <li><button name="mailbox" class="btn btn-sm btn-outline-primary" id="sent">Sent</button></li>
-                    <li><button name="mailbox" class="btn btn-sm btn-outline-primary" id="archived">Archived</button></li>
+                    <li><button name="mailbox" class="nav-button " id="inbox">Inbox</button></li>
+                    <li><button class="nav-button" id="compose">Compose</button></li>
+                    <li><button name="mailbox" class="nav-button" id="sent">Sent</button></li>
+                    <li><button name="mailbox" class="nav-button" id="archived">Archived</button></li>
                     <li><a class="btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a></li>
         
                 </ul>
@@ -55,7 +56,7 @@
 
         <!-- ======= RIGHT SIDE (CONTENT) ======= -->
         <div class="emails-content">
-
+            
             <!-- ==== CONTENT BODY (emails and compose view) ==== -->
             <div class="content-body">
 

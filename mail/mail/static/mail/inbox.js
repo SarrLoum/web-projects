@@ -86,12 +86,11 @@ function load_emails(mailbox) {
       }
       // For each email create div inside a li element
       let eachEmail = `<li class="email-list-item"><div id="email-details">
-                        <button style="background: ${color}; border: none; text-align: left;" class="email" id="${email.id}" data-email_id="${email.id}">
-                          <h5 class="subject">${email.subject}</h5>
+                        <button style="background: ${color};" class="email" id="email${email.id}" data-email_id="${email.id}">
+                          <h6 class="sender">${email.sender}</h6>
+                          <h6 class="subject">${email.subject}</h5>
                           <p class="body">${email.body}</p>
-                          <span class="sender">${email.sender}</span>
-                          <span>${email.timestamp}
-                          </span>
+                          <span>${email.timestamp}</span>
                         </button></div></li>
                         <hr>`;
       // Append email inside the email section
@@ -182,3 +181,19 @@ function respondEmail(email) {
   compose_email();
   document.querySelector('#compose-recipients').value = `${email.sender}`;
 }
+
+
+function timesTamp(timestamp) {
+  let currentDate = new Date();
+  let currentYear = currentDate.getFullYear();  
+  let today = currentDate.toJSON.slice(0, 10);
+  console.log(currentDate);
+
+  let pubDate = timestamp.slice(',')
+
+  
+
+
+
+}
+

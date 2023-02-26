@@ -1,5 +1,13 @@
+body {
+    background: #F7F8FC;
+}
+
 textarea {
     min-height: 400px;
+}
+
+button {
+    border: none;
 }
 
 ul, li {
@@ -7,9 +15,16 @@ ul, li {
     padding: 0;
 }
 
+hr {
+    width: 57.21em;
+    margin: 0;
+}
+
 header{
     display: flex;
     padding: .56em;
+
+    align-items: center;
 }
 
 main{
@@ -40,4 +55,63 @@ main{
 
 .current-user {
     flex-grow: 1;
+}
+
+.logos {
+    gap: .87em;
+    padding-right: 9.25em;
+}
+.btn-3bar {
+    height: 1.88em;
+    width: 1.88em;
+    border-radius: 6.25em;
+    background: #DEE1E7;
+
+    text-align: center;
+}
+
+/* \\\\\\\ MAIN SECTION /////// */ 
+
+/* LEFT SIDE (sidebar)*/
+.side-bar {
+    width: 18.25em;
+}
+
+.btn-compose {
+    height: 3.44em;
+    width: 12.44em;
+    margin-top: .625em;
+    margin-left: .25em;
+    border-radius: .94em;
+
+    background: #C4E7FD;
+}
+
+.nav-container {
+    margin-top: 1.125em;
+}
+
+.nav-button {
+    width: 14.69em;
+    height: 2em;
+
+    border-top-right-radius: 6.25em;
+    border-bottom-right-radius: 6.25em;
+    
+}
+
+/* Right SIDE (email content)*/
+.emails-content {
+    width: 58.25em;
+    height: 35em;
+    border-radius: .94em;
+
+    background: #fff;
+}
+
+.email {
+    width: 57.21em;
+    height: 2.56em;
+
+    display: flex;
 }
