@@ -84,13 +84,21 @@ function load_emails(mailbox) {
       } else {
         color = '#fff';
       }
+
+      // Format timestamp
+      let dateTime = timesTamp(email.timestamp);
+
+
+      let senderName = getUserName(email.sender);
       // For each email create div inside a li element
       let eachEmail = `<li class="email-list-item"><div id="email-details">
                         <button style="background: ${color};" class="email" id="email${email.id}" data-email_id="${email.id}">
-                          <h6 class="sender">${email.sender}</h6>
-                          <h6 class="subject">${email.subject}</h5>
+                          <input class="checkbox-btn" type="checkbox">
+                          <input class="checkbox-btn" type="checkbox">
+                          <span class="sender">${senderName}</span>
+                          <span class="subject">${email.subject}</span>
                           <p class="body">${email.body}</p>
-                          <span>${email.timestamp}</span>
+                          <span class="date-time">${dateTime}</span>
                         </button></div></li>
                         <hr>`;
       // Append email inside the email section
@@ -127,6 +135,7 @@ function view_email(email_id) {
   fetch(`/emails/${email_id}`)
   .then(response => response.json())
   .then(email => {
+
     // Create a div that display the emmail and all its details
     let displayEmail = `<div class="email-nav">
                           <button id="archive-email">archive</button>
@@ -184,16 +193,34 @@ function respondEmail(email) {
 
 
 function timesTamp(timestamp) {
+  // Split the email timestamp and split it to an array of date and time
+  let pubDate = timestamp.split(', ');
+  let pubYear = pubDate[0].slice(7, ); //2023
+  let dateTamp = pubDate[0].slice(0, 6); //Feb 23
+
+  // Get the browser current date (local date and time)
   let currentDate = new Date();
-  let currentYear = currentDate.getFullYear();  
-  let today = currentDate.toJSON.slice(0, 10);
-  console.log(currentDate);
+  let currentYear = (currentDate.getFullYear() + ""); 
+  let today = (currentDate + "").slice(4, 15);
 
-  let pubDate = timestamp.slice(',')
+  // Return the correct date format
+  if (pubDate[0] == today) {
+    return pubDate[1];
 
-  
+  } else if (pubYear == currentYear) {
+    return dateTamp;
 
+  } else {
+    return pubDate[0];
 
+  }
+}
 
+function getUserName(userEmail) {
+  let user = userEmail.split("@");
+  let userName = user[0];
+
+  console.log(userName);
+  return userName;
 }
 
