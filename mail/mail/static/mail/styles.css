@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "Inter";
+    src: url(/static/mail/Inter-VariableFont_slnt\,wght.ttf);
+}
+
 body {
     background: #F7F8FC;
 }
@@ -16,7 +21,7 @@ ul, li {
 }
 
 hr {
-    width: 57.21em;
+    width: 60.21em;
     margin: 0;
 }
 
@@ -74,7 +79,7 @@ main{
 
 /* LEFT SIDE (sidebar)*/
 .side-bar {
-    width: 18.25em;
+    width: 17.75em;
 }
 
 .btn-compose {
@@ -102,7 +107,7 @@ main{
 
 /* Right SIDE (email content)*/
 .emails-content {
-    width: 58.25em;
+    width: 61.25em;
     height: 35em;
     border-radius: .94em;
 
@@ -110,10 +115,15 @@ main{
 }
 
 .email {
-    width: 57.21em;
+    width: 60.21em;
     height: 2.56em;
 
     display: flex;
+    align-items: center;
+}
+
+.email:hover {
+    cursor: pointer;
 }
 
 .checkbox-btn {
@@ -121,4 +131,56 @@ main{
     border: solid 2px #C5C5C5;
 
     background: transparent;
+}
+
+/* Emails view preview */
+
+.preview-font {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: .95rem;
+    /* identical to box height */
+
+    color: #2C2D2D;
+
+}
+
+.sender-preview {
+    margin-left: .75em;
+    width: 12.5em;
+}
+
+.subject-body {
+    white-space: nowrap; 
+    width: 35.62em;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.body-preview {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 350;
+    font-size: .95rem;
+    /* identical to box height */
+
+    color: #565656;
+}
+
+.datetime-preview {
+    white-space: nowrap; 
+    flex-grow: 1;
+
+    text-align: right;
+    padding-right: 2em;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: .90rem;
+    /* identical to box height */
+
+    color: #2C2D2D;
 }

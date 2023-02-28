@@ -16,8 +16,13 @@
                     <img src="static/mail/media/Mailer.svg" alt="">
                 </div>
             </div>
+            
             <script>
-                    
+                wrapper.addEventListener("keydown", e => {
+                    if (e.key === " " || e.key === "Enter" || e.key === "Spacebar") {
+                        toggleBtn(e.target);
+                    }
+                }); 
             </script>
 
             <!-- Email search bar-->

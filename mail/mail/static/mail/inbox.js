@@ -92,15 +92,18 @@ function load_emails(mailbox) {
       let senderName = getUserName(email.sender);
       // For each email create div inside a li element
       let eachEmail = `<li class="email-list-item"><div id="email-details">
-                        <button style="background: ${color};" class="email" id="email${email.id}" data-email_id="${email.id}">
+                        <div style="background: ${color};" class="email" id="email${email.id}" role="button" data-email_id="${email.id}">
+                          <input class="checkbox-btn" id="checkbox" type="checkbox">
                           <input class="checkbox-btn" type="checkbox">
-                          <input class="checkbox-btn" type="checkbox">
-                          <span class="sender">${senderName}</span>
-                          <span class="subject">${email.subject}</span>
-                          <p class="body">${email.body}</p>
-                          <span class="date-time">${dateTime}</span>
-                        </button></div></li>
-                        <hr>`;
+                          <span class="sender-preview preview-font">${senderName}</span>
+                          <div class="subject-body">
+                            <span class="subject-preview preview-font">${email.subject}</span> - 
+                            <span class="body-preview">${email.body}</span>
+                          </div>
+                          <span class="datetime-preview preview-font">${dateTime}.</span>
+                        </div>
+                      </div></li>
+                      <hr>`;
       // Append email inside the email section
       emailSection += eachEmail;
     })
@@ -119,12 +122,15 @@ function load_emails(mailbox) {
     let elements = document.querySelectorAll('.email');
 
     // Loop through the collection 
-    Array.from(elements).forEach((element) => {
-      element.addEventListener('click', function(e) {
-
-        id = element.dataset.email_id;
-        view_email(id);
-        asRead(id);
+    Array.from(elements).forEach((element) => {      
+      element.addEventListener('click', function(event) {
+        if (event.target.id == 'checkbox') {
+          event.stopPropagation();
+        } else {
+          id = element.dataset.email_id;
+          view_email(id);
+          asRead(id);s  
+        }
       })
     })
   })
