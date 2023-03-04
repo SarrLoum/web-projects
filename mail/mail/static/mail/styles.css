@@ -13,6 +13,16 @@ textarea {
 
 button {
     border: none;
+    background: none;
+}
+
+button:hover {
+    background: #DFE0E0;
+}
+
+button:focus {
+    border: none;
+    background: #D3E3FC;
 }
 
 ul, li {
@@ -64,7 +74,8 @@ main{
 
 .logos {
     gap: .87em;
-    padding-right: 9.25em;
+    padding-left: .95em;
+    padding-right: 6.50em;
 }
 .btn-3bar {
     height: 1.88em;
@@ -79,17 +90,31 @@ main{
 
 /* LEFT SIDE (sidebar)*/
 .side-bar {
-    width: 17.75em;
+    width: 16em;
 }
 
 .btn-compose {
     height: 3.44em;
     width: 12.44em;
     margin-top: .625em;
-    margin-left: .25em;
+    margin-left: .75em;
     border-radius: .94em;
 
     background: #C4E7FD;
+}
+
+.btn-compose:hover {
+    height: 3.44em;
+    width: 12.44em;
+    margin-top: .625em;
+    margin-left: .75em;
+    border-radius: .94em;
+
+    box-shadow: 0px 5px 8px rgba(19, 18, 18, 0.25);
+    transform: scale(1);
+
+    background: #C4E7FD;
+    
 }
 
 .nav-container {
@@ -103,6 +128,10 @@ main{
     border-top-right-radius: 6.25em;
     border-bottom-right-radius: 6.25em;
     
+}
+
+.nav-button:hover {
+
 }
 
 /* Right SIDE (email content)*/
@@ -123,14 +152,20 @@ main{
 }
 
 .email:hover {
+    background: #F2F5FC;
+    border-width: 0px 0.5px 0.5px 0.5px;
+    border-style: solid;
+    border-color: #EAE8E8;
+    box-shadow: 0px 2px 3px rgba(34, 33, 33, 0.25);
+    transform: scale(1);
+}
+
+.email:hover {
     cursor: pointer;
 }
 
 .checkbox-btn {
     margin-left: 1.31em;
-    border: solid 2px #C5C5C5;
-
-    background: transparent;
 }
 
 /* Emails view preview */
@@ -183,4 +218,83 @@ main{
     /* identical to box height */
 
     color: #2C2D2D;
+}
+
+
+/* <<<<<< Checkbox Styles Start >>>>>> */
+
+.checkbox-ul ul li {
+    display: inline;
+}
+
+.checkbox-btn {
+    margin-left: .95em;
+}
+
+@keyframes pull {
+    0% {
+        height: 0;
+    }
+    100% {
+        height: 1.2rem;
+    }
+}
+@keyframes pop {
+    0% {
+        opacity: 0;
+    }
+    75% {
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.2);
+    }
+}
+
+.checkbox-pop,
+.checkbox-spin {
+    display: none;
+}
+
+.checkbox-pop + span,
+.checkbox-spin + span {
+    display: inline-block;
+    width: 25px;
+    height: 19px;
+    margin: 0 5px -4px 0;
+    /*layout relationship between check and label*/
+}
+.checkbox-pop + span:before, .checkbox-pop + span:after,
+.checkbox-spin + span:before, .checkbox-spin + span:after {
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    content: "";
+    position: absolute;
+    z-index: 1;
+    width: 1rem;
+    height: 1rem;
+    background: transparent;
+    border: 2px solid #ff4040;
+}
+
+.checkbox-pop + span:after,
+.checkbox-spin + span:after {
+    z-index: 0;
+    border: none;
+}  
+
+.checkbox-pop:checked + span:before {
+    animation: pop 0.3s ease;
+    z-index: 100;
+    background: #ff4040;
+}
+
+.checkbox-spin:checked + span:before {
+    -webkit-transform: rotateZ(180deg);
+    -moz-transform: rotateZ(180deg);
+    -ms-transform: rotateZ(180deg);
+    -o-transform: rotateZ(180deg);
+    transform: rotateZ(180deg);
+    background: #ff4040;
 }

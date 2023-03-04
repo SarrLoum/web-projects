@@ -164,6 +164,7 @@ def watchlist(request):
 
 def add_bid(request, listing_id):
 
+    listing = Listing.objects.get(pk=listing_id)
     # If it is a POST (method) we need to process the data
     if request.method == "POST":
         amount = int(request.POST['bidding'])
@@ -171,22 +172,23 @@ def add_bid(request, listing_id):
         current_price = get_price(request, listing_id)
 
         if amount > current_price:
-            new_bidding = Bid.create(bid=amount)
-            new_bidding.save(commit=False)
+            new_bidding = Bid(bid=amount)
 
             # add isting id and user id
-            new_bidding.listing = listing_id
-            new_bidding.client = request.user
+            new_bidding.listing = listing
+            new_bidding.user = request.user
             new_bidding.save() 
         
             messages.success(request, 'Bid submitted successfully.')
             return HttpResponseRedirect(reverse("listing-page", args=(listing_id, )))
         else:
             messages.error(request, 'Invalid submission, Your bid is lower than the current price.')
+            return HttpResponseRedirect(reverse("listing-page", args=(listing_id, )))
 
 
 def add_comment(request, listing_id):
 
+    listing = Listing.objects.get(pk=listing_id)
     #if it is a POST (method) we need to process the form data
     if request.method == "POST":
         comment_form = CommentForm(request.POST)
@@ -194,8 +196,9 @@ def add_comment(request, listing_id):
         # save the comment the form is valid
         if comment_form.is_valid():
             new_comment = comment_form.save(commit=False)
-            new_comment.listing = listing_id
+
+            new_comment.listing = listing
             new_comment.author = request.user
+            new_comment.save()
 
-        return HttpResponseRedirect(reverse("listing-page", agrs=(listing_id, )))
-
+            return HttpResponseRedirect(reverse("listing-page", args=(listing_id, )))

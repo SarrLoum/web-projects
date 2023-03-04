@@ -35,7 +35,7 @@ function load_mailbox(mailbox) {
   document.querySelector('#compose-view').style.display = 'none';
 
   // Show the mailbox name
-  document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
+  document.querySelector('#emails-view').innerHTML = `<div><h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3></div><hr>`;
   
   //Show all emails of the mailbox 
   load_emails(mailbox);
@@ -93,8 +93,16 @@ function load_emails(mailbox) {
       // For each email create div inside a li element
       let eachEmail = `<li class="email-list-item"><div id="email-details">
                         <div style="background: ${color};" class="email" id="email${email.id}" role="button" data-email_id="${email.id}">
-                          <input class="checkbox-btn" id="checkbox" type="checkbox">
-                          <input class="checkbox-btn" type="checkbox">
+                          <div class="checkbox-ul">
+                            <ul>
+                              <li class="checkbox-btn">
+                                <input class="checkbox-pop" id="checkbox" type="checkbox"><span></span>
+                              </li>
+                              <li class="checkbox-btn">
+                                <input class="checkbox-spin" id="checkbox" type="checkbox"><span></span>
+                              </li>
+                            </ul>
+                          </div>
                           <span class="sender-preview preview-font">${senderName}</span>
                           <div class="subject-body">
                             <span class="subject-preview preview-font">${email.subject}</span> - 
@@ -126,6 +134,7 @@ function load_emails(mailbox) {
       element.addEventListener('click', function(event) {
         if (event.target.id == 'checkbox') {
           event.stopPropagation();
+          //event.target.prop('checked', !checkbox.prop('checked'));
         } else {
           id = element.dataset.email_id;
           view_email(id);

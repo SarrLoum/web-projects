@@ -50,7 +50,7 @@ class Listing(models.Model):
 class Bid(models.Model):
     bid = models.FloatField()
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="bids")
-    client = models.ForeignKey(User, on_delete=models.CASCADE, related_name="clients")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="bids")
 
     def __int__(self):
         return self.bid
@@ -60,7 +60,7 @@ class Bid(models.Model):
 class Comment(models.Model):
     comment = models.TextField()
     rating = models.IntegerField(default=3, validators=[MinValueValidator(0), MaxValueValidator(5)])
-    pub_date = models.DateTimeField(auto_now=True)
+    pub_date = models.DateTimeField(auto_now_add=True)
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="comments")
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
 

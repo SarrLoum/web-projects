@@ -44,12 +44,12 @@
                         {% endif %}
                     </form>
                     <!-- Check Bids -->
-                    <form action="{% url 'add-watchlist' listing.id %}" method="post">
+                    <form action="" method="post">
                         {% csrf_token %}
                         <input class=" btn-general btn-bid" type="submit" value="Check Bids">
                     </form>
-                    <!-- Add to watchlist form -->
-                    <form action="{% url 'add-watchlist' listing.id %}" method="post">
+                    <!-- Edit comment form -->
+                    <form action="" method="post">
                         {% csrf_token %}
                         <input class=" btn-general btn-comment" type="submit" value="Edit comments">
                     </form>
@@ -94,11 +94,11 @@
     <!-- ====== COMMENTS ====== -->
     <div>
         <h5>Comments</h5>
-        <div>
-            <form action="{% url 'add_comment' listing.id %}">
+        <div class="post-comment">
+            <form action="{% url 'add-comment' listing.id %}" method="post">
                 {% csrf_token %}
                 {{comment_form}}
-                <button type="submit" ></button>
+                <input class="btn-general btn-comment"  type="submit" >
             </form>
         </div>
 
@@ -109,8 +109,11 @@
                 {% for comment in comments %}
                     <li>
                         <div>
-                            <h6>{{ comment.user }}</h6>
+                            <h6>{{ comment.author }}</h6>
                             <p>{{ comment.comment }}</p>
+                            <span>{{ comment.pub_date }}</span>
+                            <span>{{ comment.rating }}</span>
+
                         </div>            
                     </li>
                 {% endfor %}
