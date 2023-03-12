@@ -41,16 +41,16 @@ class RepostSerializer(serializers.ModelSerializer):
 class PostMetricSerializer(serializers.ModelSerializer):
     class Meta:
         model = PostMetric
-        fields = ['id', 'post', 'likes', 'views', 'shares', 'impression']
+        fields = ['id', 'post', 'likes', 'views', 'shares', 'impressions']
 
 
 class ReplyMetricSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReplyMetric
-        fields = ['id', 'reply', 'likes', 'views', 'shares', 'impression']
+        fields = ['id', 'reply', 'likes', 'views', 'shares', 'impressions']
 
 
 class QuoteMetricSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuoteMetric
-        fields = ['id', 'quote', 'likes', 'views', 'shares', 'impression']
+        fields = ['id', 'quote', 'likes', 'views', 'shares', 'impressions']
