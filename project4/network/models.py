@@ -19,14 +19,14 @@ class Follow(models.Model):
 class Profile(models.Model):
     avatar = models.ImageField(blank=True)
     imgcover = models.ImageField(blank=True)
-    pseudo_name = models.CharField(max_length=20)
-    bio = models.CharField(max_length=200)
+    pseudo_name = models.CharField(max_length=20,)
+    bio = models.CharField(max_length=200, blank=True)
     location = models.CharField(blank=True, max_length=50)
-    website = models.URLField(max_length=200)
+    website = models.URLField(max_length=200, blank=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
 
     def __str__(self):
-        return self.user
+        return self.pseudo_name
 # Function that automaticallly creates a user's 
 # profile when a new user is created 
 @receiver(post_save, sender=User)

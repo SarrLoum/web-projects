@@ -16,7 +16,6 @@ class UserSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Birthdate cannot be in the future.")
         return value
 
-
 class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
