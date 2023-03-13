@@ -1,14 +1,24 @@
 from rest_framework import serializers
+
 from .models import *
 
 
 class UserSerializer(serializers.ModelSerializer):
+    following = serializers.StringRelatedField(many=True)
+    followers = serializers.StringRelatedField(many=True)
+    
     class Meta:
         model = User
         fields = ['id', 'username', 'email', 'birthdate', 'password']
 
+    def validate_birthdate(self, value):
+        if value and value > timezone.now().date():
+            raise serializers.ValidationError("Birthdate cannot be in the future.")
+        return value
+
 
 class ProfileSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Profile
         fields = ['id', 'user', 'avatar', 'imgcover', 'pseudo_name', 'bio', 'location', 'website']
