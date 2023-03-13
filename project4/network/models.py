@@ -63,6 +63,7 @@ class Reply(BasePost):
 
 class Quote(BasePost):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="quotes")
+    reply = models.ForeignKey(Reply, on_delete=models.CASCADE, null=True, blank=True, related_name="quotes")
     parent_quote = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name="quotes")
 
 
