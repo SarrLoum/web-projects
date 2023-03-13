@@ -27,8 +27,8 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.pseudo_name
-# Function that automaticallly creates a user's 
-# profile when a new user is created 
+# Function that automaticallly creates a user profile
+# when a new user is created 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
@@ -58,20 +58,24 @@ class Post(BasePost):
 
 class Reply(BasePost):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="replies")
+    parent_reply = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name="replies")
 
 
 class Quote(BasePost):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="quotes")
+    parent_quote = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name="quotes")
 
 
 # Repost modal
 class Repost(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reposts")
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="reposts")
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True, blank=True, related_name="reposts")
+    reply = models.ForeignKey(Reply, on_delete=models.CASCADE, null=True, blank=True, related_name="reposts")
+    quote = models.ForeignKey(Quote, on_delete=models.CASCADE, null=True, blank=True, related_name="reposts")
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.user} reposted {self.post}"
+        return f"Reposted by {self.user}"
 
 
 
