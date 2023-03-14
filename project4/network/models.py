@@ -41,7 +41,7 @@ def create_user_profile(sender, instance, created, **kwargs):
 # Reply and Quotes model to inherits its fields
 class BasePost(models.Model):
     text = models.CharField(max_length=280)
-    media = models.FileField(upload_to='media/%Y/%m/%d/', blank=True, null=True)
+    media = models.FileField(blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="%(class)ss")
 
