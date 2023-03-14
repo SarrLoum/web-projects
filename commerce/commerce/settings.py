@@ -132,7 +132,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static','media')
 
 
 
-from django.contrib.messages import constants as messages
+from django.contrib.messages import constants as messages 
 
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-info',
