@@ -10,7 +10,12 @@ urlpatterns = [
     path("login", views.login_view, name="login"),
     path("logout", views.logout_view, name="logout"),
     path("register", views.register, name="register"),
+
+
+
+    #API Views
     path("posts/", PostList.as_view(), name="post-list"),
+    
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
