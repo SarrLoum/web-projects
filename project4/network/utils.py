@@ -34,6 +34,17 @@ def get_threads(user, following):
     return data
 
 
+def get_instance_type(request):
+    post = request.data.get('post')
+    reply = request.data.get('reply')
+    quote = request.data.get('quote')
+
+    if post is not None:
+        return 'post'
+    elif reply is not None :
+        return 'reply'
+    else:
+        return 'quote'
 
 
 

@@ -7,7 +7,7 @@ from django.db.models import Q
 
 from .models import *
 from .serializers import *
-from .utils import get_threads, get_following, get_follower
+from .utils import get_following, get_follower, get_threads, get_instance_type
 
 class UserFeed(APIView):
 
@@ -25,11 +25,9 @@ class Follow(APIView):
 
     def get(self, request, Format=None):
         user = request.user
-
         # Get the user's follofowing ond follower
         follower = get_follower(user)
         following = get_following(user)
-
         # Serialise the follow instance
         follow = {'follower': follower, 'following': following}
         serializer = FollowSerializer(follow)
@@ -67,13 +65,14 @@ class Post(APIView):
 
 class Reply(APIView):
     def post(self, request, format=None):
-        pk = requesr.data.get('post_id')
-        reply = Post.objects.get(pk=pk)
+        #dynamically set the name of the argument that is passed to the save() method of the Serializer
+        instance_type = get_instance_type(request)
+        parent_instance = request.data.get(instance_type)
     
         serializer = ReplySerializer(data=request.data)
 
         if serializer.is_valid():
-            serializer.save(user=request.user, reply=reply)
+            serializer.save(user=request.user, **{instance_type=parent_instance})
             return Response(serializer.data, status=status.HTTP_201_CREATED)
             
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
@@ -81,13 +80,13 @@ class Reply(APIView):
 
 class Quote(APIView):
     def post(self, request, format=None):
-        pk = request.data.quote_id
-        quote = Post.objects.get(pk=pk)
+        instance_type = get_instance_type(request)
+        parent_instance = request.data.get(instance_type)
     
         serializer = QuoteSerializer(data=request.data)
 
         if serializer.is_valid():
-            serializer.save(user=request.user, quote=quote)
+            serializer.save(user=request.user, **{instance_type=parent_instance})
             return Response(serializer.data, status=status.HTTP_201_CREATED)
             
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
@@ -95,13 +94,14 @@ class Quote(APIView):
         
 class Repost(APIView):
     def post(self, request, format=None):
-        pk = request.data.reply_id
-        repost = Post.objects.get(pk=pk)
+        
+        instance_type = get_instance_type(request)
+        parent_instance = request.data.get(instance_type)
     
         serializer = RepostSerializer(data=request.data)
 
         if serializer.is_valid():
-            serializer.save(user=request.user, repost=repost)
+            serializer.save(user=request.user, **{instance_type=parent_instance})
             return Response(serializer.data, status=status.HTTP_201_CREATED)
             
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
