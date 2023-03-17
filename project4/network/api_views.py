@@ -25,12 +25,14 @@ class Follow(APIView):
 
     def get(self, request, Format=None):
         user = request.user
+
         # Get the user's follofowing ond follower
-        following = get_following(user)
         follower = get_follower(user)
+        following = get_following(user)
+
         # Serialise the follow instance
-        follow = follong + follower
-        serializer = FollowSerializer(follow, many=True)
+        follow = {'follower': follower, 'following': following}
+        serializer = FollowSerializer(follow)
 
         return Response(serializer.data)
 
@@ -45,14 +47,10 @@ class Follow(APIView):
 
     def delete(self, request, format=None):
         # get The follow object where follower = request.user and following = request.data.get('following')
-        follow = Follow.objects.filter(Q(follower=request.user) | Q(following=request.data.get('following')))
+        follow = Follow.objects.get(follower=request.user, following=request.data.get('following'))
         
         follow.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-
-
 
 
 class Post(APIView):

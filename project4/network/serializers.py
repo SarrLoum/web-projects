@@ -21,7 +21,9 @@ class FollowSerializer(serializers.ModelSerializer):
 
     class Meta:
         model: Follow
-        fileds = ['follower', 'following']
+        fields = ['follower', 'following']
+
+
 class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
