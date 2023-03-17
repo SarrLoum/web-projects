@@ -2,6 +2,8 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from django.db.models import Q
+
 
 from .models import *
 from .serializers import *
@@ -37,9 +39,18 @@ class Follow(APIView):
 
         if serializer.is_valid():
             sarializer.save(follower=request.user)
-            
+
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, format=None):
+        # get The follow object where follower = request.user and following = request.data.get('following')
+        follow = Follow.objects.filter(Q(follower=request.user) | Q(following=request.data.get('following')))
+        
+        follow.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 
 
 
@@ -58,7 +69,7 @@ class Post(APIView):
 
 class Reply(APIView):
     def post(self, request, format=None):
-        pk = request.data.post_id
+        pk = requesr.data.get('post_id')
         reply = Post.objects.get(pk=pk)
     
         serializer = ReplySerializer(data=request.data)
