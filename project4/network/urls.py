@@ -3,7 +3,7 @@ from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
 
 from . import views
-from .api_views import PostList
+from .api_views import *
 
 urlpatterns = [
     path("", views.index, name="index"),
@@ -14,7 +14,7 @@ urlpatterns = [
 
 
     #API Views
-    path("posts/", PostList.as_view(), name="post-list"),
+    path("homepage/", Feed.as_view(), name="feed"),
     
 ]
 
