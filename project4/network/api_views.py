@@ -34,12 +34,12 @@ class Post(APIView):
 class Reply(APIView):
     def post(self, request, format=None):
         pk = request.data.post_id
-        post = Post.objects.get(pk=pk)
+        reply = Post.objects.get(pk=pk)
     
         serializer = ReplySerializer(data=request.data)
 
         if serializer.is_valid:
-            serializer.save(user=request.user, post=post)
+            serializer.save(user=request.user, reply=reply)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
             
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
@@ -62,12 +62,12 @@ class Quote(APIView):
 class Repost(APIView):
     def post(self, request, format=None):
         pk = request.data.reply_id
-        reply = Post.objects.get(pk=pk)
+        repost = Post.objects.get(pk=pk)
     
         serializer = RepostSerializer(data=request.data)
 
         if serializer.is_valid:
-            serializer.save(user=request.user, reply=reply)
+            serializer.save(user=request.user, repost=repost)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
             
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
