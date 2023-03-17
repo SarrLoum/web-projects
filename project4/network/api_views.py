@@ -11,7 +11,7 @@ class UserFeed(APIView):
 
     def get(self, request, format=None):
         user = request.user
-        user_following = user.following.all()
+        user_following = user.followings.all()
 
         following = [following.following for following in user_following]
 
@@ -22,22 +22,34 @@ class UserFeed(APIView):
 class Follow(APIView):
 
     def get(self, request, Format=None):
-        user = request.use
-
+        user = request.user
+        # Get the user's follofowing ond follower
         following = get_following(user)
         follower = get_follower(user)
-
+        # Serialise the follow instance
         follow = follong + follower
         serializer = FollowSerializer(follow, many=True)
 
         return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = FollowSerializer(data=request.data)
+
+        if serializer.is_valid():
+            sarializer.save(follower=request.user)
+            
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+
+
+
 
 class Post(APIView):
 
     def post(self, request, format=None):
         serializer = PostSerializer(data=request.data)
 
-        if serializer.is_valid:
+        if serializer.is_valid():
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
             
@@ -51,7 +63,7 @@ class Reply(APIView):
     
         serializer = ReplySerializer(data=request.data)
 
-        if serializer.is_valid:
+        if serializer.is_valid():
             serializer.save(user=request.user, reply=reply)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
             
@@ -65,7 +77,7 @@ class Quote(APIView):
     
         serializer = QuoteSerializer(data=request.data)
 
-        if serializer.is_valid:
+        if serializer.is_valid():
             serializer.save(user=request.user, quote=quote)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
             
@@ -79,7 +91,7 @@ class Repost(APIView):
     
         serializer = RepostSerializer(data=request.data)
 
-        if serializer.is_valid:
+        if serializer.is_valid():
             serializer.save(user=request.user, repost=repost)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
             
