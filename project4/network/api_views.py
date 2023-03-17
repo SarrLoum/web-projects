@@ -5,7 +5,7 @@ from rest_framework import status
 
 from .models import *
 from .serializers import *
-from .utils import get_threads
+from .utils import get_threads, get_following, get_follower
 
 class UserFeed(APIView):
 
@@ -19,9 +19,22 @@ class UserFeed(APIView):
         return Response(data)
 
 
+class Follow(APIView):
+
+    def get(self, request, Format=None):
+        user = request.use
+
+        following = get_following(user)
+        follower = get_follower(user)
+
+        follow = follong + follower
+        serializer = FollowSerializer(follow, many=True)
+
+        return Response(serializer.data)
+
 class Post(APIView):
+
     def post(self, request, format=None):
-    
         serializer = PostSerializer(data=request.data)
 
         if serializer.is_valid:

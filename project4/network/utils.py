@@ -2,6 +2,19 @@ from .models import *
 from .serializers import *
 
 
+def get_following(user):
+    user_following = user.followings.all()
+    followings = [following.following for following in user_following]
+
+    return followings
+
+def get_follower(user):
+    user_follower = user.followers.all()
+    followers = [follower.follower for follower in user_follower]
+
+    return followers
+
+
 def get_threads(user, following):
     # Get all posts, reposts, replies and quotes of  user and user's following
     posts = list(Post.objects.filter(Q(user=user) | Q(user__in=following)))
