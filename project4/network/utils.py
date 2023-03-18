@@ -2,16 +2,15 @@ from .models import *
 from .serializers import *
 
 
+
 def get_following(user):
     user_following = user.followings.all()
     followings = [following.following for following in user_following]
-
     return followings
 
 def get_follower(user):
     user_follower = user.followers.all()
     followers = [follower.follower for follower in user_follower]
-
     return followers
 
 
@@ -34,7 +33,7 @@ def get_threads(user, following):
     return data
 
 
-def get_instance_type(request):
+def get_obj_type(request):
     post = request.data.get('post')
     reply = request.data.get('reply')
     quote = request.data.get('quote')
@@ -47,58 +46,28 @@ def get_instance_type(request):
         return 'quote'
 
 
+def get_object(self, pk, type):
+    # Return the correct object if it exist else raie Http404 error
+    try:
+
+        if type == 'post':
+            return Post.objects.get(pk=pk)
+        elif type == 'reply':
+            return Reply.objects.get(pk=pk)
+        elif type == 'quote':
+            return Quote.objects.get(pk=pk)
+        else: 
+            raise Http404
+
+    except (Post.DoesNotExist, Reply.DoesNotExist, Quote.DoesNotExist):
+        raise Http404
 
 
-# Same thing than the function above put too much line of code 
-'''
-def get_user_thread(user_id):
+def obj_serializer(request, obj, type):
+    if type == 'post':
+        return PostSerializer(obj, data=request.data)
+    elif type == 'reply':
+        return ReplySerializer(obj, data=request.data)
 
-    user = User.objects.get(pk=user_id)
-
-    data = [
-        {
-            'user': user.id,
-            'posts': list(user.posts.all().order_by('-timestamp')),
-            'replies': list(user.replys.all().order_by('-timestamp')),
-            'quotes': list(user.quotes.all().order_by('-timestamp')),
-            'reposts': list(user.reposts.all().order_by('-timestamp')),
-        }
-    ]
-    return data
-'''
-
-
-'''
-def get_following_thread(user_id):
-    user = User.objects.get(pk=user_id)
-
-    user_following = user.followings.order_by('?')[:15]
-    followings = [following.following for following in user_following]
-
-    threads = []
-    for user in followings:
-        threads.append(
-            {
-                'user': user.id,
-                'posts': list(user.posts.all().order_by('-timestamp')),
-                'replies': list(user.replys.all().order_by('-timestamp')),
-                'quotes': list(user.quotes.all().order_by('-timestamp')),
-                'reposts': list(user.reposts.all().order_by('-timestamp')),
-            }
-        )
-
-    thread = sorted(threads, key=lambda x: x['user'])
-    return thread
-'''
-
-
-'''
-def get_threads(user_id):
-    user_thread = get_user_thread(user_id) 
-    following_thread = get_following_thread(user_id)
-    
-    threads = user_thread + following_thread
-    return threads
-
-thread2 = Post.objects.filter(Q(user=user) | Q(user__in=followings))
-'''
+    elif type == 'quote':
+        return QuoteSerializer(obj, data=request.data)

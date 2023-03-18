@@ -10,8 +10,7 @@ from django.http import Http404
 
 from .models import *
 from .serializers import *
-from .utils import get_following, get_follower, get_threads, get_instance_type
-
+from .utils import *
 class UserFeed(APIView):
 
     def get(self, request, format=None):
@@ -25,27 +24,24 @@ class UserFeed(APIView):
 
 
 class Thread(APIView):
-
-    def get_object(self, pk):
-        try:
-            return Post.objects.get(pk=pk)
-        except Post.DoesNotExist:
-            raise Http404
     
-
     def get(self, request, pk, format=None):
-        post = self.get_object(pk)
+        type = request.query_params.get('type')
+        obj = get_object(pk, type)
 
         data = {
-            'post': post,
-            'replies': post.replies.all()
-            'quotes': post.quotes.all()
+            'object': obj,
+            'replies': obj.replies.all() ,
+            'quotes': obj.quotes.all(),
         }
         return data
     
+
     def put(self, request, pk, format=None):
-        post = self.get_object(pk)
-        serializer = PostSerializer(post, data=request.data)
+        type = request.query_params.get('type')
+        obj = get_object(pk, type)
+
+        serializer = obj_serializer(request, obj, type)
 
         if serializer.is_valid():
             serializer.save()
@@ -54,8 +50,9 @@ class Thread(APIView):
 
 
     def delete(self, request, pk, format=None):
-        post = self.get_object(pk)
-        post.delete()
+        type = request.query_params.get('type')
+        obj = get_object(pk, type)
+        obj.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
@@ -109,12 +106,12 @@ class Reply(APIView):
     def post(self, request, format=None):
         #dynamically set the name of the argument and the instance that is 
         # passed to the save() method of the Serializer
-        instance_type = get_instance_type(request)
-        parent_instance = request.data.get(instance_type)
+        type = get_obj_type(request)
+        parent_obj = request.data.get(type)
         
         serializer = ReplySerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save(user=request.user, **{instance_type=parent_instance})
+            serializer.save(user=request.user, **{type: parent_obj})
             return Response(serializer.data, status=status.HTTP_201_CREATED)
             
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
@@ -122,13 +119,13 @@ class Reply(APIView):
 
 class Quote(APIView):
     def post(self, request, format=None):
-        instance_type = get_instance_type(request)
-        parent_instance = request.data.get(instance_type)
+        type = get_obj_type(request)
+        parent_obj = request.data.get(type)
     
         serializer = QuoteSerializer(data=request.data)
 
         if serializer.is_valid():
-            serializer.save(user=request.user, **{instance_type=parent_instance})
+            serializer.save(user=request.user, **{type: parent_obj})
             return Response(serializer.data, status=status.HTTP_201_CREATED)
             
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
@@ -137,13 +134,13 @@ class Quote(APIView):
 class Repost(APIView):
     def post(self, request, format=None):
         
-        instance_type = get_instance_type(request)
-        parent_instance = request.data.get(instance_type)
+        type = get_obj_type(request)
+        parent_obj = request.data.get(type)
     
         serializer = RepostSerializer(data=request.data)
 
         if serializer.is_valid():
-            serializer.save(user=request.user, **{instance_type=parent_instance})
+            serializer.save(user=request.user, **{type: parent_obj})
             return Response(serializer.data, status=status.HTTP_201_CREATED)
             
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
