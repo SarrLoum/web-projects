@@ -21,6 +21,42 @@ class UserFeed(APIView):
         return Response(data)
 
 
+class Thread(APIView):
+
+    def get_object(self, pk):
+        try:
+            return Post.objects.get(pk=pk)
+        except Post.DoesNotExist:
+            raise Http404
+    
+
+    def get(self, request, pk, format=None):
+        post = self.get_object(pk)
+
+        data = {
+            'post': post,
+            'replies': post.replies.all()
+            'quotes': post.quotes.all()
+        }
+        return data
+    
+    def put(self, request, pk, format=None):
+        post = self.get_object(pk)
+        serializer = PostSerializer(post, data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+    def delete(self, request, pk, format=None):
+        post = self.get_object(pk)
+        post.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
 class Follow(APIView):
 
     def get(self, request, Format=None):
@@ -34,6 +70,7 @@ class Follow(APIView):
 
         return Response(serializer.data)
 
+
     def post(self, request, format=None):
         serializer = FollowSerializer(data=request.data)
 
@@ -42,6 +79,7 @@ class Follow(APIView):
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+
 
     def delete(self, request, format=None):
         # get The follow object where follower = request.user and following = request.data.get('following')
@@ -64,13 +102,14 @@ class Post(APIView):
 
 
 class Reply(APIView):
+
     def post(self, request, format=None):
-        #dynamically set the name of the argument that is passed to the save() method of the Serializer
+        #dynamically set the name of the argument and the instance that is 
+        # passed to the save() method of the Serializer
         instance_type = get_instance_type(request)
         parent_instance = request.data.get(instance_type)
-    
+        
         serializer = ReplySerializer(data=request.data)
-
         if serializer.is_valid():
             serializer.save(user=request.user, **{instance_type=parent_instance})
             return Response(serializer.data, status=status.HTTP_201_CREATED)

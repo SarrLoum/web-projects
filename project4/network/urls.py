@@ -16,7 +16,13 @@ urlpatterns = [
 
 
     #API Views
-    path("homepage/", UserFeed.as_view(), name="feed"),
+    path('home/', UserFeed.as_view(), name="feed"),
+    path('<str:username>/Follow', Follow.as_view(), name="follow"),
+    path('<str:username>/status/<int:thread_id>/', Follow.as_view(), name="follow"),
+    path('compose/cube/', Post.as_view(), name="post"),
+    path('compose/cube/', Reply.as_view(), name="reply"),
+    path('compose/cube/', Quote.as_view(), name="quote"),
+    path('compose/cube/', Repost.as_view(), name="repost"),
     
 ]
 
