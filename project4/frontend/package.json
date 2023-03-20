@@ -1,0 +1,33 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "Front-end of my network web app",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "ajv": "^8.12.0",
+    "typescript": "^5.0.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SarrLoum/web-projects.git"
+  },
+  "keywords": [
+    "network",
+    "networking",
+    "social",
+    "media",
+    "twitter",
+    "twitter",
+    "clone"
+  ],
+  "author": "Sarr Loum",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/SarrLoum/web-projects/issues"
+  },
+  "homepage": "https://github.com/SarrLoum/web-projects#readme"
+}
