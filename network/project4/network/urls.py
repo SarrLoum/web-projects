@@ -7,7 +7,6 @@ from . import views
 from .api_views import *
 
 
-
 urlpatterns = [
     path("", views.index, name="index"),
     path("login", views.login_view, name="login"),
@@ -16,7 +15,7 @@ urlpatterns = [
 
 
     #API Views
-    path('home/', UserFeed.as_view(), name="feed"),
+    path('feed/', UserFeed.as_view(), name="feed"),
     path('compose/cube/', Post.as_view(), name="post"),
     path('compose/cube/', Reply.as_view(), name="reply"),
     path('compose/cube/', Quote.as_view(), name="quote"),

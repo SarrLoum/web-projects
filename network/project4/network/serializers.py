@@ -4,9 +4,7 @@ from .models import *
 
 
 class UserSerializer(serializers.ModelSerializer):
-    following = serializers.StringRelatedField(many=True)
-    followers = serializers.StringRelatedField(many=True)
-    
+
     class Meta:
         model = User
         fields = ['id', 'username', 'email', 'birthdate', 'password']

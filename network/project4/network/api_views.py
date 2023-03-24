@@ -11,13 +11,14 @@ from django.http import Http404
 from .models import *
 from .serializers import *
 from .utils import *
+
+
+
 class UserFeed(APIView):
 
     def get(self, request, format=None):
         user = request.user
-        user_following = user.followings.all()
-
-        following = [following.following for following in user_following]
+        following = get_following(user)
 
         data = get_threads(user, following)
         return Response(data)
