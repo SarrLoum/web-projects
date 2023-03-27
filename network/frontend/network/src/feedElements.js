@@ -17,9 +17,11 @@ export const Status = () => {
 
 export const Fleet = () => {
 	return (
-		<div className='fleet'>
-			<Avatar avatar={userProfile.avatar} />
-		</div>
+		<>
+			<div className='fleet'>
+				<Avatar avatar={userProfile.avatar} />
+			</div>
+		</>
 	);
 };
 
@@ -34,26 +36,43 @@ export const Repost = ({ user, post, quote, reply }) => {
 				<RepostIcon />
 				<span></span>
 			</div>
-			{post != null && <BasePost />}
+			{post != null && <Post />}
 			{quote != null && <Quote />}
 			{reply != null && <Reply />}
 		</div>
 	);
 };
 
-export const Reply = () => {
+export const Reply = ({ reply, parrent_reply, quote, post }) => {
 	return (
 		<div className='reply'>
 			<BasePost />
+			<MetricButtons />
 		</div>
 	);
 };
 
-export const Quote = (post, quote, reply) => {
+export const Quote = (post, quote, parent_quote, reply) => {
 	return (
 		<div className='quote'>
-			<BasePost user={user} userProfile={user.profile} />
-			<div className='post-content'></div>
+			<BasePost
+				user={quote.user}
+				userProfile={quote.user.profile}
+				post={quote}
+			/>
+			{post != null && <div className='post-content'></div>}
+			{parent_quote != null && <div className='post-content'></div>}
+			{reply != null && <div className='post-content'></div>}
+			<MetricButtons />
+		</div>
+	);
+};
+
+export const Post = ({ post }) => {
+	return (
+		<div className='post'>
+			<BasePost post={post} />
+			<MetricButtons />
 		</div>
 	);
 };
@@ -67,7 +86,6 @@ export const BasePost = ({ user, userProfile, post }) => {
 				<p>{post.text}</p>
 				{post.media != null && <div className='media-area'>{post.media}</div>}
 			</div>
-            <MetricButtons />
 		</>
 	);
 };
