@@ -1,5 +1,10 @@
-{% extends "network/layout.html" %}
+{% extends "network/layout.html" %} {% load static %} {% block body %}
+<div class="side-bar">
+	<!-- Compose New email button -->
+	<div>
+		<button class="btn btn-primary" id="post-test">Post Test</button>
+	</div>
+</div>
 
-{% block body %}
-    TODO
+<div id="root"></div>
 {% endblock %}
