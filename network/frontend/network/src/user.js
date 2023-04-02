@@ -10,7 +10,7 @@ export const User = ({ user, userProfile }) => {
 };
 
 export const Avatar = ({ userProfile }) => (
-	<img src={userProfile.avatar} alt='User avatar' srcset='' />
+	<img src={userProfile.avatar} alt='User avatar' />
 );
 
 export const UserName1 = ({ user, userProfile }) => {
