@@ -1,14 +1,14 @@
 import { Nav, TweetButton, UserLog } from "./sidebarElements";
 import {
-	Notification,
-	Bookmark,
 	Cube,
-	HashExplore,
 	Home,
-	List,
-	More,
+	HashExplore,
+	Notification,
 	PaperPlane,
+	Bookmark,
+	List,
 	Person,
+	More,
 	More2,
 } from "./myIcons";
 import "./sidebar.css";
@@ -16,18 +16,18 @@ import "./sidebar.css";
 const Sidebar = () => {
 	const user = {
 		id: 1,
-		username: "Sarr Loum",
+		username: "SarrLoum",
 		email: "sarrloum10@gmail.com",
 	};
 
 	const userProfile = {
 		user: 1,
-		avatar: "Picture(Sarr Loum)",
-		pseudo_name: "sarrloum10@gmail.com",
+		avatarUrl: "./Braided.jpg",
+		pseudo_name: "SpaceWalker",
 	};
 
 	return (
-		<div className='sidebar'>
+		<div className='sidebar-container'>
 			<Cube />
 			<div className='nav-container'>
 				<Nav Icon={Home} text='Home' />

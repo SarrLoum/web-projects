@@ -2,7 +2,46 @@
 	height: 3em;
 	width: 13em;
 	border-radius: 5.88em;
+	margin-left: 1em;
+	margin-bottom: 1.94em;
 
 	background: #35a0ed;
 	color: #fff;
+	text-align: center;
+}
+
+.tweet-btn > p {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 700;
+	font-size: 1rem;
+	text-align: center;
+}
+
+.user-log {
+	width: 14.06em;
+	height: 3.19em;
+	margin-left: 2.94em;
+	border-radius: 55.88em;
+	background: transparent;
+}
+
+.user-log:hover {
+	width: 14.06em;
+	height: 3.19em;
+	border-radius: 55.88em;
+
+	cursor: pointer;
+	background: #aaaaaa;
+}
+
+.user-log > .avatar-img {
+	height: 2.38em;
+	width: 2.38em;
+	border-radius: 58.75em;
+}
+
+.nav-option {
+	margin-top: 0.75em;
+	margin-bottom: 0.75em;
 }

@@ -1,0 +1,15 @@
+.fleet {
+	height: 3.75em;
+	width: 3.75em;
+	border: 0.13em;
+	border-radius: 5.88;
+
+	background: none;
+}
+
+.fleet > .avatar-img {
+	height: 3.31em;
+	width: 3.31em;
+	padding: 0.2em;
+	border-radius: 5.88;
+}

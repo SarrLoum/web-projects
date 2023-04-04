@@ -1,17 +1,20 @@
 import { Status, Fleet, Post, Quote, Repost } from "./feedElements";
-import './feed.css'
+import "./feed.css";
 
-const feed = () => {
+const Feed = () => {
 	return (
 		<div>
-			<h4>Home</h4>
+			<div className='home-container'>
+				<h4>Home</h4>
+			</div>
 			<div className='feed-prefenrence'>
 				<button className='for-you'>For you</button>
 				<button className='following'>Following</button>
 			</div>
 			<Status />
 			<Fleet />
-			<Feed />
 		</div>
 	);
 };
+
+export default Feed;

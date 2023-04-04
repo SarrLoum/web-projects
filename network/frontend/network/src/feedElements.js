@@ -1,8 +1,8 @@
 import { Avatar, UserName2 } from "./user";
-import "./feddElements.css";
+import "./feedElements.css";
 
 
-export const Status = () => {
+export const Status = ({userProfile}) => {
 	return (
 		<div>
 			<Avatar avatar={userProfile.avatar} />
@@ -16,7 +16,7 @@ export const Status = () => {
 	);
 };
 
-export const Fleet = () => {
+export const Fleet = ({userProfile}) => {
 	return (
 		<>
 			<div className='fleet'>
@@ -34,7 +34,7 @@ export const Repost = ({ user, post, quote, reply }) => {
 	return (
 		<div className='repost'>
 			<div>
-				<RepostIcon />
+				
 				<span></span>
 			</div>
 			{post != null && <Post />}
@@ -94,11 +94,11 @@ export const BasePost = ({ user, userProfile, post }) => {
 export const MetricButtons = ({ quote, post, reply }) => {
 	return (
 		<div className='metric-btn'>
-			<Comment />
-			<Repost />
-			<Like />
-			<Stats />
-			<Shares />
+			Comment 
+			Repost 
+			Like
+			Stats 
+			Shares
 		</div>
 	);
 };
