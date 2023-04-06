@@ -1,9 +1,26 @@
+.nav-option {
+	display: flex;
+	align-items: center;
+
+	margin-top: 0.75em;
+	margin-bottom: 0.75em;
+}
+
+.nav-option > .text {
+	display: inline-block;
+	vertical-align: middle;
+}
+
 .tweet-btn {
 	height: 3em;
 	width: 13em;
 	border-radius: 5.88em;
 	margin-left: 1em;
+	margin-top: 1em;
 	margin-bottom: 1.94em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 
 	background: #35a0ed;
 	color: #fff;
@@ -19,11 +36,24 @@
 }
 
 .user-log {
+	display: flex;
+	align-items: center;
+
 	width: 14.06em;
 	height: 3.19em;
-	margin-left: 2.94em;
+	margin-left: 0.94em;
 	border-radius: 55.88em;
 	background: transparent;
+}
+
+.user-log > img,
+.user-log > .User {
+	vertical-align: middle;
+}
+
+.user-log > .User {
+	margin-left: 0.71em;
+	margin-right: 2.5em;
 }
 
 .user-log:hover {
@@ -32,16 +62,12 @@
 	border-radius: 55.88em;
 
 	cursor: pointer;
-	background: #aaaaaa;
+	background: #f8f7f7;
 }
 
-.user-log > .avatar-img {
-	height: 2.38em;
-	width: 2.38em;
+.user-log > .User > .avatar-container .avatar-img {
+	height: 2.5em;
+	width: 2.5em;
 	border-radius: 58.75em;
-}
-
-.nav-option {
-	margin-top: 0.75em;
-	margin-bottom: 0.75em;
+	object-fit: cover;
 }

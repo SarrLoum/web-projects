@@ -11,6 +11,7 @@ import {
 	More,
 	More2,
 } from "./myIcons";
+import Braided from "./icons/Braided.JPG";
 import "./sidebar.css";
 
 const Sidebar = () => {
@@ -22,7 +23,7 @@ const Sidebar = () => {
 
 	const userProfile = {
 		user: 1,
-		avatarUrl: "./Braided.jpg",
+		avatarUrl: Braided,
 		pseudo_name: "SpaceWalker",
 	};
 

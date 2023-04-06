@@ -4,6 +4,8 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from django.forms import MultiValueField, FileField, ClearableFileInput
+
 
 # Abstractr User, Follow and Profile models
 class User(AbstractUser):
@@ -34,14 +36,22 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance, pseudo_name=instance.username)
 
-
-
-
+        
 # Abstract Base Post Model that allow Post, 
 # Reply and Quotes model to inherits its fields
+#Field that take mutiple media type
+class MultipleFileField(MultiValueField):
+    widget = ClearableFileInput(attrs={'multiple': True})
+
+    def __init__(self, *args, **kwargs):
+        fields = [FileField() for _ in range(4)]  # Change the range to match your desired number of files
+        super().__init__(fields, *args, **kwargs)
+
+    def compress(self, data_list):
+        return data_list
 class BasePost(models.Model):
     text = models.CharField(max_length=280)
-    media = models.FileField(blank=True, null=True)
+    media = MultipleFileField(blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="%(class)ss")
 

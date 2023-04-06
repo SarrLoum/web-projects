@@ -2,7 +2,7 @@ import "./user.css";
 
 export const User = ({ user, userProfile }) => {
 	return (
-		<div>
+		<div className="User">
 			<Avatar userProfile={userProfile} />
 			<UserName1 user={user} userProfile={userProfile} />
 		</div>
@@ -10,7 +10,9 @@ export const User = ({ user, userProfile }) => {
 };
 
 export const Avatar = ({ userProfile }) => (
-	<img className='avatar-img' src={userProfile.avatarUrl} alt='User avatar' />
+	<div className="avatar-container">
+		<img className='avatar-img' src={userProfile.avatarUrl} alt='User avatar' />
+	</div>
 );
 
 export const UserName1 = ({ user, userProfile }) => {

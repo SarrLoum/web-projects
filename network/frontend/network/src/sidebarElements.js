@@ -5,7 +5,7 @@ export const Nav = ({ Icon, text }) => {
 	return (
 		<div className='nav-option'>
 			<Icon />
-			<span>{text}</span>
+			<span className='text'>{text}</span>
 		</div>
 	);
 };

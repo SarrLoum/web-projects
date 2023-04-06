@@ -1,0 +1,8 @@
+.username1 > span {
+	display: block;
+}
+
+.User {
+	display: flex;
+	gap: 0.75em;
+}

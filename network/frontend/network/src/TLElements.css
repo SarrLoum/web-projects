@@ -1,0 +1,39 @@
+.fleet {
+	height: 3.75em;
+	width: 3.75em;
+	border: 0.13em;
+	border-radius: 5.88em;
+
+	background: none;
+}
+
+.fleet > .avatar-img {
+	height: 3.31em;
+	width: 3.31em;
+	padding: 0.2em;
+	border-radius: 5.88em;
+}
+
+.status-container {
+	display: flex;
+}
+
+.user-status {
+	width: 2.81em;
+	height: 2.81em;
+	margin-top: 0.56em;
+	margin-left: 1.06em;
+	margin-right: 0.87em;
+	border-radius: 6.25em;
+}
+
+.form-container {
+	max-width: 29.31em;
+}
+
+.form-container > #text-input {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 1.14em;
+}

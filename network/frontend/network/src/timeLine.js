@@ -1,13 +1,13 @@
-import { Status, Fleet, Post, Quote, Repost } from "./feedElements";
+import { Status, Fleet, Post, Quote, Repost } from "./TLElements";
 import "./feed.css";
 
-const Feed = () => {
+const timeLine = () => {
 	return (
-		<div>
+		<div className='TL-container'>
 			<div className='home-container'>
 				<h4>Home</h4>
 			</div>
-			<div className='feed-prefenrence'>
+			<div className='TL-prefenrence'>
 				<button className='for-you'>For you</button>
 				<button className='following'>Following</button>
 			</div>

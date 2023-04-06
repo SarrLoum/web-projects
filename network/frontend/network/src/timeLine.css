@@ -1,0 +1,19 @@
+.TL-container {
+	height: 100vh;
+	border-right: 1px solid #d9d9d9;
+}
+
+.home-container {
+	height: 3.63em;
+}
+
+.home-container > h4 {
+	margin: 0.94em 1.25em;
+}
+
+.TL-preference {
+	height: 2.88em;
+}
+
+.for-you {
+}
