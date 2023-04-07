@@ -15,7 +15,7 @@ urlpatterns = [
 
 
     #API Views
-    path('feed/', api_views.UserFeed.as_view(), name="feed"),
+    path('feed/', api_views.UserTL.as_view(), name="time-line"),
     path('compose/cube/', api_views.Post.as_view(), name="post"),
     path('compose/cube/', api_views.Reply.as_view(), name="reply"),
     path('compose/cube/', api_views.Quote.as_view(), name="quote"),
