@@ -1,7 +1,7 @@
 import { Status, Fleet, Post, Quote, Repost } from "./TLElements";
-import "./feed.css";
+import "./timeLine.css";
 
-const timeLine = () => {
+const TimeLine = () => {
 	return (
 		<div className='TL-container'>
 			<div className='home-container'>
@@ -12,9 +12,11 @@ const timeLine = () => {
 				<button className='following'>Following</button>
 			</div>
 			<Status />
-			<Fleet />
+			<div className='fleet container'>
+				<Fleet />
+			</div>
 		</div>
 	);
 };
 
-export default Feed;
+export default TimeLine;

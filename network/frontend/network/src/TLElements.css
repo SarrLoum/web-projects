@@ -16,15 +16,14 @@
 
 .status-container {
 	display: flex;
+	min-height: 7.06em;
 }
 
 .user-status {
 	width: 2.81em;
 	height: 2.81em;
-	margin-top: 0.56em;
-	margin-left: 1.06em;
-	margin-right: 0.87em;
 	border-radius: 6.25em;
+	padding: 1.06em 0.56em auto 0.87em;
 }
 
 .form-container {
@@ -36,4 +35,35 @@
 	font-style: normal;
 	font-weight: 500;
 	font-size: 1.14em;
+}
+
+.selected-files {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+}
+.status-btn {
+	display: flex;
+	justify-content: space-between;
+}
+
+.status-btn > input {
+	width: 4.56em;
+	height: 2em;
+	border-radius: 5.88em;
+
+	background: #4a9cfd;
+	color: #fff;
+
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 700;
+	font-size: 0.82em;
+	line-height: 1em;
+}
+
+.media-inputs {
+	display: flex;
+	justify-content: space-between;
+	gap: 1.2em;
 }
