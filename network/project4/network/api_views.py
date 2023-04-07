@@ -28,7 +28,6 @@ class Register(APIView):
         else:
             return Response({'succes': "Congrats, You've succesfully created your account."}, status=status.HTTP_400_BAD_REQUEST)
 
-
         try:
             # Attempt to create a new instance
             # If it already exists, an IntegrityError will be raised
@@ -37,7 +36,7 @@ class Register(APIView):
             return Response({'error': 'Instance already exists.'}, status=status.HTTP_400_BAD_REQUEST)
 
         token, created = Token.objects.get_or_create(user=user)
-        return Response({'success': 'Instance created successfully.'}, status=status.HTTP_201_CREATED)
+        return Response({'token': token.key, 'success': 'Instance created successfully.'}, status=status.HTTP_201_CREATED)
 
 
 class LogIn(APIView):
@@ -45,8 +44,8 @@ class LogIn(APIView):
     def post(self, request):
 
         # Attempt to sign user in
-        username = request.Post["username"]
-        password = request.Post["username"]
+        username = request.data.get["username"]
+        password = request.data.get["username"]
         user = authenticate(request, username=username, password=password)
 
         if user:
@@ -68,6 +67,7 @@ class LogOut(APIView):
 
 
 class UserTL(APIView):
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, format=None):
         user = request.user
@@ -78,7 +78,8 @@ class UserTL(APIView):
 
 
 class Thread(APIView):
-    
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
     def get(self, request, pk, format=None):
         type = request.query_params.get('type')
         obj = get_object(pk, type)
