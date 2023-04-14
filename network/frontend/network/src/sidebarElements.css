@@ -68,6 +68,6 @@
 .user-log > .User > .avatar-container .avatar-img {
 	height: 2.5em;
 	width: 2.5em;
-	border-radius: 58.75em;
+	border-radius: 6.25em;
 	object-fit: cover;
 }

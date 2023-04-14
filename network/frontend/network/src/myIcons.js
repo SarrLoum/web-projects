@@ -1,13 +1,21 @@
-import cube from "./icons/cube.svg";
-import home from "./icons/home.svg";
-import hashExplore from "./icons/hashExplore.svg";
 import bellNotification from "./icons/bellNotification.svg";
-import paperPlane from "./icons/paperPlane.svg";
 import bookmark from "./icons/bookmark.svg";
+import calendar from "./icons/calendar.svg";
+import cube from "./icons/cube.svg";
+import gif from "./icons/gif.svg";
+import hashExplore from "./icons/hashExplore.svg";
+import home from "./icons/home.svg";
 import list from "./icons/list.svg";
-import person from "./icons/person.svg";
+import mapin from "./icons/mapin.svg";
+import mediafile from "./icons/mediafile.svg";
 import more from "./icons/more.svg";
 import more2 from "./icons/more2.svg";
+import paperPlane from "./icons/paperPlane.svg";
+import person from "./icons/person.svg";
+import polls from "./icons/polls.svg";
+import smiley from "./icons/smiley.svg";
+import search from "./icons/search.svg";
+
 import "./myIcons.css";
 
 export const Cube = () => (
@@ -47,3 +55,17 @@ export const More = () => (
 );
 
 export const More2 = () => <img src={more2} alt='More icon'></img>;
+
+export const Image = () => <img src={mediafile} alt='Image' />;
+
+export const Gif = () => <img src={gif} alt='Gif' />;
+
+export const Polls = () => <img src={polls} alt='Polls' />;
+
+export const Smiley = () => <img src={smiley} alt='Smiley' />;
+
+export const Calendar = () => <img src={calendar} alt='Calendar' />;
+
+export const MapIn = () => <img src={mapin} alt='Map in user' />;
+
+export const Search = () => <img src={search} alt='search' />;

@@ -1,7 +1,7 @@
 import React from "react";
 import Sidebar from "./sidebar";
 import TimeLine from "./timeLine";
-import Suggestions from "./suggestion.js";
+import Suggestions from "./suggest";
 import "./App.css";
 
 function App() {
@@ -9,6 +9,7 @@ function App() {
 		<div className='App-container'>
 			<Sidebar />
 			<TimeLine />
+			<Suggestions />
 		</div>
 	);
 }

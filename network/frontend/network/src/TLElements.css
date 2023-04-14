@@ -1,36 +1,30 @@
-.fleet {
-	height: 3.75em;
-	width: 3.75em;
-	border: 0.13em;
-	border-radius: 5.88em;
-
-	background: none;
-}
-
-.fleet > .avatar-img {
-	height: 3.31em;
-	width: 3.31em;
-	padding: 0.2em;
-	border-radius: 5.88em;
-}
-
 .status-container {
 	display: flex;
 	min-height: 7.06em;
+	border-bottom: 1px solid #d9d9d9;
 }
 
 .user-status {
 	width: 2.81em;
 	height: 2.81em;
-	border-radius: 6.25em;
-	padding: 1.06em 0.56em auto 0.87em;
+	border-radius: 50%;
+	padding: 0.56em 1.06em 0 0.87em;
+}
+
+.user-status > .avatar-container .avatar-img {
+	height: 2.81em;
+	width: 2.81em;
+	object-fit: cover;
+
+	border-radius: 50%;
 }
 
 .form-container {
 	max-width: 29.31em;
+	flex-grow: 1;
 }
 
-.form-container > #text-input {
+.form > #text-input {
 	font-family: "Inter";
 	font-style: normal;
 	font-weight: 500;
@@ -42,6 +36,7 @@
 	grid-template-columns: 1fr 1fr;
 	grid-template-rows: 1fr 1fr;
 }
+
 .status-btn {
 	display: flex;
 	justify-content: space-between;
@@ -60,10 +55,4 @@
 	font-weight: 700;
 	font-size: 0.82em;
 	line-height: 1em;
-}
-
-.media-inputs {
-	display: flex;
-	justify-content: space-between;
-	gap: 1.2em;
 }
