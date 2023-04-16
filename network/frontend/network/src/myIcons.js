@@ -1,18 +1,25 @@
 import bellNotification from "./icons/bellNotification.svg";
 import bookmark from "./icons/bookmark.svg";
+import backword from "./icons/backword.svg";
+
 import calendar from "./icons/calendar.svg";
+import close from "./icons/close.svg";
 import cube from "./icons/cube.svg";
 import gif from "./icons/gif.svg";
+
 import hashExplore from "./icons/hashExplore.svg";
 import home from "./icons/home.svg";
+
 import list from "./icons/list.svg";
 import mapin from "./icons/mapin.svg";
 import mediafile from "./icons/mediafile.svg";
 import more from "./icons/more.svg";
 import more2 from "./icons/more2.svg";
+
 import paperPlane from "./icons/paperPlane.svg";
 import person from "./icons/person.svg";
 import polls from "./icons/polls.svg";
+
 import smiley from "./icons/smiley.svg";
 import search from "./icons/search.svg";
 
@@ -69,3 +76,15 @@ export const Calendar = () => <img src={calendar} alt='Calendar' />;
 export const MapIn = () => <img src={mapin} alt='Map in user' />;
 
 export const Search = () => <img src={search} alt='search' />;
+
+export const Close = ({ closeModal }) => (
+	<div className='close-btn'>
+		<img onClick={closeModal} src={close} alt='Close button' />
+	</div>
+);
+
+export const Backword = ({ goToPreview }) => (
+	<div className='close-btn'>
+		<img onClick={goToPreview} src={backword} alt='Close button' />
+	</div>
+);

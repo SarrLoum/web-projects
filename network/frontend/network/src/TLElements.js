@@ -1,7 +1,6 @@
 import { Avatar, UserName2 } from "./user";
 import { Reply, Repost, Quote, Post } from "./posType";
 import { MediaButtons } from "./myButtons";
-import { TextInput } from "./modals";
 
 import "./TLElements.css";
 
@@ -35,4 +34,28 @@ export const Fleet = ({ userProfile }) => {
 
 export const Feed = () => {
 	return <div></div>;
+};
+
+export const TextInput = () => {
+	const [value, setValue] = useState("");
+	const [height, setHeight] = useState("auto");
+
+	function handleInputChange(event) {
+		setValue(event.target.value);
+		setHeight(event.target.scrollHeight + "px");
+	}
+	return (
+		<>
+			<textarea
+				type='textarea'
+				name='text'
+				id='text-input'
+				placeholder="What's hapenning?"
+				maxLength='300'
+				value={value}
+				onChange={handleInputChange}
+				style={{ height }}
+			></textarea>
+		</>
+	);
 };

@@ -1,4 +1,5 @@
 import { SearchBar, TrendSuggest, UserSuggest } from "./suggestElements";
+import { SignupForm } from "./modalSignUp";
 import Braided from "./icons/Braided.JPG";
 import "./suggest.css";
 
