@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Apple, Backword, Close, Cube, Google } from "./myIcons";
-import "./modalsWidget.css";
+import "./modals.css";
 
 export const LoginForm = ({ isOpen, isClose }) => {
 	const [email, setEmail] = useState("");
@@ -19,20 +19,22 @@ export const LoginForm = ({ isOpen, isClose }) => {
 	}
 
 	return (
-		<div className={`Login-container ${isOpen ? "open-login" : ""}`}>
-			{nextStep ? (
-				<LoginStep2
-					displayPreview={displayPreview}
-					onClose={isClose}
-					userEmail={email}
-				/>
-			) : (
-				<LoginStep1
-					displayNext={displayNext}
-					onClose={isClose}
-					emailOnChange={handleEmail}
-				/>
-			)}
+		<div className={`modal ${isOpen ? "login-modal" : ""}`}>
+			<div className='modal-content'>
+				{nextStep ? (
+					<LoginStep2
+						displayPreview={displayPreview}
+						onClose={isClose}
+						userEmail={email}
+					/>
+				) : (
+					<LoginStep1
+						displayNext={displayNext}
+						onClose={isClose}
+						emailOnChange={handleEmail}
+					/>
+				)}
+			</div>
 		</div>
 	);
 };
@@ -40,11 +42,11 @@ export const LoginForm = ({ isOpen, isClose }) => {
 export const LoginStep1 = ({ displayNext, onClose, emailOnChange }) => {
 	return (
 		<>
-			<div className='login-header'>
+			<div className='modal-header'>
 				<Close closeModal={onClose} />
 				<Cube />
 			</div>
-			<div className='login-type'>
+			<div className='modal-body'>
 				<h1>Connectez-vous à Twitter</h1>
 				<div className='google-login stack-gap'>
 					<Google />
@@ -58,7 +60,7 @@ export const LoginStep1 = ({ displayNext, onClose, emailOnChange }) => {
 					<span>else</span>
 					<br />
 				</div>
-				<div className='email-container'>
+				<div className='login-email'>
 					<input
 						type='email'
 						placeholder='Enter your email here'
@@ -96,12 +98,12 @@ export const LoginStep2 = ({ displayPreview, onClose, userEmail }) => {
 	}
 	return (
 		<>
-			<div className='login-header'>
+			<div className='modal-header'>
 				<Backword goToPreview={displayPreview} />
 			</div>
-			<div>
-				<form className='login-form'>
-					<div className='email-container'>
+			<div className='form-container'>
+				<form>
+					<div className='input-field'>
 						<label htmlFor='email-input'>Email</label>
 						<input
 							name='email'
@@ -110,7 +112,7 @@ export const LoginStep2 = ({ displayPreview, onClose, userEmail }) => {
 							value={userEmail}
 						/>
 					</div>
-					<div className='password-container'>
+					<div className='input-field'>
 						<label htmlFor='password-input'>Password</label>
 						<input
 							name='password'
@@ -119,12 +121,9 @@ export const LoginStep2 = ({ displayPreview, onClose, userEmail }) => {
 							onChange={handlePassword}
 						/>
 					</div>
-					<input
-						className='step-btn'
-						type='submit'
-						value='Se connecter'
-						onSubmit={subitForm}
-					/>
+					<div className='modal-footer'>
+						<input type='submit' value='Se connecter' onSubmit={subitForm} />
+					</div>
 				</form>
 			</div>
 		</>

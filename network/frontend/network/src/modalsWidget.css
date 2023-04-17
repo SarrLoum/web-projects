@@ -1,0 +1,28 @@
+.year-input {
+	width: 6.94em;
+	height: 3.94em;
+	border-radius: 0.19em;
+}
+
+.month-input {
+	width: 12.56em;
+	height: 3.94em;
+	border-radius: 0.19em;
+}
+
+.day-input {
+	width: 5.38em;
+	height: 3.94em;
+	border-radius: 0.19em;
+}
+
+.date-label {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 700;
+	font-size: 0.81rem;
+	line-height: 1rem;
+	/* identical to box height */
+
+	color: #a4a5a6;
+}

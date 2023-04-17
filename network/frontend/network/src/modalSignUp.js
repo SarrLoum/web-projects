@@ -62,8 +62,8 @@ export const SignupForm = ({ isOpen, isClose }) => {
 	}
 
 	return (
-		<div className={`Login-container ${isOpen ? "open-signup" : ""}`}>
-			{renderStep()}
+		<div className={`modal ${isOpen ? "signup-modal" : ""}`}>
+			<div className='modal-content'>{renderStep()}</div>
 		</div>
 	);
 };
@@ -71,11 +71,11 @@ export const SignupForm = ({ isOpen, isClose }) => {
 export const signupStep0 = ({ displayNext }) => {
 	return (
 		<>
-			<div className='login-header'>
+			<div className='modal-header'>
 				<Close closeModal={onClose} />
 				<Cube />
 			</div>
-			<div className='login-type'>
+			<div className='modal-body'>
 				<h1>Connectez-vous à Twitter</h1>
 				<div className='google-login stack-gap'>
 					<Google />
@@ -90,7 +90,7 @@ export const signupStep0 = ({ displayNext }) => {
 					<br />
 				</div>
 				<div onClick={displayNext} className='next-btn stack-gap'>
-					<p>Suivant</p>
+					<p>Créer votre compte</p>
 				</div>
 			</div>
 		</>
@@ -138,12 +138,13 @@ export const signupStep1 = ({
 
 	return (
 		<>
-			<div className='login-header'>
+			<div className='modal-header'>
 				<Close closeModal={onClose} />
 			</div>
 			<div className='form-container'>
-				<form className='login-form'>
-					<div className='username-container'>
+				<h1>Rejoignez nous sur Twitter</h1>
+				<form>
+					<div className='input-field'>
 						<label htmlFor='username-input'>Email</label>
 						<input
 							name='username'
@@ -153,7 +154,7 @@ export const signupStep1 = ({
 						/>
 					</div>
 
-					<div className='email-container'>
+					<div className='input-field'>
 						<label htmlFor='email-input'>Email</label>
 						<input
 							name='email'
@@ -162,18 +163,22 @@ export const signupStep1 = ({
 							onChange={handleUser}
 						/>
 					</div>
-					<div className='birthdate-container'>
-						<Month dateOnChange={handleDate} />
-						<Day dateOnChange={handleDate} />
-						<Year dateOnChange={handleDate} />
+					<div className='bitrhdate-container'>
+						<h5>Date of birth</h5>
+						<p>
+							cette information ne sera pas affichée pubiquement. Confirmez
+							votre âge, même si ce compte est pour une entreprise, un animal de
+							compagnie ou autre chose
+						</p>
+						<div className='date-inputs'>
+							<Month dateOnChange={handleDate} />
+							<Day dateOnChange={handleDate} />
+							<Year dateOnChange={handleDate} />
+						</div>
 					</div>
-
-					<input
-						className='step-btn'
-						type='text'
-						value='Next'
-						onClick={handleClick}
-					/>
+					<div className='modal-footer'>
+						<input type='text' value='Next' onClick={handleClick} />
+					</div>
 				</form>
 			</div>
 		</>
@@ -217,9 +222,9 @@ export const signupStep2 = ({
 			<div className='login-header'>
 				<Backword goToPreview={displayPreview} />
 			</div>
-			<div>
-				<form className='login-form'>
-					<div className='username-container'>
+			<div className='from-container'>
+				<form>
+					<div className='input-field'>
 						<label htmlFor='username-input'>Email</label>
 						<input
 							name='username'
@@ -229,7 +234,7 @@ export const signupStep2 = ({
 						/>
 					</div>
 
-					<div className='email-container'>
+					<div className='input-field'>
 						<label htmlFor='email-input'>Email</label>
 						<input
 							name='email'
@@ -238,7 +243,7 @@ export const signupStep2 = ({
 							value={userEmail}
 						/>
 					</div>
-					<div className='birthdate-container'>
+					<div className='input-field'>
 						<label htmlFor='birthdate-input'>Email</label>
 						<input
 							name='birthdate'
@@ -248,7 +253,7 @@ export const signupStep2 = ({
 						/>
 					</div>
 
-					<div className='password-container'>
+					<div className='input-field'>
 						<label htmlFor='password-input'>Password</label>
 						<input
 							name='password'
@@ -257,7 +262,7 @@ export const signupStep2 = ({
 							onChange={handlePassword}
 						/>
 					</div>
-					<div className='confirmation-container'>
+					<div className='input-field'>
 						<label htmlFor='confirmation-input'>Confirm Password</label>
 						<input
 							name='confirmation'
@@ -266,12 +271,9 @@ export const signupStep2 = ({
 							onChange={handlePassword}
 						/>
 					</div>
-					<input
-						className='step-btn'
-						type='submit'
-						value='Se connecter'
-						onSubmit={submitForm}
-					/>
+					<div className='modal-footer'>
+						<input type='submit' value='Se connecter' onSubmit={submitForm} />
+					</div>
 				</form>
 			</div>
 		</>

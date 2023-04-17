@@ -20,6 +20,7 @@ function App() {
 			<Sidebar />
 			<TimeLine />
 			<Suggestions />
+
 			<div className='bottom-signal'>
 				<div className='invite-signal'>
 					<h4>Don't miss on what's hapenning.</h4>

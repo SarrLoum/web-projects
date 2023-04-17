@@ -3,3 +3,70 @@
 	display: grid;
 	grid-template-columns: 2.5fr 6fr 3.5fr;
 }
+
+.bottom-signal {
+	display: flex;
+	position: fixed;
+
+	width: 100vw;
+	height: 4.5em;
+	bottom: 0;
+}
+
+.invite-signal > h4 {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 700;
+	font-size: 1.44em;
+	line-height: 1.75em;
+	/* identical to box height */
+
+	color: #ffffff;
+}
+
+.invite-signal > p {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 0.94em;
+	line-height: 1.125em;
+
+	color: #ffffff;
+}
+
+.auth-buttons {
+	display: flex;
+	justify-content: space-between;
+	right: 4.56em;
+}
+
+.Sign-in {
+	width: 6.38em;
+	height: 2.25em;
+	margin-top: 1.125em;
+	border-radius: 6.25em;
+
+	background: #c8e2f3;
+	color: #353636;
+}
+
+.Sign-up {
+	width: 6.38em;
+	height: 2.25em;
+	margin-top: 1.125em;
+	border-radius: 6.25em;
+
+	border: 1px solid #fff;
+	background: transparent;
+	color: #fff;
+}
+
+.Sign-in > span,
+.Sign-up > span {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 17px;
+	/* identical to box height */
+}

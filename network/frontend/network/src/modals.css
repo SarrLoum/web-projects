@@ -1,0 +1,222 @@
+.modal {
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+.login-modal {
+	display: block;
+}
+.signup-modal {
+	display: block;
+}
+
+.modal-content {
+	position: relative;
+	width: 37.5em;
+	height: 35.19em;
+	margin: auto;
+	padding: 0;
+	border-radius: 0.94em;
+	background: #fff;
+}
+
+.modal-header {
+	display: flex;
+	justify-content: space-between;
+	width: 18.75em;
+	margin: 0.625em 0.94em;
+}
+
+.modal-body {
+	width: 18.63em;
+	margin-top: 2.187em;
+}
+
+.modal-body > h1 {
+	margin-bottom: 1.875em;
+
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 600;
+	font-size: 1.875rem;
+	line-height: 2.25rem;
+
+	color: #202021;
+}
+
+.google-login,
+.apple-login {
+	display: flex;
+	width: 18.63em;
+	height: 2.44em;
+	border-radius: 6.25em;
+}
+
+.stack-gap {
+	margin-bottom: 1.56em;
+}
+
+.else-break {
+	margin-top: 0.875em;
+	margin-bottom: 0.875em;
+
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 1rem;
+	line-height: 1.24rem;
+
+	color: #202021;
+}
+
+.login-email {
+	width: 18.63em;
+	height: 3.5em;
+	border-radius: 0.188em;
+
+	box-sizing: border-box;
+	border: 1px solid #d9d9d9;
+}
+
+.login-email > input {
+	width: 18.63em;
+	height: 3.5em;
+	border-radius: 0.188em;
+
+	box-sizing: border-box;
+	border: none;
+
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 1.06rem;
+	line-height: 1.25rem;
+	/* identical to box height */
+
+	color: #a9abad;
+}
+
+.next-btn,
+.forgotten-password {
+	width: 18.63em;
+	height: 2.25em;
+	border-radius: 6.25em;
+
+	font-family: "Inter";
+	font-style: normal;
+}
+.next-btn > p {
+	background: #3f4347;
+
+	font-weight: 700;
+	font-size: 1rem;
+	line-height: 1.19rem;
+
+	color: #ffffff;
+}
+.forgotten-password > p {
+	border: 1px solid #d9d9d9;
+
+	font-weight: 500;
+	font-size: 0.94rem;
+	line-height: 1.13rem;
+
+	color: #3f4347;
+}
+
+.form-container {
+	margin: 2.81em 5.06em;
+}
+.form-container > h1 {
+	margin-bottom: 1.94em;
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 600;
+	font-size: 1.88rem;
+	line-height: 2.25rem;
+
+	color: #3f4347;
+}
+
+.input-field {
+	width: 26.38em;
+	height: 3.63em;
+	margin-bottom: 1.56em;
+
+	box-sizing: border-box;
+	border: 1px solid #d9d9d9;
+	border-radius: 0.19em;
+}
+.input-field > label {
+	margin-left: 0.625em;
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 0.81rem;
+	line-height: 1rem;
+
+	color: #a9abad;
+}
+.input-field > input {
+	margin-left: 0.625em;
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 1.06rem;
+	line-height: 1.25rem;
+
+	color: #a9abad;
+}
+
+.bitrhdate-container {
+	width: 28.36em;
+	height: 9.63em;
+}
+.bitrhdate-container > h5 {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 700;
+	font-size: 1rem;
+	line-height: 1.24rem;
+
+	color: #3f4347;
+}
+
+.date-inputs {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 0.38em;
+	margin-bottom: 1.56em;
+}
+
+.modal-footer {
+	position: fixed;
+	width: 37.5em;
+	height: 6.25em;
+	margin-bottom: 0;
+	border-bottom-left-radius: 0.94em;
+	border-bottom-right-radius: 0.94em;
+	background: #fff;
+}
+
+.modal-footer > input {
+	width: 27.44em;
+	height: 3.19em;
+	border-radius: 6.25em;
+
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 700;
+	font-size: 1rem;
+	line-height: 1.24rem;
+
+	color: #ffffff;
+}
