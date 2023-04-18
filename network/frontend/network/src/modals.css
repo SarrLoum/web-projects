@@ -220,3 +220,53 @@
 
 	color: #ffffff;
 }
+
+.options-container {
+	width: 21.75em;
+	height: 20.63em;
+	border-radius: 0.94em;
+}
+.options {
+	width: 18.63em;
+	height: 17.56em;
+	margin: 0.69em 1.56em;
+}
+.options-header > h1 {
+	margin-bottom: 0.625em;
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 700;
+	font-size: 1.25rem;
+	line-height: 1.5rem;
+
+	color: #202021;
+}
+
+.options-header > p {
+	margin-bottom: 1.25em;
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 0.84rem;
+	line-height: 1rem;
+
+	color: #828689;
+}
+
+.option-btn {
+	width: 18.63em;
+	height: 2.44em;
+	margin-bottom: 0.81em;
+
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 0.94rem;
+	line-height: 1.125rem;
+
+	color: #353636;
+}
+
+.options > span {
+	margin-top: 0.44em;
+}

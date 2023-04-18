@@ -279,3 +279,27 @@ export const signupStep2 = ({
 		</>
 	);
 };
+
+export const SignUpOptions = () => {
+	return (
+		<div className='options-container'>
+			<div classname='options'>
+				<div className='options-header'>
+					<h1>Nouveau sur Twitter</h1>
+					<p>Inscrivez-vous pour profiter de votre profil personnalisé!</p>
+				</div>
+				<div className='option-btn google-option'>
+					<Google />
+					<span>Se connecter avec google</span>
+				</div>
+				<div className='option-btn apple-option'>
+					<Apple /> <span>Se Connecter avec Apple</span>
+				</div>
+				<div onClick={DispaySignUpForm} className='option-btn create-option'>
+					<p>Créer votre compte</p>
+				</div>
+				<span>Inscrivez-vous pour profiter de votre profil personnalisé!</span>
+			</div>
+		</div>
+	);
+};
