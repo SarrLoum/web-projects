@@ -1,7 +1,8 @@
 import { SearchBar, TrendSuggest, UserSuggest } from "./suggestElements";
-import { SignupForm } from "./modalSignUp";
+import { SignUpOptions } from "./modalSignUp";
 import Braided from "./icons/Braided.JPG";
 import "./suggest.css";
+import { useEffect, useState } from "react";
 
 const Suggestions = () => {
 	const user = {
@@ -16,11 +17,27 @@ const Suggestions = () => {
 		pseudo_name: "SpaceWalker",
 	};
 
+	const [isAuthentifated, setIsAuthentificated] = useState(false);
+
+	useEffect(() => {
+		const token = localStorage.getItem("token");
+
+		if (token) {
+			setIsAuthentificated(true);
+		}
+	}, []);
+
 	return (
-		<div>
-			<SearchBar />
-			<TrendSuggest />
-			<UserSuggest user={user} userProfile={userProfile} />
+		<div className='suggest-container'>
+			{isAuthentifated ? (
+				<>
+					<SearchBar />
+					<TrendSuggest />
+					<UserSuggest user={user} userProfile={userProfile} />{" "}
+				</>
+			) : (
+				<SignUpOptions />
+			)}
 		</div>
 	);
 };
