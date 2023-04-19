@@ -1,4 +1,5 @@
 .modal {
+	display: none;
 	position: fixed; /* Stay in place */
 	z-index: 1; /* Sit on top */
 	padding-top: 100px; /* Location of the box */
@@ -132,10 +133,10 @@
 	color: #3f4347;
 }
 
-.form-container {
+.f-container {
 	margin: 2.81em 5.06em;
 }
-.form-container > h1 {
+.f-container > h1 {
 	margin-bottom: 1.94em;
 	font-family: "Inter";
 	font-style: normal;
@@ -224,11 +225,13 @@
 .options-container {
 	width: 21.75em;
 	height: 20.63em;
+	margin-left: 1.875em;
 	border-radius: 0.94em;
+	box-sizing: border-box;
+	border: 1px solid #d9d9d9;
 }
 .options {
 	width: 18.63em;
-	height: 17.56em;
 	margin: 0.69em 1.56em;
 }
 .options-header > h1 {
@@ -257,7 +260,9 @@
 	width: 18.63em;
 	height: 2.44em;
 	margin-bottom: 0.81em;
-
+	border: 1px solid #d9d9d9;
+}
+.option-btn > span {
 	font-family: "Inter";
 	font-style: normal;
 	font-weight: 500;

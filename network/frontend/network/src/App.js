@@ -16,14 +16,28 @@ function App() {
 		}
 	}, []);
 
-	const [openModal, SetOpenModal] = useState(false);
-	function openModal() {
-		SetOpenModal(true);
-	}
-	function closeModal() {
-		SetOpenModal(false);
+	const [modals, setModals] = useState({
+		signIN: false,
+		signUP: false,
+	});
+
+	function openModal(event) {
+		const { name } = event.target;
+		setModals((prevState) => ({
+			...prevState,
+			[name]: true,
+		}));
 	}
 
+	function closeModal(event) {
+		const { name } = event.target;
+		setModals((prevState) => ({
+			...prevState,
+			[name]: false,
+		}));
+	}
+
+	const { signUP, signIN } = modals;
 	return (
 		<div className='App-container'>
 			<Sidebar />
@@ -31,24 +45,24 @@ function App() {
 			<Suggestions />
 
 			{isAuthentifated ? (
+				""
+			) : (
 				<div className='bottom-signal'>
 					<div className='invite-signal'>
-						<h4>Don't miss on what's hapenning.</h4>
+						<h6>Don't miss on what's hapenning.</h6>
 						<p>Twitter users are the first to know.</p>
 					</div>
 					<div className='auth-buttons'>
-						<div className='Sign-in'>
+						<button onClick={openModal} name='signIn' className='Sign-in'>
 							<span>Sign in</span>
-							<LoginForm isOpen={openModal} isClose={closeModal} />
-						</div>
-						<div className='Sign-up'>
+						</button>
+						<button onClick={openModal} name='signUp' className='Sign-up'>
 							<span>Sign up</span>
-							<SignupForm isOpen={openModal} isClose={closeModal} />
-						</div>
+						</button>
 					</div>
+					<LoginForm isOpen={signIN} isClose={closeModal} />
+					<SignupForm isOpen={signUP} isClose={closeModal} />
 				</div>
-			) : (
-				""
 			)}
 		</div>
 	);

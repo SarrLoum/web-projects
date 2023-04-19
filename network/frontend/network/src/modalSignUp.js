@@ -36,10 +36,10 @@ export const SignupForm = ({ isOpen, isClose }) => {
 	function renderStep() {
 		switch (Step) {
 			case 0:
-				return <signupStep0 displayNext={displayNext} />;
+				return <SignupStep0 displayNext={displayNext} onClose={isClose} />;
 			case 1:
 				return (
-					<signupStep1
+					<SignupStep1
 						handleUser={HandleUserInfo}
 						birthDate={handleBirthDate}
 						displayNext={displayNext}
@@ -48,7 +48,7 @@ export const SignupForm = ({ isOpen, isClose }) => {
 				);
 			case 2:
 				return (
-					<signupStep2
+					<SignupStep2
 						userName={username}
 						userEmail={email}
 						birthDate={birthdate}
@@ -68,7 +68,7 @@ export const SignupForm = ({ isOpen, isClose }) => {
 	);
 };
 
-export const signupStep0 = ({ displayNext }) => {
+export const SignupStep0 = ({ displayNext, onClose }) => {
 	return (
 		<>
 			<div className='modal-header'>
@@ -97,7 +97,7 @@ export const signupStep0 = ({ displayNext }) => {
 	);
 };
 
-export const signupStep1 = ({
+export const SignupStep1 = ({
 	handleUser,
 	birthDate,
 	displayNext,
@@ -141,7 +141,7 @@ export const signupStep1 = ({
 			<div className='modal-header'>
 				<Close closeModal={onClose} />
 			</div>
-			<div className='form-container'>
+			<div className='f-container'>
 				<h1>Rejoignez nous sur Twitter</h1>
 				<form>
 					<div className='input-field'>
@@ -185,7 +185,7 @@ export const signupStep1 = ({
 	);
 };
 
-export const signupStep2 = ({
+export const SignupStep2 = ({
 	userName,
 	userEmail,
 	birthDate,
@@ -222,7 +222,7 @@ export const signupStep2 = ({
 			<div className='login-header'>
 				<Backword goToPreview={displayPreview} />
 			</div>
-			<div className='from-container'>
+			<div className='f-container'>
 				<form>
 					<div className='input-field'>
 						<label htmlFor='username-input'>Email</label>
@@ -283,20 +283,19 @@ export const signupStep2 = ({
 export const SignUpOptions = () => {
 	return (
 		<div className='options-container'>
-			<div classname='options'>
+			<div className='options'>
 				<div className='options-header'>
 					<h1>Nouveau sur Twitter</h1>
 					<p>Inscrivez-vous pour profiter de votre profil personnalisé!</p>
 				</div>
 				<div className='option-btn google-option'>
-					<Google />
 					<span>Se connecter avec google</span>
 				</div>
 				<div className='option-btn apple-option'>
-					<Apple /> <span>Se Connecter avec Apple</span>
+					<span>Se Connecter avec Apple</span>
 				</div>
-				<div onClick={DispaySignUpForm} className='option-btn create-option'>
-					<p>Créer votre compte</p>
+				<div className='option-btn create-option'>
+					<span>Créer votre compte</span>
 				</div>
 				<span>Inscrivez-vous pour profiter de votre profil personnalisé!</span>
 			</div>

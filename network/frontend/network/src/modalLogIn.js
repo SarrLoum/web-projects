@@ -101,7 +101,7 @@ export const LoginStep2 = ({ displayPreview, onClose, userEmail }) => {
 			<div className='modal-header'>
 				<Backword goToPreview={displayPreview} />
 			</div>
-			<div className='form-container'>
+			<div className='f-container'>
 				<form>
 					<div className='input-field'>
 						<label htmlFor='email-input'>Email</label>

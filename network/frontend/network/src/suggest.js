@@ -29,9 +29,9 @@ const Suggestions = () => {
 
 	return (
 		<div className='suggest-container'>
+			<SearchBar />
 			{isAuthentifated ? (
 				<>
-					<SearchBar />
 					<TrendSuggest />
 					<UserSuggest user={user} userProfile={userProfile} />{" "}
 				</>

@@ -58,7 +58,7 @@ export const Month = ({ dateOnChange }) => {
 		</div>
 	);
 };
-export const Day = () => {
+export const Day = ({ dateOnChange }) => {
 	function yearOptions() {
 		var options = [];
 		for (let day = 1; day <= 31; day++) {
@@ -68,7 +68,9 @@ export const Day = () => {
 	}
 	return (
 		<div className='day-input'>
-			<label className="date-label"ss htmlFor='day'>day</label>
+			<label className='date-label' ss htmlFor='day'>
+				day
+			</label>
 			<select onChange={dateOnChange} name='day' id='day'>
 				<option value=''></option>
 				{yearOptions()}

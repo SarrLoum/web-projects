@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Avatar, UserName2 } from "./user";
 import { Reply, Repost, Quote, Post } from "./posType";
 import { MediaButtons } from "./myButtons";
