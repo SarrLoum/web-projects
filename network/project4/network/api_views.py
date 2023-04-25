@@ -14,9 +14,9 @@ from .utils import *
 
 
 class Register(APIView):
-    
+
     def post(sef, request, format=None):
-        username= request.data.get["username"]
+        username = request.data.get["username"]
         email = reuest.data.get["email"]
 
         # Ensure password match confirmation
@@ -31,7 +31,8 @@ class Register(APIView):
         try:
             # Attempt to create a new instance
             # If it already exists, an IntegrityError will be raised
-            user = User.Objects.create(username=username, email=email, password=password)
+            user = User.Objects.create(
+                username=username, email=email, password=password)
         except IntegrityError:
             return Response({'error': 'Instance already exists.'}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -86,8 +87,8 @@ class Thread(APIView):
 
         data = {
             'object': obj,
-            'replies': obj.replies.all() ,
-            'quotes': obj.quotes.all(),
+            'replies': ReplySerializer(obj.replies.all(), many=True),
+            'quotes': QuoteSerializer(obj.quotes.all(), many=True),
         }
         return data
 
@@ -107,7 +108,6 @@ class Thread(APIView):
         obj = get_object(pk, type)
         obj.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
 
 
 class Follow(APIView):
@@ -134,8 +134,9 @@ class Follow(APIView):
 
     def delete(self, request, format=None):
         # get The follow object where follower = request.user and following = request.data.get('following')
-        follow = Follow.objects.get(follower=request.user, following=request.data.get('following'))
-        
+        follow = Follow.objects.get(
+            follower=request.user, following=request.data.get('following'))
+
         follow.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -148,23 +149,23 @@ class Post(APIView):
         if serializer.is_valid():
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-            
+
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
 
 class Reply(APIView):
 
     def post(self, request, format=None):
-        #dynamically set the name of the argument and the instance that is 
+        # dynamically set the name of the argument and the instance that is
         # passed to the save() method of the Serializer
         type = get_obj_type(request)
         parent_obj = request.data.get(type)
-        
+
         serializer = ReplySerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(user=request.user, **{type: parent_obj})
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-            
+
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -172,26 +173,26 @@ class Quote(APIView):
     def post(self, request, format=None):
         type = get_obj_type(request)
         parent_obj = request.data.get(type)
-    
+
         serializer = QuoteSerializer(data=request.data)
 
         if serializer.is_valid():
             serializer.save(user=request.user, **{type: parent_obj})
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-            
+
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
-        
+
 class Repost(APIView):
     def post(self, request, format=None):
-        
+
         type = get_obj_type(request)
         parent_obj = request.data.get(type)
-    
+
         serializer = RepostSerializer(data=request.data)
 
         if serializer.is_valid():
             serializer.save(user=request.user, **{type: parent_obj})
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-            
+
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)

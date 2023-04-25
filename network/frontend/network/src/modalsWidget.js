@@ -16,6 +16,7 @@ export const Year = ({ dateOnChange }) => {
 			<label className='date-label' htmlFor='year'>
 				Year
 			</label>
+			<br/>
 			<select onChange={dateOnChange} name='year' id='year'>
 				<option value=''></option>
 				{yearOptions()}
@@ -51,6 +52,7 @@ export const Month = ({ dateOnChange }) => {
 			<label className='date-label' htmlFor='month'>
 				Month
 			</label>
+			<br />
 			<select onChange={dateOnChange} name='month' id='month'>
 				<option value=''></option>
 				{MonthOptions()}
@@ -71,6 +73,7 @@ export const Day = ({ dateOnChange }) => {
 			<label className='date-label' ss htmlFor='day'>
 				day
 			</label>
+			<br />
 			<select onChange={dateOnChange} name='day' id='day'>
 				<option value=''></option>
 				{yearOptions()}

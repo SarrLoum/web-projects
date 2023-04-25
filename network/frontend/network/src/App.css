@@ -1,57 +1,58 @@
 .App-container {
 	height: 100vh;
 	display: grid;
-	grid-template-columns: 2.8fr 5.3fr 3.9fr;
+	grid-template-columns: 2.8fr 5.25fr 3.95fr;
+
+	font-family: "Helvetica Neue", sans-serif;
+	font-style: normal;
 }
 
 .bottom-signal {
 	display: flex;
 	position: fixed;
-	background: blue;
+	background: #2e9ced;
 
 	width: 100vw;
 	height: 4.5em;
 	bottom: 0;
 }
+.invite-signal {
+	margin: 0.84em 26.56em;
+}
 
 .invite-signal > h6 {
-	font-family: "Inter";
-	font-style: normal;
-	font-weight: 700;
-	font-size: 1.44em;
-	line-height: 1.75em;
+	font-size: 1.44rem;
+	line-height: 1.75rem;
 	/* identical to box height */
 
 	color: #ffffff;
 }
 
 .invite-signal > p {
-	font-family: "Inter";
-	font-style: normal;
 	font-weight: 500;
-	font-size: 0.94em;
-	line-height: 1.125em;
+	font-size: 0.94rem;
+	line-height: 1.125rem;
 
 	color: #ffffff;
 }
 
 .auth-buttons {
 	display: flex;
-	justify-content: space-between;
-	right: 4.56em;
+	gap: 1.5em;
+	flex-grow: 1;
+	margin-right: 4.56em;
 }
-
-.Sign-in {
+.Sign-up {
 	width: 6.38em;
 	height: 2.25em;
 	margin-top: 1.125em;
 	border-radius: 6.25em;
 
 	background: #c8e2f3;
+	text-align: center;
 	color: #353636;
 }
-
-.Sign-up {
+.Sign-in {
 	width: 6.38em;
 	height: 2.25em;
 	margin-top: 1.125em;
@@ -59,15 +60,14 @@
 
 	border: 1px solid #fff;
 	background: transparent;
+	text-align: center;
 	color: #fff;
 }
 
 .Sign-in > span,
 .Sign-up > span {
-	font-family: "Inter";
-	font-style: normal;
 	font-weight: 700;
-	font-size: 14px;
-	line-height: 17px;
+	font-size: 0.88rem;
+	line-height: 2.25rem;
 	/* identical to box height */
 }

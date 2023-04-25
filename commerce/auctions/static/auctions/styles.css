@@ -1,150 +1,147 @@
 body {
-    padding: 10px;
+	padding: 10px;
 }
 
 /* Active Listing*/
 .item-list {
-    margin-top: 1.25em;
-    display: grid;
-    grid-template-columns: 25% 25% 25% 25%;
-    list-style-type: none;
+	margin-top: 1.25em;
+	display: grid;
+	grid-template-columns: 25% 25% 25% 25%;
+	list-style-type: none;
 }
 
 .item-list > li {
-    width: 15.3em;
-    padding: .31em;
-    background-color: #FFFDFD;
-    border-radius: .62em;
+	width: 15.3em;
+	padding: 0.31em;
+	background-color: #fffdfd;
+	border-radius: 0.62em;
 }
 
 .img-wrapper {
-    width: 14.62em;
-    height: 14.62em;
-    margin-bottom: 1.5em;
-    border-radius: .65em;
-    background-color:  #FCFAFA;
+	width: 14.62em;
+	height: 14.62em;
+	margin-bottom: 1.5em;
+	border-radius: 0.65em;
+	background-color: #fcfafa;
 }
 
 .img-wrapper > img {
-    object-fit: cover;
-    width: 100%;
-    height: 15.625em;
-    padding: .31em;
-    border-radius: .65em;
-
+	object-fit: cover;
+	width: 100%;
+	height: 15.625em;
+	padding: 0.31em;
+	border-radius: 0.65em;
 }
 
 .title-link {
-    color: #3A3A3A;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 1.2rem;
+	color: #3a3a3a;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 1.2rem;
 }
 
 span {
-    color: #3A3A3A;
-    font-style: bold;
-    font-weight: 600;
-    font-size: 1.0625rem;
-    display: block;
-    margin-top: .5em;
+	color: #3a3a3a;
+	font-style: bold;
+	font-weight: 600;
+	font-size: 1.0625rem;
+	display: block;
+	margin-top: 0.5em;
 }
 
 .description {
-    color: #908F8F;
+	color: #908f8f;
 }
 
 /* Listing Page*/
 .listing-container {
-    display: flex;
-    gap: 3.5em;
-    margin-top: 3.5em;
-    margin-left: 4em;
+	display: flex;
+	gap: 3.5em;
+	margin-top: 3.5em;
+	margin-left: 4em;
 }
 
 .listing-img {
-    width: 32%;
-    height: 32%;
+	width: 32%;
+	height: 32%;
 }
 
 .listing-img > img {
-    padding: .31em;
-    max-width: 100%;
+	padding: 0.31em;
+	max-width: 100%;
 }
 
 /* Listing Details */
 .listing-details {
-    width: 21.50em;
+	width: 21.5em;
 }
 .title-category {
-    margin-bottom: 1.06em;
+	margin-bottom: 1.06em;
 }
 
 h4 {
-    margin: 0;
-    color: #3A3A3A;
-    font-size: 36px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 44px;
+	margin: 0;
+	color: #3a3a3a;
+	font-size: 36px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 44px;
 }
 
 .title-category > span {
-    margin: 0;
-    color: #A6A5A5;
-    font-size: 1.25em;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1.5em;
+	margin: 0;
+	color: #a6a5a5;
+	font-size: 1.25em;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 1.5em;
 }
 
 .listing-description {
-    max-width: 100%;
+	max-width: 100%;
 }
 
 /* Purchase Action*/
 .purchase-action {
-    margin-top: 1.56em;
-    margin-left: .81em;
-    display: flex;
-    justify-content: space-between;
-    gap: 5em;
+	margin-top: 1.56em;
+	margin-left: 0.81em;
+	display: flex;
+	justify-content: space-between;
+	gap: 5em;
 }
 
 /* Price */
 .price-details {
-    width: auto;
-    height: 4.06em;
-    margin-top: 1.66em;
+	width: auto;
+	height: 4.06em;
+	margin-top: 1.66em;
 }
 
 .price-details > .span0 {
-    margin: 0;
-    color: #3A3A3A;
-    font-size: .87rem;
-    font-weight: 300;
-    line-height: 1.06rem;
-    letter-spacing: 0em;
+	margin: 0;
+	color: #3a3a3a;
+	font-size: 0.87rem;
+	font-weight: 300;
+	line-height: 1.06rem;
+	letter-spacing: 0em;
 }
 
 .span1 {
-    margin-top: .31em;
-    color: #3A3A3A;
-    font-size: 1rem;
-    font-weight: 700;
-    line-height: 1.19rem;
-    letter-spacing: 0em;
-
+	margin-top: 0.31em;
+	color: #3a3a3a;
+	font-size: 1rem;
+	font-weight: 700;
+	line-height: 1.19rem;
+	letter-spacing: 0em;
 }
 
 .span2 {
-    margin: 0;
-    color: #3A3A3A;
-    font-size: 1.25rem;
-    font-weight: 700;
-    line-height: 1.5rem;
-    letter-spacing: 0em;
-
+	margin: 0;
+	color: #3a3a3a;
+	font-size: 1.25rem;
+	font-weight: 700;
+	line-height: 1.5rem;
+	letter-spacing: 0em;
 }
 
 /* form action 
@@ -154,161 +151,154 @@ h4 {
 
 /* Purchase Button */
 .btn-general {
-    width: 9em;
-    height: 2em;
-    border: none;
-    border-radius: 6.25em;
-    margin-bottom: .81em;
+	width: 9em;
+	height: 2em;
+	border: none;
+	border-radius: 6.25em;
+	margin-bottom: 0.81em;
 }
 
-.btn-buy { 
-    background: #365FF3;
-    color: #fff;
+.btn-buy {
+	background: #365ff3;
+	color: #fff;
 }
 
 .btn-buy:hover {
-    background: #fff;
-    color: #365FF3;
-    border: .125em solid #365FF3;
-
+	background: #fff;
+	color: #365ff3;
+	border: 0.125em solid #365ff3;
 }
 
-.btn-bid { 
-    background: #4A9CFD;
-    color: #fff;
+.btn-bid {
+	background: #4a9cfd;
+	color: #fff;
 }
 
 .btn-bid:hover {
-    background: #fff;
-    color: #4A9CFD;
-    border: .125em solid #4A9CFD;
-
+	background: #fff;
+	color: #4a9cfd;
+	border: 0.125em solid #4a9cfd;
 }
 
 .btn-clause {
-    background: #F64949;
-    color: #fff;
+	background: #f64949;
+	color: #fff;
 }
 
 .btn-clause:hover {
-    background: #fff;
-    color: #F64949;
-    border: .125em solid #F64949;
-
+	background: #fff;
+	color: #f64949;
+	border: 0.125em solid #f64949;
 }
 
 .btn-watchlist {
-    background: #fff;
-    color: #365FF3;
-    border: .125em solid #365FF3;
+	background: #fff;
+	color: #365ff3;
+	border: 0.125em solid #365ff3;
 }
 
 .btn-comment {
-    background: #fff;
-    color: #50e481;
-    border: .125em solid #50e4c4;
+	background: #fff;
+	color: #50e481;
+	border: 0.125em solid #50e4c4;
 }
 /* #50e481 */
 .btn-comment:hover {
-    background: #50e481;
-    color: #fff;
-    border: none;
+	background: #50e481;
+	color: #fff;
+	border: none;
 }
 
-
-
 .btn-watchlist:hover {
-    background: #FBCBE2;
-    color: #fff;
-    border: none;
+	background: #fbcbe2;
+	color: #fff;
+	border: none;
 }
 
 /* TOP 5 BIDS*/
 .top5-bids {
-    width: 11.88em;
-    height: 12.19em;
-    margin-top: 4.12em;
+	width: 11.88em;
+	height: 12.19em;
+	margin-top: 4.12em;
 }
 
-
 /* Bid Form modal */
-.mon-model  {
-    width: 23.75em;
-    height: 15.88em;
-    margin: auto;
-    border-radius: 1.25em;
-    background: #F6F6F6;
+.mon-model {
+	width: 23.75em;
+	height: 15.88em;
+	margin: auto;
+	border-radius: 1.25em;
+	background: #f6f6f6;
 }
 
 .close-btn-container {
-    height: 1.26em;
-    text-align: center;
+	height: 1.26em;
+	text-align: center;
 }
 
 .close-btn {
-    width: 1em;
-    margin-left: 17.2em; 
+	width: 1em;
+	margin-left: 17.2em;
 
-    border: none;
-    background: none;
+	border: none;
+	background: none;
 
-    font-size: 1.25rem;
-    text-align: center;
-    align-items: center;
+	font-size: 1.25rem;
+	text-align: center;
+	align-items: center;
 }
 
 h5 {
-    margin-top: .37em;
+	margin-top: 0.37em;
 
-    font-size: 1.56rem;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 1.56rem;
+	font-size: 1.56rem;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 1.56rem;
 
-    text-align: center;
-    color: #3A3A3A;
+	text-align: center;
+	color: #3a3a3a;
 }
 
 .input-container {
-    width: 17.38em;
-    height: 1.75em;
-    margin: 2.5em auto;
-    border-radius: 6.25em;
-    background-color: #fff;
+	width: 17.38em;
+	height: 1.75em;
+	margin: 2.5em auto;
+	border-radius: 6.25em;
+	background-color: #fff;
 }
 
 .input-container > input {
-    width: 17.38em;
-    height: 1.75em;
-    border-top-right-radius: 6.25rem;
-    border-bottom-right-radius: 6.25rem;
+	width: 17.38em;
+	height: 1.75em;
+	border-top-right-radius: 6.25rem;
+	border-bottom-right-radius: 6.25rem;
 
-    background-color: transparent;
-    border: 0;
-    outline: none;
+	background-color: transparent;
+	border: 0;
+	outline: none;
 }
 
 .btn-confirm {
-    width: 6.88rem;
-    height: 2.25em;
-    margin-left: 7.94em;
-    border-radius: .63em;
+	width: 6.88rem;
+	height: 2.25em;
+	margin-left: 7.94em;
+	border-radius: 0.63em;
 
-    background: #4A9CFD;
-    color: #FFFFFF;
-    text-align: center;
+	background: #4a9cfd;
+	color: #ffffff;
+	text-align: center;
 
-    font-weight: 600;
-    font-size: 1.1rem;
-}  
+	font-weight: 600;
+	font-size: 1.1rem;
+}
 
 .btn-confirm:hover {
-    background: #551DCD;
-    color: #fff;
+	background: #551dcd;
+	color: #fff;
 }
 
 .btn-confirm:active {
-    background: #551DCD;
-    border: none;
+	background: #551dcd;
+	border: none;
 }
-

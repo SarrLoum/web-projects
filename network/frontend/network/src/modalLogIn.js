@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Apple, Backword, Close, Cube, Google } from "./myIcons";
+import { Apple, Backword, Close, Cube2, Google } from "./myIcons";
 import "./modals.css";
 
 export const LoginForm = ({ isOpen, isClose }) => {
@@ -19,7 +19,7 @@ export const LoginForm = ({ isOpen, isClose }) => {
 	}
 
 	return (
-		<div className={`modal ${isOpen ? "login-modal" : ""}`}>
+		<div className={`modal ${isOpen ? "open" : ""}`}>
 			<div className='modal-content'>
 				{nextStep ? (
 					<LoginStep2
@@ -44,21 +44,21 @@ export const LoginStep1 = ({ displayNext, onClose, emailOnChange }) => {
 		<>
 			<div className='modal-header'>
 				<Close closeModal={onClose} />
-				<Cube />
+				<Cube2 />
 			</div>
 			<div className='modal-body'>
-				<h1>Connectez-vous à Twitter</h1>
+				<h1>Sign in to Twitter</h1>
 				<div className='google-login stack-gap'>
 					<Google />
-					<span>Se connecter avec google</span>
+					<span>Sign in with Google</span>
 				</div>
 				<div className='apple-login'>
-					<Apple /> <span>Se Connecter avec Apple</span>
+					<Apple /> <span>Sign in with Apple</span>
 				</div>
 				<div className='else-break'>
-					<br />
+					<hr />
 					<span>else</span>
-					<br />
+					<hr />
 				</div>
 				<div className='login-email'>
 					<input
@@ -68,17 +68,17 @@ export const LoginStep1 = ({ displayNext, onClose, emailOnChange }) => {
 					/>
 				</div>
 				<div onClick={displayNext} className='next-btn stack-gap'>
-					<p>Suivant</p>
+					<span>Next</span>
 				</div>
 				<div className='forgotten-password'>
-					<p>Mots de passe oublié?</p>
+					<span>Forgot password?</span>
 				</div>
 			</div>
 		</>
 	);
 };
 
-export const LoginStep2 = ({ displayPreview, onClose, userEmail }) => {
+export const LoginStep2 = ({ onClose, userEmail, getUser }) => {
 	const [password, setPassword] = useState("");
 
 	function handlePassword(event) {
@@ -92,28 +92,32 @@ export const LoginStep2 = ({ displayPreview, onClose, userEmail }) => {
 			body: JSON.stringify(data),
 		})
 			.then((response) => response.json())
-			.then((result) => {
+			.then((result, user) => {
 				console.log(result);
+				getUser(user);
 			});
 	}
 	return (
 		<>
 			<div className='modal-header'>
-				<Backword goToPreview={displayPreview} />
+				<Close closeModal={onClose} />
 			</div>
-			<div className='f-container'>
-				<form>
-					<div className='input-field'>
+			<form method='POST' onSubmit={subitForm}>
+				<div className='f-container'>
+					<div className='input-field disabled'>
 						<label htmlFor='email-input'>Email</label>
+						<br />
 						<input
 							name='email'
 							id='email-input'
 							type='email'
 							value={userEmail}
+							disabled
 						/>
 					</div>
 					<div className='input-field'>
 						<label htmlFor='password-input'>Password</label>
+						<br />
 						<input
 							name='password'
 							id='passwordinput'
@@ -121,11 +125,11 @@ export const LoginStep2 = ({ displayPreview, onClose, userEmail }) => {
 							onChange={handlePassword}
 						/>
 					</div>
-					<div className='modal-footer'>
-						<input type='submit' value='Se connecter' onSubmit={subitForm} />
-					</div>
-				</form>
-			</div>
+				</div>
+				<div className='modal-footer'>
+					<input type='submit' value='Se connecter' />
+				</div>
+			</form>
 		</>
 	);
 };

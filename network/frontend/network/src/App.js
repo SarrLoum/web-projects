@@ -7,61 +7,64 @@ import { SignupForm } from "./modalSignUp";
 import "./App.css";
 
 function App() {
-	const [isAuthentifated, setIsAuthentificated] = useState(false);
+	const [isAuthenticated, setIsAuthenticated] = useState(false);
+	const [currentUser, setCurrentUser] = useState(null);
+	const [openModal, setOpenModal] = useState(null);
+
 	useEffect(() => {
 		const token = localStorage.getItem("token");
-
 		if (token) {
-			setIsAuthentificated(true);
+			setIsAuthenticated(true);
 		}
 	}, []);
 
-	const [modals, setModals] = useState({
-		signIN: false,
-		signUP: false,
-	});
-
-	function openModal(event) {
-		const { name } = event.target;
-		setModals((prevState) => ({
-			...prevState,
-			[name]: true,
-		}));
+	function getCurrentUser(userData) {
+		setCurrentUser(userData);
 	}
 
-	function closeModal(event) {
-		const { name } = event.target;
-		setModals((prevState) => ({
-			...prevState,
-			[name]: false,
-		}));
+	function openLoginModal() {
+		setOpenModal("login");
 	}
 
-	const { signUP, signIN } = modals;
+	function openSignupModal() {
+		setOpenModal("signup");
+	}
+
+	function closeModal() {
+		setOpenModal(null);
+	}
+
+	function renderModalContent() {
+		if (openModal === "login") {
+			return <LoginForm isClose={closeModal} getUser={getCurrentUser} />;
+		}
+		if (openModal === "signup") {
+			return <SignupForm isClose={closeModal} getUser={getCurrentUser} />;
+		}
+		return null;
+	}
+
 	return (
 		<div className='App-container'>
-			<Sidebar />
-			<TimeLine />
-			<Suggestions />
+			<Sidebar UserAuth={isAuthenticated} />
+			<TimeLine UserAuth={isAuthenticated} user={currentUser} />
+			<Suggestions UserAuth={isAuthenticated} />
 
-			{isAuthentifated ? (
-				""
-			) : (
+			{!isAuthenticated && (
 				<div className='bottom-signal'>
 					<div className='invite-signal'>
-						<h6>Don't miss on what's hapenning.</h6>
+						<h6>Don't miss on what's happening.</h6>
 						<p>Twitter users are the first to know.</p>
 					</div>
 					<div className='auth-buttons'>
-						<button onClick={openModal} name='signIn' className='Sign-in'>
-							<span>Sign in</span>
-						</button>
-						<button onClick={openModal} name='signUp' className='Sign-up'>
+						<div onClick={openLoginModal} role='button' className='Sign-in'>
+							<span>Log in</span>
+						</div>
+						<div onClick={openSignupModal} role='button' className='Sign-up'>
 							<span>Sign up</span>
-						</button>
+						</div>
 					</div>
-					<LoginForm isOpen={signIN} isClose={closeModal} />
-					<SignupForm isOpen={signUP} isClose={closeModal} />
+					{renderModalContent()}
 				</div>
 			)}
 		</div>

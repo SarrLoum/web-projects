@@ -3,15 +3,30 @@ from rest_framework import serializers
 from .models import *
 
 
+class ProfileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Profile
+        fields = [
+            'id', 'avatar', 'imgcover',
+            'pseudo_name', 'bio', 'location', 'website'
+        ]
+
+
 class UserSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer()
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'birthdate', 'password']
+        fields = [
+            'id', 'username', 'email',
+            'birthdate', 'password', 'profile'
+        ]
 
     def validate_birthdate(self, value):
         if value and value > timezone.now().date():
-            raise serializers.ValidationError("Birthdate cannot be in the future.")
+            raise serializers.ValidationError(
+                "Birthdate cannot be in the future.")
         return value
 
 
@@ -22,35 +37,42 @@ class FollowSerializer(serializers.ModelSerializer):
         fields = ['follower', 'following']
 
 
-class ProfileSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Profile
-        fields = ['id', 'user', 'avatar', 'imgcover', 'pseudo_name', 'bio', 'location', 'website']
-
-
 class PostSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
     class Meta:
         model = Post
-        fields = ['id', 'user', 'text', 'media', 'timestamp']
+        fields = ['id', 'user', 'text', 'media', 'timestamp', 'is_post']
 
 
 class ReplySerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
     class Meta:
         model = Reply
-        fields = ['id', 'user', 'post', 'text', 'media', 'timestamp']
+        fields = [
+            'id', 'user', 'post', 'text',
+            'media', 'timestamp', 'is_reply'
+        ]
 
 
 class QuoteSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
     class Meta:
         model = Quote
-        fields = ['id', 'user', 'post', 'text', 'media', 'timestamp']
+        fields = [
+            'id', 'user', 'post', 'text',
+            'media', 'timestamp', 'is_quote'
+        ]
 
 
 class RepostSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
     class Meta:
         model = Repost
-        fields = ['id', 'post', 'user', 'timestamp']
+        fields = ['id', 'post', 'user', 'timestamp', 'is_repost']
 
 
 class PostMetricSerializer(serializers.ModelSerializer):

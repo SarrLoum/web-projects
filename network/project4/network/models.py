@@ -54,16 +54,19 @@ class BasePost(models.Model):
 
 # Post, Reply and Quote model
 class Post(BasePost):
+    is_post = models.BooleanField(default=True)
     pass
 
 
 class Reply(BasePost):
+    is_reply = models.BooleanField(default=True)
     post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True, blank=True, related_name="replies")
     quote = models.ForeignKey('Quote', on_delete=models.CASCADE, null=True, blank=True, related_name="replies")
     parent_reply = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name="replies")
 
 
 class Quote(BasePost):
+    is_quote = models.BooleanField(default=True)
     post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True, blank=True, related_name="quotes")
     reply = models.ForeignKey(Reply, on_delete=models.CASCADE, null=True, blank=True, related_name="quotes")
     parent_quote = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name="quotes")
@@ -71,6 +74,7 @@ class Quote(BasePost):
 
 # Repost modal
 class Repost(models.Model):
+    is_repost = models.BooleanField(default=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reposts")
     post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True, blank=True, related_name="reposts")
     reply = models.ForeignKey(Reply, on_delete=models.CASCADE, null=True, blank=True, related_name="reposts")

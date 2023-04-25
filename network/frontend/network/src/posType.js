@@ -7,9 +7,9 @@ export const Repost = ({ repost }) => {
 	return (
 		<div className='repost'>
 			<span>Reposted by {repost.user}</span>
-			{repost.post != null && <Post />}
-			{repost.quote != null && <Quote />}
-			{repost.reply != null && <Reply />}
+			{repost.post != null && <Post post={repost.post} />}
+			{repost.quote != null && <Quote quote={repost.quote} />}
+			{repost.reply != null && <Reply reply={repost.reply} />}
 		</div>
 	);
 };
@@ -28,9 +28,21 @@ export const Quote = ({ quote }) => {
 		<div className='quote'>
 			<BasePost user={quote.user} post={quote} />
 
-			{quote.post != null && <div className='post-content'></div>}
-			{quote.parent_quote != null && <div className='post-content'></div>}
-			{quote.reply != null && <div className='post-content'></div>}
+			{quote.post != null && (
+				<div className='post-content'>
+					<BasePost user={quote.post.user} post={quote.post} />
+				</div>
+			)}
+			{quote.parent_quote != null && (
+				<div className='post-content'>
+					<BasePost user={quote.post.user} post={quote.parent_quote} />
+				</div>
+			)}
+			{quote.reply != null && (
+				<div className='post-content'>
+					<BasePost user={quote.post.user} post={quote.post} />
+				</div>
+			)}
 			<MetricButtons />
 		</div>
 	);

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Year, Day, Month } from "./modalsWidget";
 
-import { Apple, Backword, Close, Cube, Google } from "./myIcons";
+import { Apple, Backword, Close, Cube2, Google } from "./myIcons";
 import "./modals.css";
 
-export const SignupForm = ({ isOpen, isClose }) => {
+export const SignupForm = ({ isOpen, isClose, getUser }) => {
 	const [Step, setNextStep] = useState(0);
 	const [birthdate, setBirthdate] = useState("");
 	const [userInfo, setUserInfo] = useState({
@@ -54,6 +54,7 @@ export const SignupForm = ({ isOpen, isClose }) => {
 						birthDate={birthdate}
 						displayPreview={displayPreview}
 						onClose={isClose}
+						getUser={getUser}
 					/>
 				);
 			default:
@@ -62,7 +63,7 @@ export const SignupForm = ({ isOpen, isClose }) => {
 	}
 
 	return (
-		<div className={`modal ${isOpen ? "signup-modal" : ""}`}>
+		<div className={`modal ${isOpen ? "open" : ""}`}>
 			<div className='modal-content'>{renderStep()}</div>
 		</div>
 	);
@@ -73,7 +74,7 @@ export const SignupStep0 = ({ displayNext, onClose }) => {
 		<>
 			<div className='modal-header'>
 				<Close closeModal={onClose} />
-				<Cube />
+				<Cube2 />
 			</div>
 			<div className='modal-body'>
 				<h1>Connectez-vous à Twitter</h1>
@@ -85,9 +86,9 @@ export const SignupStep0 = ({ displayNext, onClose }) => {
 					<Apple /> <span>Se Connecter avec Apple</span>
 				</div>
 				<div className='else-break'>
-					<br />
+					<hr />
 					<span>else</span>
-					<br />
+					<hr />
 				</div>
 				<div onClick={displayNext} className='next-btn stack-gap'>
 					<p>Créer votre compte</p>
@@ -143,43 +144,41 @@ export const SignupStep1 = ({
 			</div>
 			<div className='f-container'>
 				<h1>Rejoignez nous sur Twitter</h1>
-				<form>
-					<div className='input-field'>
-						<label htmlFor='username-input'>Email</label>
-						<input
-							name='username'
-							id='username-input'
-							type='text'
-							onChange={handleUser}
-						/>
-					</div>
+				<div className='input-field'>
+					<label htmlFor='username-input'>Username</label>
+					<input
+						name='username'
+						id='username-input'
+						type='text'
+						onChange={handleUser}
+					/>
+				</div>
 
-					<div className='input-field'>
-						<label htmlFor='email-input'>Email</label>
-						<input
-							name='email'
-							id='email-input'
-							type='email'
-							onChange={handleUser}
-						/>
+				<div className='input-field'>
+					<label htmlFor='email-input'>Email</label>
+					<input
+						name='email'
+						id='email-input'
+						type='email'
+						onChange={handleUser}
+					/>
+				</div>
+				<div className='bitrhdate-container'>
+					<h5>Date of birth</h5>
+					<p>
+						cette information ne sera pas affichée pubiquement. Confirmez votre
+						âge, même si ce compte est pour une entreprise, un animal de
+						compagnie ou autre chose
+					</p>
+					<div className='date-inputs'>
+						<Month dateOnChange={handleDate} />
+						<Day dateOnChange={handleDate} />
+						<Year dateOnChange={handleDate} />
 					</div>
-					<div className='bitrhdate-container'>
-						<h5>Date of birth</h5>
-						<p>
-							cette information ne sera pas affichée pubiquement. Confirmez
-							votre âge, même si ce compte est pour une entreprise, un animal de
-							compagnie ou autre chose
-						</p>
-						<div className='date-inputs'>
-							<Month dateOnChange={handleDate} />
-							<Day dateOnChange={handleDate} />
-							<Year dateOnChange={handleDate} />
-						</div>
-					</div>
-					<div className='modal-footer'>
-						<input type='text' value='Next' onClick={handleClick} />
-					</div>
-				</form>
+				</div>
+			</div>
+			<div className='modal-footer lower-div'>
+				<input type='submit' value='Next' onClick={handleClick} />
 			</div>
 		</>
 	);
@@ -190,6 +189,7 @@ export const SignupStep2 = ({
 	userEmail,
 	birthDate,
 	displayPreview,
+	getUser,
 }) => {
 	const [passwords, setPasswords] = useState({
 		password: "",
@@ -215,17 +215,30 @@ export const SignupStep2 = ({
 			.then((result) => {
 				console.log(result);
 			});
+
+		fetch("LogIn", {
+			method: "POST",
+			body: JSON.stringify({
+				email: userEmail,
+				password: passwords.password,
+			}),
+		})
+			.then((response) => response.json())
+			.then((user) => {
+				console.log(user);
+				getUser(user);
+			});
 	}
 
 	return (
 		<>
-			<div className='login-header'>
+			<div className='modal-header'>
 				<Backword goToPreview={displayPreview} />
 			</div>
-			<div className='f-container'>
-				<form>
+			<form>
+				<div className='f-container'>
 					<div className='input-field'>
-						<label htmlFor='username-input'>Email</label>
+						<label htmlFor='username-input'>Usename</label>
 						<input
 							name='username'
 							id='username-input'
@@ -244,7 +257,7 @@ export const SignupStep2 = ({
 						/>
 					</div>
 					<div className='input-field'>
-						<label htmlFor='birthdate-input'>Email</label>
+						<label htmlFor='birthdate-input'>Birth</label>
 						<input
 							name='birthdate'
 							id='birthdate-input'
@@ -271,11 +284,11 @@ export const SignupStep2 = ({
 							onChange={handlePassword}
 						/>
 					</div>
-					<div className='modal-footer'>
-						<input type='submit' value='Se connecter' onSubmit={submitForm} />
-					</div>
-				</form>
-			</div>
+				</div>
+				<div className='modal-footer'>
+					<input type='submit' value='Se connecter' onSubmit={submitForm} />
+				</div>
+			</form>
 		</>
 	);
 };
@@ -283,22 +296,21 @@ export const SignupStep2 = ({
 export const SignUpOptions = () => {
 	return (
 		<div className='options-container'>
-			<div className='options'>
-				<div className='options-header'>
-					<h1>Nouveau sur Twitter</h1>
-					<p>Inscrivez-vous pour profiter de votre profil personnalisé!</p>
-				</div>
-				<div className='option-btn google-option'>
-					<span>Se connecter avec google</span>
-				</div>
-				<div className='option-btn apple-option'>
-					<span>Se Connecter avec Apple</span>
-				</div>
-				<div className='option-btn create-option'>
-					<span>Créer votre compte</span>
-				</div>
-				<span>Inscrivez-vous pour profiter de votre profil personnalisé!</span>
+			<h1>Nouveau sur Twitter</h1>
+			<p>Inscrivez-vous pour profiter de votre profil personnalisé!</p>
+			<div className='option-btn google-option'>
+				<span>Se connecter avec google</span>
 			</div>
+			<div className='option-btn apple-option'>
+				<span>Se Connecter avec Apple</span>
+			</div>
+			<div className='option-btn create-option'>
+				<span>Créer votre compte</span>
+			</div>
+			<p>
+				En vous inscrivant, vous acceptez les Conditions d’utilisation et la
+				politique de confidentialité, notamment l’Utilisation des cookies
+			</p>
 		</div>
 	);
 };

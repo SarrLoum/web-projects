@@ -15,7 +15,7 @@ import Braided from "./icons/Braided.JPG";
 import "./sidebar.css";
 import { useEffect, useState } from "react";
 
-const Sidebar = () => {
+const Sidebar = ({ UserAuth }) => {
 	const user = {
 		id: 1,
 		username: "SarrLoum",
@@ -28,19 +28,10 @@ const Sidebar = () => {
 		pseudo_name: "SpaceWalker",
 	};
 
-	const [isAuthentifated, setIsAuthentificated] = useState(false);
-
-	useEffect(() => {
-		const token = localStorage.getItem("token");
-		if (token) {
-			setIsAuthentificated(true);
-		}
-	}, []);
-
 	return (
 		<div className='sidebar-container'>
 			<Cube />
-			{isAuthentifated ? (
+			{UserAuth ? (
 				<>
 					<div className='nav-container'>
 						<Nav Icon={Home} text='Home' />

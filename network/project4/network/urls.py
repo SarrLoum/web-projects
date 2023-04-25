@@ -15,6 +15,10 @@ urlpatterns = [
 
 
     #API Views
+    path("login", api_views.LogIn.as_view(), name="login"),
+    path("logout", api_views.LogOut.as_view(), name="logout"),
+    path("register", api_views.Register.as_view(), name="register"),
+
     path('feed/', api_views.UserTL.as_view(), name="time-line"),
     path('compose/cube/', api_views.Post.as_view(), name="post"),
     path('compose/cube/', api_views.Reply.as_view(), name="reply"),

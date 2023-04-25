@@ -34,7 +34,48 @@ export const Fleet = ({ userProfile }) => {
 };
 
 export const Feed = () => {
-	return <div></div>;
+	const [userTL, setUserTL] = useState(null);
+
+	fetch("/feed", {
+		method: "Get",
+	})
+		.then((response) => response.json())
+		.then((data) => {
+			console.log(data);
+			setUserTL(data);
+		});
+
+	function renderTL() {
+		const { user, posts, replies, quotes, reposts } = userTL;
+
+		const allPosts = posts.contact(replies, quotes, reposts);
+
+		for (let i = allPosts.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[allPosts[i], allPosts[j]] = [allPosts[j], allPosts[i]];
+		}
+
+		return (
+			<>
+				{allPosts &&
+					allPosts.map((singlePost) => {
+						{
+							singlePost.is_post === true && <Post post={singlePost} />;
+						}
+						{
+							singlePost.is_reply === true && <Reply reply={singlePost} />;
+						}
+						{
+							singlePost.is_quote === true && <Quote quote={singlePost} />;
+						}
+						{
+							singlePost.is_repost === true && <Repost repost={singlePost} />;
+						}
+					})}
+			</>
+		);
+	}
+	return renderTL();
 };
 
 export const TextInput = () => {

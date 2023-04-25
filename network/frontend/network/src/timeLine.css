@@ -1,6 +1,6 @@
 .TL-container {
 	height: 100vh;
-	border-right: 1px solid #d9d9d9;
+	border-right: 1px solid #f3f2f2;
 }
 
 .home-container {
@@ -13,7 +13,7 @@
 
 .TL-preference {
 	height: 2.88em;
-	border-bottom: 1px solid #d9d9d9;
+	border-bottom: 1px solid #f3f2f2;
 }
 
 .for-you {
@@ -23,7 +23,7 @@
 	height: 6.25em;
 	display: flex;
 	align-items: center;
-	border-bottom: 1px solid #d9d9d9;
+	border-bottom: 1px solid #f3f2f2;
 }
 
 .fleets-container > .fleet {

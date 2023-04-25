@@ -6,6 +6,8 @@ import backword from "./icons/backword.svg";
 import calendar from "./icons/calendar.svg";
 import close from "./icons/close.svg";
 import cube from "./icons/cube.svg";
+import cube2 from "./icons/cube2.svg";
+
 import gif from "./icons/gif.svg";
 import google from "./icons/google.svg";
 
@@ -46,6 +48,9 @@ export const Bookmark = () => (
 
 export const Cube = () => (
 	<img className='cube-logo' src={cube} alt='Cube logo'></img>
+);
+export const Cube2 = () => (
+	<img className='logo' src={cube2} alt='Cube logo'></img>
 );
 
 export const Home = () => (

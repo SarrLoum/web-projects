@@ -1,9 +1,9 @@
-import { Status, Fleet, Post, Quote, Repost } from "./TLElements";
+import { Status, Fleet, Feed } from "./TLElements";
 import Braided from "./icons/Braided.JPG";
 
 import "./timeLine.css";
 
-const TimeLine = () => {
+const TimeLine = ({ UserAuth }) => {
 	const user = {
 		id: 1,
 		username: "SarrLoum",
@@ -18,18 +18,38 @@ const TimeLine = () => {
 
 	return (
 		<div className='TL-container'>
-			<div className='home-container'>
-				<h4>Home</h4>
-			</div>
-			<div className='TL-preference'>
-				<button className='for-you'>For you</button>
-				<button className='following'>Following</button>
-			</div>
-			<Status userProfile={userProfile} />
-			<div className='fleets-container'>
-				<Fleet userProfile={userProfile} />
-			</div>
-			<div className='feed'></div>
+			{UserAuth ? (
+				<>
+					<div className='home-container'>
+						<h4>Home</h4>
+					</div>
+					<div className='TL-preference'>
+						<button className='for-you'>For you</button>
+						<button className='following'>Following</button>
+					</div>
+					<Status userProfile={userProfile} />
+					<div className='fleets-container'>
+						<Fleet userProfile={userProfile} />
+					</div>
+					<div className='feed'>
+						<Feed />
+					</div>
+				</>
+			) : (
+				<>
+					<div className='home-container'>
+						<h4>Home</h4>
+					</div>
+					<div className='TL-preference'>
+						<button className='for-you'>For you</button>
+						<button className='following'>Following</button>
+					</div>
+					<Status userProfile={userProfile} />
+					<div className='fleets-container'>
+						<Fleet userProfile={userProfile} />
+					</div>
+				</>
+			)}
 		</div>
 	);
 };
