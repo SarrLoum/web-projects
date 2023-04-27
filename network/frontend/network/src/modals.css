@@ -237,8 +237,7 @@ hr {
 	background: #fff;
 }
 .lower-div {
-		height:6.25em;
-
+	height: 6.25em;
 }
 
 .modal-footer > input {
@@ -302,4 +301,7 @@ hr {
 	line-height: 2.44em;
 
 	color: #353636;
+}
+
+.logout-modal {
 }

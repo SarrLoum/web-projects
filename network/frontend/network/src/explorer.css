@@ -1,0 +1,55 @@
+.explorer-container {
+	height: 100vh;
+	border-right: 1px solid #f3f2f2;
+}
+
+ul {
+	list-style-type: none;
+}
+
+.explorer-header {
+	position: fixed;
+	height: 3.94em;
+
+	display: flex;
+	justify-content: space-between;
+}
+
+.explorer-header > h3 {
+	margin: 1em 1em;
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 600;
+	font-size: 20px;
+	line-height: 24px;
+
+	color: #202021;
+}
+
+.explorer-header > img {
+	margin-right: 0.88em;
+}
+
+.tendance-container > .tendance {
+	display: flex;
+}
+j.tendance > .avatar-container .avatar-img {
+	height: 2.5em;
+	width: 2.5em;
+	border-radius: 6.25em;
+	object-fit: cover;
+}
+.tendance > .tendance-container {
+	width: 23em;
+	padding: 2em;
+}
+
+.tendance > .tendance-container p {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 600;
+	font-size: 1rem;
+	line-height: 1.24rem;
+
+	color: #000000;
+}

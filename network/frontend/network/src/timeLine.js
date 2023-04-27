@@ -18,38 +18,20 @@ const TimeLine = ({ UserAuth }) => {
 
 	return (
 		<div className='TL-container'>
-			{UserAuth ? (
-				<>
-					<div className='home-container'>
-						<h4>Home</h4>
-					</div>
-					<div className='TL-preference'>
-						<button className='for-you'>For you</button>
-						<button className='following'>Following</button>
-					</div>
-					<Status userProfile={userProfile} />
-					<div className='fleets-container'>
-						<Fleet userProfile={userProfile} />
-					</div>
-					<div className='feed'>
-						<Feed />
-					</div>
-				</>
-			) : (
-				<>
-					<div className='home-container'>
-						<h4>Home</h4>
-					</div>
-					<div className='TL-preference'>
-						<button className='for-you'>For you</button>
-						<button className='following'>Following</button>
-					</div>
-					<Status userProfile={userProfile} />
-					<div className='fleets-container'>
-						<Fleet userProfile={userProfile} />
-					</div>
-				</>
-			)}
+			<div className='home-container'>
+				<h4>Home</h4>
+			</div>
+			<div className='TL-preference'>
+				<button className='for-you'>For you</button>
+				<button className='following'>Following</button>
+			</div>
+			<Status userProfile={userProfile} />
+			<div className='fleets-container'>
+				<Fleet userProfile={userProfile} />
+			</div>
+			<div className='feed'>
+				<Feed />
+			</div>
 		</div>
 	);
 };

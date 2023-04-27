@@ -133,3 +133,43 @@ export const LoginStep2 = ({ onClose, userEmail, getUser }) => {
 		</>
 	);
 };
+
+export const LogOut = ({ onClose, currentUser }) => {
+	const [loginModal, setloginModal] = useState(null);
+
+	function openLoginModal() {
+		setloginModal("login");
+	}
+
+	function renderLoginModal() {
+		if (loginModal === "login") {
+			return <LoginForm isClose={onClose} getUser={currentUser} />;
+		} else {
+			return null;
+		}
+	}
+
+	function logUserOut() {
+		fetch("/logout", {
+			method: "POST",
+		})
+			.then((response) => response.json())
+			.then((result) => {
+				console.log(result);
+			});
+	}
+
+	return (
+		<div className='logout-container'>
+			<div className='ohter-account' onClick={openLoginModal}>
+				<OtherAccount />
+				<span>Add account</span>
+			</div>
+			<div className='log-out' onClick={logUserOut}>
+				<OutLog />
+				<span>Log Out</span>
+			</div>
+			{renderLoginModal()}
+		</div>
+	);
+};

@@ -1,8 +1,8 @@
 import "./user.css";
 
-export const User = ({ user, userProfile }) => {
+export const User = ({ handleLog, user, userProfile }) => {
 	return (
-		<div className="User">
+		<div onClick={handleLog} className='User'>
 			<Avatar userProfile={userProfile} />
 			<UserName1 user={user} userProfile={userProfile} />
 		</div>

@@ -216,7 +216,7 @@ export const SignupStep2 = ({
 				console.log(result);
 			});
 
-		fetch("LogIn", {
+		fetch("/logIn", {
 			method: "POST",
 			body: JSON.stringify({
 				email: userEmail,

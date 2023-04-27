@@ -1,9 +1,9 @@
 import { User } from "./user";
 import "./sidebarElements.css";
 
-export const Nav = ({ Icon, text }) => {
+export const Nav = ({ handleButtonClick, Icon, text }) => {
 	return (
-		<div className='nav-option'>
+		<div onClick={handleButtonClick} className='nav-option'>
 			<Icon />
 			<span className='text'>{text}</span>
 		</div>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Tendance } from "./explorerElements";
 import { SearchBar } from "./suggestElements";
 import { Params } from "./myIcons";
 import "./explorer.css";
@@ -6,32 +7,30 @@ import "./explorer.css";
 const Explorer = () => {
 	const [tendances, setTendances] = useState(null);
 
-	function getTendances() {
-		fetch("/Tendances", {
-			method: "GET",
-		})
-			.then((response) => response.json())
-			.then((data) => {
-				console.log(data);
-				setTendances(data);
-			});
-	}
+	fetch("/Tendances", {
+		method: "GET",
+	})
+		.then((response) => response.json())
+		.then((data) => {
+			console.log(data);
+			setTendances(data);
+		});
 
 	return (
 		<div className='explorer-container'>
 			<div className='explorer-header'>
-				<SearchBar />
+				<h3>Explore</h3>
 				<Params />
 			</div>
-			<h4>Tendances for You</h4>
 			<div className='tendances-container'>
-				{tendances ? (
-					tendances.map((tendance) => {
-						<Tendance post={tendance} />;
-					})
-				) : (
-					<h2>No Tendances Yet</h2>
-				)}
+				<ul>
+					{tendance &&
+						tendances.map((tendance) => {
+							<li>
+								<Tendance post={tendance} />
+							</li>;
+						})}
+				</ul>
 			</div>
 		</div>
 	);

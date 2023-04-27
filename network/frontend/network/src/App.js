@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "./sidebar";
 import TimeLine from "./timeLine";
+import Explorer from "./explorer";
 import Suggestions from "./suggest";
 import { LoginForm } from "./modalLogIn";
 import { SignupForm } from "./modalSignUp";
 import "./App.css";
 
 function App() {
+	const [activeComponent, setActiveComponent] = useState("Timeline");
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [currentUser, setCurrentUser] = useState(null);
 	const [openModal, setOpenModal] = useState(null);
@@ -17,6 +19,10 @@ function App() {
 			setIsAuthenticated(true);
 		}
 	}, []);
+
+	function handleButtonClick(component) {
+		setActiveComponent(component);
+	}
 
 	function getCurrentUser(userData) {
 		setCurrentUser(userData);
@@ -33,7 +39,6 @@ function App() {
 	function closeModal() {
 		setOpenModal(null);
 	}
-
 	function renderModalContent() {
 		if (openModal === "login") {
 			return <LoginForm isClose={closeModal} getUser={getCurrentUser} />;
@@ -46,10 +51,23 @@ function App() {
 
 	return (
 		<div className='App-container'>
-			<Sidebar UserAuth={isAuthenticated} />
-			<TimeLine UserAuth={isAuthenticated} user={currentUser} />
+			<Sidebar
+				handleButton={handleButtonClick}
+				UserAuth={isAuthenticated}
+				getUser={getCurrentUser}
+			/>
+			{isAuthenticated ? (
+				<>
+					{activeComponent === "Timeline" && <TimeLine user={currentUser} />}
+					{activeComponent === "Explorer" && <Explorer />}
+				</>
+			) : (
+				<Explorer />
+			)}
+
 			<Suggestions UserAuth={isAuthenticated} />
 
+			{/* Authentifacted signal invite*/}
 			{!isAuthenticated && (
 				<div className='bottom-signal'>
 					<div className='invite-signal'>

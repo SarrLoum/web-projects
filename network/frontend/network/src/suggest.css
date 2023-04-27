@@ -3,7 +3,7 @@
 	width: 20.81em;
 	height: 2.52em;
 	margin: 0.44em 2em 1.04em 0;
-	border-radius: 5.87em;
+	border-radius: 6.25em;
 
 	background: #f7f9f8;
 }
@@ -11,8 +11,8 @@
 	flex-grow: 1;
 	margin: 0.625 1.01;
 	border: none;
-	border-top-right-radius: 5.87em;
-	border-bottom-right-radius: 5.87em;
+	border-top-right-radius: 6.25em;
+	border-bottom-right-radius: 6.25em;
 
 	background: #f7f9f8;
 
