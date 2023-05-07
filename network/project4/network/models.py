@@ -4,15 +4,10 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from multiupload.fields import MultiFileField
 
-
-
-# Abstractr User, Follow and Profile models
+# Create your models here.
 class User(AbstractUser):
     birthdate = models.DateField(null=True, blank=True)
-    
-
 
 class Follow(models.Model):
     follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followings')
@@ -37,7 +32,6 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance, pseudo_name=instance.username)
 
-        
 # Abstract Base Post Model that allow Post, 
 # Reply and Quotes model to inherits its fields
 #Field that take mutiple media type
