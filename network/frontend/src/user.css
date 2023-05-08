@@ -6,3 +6,25 @@
 	display: flex;
 	gap: 0.75em;
 }
+
+.username2 > .pseudo-name {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 600;
+	font-size: 0.94rem;
+	line-height: 1.125rem;
+
+	color: #202021;
+
+}
+
+.username2 > .user-name {
+	margin-left: 0.31em;
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 0.94rem;
+	line-height: 1.125rem;
+
+	color: #86898C;
+}

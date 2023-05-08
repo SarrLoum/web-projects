@@ -8,7 +8,6 @@ ul {
 }
 
 .explorer-header {
-	position: fixed;
 	height: 3.94em;
 
 	display: flex;

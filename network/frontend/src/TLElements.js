@@ -48,7 +48,7 @@ export const Feed = () => {
 	function renderTL() {
 		const { user, posts, replies, quotes, reposts } = userTL;
 
-		const allPosts = posts.contact(replies, quotes, reposts);
+		const allPosts = posts.concat(replies, quotes, reposts);
 
 		for (let i = allPosts.length - 1; i > 0; i--) {
 			const j = Math.floor(Math.random() * (i + 1));
@@ -58,20 +58,19 @@ export const Feed = () => {
 		return (
 			<>
 				{allPosts &&
-					allPosts.map((singlePost) => {
-						{
-							singlePost.is_post === true && <Post post={singlePost} />;
+						allPosts.map((singlePost) => {
+							if (singlePost.is_post === true) {
+								return <Post post={singlePost} />;
+							}else if (singlePost.is_reply === true) {
+								return <Reply reply={singlePost} />;
+							} else if (singlePost.is_quote === true) {
+								return <Quote quote={singlePost} />;
+							} else if (singlePost.is_repost === true) {
+								return <Repost repost={singlePost} />;
+							}
+							return null;
+						})
 						}
-						{
-							singlePost.is_reply === true && <Reply reply={singlePost} />;
-						}
-						{
-							singlePost.is_quote === true && <Quote quote={singlePost} />;
-						}
-						{
-							singlePost.is_repost === true && <Repost repost={singlePost} />;
-						}
-					})}
 			</>
 		);
 	}

@@ -1,33 +1,33 @@
 import "./user.css";
 
-export const User = ({ handleLog, user, userProfile }) => {
+export const User = ({ handleLog, user}) => {
 	return (
 		<div onClick={handleLog} className='User'>
-			<Avatar userProfile={userProfile} />
-			<UserName1 user={user} userProfile={userProfile} />
+			<Avatar User={user} />
+			<UserName1 user={user}  />
 		</div>
 	);
 };
 
-export const Avatar = ({ userProfile }) => (
+export const Avatar = ({ user }) => (
 	<div className='avatar-container'>
-		<img className='avatar-img' src={userProfile.avatarUrl} alt='User avatar' />
+		<img className='avatar-img' src={`http://localhost:8000/${user.profile.avatar}`} alt='User avatar' />
 	</div>
 );
 
-export const UserName1 = ({ user, userProfile }) => {
+export const UserName1 = ({ user }) => {
 	return (
 		<div className='username1'>
-			<span className='pseudo-name'>{userProfile.pseudo_name}</span>
+			<span className='pseudo-name'>{user.profile.pseudo_name}</span>
 			<span className='user-name'>@{user.username}</span>
 		</div>
 	);
 };
 
-export const UserName2 = ({ user, userProfile }) => {
+export const UserName2 = ({ user }) => {
 	return (
 		<div className='username2'>
-			<span className='pseudo-name'>{userProfile.pseudo_name}</span>
+			<span className='pseudo-name'>{user.profile.pseudo_name}</span>
 			<span className='user-name'>@{user.username}</span>
 		</div>
 	);

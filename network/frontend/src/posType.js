@@ -1,5 +1,5 @@
 import { Avatar, UserName2 } from "./user";
-import { MetricButtons } from "./myButtons";
+import { Metrics } from "./myButtons";
 
 import "./posType.css";
 
@@ -18,7 +18,6 @@ export const Reply = ({ reply }) => {
 	return (
 		<div className='reply'>
 			<BasePost user={reply.user} post={reply} />
-			<MetricButtons />
 		</div>
 	);
 };
@@ -43,7 +42,6 @@ export const Quote = ({ quote }) => {
 					<BasePost user={quote.post.user} post={quote.post} />
 				</div>
 			)}
-			<MetricButtons />
 		</div>
 	);
 };
@@ -51,21 +49,22 @@ export const Quote = ({ quote }) => {
 export const Post = ({ post }) => {
 	return (
 		<div className='post'>
-			<BasePost post={post} />
-			<MetricButtons />
+			<BasePost user={post.user} post={post} />
 		</div>
 	);
 };
 
 export const BasePost = ({ user, post }) => {
-	const userProfile = user.profile;
 	return (
 		<>
-			<Avatar avatar={userProfile.avatar} />
-			<div className='post-content'>
-				<UserName2 username={user.username} pseudo={userProfile.pseudo_name} />
-				<p>{post.text}</p>
-				{post.media != null && <div className='media-area'>{post.media}</div>}
+			<Avatar user={ user} />
+			<div className='container'>
+				<div className='post-content'>
+					<UserName2 user={user} />
+					<p>{post.text}</p>
+					{post.media != null && <div className='media-area'>{post.media}</div>}
+				</div>
+				<Metrics />
 			</div>
 		</>
 	);

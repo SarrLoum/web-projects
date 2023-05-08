@@ -7,3 +7,8 @@
 #media-input {
 	display: none;
 }
+
+.metrics-container {
+	display: flex;
+	margin-bottom: 0.94em;
+}
