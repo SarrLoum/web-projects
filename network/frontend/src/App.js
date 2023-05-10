@@ -55,6 +55,7 @@ function App() {
 				handleButton={handleButtonClick}
 				UserAuth={isAuthenticated}
 				getUser={getCurrentUser}
+				currentUser={currentUser}
 			/>
 			{isAuthenticated ? (
 				<>

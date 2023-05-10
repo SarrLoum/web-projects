@@ -1,4 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "react-query";
+import { useEffect, useState } from "react";
+import { RepostModal } from "modalsWidget";
 import axios from "axios";
 import {
 	Calendar,
@@ -16,7 +18,7 @@ import {
 
 import "./myButtons.css";
 
-export const Metrics = ({ postId, comments, reposts }) => {
+export const Metrics = ({ postId, comments, impressions }) => {
 	const queryClient = useQueryClient();
 
 	const {
@@ -41,28 +43,14 @@ export const Metrics = ({ postId, comments, reposts }) => {
 		axios.post(`http://localhost:8000/posts/${postId}/like`, { userId })
 	);
 
-	const updateImpressionsMutation = useMutation((userId) =>
-		axios.post(`http://localhost:8000/posts/${postId}/impressions`, {
-			userId,
-		})
-	);
-
-	const updateSharesMutation = useMutation((userId) =>
-		axios.post(`http://localhost:8000/posts/${postId}/share`, { userId })
-	);
-
 	const handleLike = () => {
-		const userId = "user1"; // replace with actual user ID
+		const userId = "userID"; // replace with actual user ID
 		updateLikesMutation.mutate(userId);
 	};
-	const handleImpressions = () => {
-		const userId = "user1"; // replace with actual user ID
-		updateImpressionsMutation.mutate(userId);
-	};
-	const handleShares = () => {
-		const userId = "user1"; // replace with actual user ID
-		updateSharesMutation.mutate(userId);
-	};
+
+	const handleComment = () => {};
+	const handleImpression = () => {};
+	const handleShare = () => {};
 
 	if (isLoading) {
 		return <p>Loading...</p>;
@@ -71,18 +59,18 @@ export const Metrics = ({ postId, comments, reposts }) => {
 		return <p>Error loading metrics</p>;
 	}
 
-	const { likes, impressions, shares } = postMetrics;
+	const { likes, reposts } = postMetrics;
 
 	return (
 		<div className="metrics-container">
 			<MetricButtons
-				count={comments.length}
-				handleClick={""}
+				count={comments}
+				handleClick={handleComment}
 				Icon={Comment}
 			/>
 			<MetricButtons
+				is_repost={true}
 				count={reposts.length}
-				handleClick={""}
 				Icon={Repost}
 			/>
 			<MetricButtons
@@ -91,15 +79,11 @@ export const Metrics = ({ postId, comments, reposts }) => {
 				Icon={Like}
 			/>
 			<MetricButtons
-				count={impressions.length}
-				handleClick={handleImpressions}
+				count={impressions}
+				handleClick={handleImpression}
 				Icon={Impressions}
 			/>
-			<MetricButtons
-				count={shares.length}
-				handleClick={handleShares}
-				Icon={Share}
-			/>
+			<MetricButtons handleClick={handleShare} Icon={Share} />
 		</div>
 	);
 };
@@ -144,11 +128,22 @@ export const InputBtn = ({ Icon }) => {
 	);
 };
 
-export const MetricButtons = ({ count, handleClick, Icon }) => {
+export const MetricButtons = ({ count, handleClick, Icon, is_repost }) => {
 	return (
-		<div className="metric-btn">
-			<Icon handleClick={handleClick} />
-			{count !== 0 && <span>{count}</span>}
-		</div>
+		<>
+			<div onClick={handleClick} className="metric-btn">
+				<Icon />
+				{count !== 0 && <span>{count}</span>}
+			</div>
+
+			{
+				// if the metricbutton is a repost button render the repostModal pop up
+				is_repost && (
+					<>
+						<RepostModal />
+					</>
+				)
+			}
+		</>
 	);
 };

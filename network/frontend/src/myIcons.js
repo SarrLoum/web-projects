@@ -107,43 +107,18 @@ export const Close = ({ closeModal }) => (
 	</div>
 );
 
-export const Comment = ({ handleClick }) => (
-	<img
-		className="metric-icon"
-		onClick={handleClick}
-		src={comments}
-		alt="comment"
-	/>
+export const Comment = () => (
+	<img className="metric-icon" src={comments} alt="comment" />
 );
-export const Like = ({ handleClick }) => (
-	<img
-		className="metric-icon"
-		onClick={handleClick}
-		src={likes}
-		alt="repost"
-	/>
+export const Like = () => (
+	<img className="metric-icon" src={likes} alt="repost" />
 );
-export const Repost = ({ handleClick }) => (
-	<img
-		className="metric-icon"
-		onClick={handleClick}
-		src={reposts}
-		alt="like"
-	/>
+export const Repost = () => (
+	<img className="metric-icon" src={reposts} alt="like" />
 );
-export const Impressions = ({ handleClick }) => (
-	<img
-		className="metric-icon"
-		onClick={handleClick}
-		src={impressions}
-		alt="like"
-	/>
+export const Impressions = () => (
+	<img className="metric-icon" src={impressions} alt="like" />
 );
-export const Share = ({ handleClick }) => (
-	<img
-		className="metric-icon"
-		onClick={handleClick}
-		src={shares}
-		alt="share"
-	/>
+export const Share = () => (
+	<img className="metric-icon" src={shares} alt="share" />
 );

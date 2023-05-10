@@ -20,7 +20,7 @@ export const LoginForm = ({ isOpen, isClose }) => {
 
 	return (
 		<div className={`modal ${isOpen ? "open" : ""}`}>
-			<div className='modal-content'>
+			<div className="modal-content">
 				{nextStep ? (
 					<LoginStep2
 						displayPreview={displayPreview}
@@ -42,35 +42,35 @@ export const LoginForm = ({ isOpen, isClose }) => {
 export const LoginStep1 = ({ displayNext, onClose, emailOnChange }) => {
 	return (
 		<>
-			<div className='modal-header'>
+			<div className="modal-header">
 				<Close closeModal={onClose} />
 				<Cube2 />
 			</div>
-			<div className='modal-body'>
+			<div className="modal-body">
 				<h1>Sign in to Twitter</h1>
-				<div className='google-login stack-gap'>
+				<div className="google-login stack-gap">
 					<Google />
 					<span>Sign in with Google</span>
 				</div>
-				<div className='apple-login'>
+				<div className="apple-login">
 					<Apple /> <span>Sign in with Apple</span>
 				</div>
-				<div className='else-break'>
+				<div className="else-break">
 					<hr />
 					<span>else</span>
 					<hr />
 				</div>
-				<div className='login-email'>
+				<div className="login-email">
 					<input
-						type='text'
-						placeholder='Enter your email here'
+						type="text"
+						placeholder="Enter your email here"
 						onChange={emailOnChange}
 					/>
 				</div>
-				<div onClick={displayNext} className='next-btn stack-gap'>
+				<div onClick={displayNext} className="next-btn stack-gap">
 					<span>Next</span>
 				</div>
-				<div className='forgotten-password'>
+				<div className="forgotten-password">
 					<span>Forgot password?</span>
 				</div>
 			</div>
@@ -89,8 +89,8 @@ export const LoginStep2 = ({ onClose, userName, getUser }) => {
 		fetch("/api/login", {
 			method: "POST",
 			body: JSON.stringify({
-				'username': userName,
-				'password': password,
+				username: userName,
+				password: password,
 			}),
 		})
 			.then((response) => response.json())
@@ -99,60 +99,63 @@ export const LoginStep2 = ({ onClose, userName, getUser }) => {
 				console.log(result);
 				getUser(user);
 			})
-			.catch(error => console.log(error));
+			.catch((error) => console.log(error));
 	}
 	return (
 		<>
-			<div className='modal-header'>
+			<div className="modal-header">
 				<Close closeModal={onClose} />
 			</div>
-			<form method='POST' onSubmit={subitForm}>
-				<div className='f-container'>
-					<div className='input-field disabled'>
-						<label htmlFor='email-input'>Email</label>
+			<form method="POST" onSubmit={subitForm}>
+				<div className="f-container">
+					<div className="input-field disabled">
+						<label htmlFor="email-input">Email</label>
 						<br />
 						<input
-							name='email'
-							id='email-input'
-							type='text'
+							name="email"
+							id="email-input"
+							type="text"
 							value={userName}
 							disabled
 						/>
 					</div>
-					<div className='input-field'>
-						<label htmlFor='password-input'>Password</label>
+					<div className="input-field">
+						<label htmlFor="password-input">Password</label>
 						<br />
 						<input
-							name='password'
-							id='passwordinput'
-							type='password'
+							name="password"
+							id="passwordinput"
+							type="password"
 							onChange={handlePassword}
 						/>
 					</div>
 				</div>
-				<div className='modal-footer'>
-					<input type='submit' value='Se connecter' />
+				<div className="modal-footer">
+					<input type="submit" value="Se connecter" />
 				</div>
 			</form>
 		</>
 	);
 };
 
-export const LogOut = ({ onClose, currentUser }) => {
+export const UserLogsModal = ({ onClose, currentUser, getUser }) => {
 	const [loginModal, setloginModal] = useState(null);
 
+	// Function that sets the state  of the loginModal
 	function openLoginModal() {
 		setloginModal("login");
 	}
 
+	// Function that renders the loginModal when its state variable is set
 	function renderLoginModal() {
 		if (loginModal === "login") {
-			return <LoginForm isClose={onClose} getUser={currentUser} />;
+			return <LoginForm isClose={onClose} getUser={getUser} />;
 		} else {
 			return null;
 		}
 	}
 
+	// Function that log the user out
 	function logUserOut() {
 		fetch("/logout", {
 			method: "POST",
@@ -164,12 +167,12 @@ export const LogOut = ({ onClose, currentUser }) => {
 	}
 
 	return (
-		<div className='logout-container'>
-			<div className='ohter-account' onClick={openLoginModal}>
+		<div className="logout-container">
+			<div className="ohter-account" onClick={openLoginModal}>
 				<OtherAccount />
 				<span>Add account</span>
 			</div>
-			<div className='log-out' onClick={logUserOut}>
+			<div className="log-out" onClick={logUserOut}>
 				<OutLog />
 				<span>Log Out</span>
 			</div>

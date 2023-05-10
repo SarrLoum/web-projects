@@ -1,3 +1,9 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { Repost } from "./myIcons";
+import { Avatar } from ".user";
+import { Quoting } from "TLelement";
+
 import "./modalsWidget.css";
 
 export const Year = ({ dateOnChange }) => {
@@ -12,13 +18,13 @@ export const Year = ({ dateOnChange }) => {
 		return options;
 	}
 	return (
-		<div className='year-input'>
-			<label className='date-label' htmlFor='year'>
+		<div className="year-input">
+			<label className="date-label" htmlFor="year">
 				Year
 			</label>
-			<br/>
-			<select onChange={dateOnChange} name='year' id='year'>
-				<option value=''></option>
+			<br />
+			<select onChange={dateOnChange} name="year" id="year">
+				<option value=""></option>
 				{yearOptions()}
 			</select>
 		</div>
@@ -48,13 +54,13 @@ export const Month = ({ dateOnChange }) => {
 		return options;
 	}
 	return (
-		<div className='month-input'>
-			<label className='date-label' htmlFor='month'>
+		<div className="month-input">
+			<label className="date-label" htmlFor="month">
 				Month
 			</label>
 			<br />
-			<select onChange={dateOnChange} name='month' id='month'>
-				<option value=''></option>
+			<select onChange={dateOnChange} name="month" id="month">
+				<option value=""></option>
 				{MonthOptions()}
 			</select>
 		</div>
@@ -69,15 +75,55 @@ export const Day = ({ dateOnChange }) => {
 		return options;
 	}
 	return (
-		<div className='day-input'>
-			<label className='date-label' ss htmlFor='day'>
+		<div className="day-input">
+			<label className="date-label" ss htmlFor="day">
 				day
 			</label>
 			<br />
-			<select onChange={dateOnChange} name='day' id='day'>
-				<option value=''></option>
+			<select onChange={dateOnChange} name="day" id="day">
+				<option value=""></option>
 				{yearOptions()}
 			</select>
+		</div>
+	);
+};
+
+export const RepostModal = ({ userId, postId }) => {
+	const [openQuote, setOpenQuote] = useState(false);
+
+	const handleQuote = () => {
+		setOpenQuote(true);
+	};
+
+	const handleRepost = () => {
+		axios.post(`http://localhost:8000/api/posts/${postId}/repost`, {
+			userId,
+		});
+	};
+
+	return (
+		<>
+			<div className="repost-modal">
+				<div className="repost-modal-container">
+					<div onClick={handleRepost} className="repost">
+						<Repost />
+						<span>Repost</span>
+					</div>
+					<div onClick={handleQuote} className="Quotes">
+						<Repost />
+						<span>Quote Post</span>
+					</div>
+				</div>
+			</div>
+			<QuoteModal isOpen={openQuote} postId={postId} userId={userId} />
+		</>
+	);
+};
+
+export const QuoteModal = ({ isOpen, postId, userId }) => {
+	return (
+		<div className={`quote-modal ${isOpen ? "open-quote-modal" : ""}`}>
+			<Quoting user={userId} post={postId} />
 		</div>
 	);
 };
