@@ -37,81 +37,113 @@ import smiley from "./icons/smiley.svg";
 import "./myIcons.css";
 
 // Simple icons
-export const Calendar = () => <img src={calendar} alt='Calendar' />;
-export const Cube2 = () => <img className='logo' src={cube2} alt='Cube logo' />;
+export const Calendar = () => <img src={calendar} alt="Calendar" />;
+export const Cube2 = () => <img className="logo" src={cube2} alt="Cube logo" />;
 
-export const Gif = () => <img src={gif} alt='Gif' />;
-export const Home = () => <img className='icons' src={home} alt='Home' />;
-export const Image = () => <img src={mediafile} alt='media' />;
-export const List = () => <img className='icons' src={list} alt='List' />;
+export const Gif = () => <img src={gif} alt="Gif" />;
+export const Home = () => <img className="icons" src={home} alt="Home" />;
+export const Image = () => <img src={mediafile} alt="media" />;
+export const List = () => <img className="icons" src={list} alt="List" />;
 
-export const MapIn = () => <img src={mapin} alt='Map in user' />;
-export const More = () => <img className='icons' src={more} alt='More' />;
-export const More2 = () => <img src={more2} alt='More icon' />;
+export const MapIn = () => <img src={mapin} alt="Map in user" />;
+export const More = () => <img className="icons" src={more} alt="More" />;
+export const More2 = () => <img src={more2} alt="More icon" />;
 
-export const Person = () => <img className='icons' src={person} alt='User' />;
-export const Polls = () => <img src={polls} alt='Polls' />;
-export const Smiley = () => <img src={smiley} alt='Smiley' />;
-export const Search = () => <img src={search} alt='search' />;
-
+export const Person = () => <img className="icons" src={person} alt="User" />;
+export const Polls = () => <img src={polls} alt="Polls" />;
+export const Smiley = () => <img src={smiley} alt="Smiley" />;
+export const Search = () => <img src={search} alt="search" />;
 
 // mid-icons
 export const Apple = () => (
-	<img className='icons' src={apple} alt='Apple logo' />
+	<img className="icons" src={apple} alt="Apple logo" />
 );
 
 export const Bookmark = () => (
-	<img className='icons' src={bookmark} alt='Bookmark ' />
+	<img className="icons" src={bookmark} alt="Bookmark " />
 );
 
 export const Cube = () => (
-	<img className='cube-logo' src={cube} alt='Cube logo' />
+	<img className="cube-logo" src={cube} alt="Cube logo" />
 );
 
 export const Google = () => (
-	<img className='icons' src={google} alt='Google logo' />
+	<img className="icons" src={google} alt="Google logo" />
 );
 
 export const HashExplore = () => (
-	<img className='icons' src={hashExplore} alt='Explorer' />
+	<img className="icons" src={hashExplore} alt="Explorer" />
 );
 
 export const Notification = () => (
-	<img className='icons' src={bellNotification} alt='Notification' />
+	<img className="icons" src={bellNotification} alt="Notification" />
 );
 
 export const OtherAccount = () => {
-	<img src={addUser} alt='Add account' />;
+	<img src={addUser} alt="Add account" />;
 };
 
 export const OutLog = () => {
-	<img src={logout} alt='Log-out' />;
+	<img src={logout} alt="Log-out" />;
 };
 
 export const PaperPlane = () => (
-	<img className='icons' src={paperPlane} alt='Inbox' />
+	<img className="icons" src={paperPlane} alt="Inbox" />
 );
 export const Params = () => (
-	<img className='icons' src={parameters} alt='Parameters' />
+	<img className="icons" src={parameters} alt="Parameters" />
 );
-
-
 
 // High-level icons
 export const Backword = ({ goToPreview }) => (
-	<div className='close-btn'>
-		<img onClick={goToPreview} src={backword} alt='Backward button' />
+	<div className="close-btn">
+		<img onClick={goToPreview} src={backword} alt="Backward button" />
 	</div>
 );
 
 export const Close = ({ closeModal }) => (
-	<div className='close-btn'>
-		<img onClick={closeModal} src={close} alt='Close button' />
+	<div className="close-btn">
+		<img onClick={closeModal} src={close} alt="Close button" />
 	</div>
 );
 
-export const Comment = ({handleClick}) => <img onClick={handleClick} src={comments} alt='comment' />;
-export const Like = ({handleClick}) => <img onClick={handleClick} src={likes} alt='repost' />;
-export const Repost = ({handleClick}) => <img onClick={handleClick} src={reposts} alt='like' />;
-export const Impressions = ({handleClick}) => <img onClick={handleClick} src={impressions} alt='like' />;
-export const Share = ({handleClick}) => <img onClick={handleClick} src={shares} alt='share' />;
+export const Comment = ({ handleClick }) => (
+	<img
+		className="metric-icon"
+		onClick={handleClick}
+		src={comments}
+		alt="comment"
+	/>
+);
+export const Like = ({ handleClick }) => (
+	<img
+		className="metric-icon"
+		onClick={handleClick}
+		src={likes}
+		alt="repost"
+	/>
+);
+export const Repost = ({ handleClick }) => (
+	<img
+		className="metric-icon"
+		onClick={handleClick}
+		src={reposts}
+		alt="like"
+	/>
+);
+export const Impressions = ({ handleClick }) => (
+	<img
+		className="metric-icon"
+		onClick={handleClick}
+		src={impressions}
+		alt="like"
+	/>
+);
+export const Share = ({ handleClick }) => (
+	<img
+		className="metric-icon"
+		onClick={handleClick}
+		src={shares}
+		alt="share"
+	/>
+);
