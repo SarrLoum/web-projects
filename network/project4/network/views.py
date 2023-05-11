@@ -68,7 +68,9 @@ class UserTL(APIView):
         user = request.user
         following = get_following(user)
 
-        data = get_threads(user, following)
+        serializers = get_threads(user, following)
+
+        data = {key: value.data for key, value in serializers.items()}
         return Response(data)
 
 
@@ -80,6 +82,7 @@ class Tendances(APIView):
             'quotes': QuoteSerializer(Quote.objects.all(), many=True),
             'reposts': RepostSerializer(Repost.objects.all(), many=True),
         }
+
         data = {key: value.data for key, value in serializers.items()}
         return Response(data)
 
@@ -91,12 +94,14 @@ class Thread(APIView):
         type = request.query_params.get('type')
         obj = get_object(pk, type)
 
-        data = {
+        serializers = {
             'object': obj,
             'replies': ReplySerializer(obj.replies.all(), many=True),
             'quotes': QuoteSerializer(obj.quotes.all(), many=True),
         }
-        return data
+
+        data = {key: value.data for key, value in serializers.items()}
+        return Response(data)
 
     def put(self, request, pk, format=None):
         type = request.query_params.get('type')
@@ -117,6 +122,7 @@ class Thread(APIView):
 
 
 class FollowView(APIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def get(self, request, Format=None):
         user = request.user
@@ -148,7 +154,7 @@ class FollowView(APIView):
 
 
 class Posting(APIView):
-
+    permission_classes = [permissions.IsAuthenticated]
     def post(self, request, format=None):
         serializer = PostSerializer(data=request.data)
 
@@ -160,11 +166,11 @@ class Posting(APIView):
 
 
 class Replying(APIView):
-
+    permission_classes = [permissions.IsAuthenticated]
     def post(self, request, format=None):
         # dynamically set the name of the argument and the instance that is
         # passed to the save() method of the Serializer
-        type = get_obj_type(request)
+        type = request.query_params.get('type')
         parent_obj = request.data.get(type)
 
         serializer = ReplySerializer(data=request.data)
@@ -176,8 +182,9 @@ class Replying(APIView):
 
 
 class Quoting(APIView):
+    permission_classes = [permissions.IsAuthenticated]
     def post(self, request, format=None):
-        type = get_obj_type(request)
+        type = request.query_params.get('type')
         parent_obj = request.data.get(type)
 
         serializer = QuoteSerializer(data=request.data)
@@ -190,15 +197,43 @@ class Quoting(APIView):
 
 
 class Reposting(APIView):
-    def post(self, request, format=None):
+    permission_classes = [permissions.IsAuthenticated]
+    def post(self, request, pk, format=None):
 
-        type = get_obj_type(request)
-        parent_obj = request.data.get(type)
+        type = request.query_params.get('type')
+        parent_obj = get_object(pk, type)
 
         serializer = RepostSerializer(data=request.data)
 
         if serializer.is_valid():
             serializer.save(user=request.user, **{type: parent_obj})
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+
+class Metrics(APIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get(self, request, pk, format=None):
+        type = request.query_params.get('type')
+        obj = get_object(pk, type)
+
+        serializers = get_metrics(obj)
+        data = {key: value.data for key, value in serializers.items()}
+        return Response(data)
+
+
+class LikePost(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, pk, format=None):
+        type = request.query_params.get('type')
+        obj = get_object(pk, type)
+
+        serializer = LikeSerializers(obj, request.data)
+
+        if serializer.is_valid():
+            serializer.save(likes=request.user, **{type: obj})
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)

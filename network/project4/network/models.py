@@ -81,26 +81,17 @@ class Repost(models.Model):
 
 
 # Abstract Metric model with the likes, views, shares and impressions fields
-class BaseMetric(models.Model):
-    likes = models.ManyToManyField(User, related_name="liked_%(class)ss")
-    views = models.ManyToManyField(User, related_name="viewed_%(class)ss")
-    shares = models.ManyToManyField(User, related_name="shared_%(class)ss")
-    impressions = models.ManyToManyField(User, related_name="impressed_%(class)ss")
+class Likes(models.Model):
+    likes = models.ForeignKey(User, on_delete=models.CASCADE, related_name='likes')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True, blank=True, related_name="likes")
+    reply = models.ForeignKey(Reply, on_delete=models.CASCADE, null=True, blank=True, related_name="likes")
+    quote = models.ForeignKey(Quote, on_delete=models.CASCADE, null=True, blank=True, related_name="likes")
+    timestamp = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        abstract = True
-    
+        unique_together = ('likes', 'post')
+
     def __str__(self):
         return self.likes
 
 # Metric models for Post, Reply, and Quotes
-class PostMetric(BaseMetric):
-    post = models.OneToOneField(Post, on_delete=models.CASCADE, related_name="metrics")
-
-
-class ReplyMetric(BaseMetric):
-    reply = models.OneToOneField(Reply, on_delete=models.CASCADE, related_name="metrics")
-
-
-class QuoteMetric(BaseMetric):
-    quote = models.OneToOneField(Quote, on_delete=models.CASCADE, related_name="metrics")

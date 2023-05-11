@@ -30,30 +30,16 @@ def get_threads(user, following):
         list(Quote.objects.filter(Q(user=user) | Q(user__in=following))), many=True)
 
     # Reurn the data of the serialized feed
-    data = {
+    return {
         'user': UserSerializer(user).data,
         'posts': post_serializer.data,
         'reposts': repost_serializer.data,
         'replies': reply_serializer.data,
         'quotes': quote_serializer.data,
     }
-    return data
 
 
-def get_obj_type(request):
-    post = request.data.get('post')
-    reply = request.data.get('reply')
-    quote = request.data.get('quote')
-
-    if post is not None:
-        return 'post'
-    elif reply is not None:
-        return 'reply'
-    else:
-        return 'quote'
-
-
-def get_object(self, pk, type):
+def get_object(pk, type):
     # Return the correct object if it exist else raie Http404 error
     try:
 
@@ -69,6 +55,14 @@ def get_object(self, pk, type):
     except (Post.DoesNotExist, Reply.DoesNotExist, Quote.DoesNotExist):
         raise Http404
 
+def get_metrics(obj):
+    return {
+        'likes': UserSerializer(obj.likes.all(), many=True),
+        'replies': ReplySerializer(obj.comments.all(), many=True),
+        'reposts': RepostSerializer(obj.reposts.all(), many=True),
+        'quotes': QuoteSerializer(obj.quotes.all(), many=True),
+    }
+
 
 def obj_serializer(request, obj, type):
     if type == 'post':
@@ -78,3 +72,4 @@ def obj_serializer(request, obj, type):
 
     elif type == 'quote':
         return QuoteSerializer(obj, data=request.data)
+

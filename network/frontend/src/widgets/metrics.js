@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useEffect, useState } from "react";
-import { RepostModal } from "modalsWidget";
+import { RepostModal } from "./modalsWidget";
 import axios from "axios";
 import { Comment, Impressions, Like, Repost, Share } from "./myIcons";
 
@@ -48,30 +48,24 @@ export const Metrics = ({ user, post }) => {
 		return <p>Error loading metrics</p>;
 	}
 
-	const { likes, reposts, comments, impressions } = postMetrics;
+	const { likes, replies, reposts, quotes, impressions } = postMetrics;
+
+	const allReposts = reposts.length + quotes.length;
 
 	return (
 		<div className="metrics-container">
 			<MetricButtons
-				count={comments.length}
+				count={replies.length}
 				handleClick={handleComment}
 				Icon={Comment}
 			/>
-			<MetricButtons
-				is_repost={true}
-				count={reposts.length}
-				Icon={Repost}
-			/>
+			<MetricButtons is_repost={true} count={allReposts} Icon={Repost} />
 			<MetricButtons
 				count={likes.length}
 				handleClick={handleLike}
 				Icon={Like}
 			/>
-			<MetricButtons
-				impressions={impressions}
-				handleClick={handleImpression}
-				Icon={Impressions}
-			/>
+			<MetricButtons handleClick={handleImpression} Icon={Impressions} />
 			<MetricButtons handleClick={handleShare} Icon={Share} />
 		</div>
 	);

@@ -13,6 +13,7 @@ admin.site.register(Post)
 admin.site.register(Reply)
 admin.site.register(Repost)
 admin.site.register(Quote)
+admin.site.register(Likes)
 
 
 
