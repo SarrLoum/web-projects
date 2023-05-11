@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Reply, Repost, Quote, Post } from "./posType";
+import { Reply, Repost, Quote, Post } from "../posType";
 import axios from "axios";
 import "./explorer.css";
 
 export const Tendance = () => {
-
 	const [tendances, setTendances] = useState(null);
 
 	useEffect(() => {
@@ -25,9 +24,17 @@ export const Tendance = () => {
 	}*/
 
 	function renderTendances() {
-		let posts = [], replies = [], quotes = [], reposts = [];
+		let posts = [],
+			replies = [],
+			quotes = [],
+			reposts = [];
 		if (tendances) {
-		    ({ posts = [], replies = [], quotes = [], reposts = [] } = tendances);
+			({
+				posts = [],
+				replies = [],
+				quotes = [],
+				reposts = [],
+			} = tendances);
 		}
 		console.log(posts);
 
@@ -41,30 +48,23 @@ export const Tendance = () => {
 		return (
 			<>
 				{allPosts &&
-						allPosts.map((singlePost) => {
-							console.log(singlePost);
-							if (singlePost && singlePost.is_post === true) {
-								return <Post post={singlePost} />;
-							} else if (singlePost && singlePost.is_reply === true) {
-								return <Reply reply={singlePost} />;
-							}
-							/* if (singlePost && singlePost.is_quote === true) {
+					allPosts.map((singlePost) => {
+						console.log(singlePost);
+						if (singlePost && singlePost.is_post === true) {
+							return <Post post={singlePost} />;
+						} else if (singlePost && singlePost.is_reply === true) {
+							return <Reply reply={singlePost} />;
+						}
+						/* if (singlePost && singlePost.is_quote === true) {
 								return <Quote quote={singlePost} />;
 							} else if (singlePost && singlePost.is_repost === true) {
 								return <Repost repost={singlePost} />;
 							}
 							return null;*/
-						})
-						}
+					})}
 			</>
 		);
 	}
 
-		
-
-	return (
-		<div className='tendance'>
-			{renderTendances()}
-		</div>
-	);
+	return <div className="tendance">{renderTendances()}</div>;
 };

@@ -32,18 +32,18 @@ ul {
 .tendance-container > .tendance {
 	display: flex;
 }
-j.tendance > .avatar-container .avatar-img {
+.tendance-container .tendance > .avatar-container .avatar-img {
 	height: 2.5em;
 	width: 2.5em;
 	border-radius: 6.25em;
 	object-fit: cover;
 }
-.tendance > .tendance-container {
+.tendance-container .tendance > .tendance-container {
 	width: 23em;
 	padding: 2em;
 }
 
-.tendance > .tendance-container p {
+.tendance-container .tendance > .tendance-container p {
 	font-family: "Inter";
 	font-style: normal;
 	font-weight: 600;

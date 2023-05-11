@@ -1,5 +1,5 @@
 import { Avatar, UserName2 } from "./user";
-import { Metrics } from "./myButtons";
+import { Metrics } from "./metrics";
 
 import "./posType.css";
 
@@ -69,7 +69,7 @@ export const BasePost = ({ user, post }) => {
 						<div className="media-area">{post.media}</div>
 					)}
 				</div>
-				<Metrics />
+				<Metrics user={user} post={post} />
 			</div>
 		</>
 	);

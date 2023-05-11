@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Avatar, UserName2 } from "./user";
-import { Reply, Repost, Quote, Post, BasePost } from "./posType";
+import { Avatar } from "../user";
+import { Reply, Repost, Quote, Post } from "../posType";
+import { TextInput } from "./modalsWidget";
 import { MediaButtons } from "./myButtons";
 
 import "./TLElements.css";
@@ -74,66 +75,4 @@ export const Feed = () => {
 		);
 	}
 	return renderTL();
-};
-
-export const Quoting = ({ user, post }) => {
-	return (
-		<div className="quote-container">
-			<div className="user-status">
-				<Avatar userProfile={user} />
-			</div>
-			<div className="form-container">
-				<form action="">
-					<TextInput />
-					<div className="selected-files"></div>
-					<QuotedPost user={user} post={post} />
-					<div className="status-btn">
-						<MediaButtons />
-						<input type="submit" value="Tweet" />
-					</div>
-				</form>
-			</div>
-		</div>
-	);
-};
-
-export const TextInput = () => {
-	const [value, setValue] = useState("");
-	const [height, setHeight] = useState("auto");
-
-	function handleInputChange(event) {
-		setValue(event.target.value);
-		setHeight(event.target.scrollHeight + "px");
-	}
-	return (
-		<>
-			<textarea
-				type="textarea"
-				name="text"
-				id="text-input"
-				placeholder="What's hapenning?"
-				maxLength="300"
-				value={value}
-				onChange={handleInputChange}
-				style={{ height }}
-			></textarea>
-		</>
-	);
-};
-
-export const QuotedPost = ({ user, post }) => {
-	return (
-		<div className="quoted-post">
-			<Avatar user={user} />
-			<div className="container">
-				<div className="post-content">
-					<UserName2 user={user} />
-					<p>{post.text}</p>
-					{post.media != null && (
-						<div className="media-area">{post.media}</div>
-					)}
-				</div>
-			</div>
-		</div>
-	);
 };

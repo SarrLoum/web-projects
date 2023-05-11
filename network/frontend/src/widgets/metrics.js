@@ -2,23 +2,12 @@ import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useEffect, useState } from "react";
 import { RepostModal } from "modalsWidget";
 import axios from "axios";
-import {
-	Calendar,
-	Comment,
-	Gif,
-	Image,
-	Impressions,
-	Like,
-	MapIn,
-	Polls,
-	Repost,
-	Share,
-	Smiley,
-} from "./myIcons";
+import { Comment, Impressions, Like, Repost, Share } from "./myIcons";
 
-import "./myButtons.css";
+import "./metrics.css";
 
-export const Metrics = ({ postId, comments, impressions }) => {
+export const Metrics = ({ user, post }) => {
+	const postId = post.id;
 	const queryClient = useQueryClient();
 
 	const {
@@ -59,12 +48,12 @@ export const Metrics = ({ postId, comments, impressions }) => {
 		return <p>Error loading metrics</p>;
 	}
 
-	const { likes, reposts } = postMetrics;
+	const { likes, reposts, comments, impressions } = postMetrics;
 
 	return (
 		<div className="metrics-container">
 			<MetricButtons
-				count={comments}
+				count={comments.length}
 				handleClick={handleComment}
 				Icon={Comment}
 			/>
@@ -79,52 +68,12 @@ export const Metrics = ({ postId, comments, impressions }) => {
 				Icon={Like}
 			/>
 			<MetricButtons
-				count={impressions}
+				impressions={impressions}
 				handleClick={handleImpression}
 				Icon={Impressions}
 			/>
 			<MetricButtons handleClick={handleShare} Icon={Share} />
 		</div>
-	);
-};
-
-export const MediaButtons = () => {
-	return (
-		<div className="media-inputs">
-			<ImgInput Icon={Image} />
-			<ImgInput Icon={Gif} />
-			<InputBtn Icon={Polls} />
-			<InputBtn Icon={Smiley} />
-			<InputBtn Icon={Calendar} />
-			<InputBtn Icon={MapIn} />
-		</div>
-	);
-};
-
-export const ImgInput = ({ Icon }) => {
-	return (
-		<>
-			<label for="media-input">
-				<Icon />
-			</label>
-			<input
-				type="file"
-				name="media"
-				id="media-input"
-				accept="image/*,video/*,image/gif"
-				multiple
-			/>
-		</>
-	);
-};
-
-export const InputBtn = ({ Icon }) => {
-	return (
-		<>
-			<div className="icon-btn">
-				<Icon />
-			</div>
-		</>
 	);
 };
 

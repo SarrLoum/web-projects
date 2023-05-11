@@ -1,9 +1,4 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { Repost } from "./myIcons";
-import { Avatar } from ".user";
-import { Quoting } from "TLelement";
-
+import { useState } from "react";
 import "./modalsWidget.css";
 
 export const Year = ({ dateOnChange }) => {
@@ -88,42 +83,26 @@ export const Day = ({ dateOnChange }) => {
 	);
 };
 
-export const RepostModal = ({ userId, postId }) => {
-	const [openQuote, setOpenQuote] = useState(false);
+export const TextInput = () => {
+	const [value, setValue] = useState("");
+	const [height, setHeight] = useState("auto");
 
-	const handleQuote = () => {
-		setOpenQuote(true);
-	};
-
-	const handleRepost = () => {
-		axios.post(`http://localhost:8000/api/posts/${postId}/repost`, {
-			userId,
-		});
-	};
-
+	function handleInputChange(event) {
+		setValue(event.target.value);
+		setHeight(event.target.scrollHeight + "px");
+	}
 	return (
 		<>
-			<div className="repost-modal">
-				<div className="repost-modal-container">
-					<div onClick={handleRepost} className="repost">
-						<Repost />
-						<span>Repost</span>
-					</div>
-					<div onClick={handleQuote} className="Quotes">
-						<Repost />
-						<span>Quote Post</span>
-					</div>
-				</div>
-			</div>
-			<QuoteModal isOpen={openQuote} postId={postId} userId={userId} />
+			<textarea
+				type="textarea"
+				name="text"
+				id="text-input"
+				placeholder="What's hapenning?"
+				maxLength="300"
+				value={value}
+				onChange={handleInputChange}
+				style={{ height }}
+			></textarea>
 		</>
-	);
-};
-
-export const QuoteModal = ({ isOpen, postId, userId }) => {
-	return (
-		<div className={`quote-modal ${isOpen ? "open-quote-modal" : ""}`}>
-			<Quoting user={userId} post={postId} />
-		</div>
 	);
 };
