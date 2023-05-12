@@ -1,38 +1,38 @@
-import apple from "./icons/apple.svg";
-import addUser from "./icons/addUser.svg";
-import bellNotification from "./icons/bellNotification.svg";
-import bookmark from "./icons/bookmark.svg";
-import backword from "./icons/backword.svg";
+import apple from "../icons/apple.svg";
+import addUser from "../icons/addUser.svg";
+import bellNotification from "../icons/bellNotification.svg";
+import bookmark from "../icons/bookmark.svg";
+import backword from "../icons/backword.svg";
 
-import calendar from "./icons/calendar.svg";
-import comments from "./icons/comments.svg";
-import close from "./icons/close.svg";
-import cube from "./icons/cube.svg";
-import cube2 from "./icons/cube2.svg";
+import calendar from "../icons/calendar.svg";
+import comments from "../icons/comments.svg";
+import close from "../icons/close.svg";
+import cube from "../icons/cube.svg";
+import cube2 from "../icons/cube2.svg";
 
-import gif from "./icons/gif.svg";
-import google from "./icons/google.svg";
-import hashExplore from "./icons/hashExplore.svg";
-import home from "./icons/home.svg";
+import gif from "../icons/gif.svg";
+import google from "../icons/google.svg";
+import hashExplore from "../icons/hashExplore.svg";
+import home from "../icons/home.svg";
 
-import impressions from "./icons/impressions.svg";
-import likes from "./icons/likes.svg";
-import list from "./icons/list.svg";
-import logout from "./icons/logout.svg";
-import mapin from "./icons/mapin.svg";
-import mediafile from "./icons/mediafile.svg";
-import more from "./icons/more.svg";
-import more2 from "./icons/more2.svg";
+import impressions from "../icons/impressions.svg";
+import likes from "../icons/likes.svg";
+import list from "../icons/list.svg";
+import logout from "../icons/logout.svg";
+import mapin from "../icons/mapin.svg";
+import mediafile from "../icons/mediafile.svg";
+import more from "../icons/more.svg";
+import more2 from "../icons/more2.svg";
 
-import paperPlane from "./icons/paperPlane.svg";
-import parameters from "./icons/parameters.svg";
-import person from "./icons/person.svg";
-import polls from "./icons/polls.svg";
+import paperPlane from "../icons/paperPlane.svg";
+import parameters from "../icons/parameters.svg";
+import person from "../icons/person.svg";
+import polls from "../icons/polls.svg";
 
-import reposts from "./icons/reposts.svg";
-import search from "./icons/search.svg";
-import shares from "./icons/shares.svg";
-import smiley from "./icons/smiley.svg";
+import reposts from "../icons/reposts.svg";
+import search from "../icons/search.svg";
+import shares from "../icons/shares.svg";
+import smiley from "../icons/smiley.svg";
 
 import "./myIcons.css";
 

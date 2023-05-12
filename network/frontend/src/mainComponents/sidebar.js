@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { Nav, TweetButton, UserLog } from "../subComponents/sidebarElements";
 import {
 	Cube,
 	Home,
@@ -9,10 +11,7 @@ import {
 	Person,
 	More,
 	More2,
-} from "./myIcons";
-import { useState } from "react";
-import { Nav, TweetButton, UserLog } from "./sidebarElements";
-import Braided from "./icons/Braided.JPG";
+} from "../widgets/myIcons";
 import "./sidebar.css";
 
 const Sidebar = ({ handleButton, UserAuth, getUser, currentUser }) => {

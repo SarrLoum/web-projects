@@ -13,7 +13,7 @@ export const Avatar = ({ user }) => (
 	<div className="avatar-container">
 		<img
 			className="avatar-img"
-			src={`http://localhost:8000/${user.profile.avatar}`}
+			src={`http://localhost:8000/${user.profile?.avatar}`}
 			alt="User avatar"
 		/>
 	</div>
@@ -22,7 +22,7 @@ export const Avatar = ({ user }) => (
 export const UserName1 = ({ user }) => {
 	return (
 		<div className="username1">
-			<span className="pseudo-name">{user.profile.pseudo_name}</span>
+			<span className="pseudo-name">{user.profile?.pseudo_name}</span>
 			<span className="user-name">@{user.username}</span>
 		</div>
 	);
@@ -31,7 +31,7 @@ export const UserName1 = ({ user }) => {
 export const UserName2 = ({ user }) => {
 	return (
 		<div className="username2">
-			<span className="pseudo-name">{user.profile.pseudo_name}</span>
+			<span className="pseudo-name">{user.profile?.pseudo_name}</span>
 			<span className="user-name">@{user.username}</span>
 		</div>
 	);

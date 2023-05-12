@@ -16,6 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
 		.querySelector("#compose-form")
 		.addEventListener("submit", send_email);
 
+	// actvite toggle button
+	toggleButton();
 	// By default, load the inbox
 	load_mailbox("inbox");
 });
@@ -37,12 +39,33 @@ function load_mailbox(mailbox) {
 	document.querySelector("#compose-view").style.display = "none";
 
 	// Show the mailbox name
-	document.querySelector("#emails-view").innerHTML = `<div><h3>${
-		mailbox.charAt(0).toUpperCase() + mailbox.slice(1)
-	}</h3></div><hr>`;
+	document.querySelector(
+		"#emails-view"
+	).innerHTML = `<div class="mailbox-header"><div class="mailbox">
+	<img src="static/mail/media/inbox.svg" alt="" />
+	<h6>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h6></div></div><hr>`;
 
 	//Show all emails of the mailbox
 	load_emails(mailbox);
+}
+
+function toggleButton() {
+	let navs = document.querySelectorAll(".nav-button");
+
+	// Set the Inbox button as active by default
+	document.getElementById("inbox").classList.add("active");
+
+	navs.forEach((navButton) => {
+		navButton.addEventListener("click", () => {
+			// Remove the active class from all buttons
+			navs.forEach((otherButton) => {
+				otherButton.classList.remove("active");
+			});
+
+			// Add the active class to the clicked button
+			navButton.classList.add("active");
+		});
+	});
 }
 
 function send_email(event) {
@@ -86,30 +109,28 @@ function load_emails(mailbox) {
 
 				// Format timestamp
 				let dateTime = timesTamp(email.timestamp);
-
+				//format the subject
 				let senderName = getUserName(email.sender);
 				// For each email create div inside a li element
 				let eachEmail = `<li class="email-list-item"><div id="email-details">
                         <div style="background: ${color};" class="email" id="email${email.id}" role="button" data-email_id="${email.id}">
-                          <div class="checkbox-ul">
-                            <ul>
-                              <li class="checkbox-btn">
-                                <input class="checkbox-pop" id="checkbox" type="checkbox"><span></span>
-                              </li>
-                              <li class="checkbox-btn">
-                                <input class="checkbox-spin" id="checkbox" type="checkbox"><span></span>
-                              </li>
-                            </ul>
-                          </div>
-                          <span class="sender-preview preview-font">${senderName}</span>
-                          <div class="subject-body">
-                            <span class="subject-preview preview-font">${email.subject}</span> - 
-                            <span class="body-preview">${email.body}</span>
-                          </div>
-                          <span class="datetime-preview preview-font">${dateTime}.</span>
+							<div class="checkbox-container">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+								</div>
+							</div>
+							<span class="sender-preview preview-font">${senderName}</span>
+                        	<div class="subject-body">
+								<span class="subject-preview preview-font">${email.subject}</span> - 
+								<span class="body-preview">${email.body}</span>
+                    		</div>
+                        	<span class="datetime-preview preview-font">${dateTime}.</span>
                         </div>
-                      </div></li>
-                      <hr>`;
+                    	</div></li><hr>`;
+
 				// Append email inside the email section
 				emailSection += eachEmail;
 			});
@@ -132,14 +153,20 @@ function load_emails(mailbox) {
 			// Loop through the collection
 			Array.from(elements).forEach((element) => {
 				element.addEventListener("click", function (event) {
-					if (event.target.id == "checkbox") {
+					if (
+						event.target.tagName.toLowerCase() === "input" &&
+						event.target.type === "checkbox"
+					) {
+						// The click event occurred on the checkbox element, toggle its status
 						event.stopPropagation();
-						//event.target.prop('checked', !checkbox.prop('checked'));
-					} else {
-						id = element.dataset.email_id;
+						//event.target.checked = !event.target.checked;
+						console.log("checkbox clicked");
+					} else if (!event.target.closest(".email .checkbox-ul")) {
+						// The click event occurred on some other element, display the email view
+						const id = element.dataset.email_id;
 						view_email(id);
 						asRead(id);
-						s;
+						console.log("email clicked");
 					}
 				});
 			});
@@ -151,25 +178,41 @@ function view_email(email_id) {
 		.then((response) => response.json())
 		.then((email) => {
 			// Create a div that display the emmail and all its details
-			let displayEmail = `<div class="email-nav">
-                          <button id="archive-email">archive</button>
-                        </div>
-                        <div class="email-content">
-                          <h6>Subject: ${email.subject}</h6>
-                          <span>Sender: ${email.sender}</span>
-                          <span> Date: ${email.timestamp}</span>
-                          <div class="email-body">
-                            <p>Body: ${email.body}</p>
-                          </div>
-                          <button id="response-email">Respond</button>
-                        </div>`;
+			let displayEmail = `
+			<div class="email-subject flex justify">
+				<h3>Subject: ${email.subject}</h3>
+				<button id="archive-email">archive</button>
+			</div>
+			<div class="flex">
+				<div class="sender-avatar">
+					<img src="" alt="">
+				</div>
+				<div class="body-container grow">
+					<div class="email-header flex justify">
+						<div class="email-header-left">
+							<div>
+								<span>${email.sender.slice(0, email.sender.indexOf("@"))}</span>
+								<span>&lt;${email.sender}&gt;</span>
+							</div>
+							<p>to me</p>
+						</div>
+						<div class="email-header-right">
+							<span>${email.timestamp}</span>
+						</div>
+					</div>
+					<div class="email-body">
+						<p>${email.body}</p>
+					</div>
+				</div>
+			</div>
+			<button id="response-email">Respond</button>`;
 
 			document.querySelector("#emails-view").innerHTML = displayEmail;
 
 			// add event listener to the archive and response button
 			document.body.addEventListener("click", function (event) {
 				if (event.target.id == "archive-email") {
-					asArchived(email.id);
+					asArchived(email);
 					console.log("Archive Button clicked");
 				} else if (event.target.id == "response-email") {
 					respondEmail(email);
@@ -187,18 +230,41 @@ function asRead(email_id) {
 	});
 }
 
-function asArchived(email_id) {
+function asArchived(email) {
+	//let bool = !email.archived;
+	const email_id = email.id;
 	fetch(`/emails/${email_id}`, {
 		method: "PUT",
 		body: JSON.stringify({
-			archived: true,
+			archived: !email.archived,
 		}),
 	});
 }
 
 function respondEmail(email) {
 	compose_email();
+	let subject = "";
+	if (email.subject.startsWith("Re: ")) {
+		subject = email.subject;
+	} else {
+		subject = `Re: ${email.subject}`;
+	}
 	document.querySelector("#compose-recipients").value = `${email.sender}`;
+
+	document.querySelector("#compose-subject").value = `${subject}`;
+
+	let senderMessage = `<div class="email-sender">
+                            <div class'sender-avatar'>
+                                <img
+                                    src=""
+                                    alt="sender avatar"
+                                />
+                                <span>On ${email.timestamp} ${email.sender} </pan>
+                            </div>
+                        </div>
+						<p>${email.body}</p>`;
+
+	document.querySelector("#sent-email").innerHTML = senderMessage;
 }
 
 function timesTamp(timestamp) {

@@ -1,5 +1,5 @@
-import { User } from "../user";
-import { More2, Search } from "./myIcons";
+import { User } from "../mainComponents/user";
+import { More2, Search } from "../widgets//myIcons";
 
 import "./suggestElements.css";
 

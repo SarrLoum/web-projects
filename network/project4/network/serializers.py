@@ -50,7 +50,7 @@ class PostSerializer(serializers.ModelSerializer):
 
 class ReplySerializer(serializers.ModelSerializer):
     user = UserSerializer()
-    post = PostSerializer(required=False, allow_null=True, source='post')
+    post = PostSerializer(required=False, allow_null=True)
     parent_reply = serializers.SerializerMethodField()
 
     def get_parent_reply(self, obj):
@@ -67,7 +67,7 @@ class ReplySerializer(serializers.ModelSerializer):
 
 class QuoteSerializer(serializers.ModelSerializer):
     user = UserSerializer()
-    post = PostSerializer(required=False, allow_null=True, source='post')
+    post = PostSerializer(required=False, allow_null=True)
     parent_quote = serializers.SerializerMethodField()
 
     def get_parent_quote(self, obj):
@@ -84,9 +84,9 @@ class QuoteSerializer(serializers.ModelSerializer):
 
 class RepostSerializer(serializers.ModelSerializer):
     user = UserSerializer()
-    post = PostSerializer(required=False, allow_null=True, source='post')
-    quote = QuoteSerializer(required=False, allow_null=True, source='quote')
-    reply = ReplySerializer(required=False, allow_null=True, source='reply')
+    post = PostSerializer(required=False, allow_null=True)
+    quote = QuoteSerializer(required=False, allow_null=True)
+    reply = ReplySerializer(required=False, allow_null=True)
 
     class Meta:
         model = Repost
@@ -95,9 +95,9 @@ class RepostSerializer(serializers.ModelSerializer):
 
 class LikeSerializers(serializers.ModelSerializer):
     likes = UserSerializer()
-    post = PostSerializer(required=False, allow_null=True, source='post')
-    quote = QuoteSerializer(required=False, allow_null=True, source='quote')
-    reply = ReplySerializer(required=False, allow_null=True, source='reply')
+    post = PostSerializer(required=False, allow_null=True)
+    quote = QuoteSerializer(required=False, allow_null=True)
+    reply = ReplySerializer(required=False, allow_null=True)
 
     class Meta:
         model = Likes

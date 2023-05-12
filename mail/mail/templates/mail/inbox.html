@@ -1,105 +1,185 @@
-{% extends "mail/layout.html" %}
-{% load static %}
+{% extends "mail/layout.html" %} {% load static %} {% block body %}
 
-{% block body %}
+<!-- ====== HEADER ====== -->
+<div class="header-container">
+	<header>
+		<!-- Logo link and sidebar button-->
+		<div class="logos flex">
+			<div
+				class="btn-3bar"
+				role="button"
+				aria-pressed="false"
+				tabindex="0"
+			>
+				<img src="static/mail/media/3bars menu.svg" alt="" />
+			</div>
+			<div class="logo-link">
+				<img src="static/mail/media/X logo.svg" alt="" />
+				<img src="static/mail/media/Mailer.svg" alt="" />
+			</div>
+		</div>
+		<!-- Email search bar-->
+		<div class="search-bar">
+			<form action="">
+				<div class="search-form"></div>
+			</form>
+		</div>
 
-    <!-- ====== HEADER ====== -->
-    <div class="header-container">
-        <header>
-            <!-- Logo link and sidebar button-->
-            <div class="logos flex">
-                <div class="btn-3bar" role="button" aria-pressed="false" tabindex="0">
-                    <img src="static/mail/media/3bars menu.svg" alt="">
-                </div>
-                <div class="logo-link">
-                    <img src="static/mail/media/X logo.svg" alt="">
-                    <img src="static/mail/media/Mailer.svg" alt="">
-                </div>
-            </div>
-            <!-- Email search bar-->
-            <div class="search-bar">
-                <form action="">
-                    <div class="search-form"></div>
-                </form>
+		<!-- Cuurent user email -->
+		<div class="current-user flex">
+			<h4>{{ request.user.email }}</h4>
+			<img src="" alt="" />
+		</div>
+	</header>
+</div>
 
-            </div>
-            
-            <!-- Cuurent user email -->
-            <div class="current-user flex">
-                <h4>{{ request.user.email }}</h4>
-                <img src="" alt="">
-            </div>
-        </header>
-    </div>
+<!-- ===== Main (Body) ===== -->
+<main>
+	<!-- ======= LEFT SIDE (SIDEBAR) ======= -->
+	<div class="side-bar">
+		<!-- Compose New email button -->
+		<div class="compose-button">
+			<button class="btn-compose" id="compose">New Message</button>
+		</div>
 
-    <main>
-        <!-- ======= LEFT SIDE (SIDEBAR) ======= -->
-        <div class="side-bar">
-            <!-- Compose New email button -->
-            <div class="compose-button">
-                <button class="btn-compose" id="compose">New Message</button>
-            </div>
+		<!-- Nav button container -->
+		<div class="nav-container">
+			<ul>
+				<li>
+					<button name="mailbox" class="nav-button" id="inbox">
+						<div class="button-content">
+							<img
+								src="static/mail/media/inbox.svg"
+								alt=""
+							/><span>Inbox</span>
+						</div>
+					</button>
+				</li>
+				<li>
+					<button name="mailbox" class="nav-button" id="starred">
+						<div class="button-content">
+							<img
+								src="static/mail/media/starred.svg"
+								alt=""
+							/><span>Starred</span>
+						</div>
+					</button>
+				</li>
+				<li>
+					<button name="mailbox" class="nav-button" id="archived">
+						<div class="button-content">
+							<img
+								src="static/mail/media/archived.svg"
+								alt=""
+							/><span>Archived</span>
+						</div>
+					</button>
+				</li>
+				<li>
+					<button name="mailbox" class="nav-button" id="sent">
+						<div class="button-content">
+							<img src="static/mail/media/sent.svg" alt="" /><span
+								>Sent</span
+							>
+						</div>
+					</button>
+				</li>
+				<li>
+					<button name="mailbox" class="nav-button" id="spam">
+						<div class="button-content">
+							<img src="static/mail/media/spam.svg" alt="" /><span
+								>Spam</span
+							>
+						</div>
+					</button>
+				</li>
+				<li>
+					<button name="mailbox" class="nav-button" id="trash">
+						<div class="button-content">
+							<img
+								src="static/mail/media/trash.svg"
+								alt=""
+							/><span>Trash</span>
+						</div>
+					</button>
+				</li>
 
-            <!-- Nav button container -->
-            <div class="nav-container">
-                <ul>
-                    <li><button name="mailbox" class="nav-button " id="inbox">
-                        <img src="" alt="">Inbox
-                    </button></li>
-                    <li><button name="mailbox" class="nav-button" id="sent">
-                        <img src="" alt="">Sent
-                    </button></li>
-                    <li><button name="mailbox" class="nav-button" id="archived">
-                        <img src="" alt="">Archived
-                    </button></li>
-                    <li><button name="mailbox" class="nav-button" id="flaged">
-                        <img src="" alt="">Flaged
-                    </button></li>
-                    <li><button name="mailbox" class="nav-button" id="spam">
-                        <img src="" alt="">Spam
-                    </button></li>
-                    <li><button name="mailbox" class="nav-button" id="Trash">
-                        <img src="" alt="">Trash
-                    </button></li>
+				<li>
+					<a
+						class="btn btn-sm btn-outline-primary"
+						href="{% url 'logout' %}"
+						>Log Out</a
+					>
+				</li>
+			</ul>
+		</div>
+	</div>
 
-                    <li><a class="btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a></li>
-        
-                </ul>
-            </div>
-        </div>
+	<!-- ======= MIDDLE SIDE(rightside) (CONTENT) ======= -->
+	<div class="emails-content">
+		<!-- === CONTENT BODY BUTTONS(headers)-->
+		<div class="content-hearder">
+			<div class="left-button">
+				<div class="form-check icon-btn">
+					<input
+						class="form-check-input"
+						type="checkbox"
+						value=""
+						id="flexCheckDefault"
+					/>
+				</div>
+				<div class="icon-btn">
+					<img src="static/mail/media/refresh.svg" alt="" class="" />
+				</div>
+				<div class="icon-btn">
+					<img src="static/mail/media/more.svg" alt="" />
+				</div>
+			</div>
+			<div class="right-button"></div>
+		</div>
 
-        <!-- ======= RIGHT SIDE (CONTENT) ======= -->
-        <div class="emails-content">
-            
-            <!-- ==== CONTENT BODY (emails and compose view) ==== -->
-            <div class="content-body">
+		<!-- ==== CONTENT BODY (emails and compose view) ==== -->
+		<div class="content-body">
+			<!-- Emails view -->
+			<div id="emails-view"></div>
 
-                <!-- Emails view -->
-                <div id="emails-view">
-                </div>
-        
-                <!-- Compose view -->
-                <div id="compose-view">
-                    <h3>New Email</h3>
-                    <form id="compose-form">
-                        <div class="form-group">
-                            From: <input disabled class="form-control" value="{{ request.user.email }}">
-                        </div>
-                        <div class="form-group">
-                            To: <input id="compose-recipients" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" id="compose-subject" placeholder="Subject">
-                        </div>
-                        <textarea class="form-control" id="compose-body" placeholder="Body"></textarea>
-                        <input type="submit" class="btn btn-primary"/>
-                    </form>
-                </div>    
-            </div>
-        </div>
-    </main>
-{% endblock %}
-
-{% block script %}
-    <script src="{% static 'mail/inbox.js' %}"></script>
+			<!-- Compose view -->
+			<div id="compose-view">
+				<h3>New Email</h3>
+				<form id="compose-form">
+					<div class="form-group">
+						From:
+						<input
+							disabled
+							class="form-control"
+							value="{{ request.user.email }}"
+						/>
+					</div>
+					<div class="form-group">
+						To:
+						<input id="compose-recipients" class="form-control" />
+					</div>
+					<div class="form-group">
+						<input
+							class="form-control"
+							id="compose-subject"
+							placeholder="Subject"
+						/>
+					</div>
+					<div class="sent-email" id="sent-email"></div>
+					<textarea
+						class="form-control"
+						id="compose-body"
+						placeholder="Body"
+					></textarea>
+					<input type="submit" class="btn btn-primary" />
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- ==== Little Apps ==== -->
+	<div class="apps-container"></div>
+</main>
+{% endblock %} {% block script %}
+<script src="{% static 'mail/inbox.js' %}"></script>
 {% endblock %}

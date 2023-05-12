@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Reply, Repost, Quote, Post } from "../posType";
+import { Reply, Repost, Quote, Post } from "../widgets/posType";
 import axios from "axios";
-import "./explorer.css";
+import "../mainComponents/explorer.css";
 
 export const Tendance = () => {
 	const [tendances, setTendances] = useState(null);

@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { Apple, OutLog, OtherAccount, Close, Cube2, Google } from "./myIcons";
+import {
+	Apple,
+	OutLog,
+	OtherAccount,
+	Close,
+	Cube2,
+	Google,
+} from "../widgets/myIcons";
 import "./modals.css";
 
 export const LoginForm = ({ isOpen, isClose }) => {

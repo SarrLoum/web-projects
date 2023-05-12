@@ -1,18 +1,22 @@
 import { useState } from "react";
-import { Avatar, UserName2, Repost } from "./user";
-import { MediaButtons } from "./myButtons";
-import { TextInput } from "./modalsWidget";
+import { Avatar, UserName2 } from "../mainComponents/user";
+import { MediaButtons } from "../widgets/myButtons";
+import { TextInput } from "../widgets/modalsWidget";
+import { Repost } from "../widgets/myIcons";
 import axios from "axios";
 
 import "./modalPopUps.css";
 
-export const RepostModal = ({ user, post }) => {
+export const RepostModal = ({ user, post, isOpen, onclose }) => {
 	const postId = post.id;
 	const userId = user.id;
 	const [openQuote, setOpenQuote] = useState(false);
 
-	const handleQuote = () => {
+	const openQuoteModal = () => {
 		setOpenQuote(true);
+	};
+	const closeQuoteModal = () => {
+		setOpenQuote(false);
 	};
 
 	const handleRepost = () => {
@@ -23,26 +27,31 @@ export const RepostModal = ({ user, post }) => {
 
 	return (
 		<>
-			<div className="repost-modal">
+			<div className={`repost-popup ${isOpen ? "open" : ""}`}>
 				<div className="repost-modal-container">
 					<div onClick={handleRepost} className="repost">
 						<Repost />
 						<span>Repost</span>
 					</div>
-					<div onClick={handleQuote} className="Quotes">
+					<div onClick={openQuoteModal} className="Quotes">
 						<Repost />
 						<span>Quote Post</span>
 					</div>
 				</div>
 			</div>
-			<QuoteModal isOpen={openQuote} post={post} user={user} />
+			<QuoteModal
+				onClose={closeQuoteModal}
+				isOpen={openQuote}
+				post={post}
+				user={user}
+			/>
 		</>
 	);
 };
 
 export const QuoteModal = ({ isOpen, post, user }) => {
 	return (
-		<div className={`quote-modal ${isOpen ? "open-quote-modal" : ""}`}>
+		<div className={`quote-modal ${isOpen ? "open" : ""}`}>
 			<Quoting user={user} post={post} />
 		</div>
 	);

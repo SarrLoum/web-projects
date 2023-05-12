@@ -1,24 +1,25 @@
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useEffect, useState } from "react";
-import { RepostModal } from "./modalsWidget";
+import { RepostModal } from "../theModals/modalPopUps";
 import axios from "axios";
 import { Comment, Impressions, Like, Repost, Share } from "./myIcons";
 
 import "./metrics.css";
 
 export const Metrics = ({ user, post }) => {
-	const postId = post.id;
 	const queryClient = useQueryClient();
+	const paramsValue = postType(post);
+	const pk = post.id;
 
 	const {
 		data: postMetrics,
 		isLoading,
 		error,
 	} = useQuery(
-		["post", postId],
+		["post", post.id],
 		async () => {
 			const response = await axios.get(
-				`http://localhost:8000/posts/${postId}/metrics`
+				`http://localhost:8000/api/posts/${pk}/metrics?type=${paramsValue}`
 			);
 			return response.data;
 		},
@@ -28,13 +29,21 @@ export const Metrics = ({ user, post }) => {
 		}
 	);
 
+	const [openRepost, setOpenRepost] = useState(false);
+
+	function openRepostModal() {
+		setOpenRepost(true);
+	}
+	function closeRepostModal() {
+		setOpenRepost(false);
+	}
+
 	const updateLikesMutation = useMutation((userId) =>
-		axios.post(`http://localhost:8000/posts/${postId}/like`, { userId })
+		axios.post(`http://localhost:8000/posts/${post.id}/like`, { userId })
 	);
 
 	const handleLike = () => {
-		const userId = "userID"; // replace with actual user ID
-		updateLikesMutation.mutate(userId);
+		updateLikesMutation.mutate(user.id);
 	};
 
 	const handleComment = () => {};
@@ -49,7 +58,6 @@ export const Metrics = ({ user, post }) => {
 	}
 
 	const { likes, replies, reposts, quotes, impressions } = postMetrics;
-
 	const allReposts = reposts.length + quotes.length;
 
 	return (
@@ -59,7 +67,16 @@ export const Metrics = ({ user, post }) => {
 				handleClick={handleComment}
 				Icon={Comment}
 			/>
-			<MetricButtons is_repost={true} count={allReposts} Icon={Repost} />
+			<MetricButtons
+				user={post}
+				post={post}
+				is_repost={true}
+				openRepost={openRepost}
+				count={allReposts}
+				handleClick={openRepostModal}
+				onClose={closeRepostModal}
+				Icon={Repost}
+			/>
 			<MetricButtons
 				count={likes.length}
 				handleClick={handleLike}
@@ -71,7 +88,16 @@ export const Metrics = ({ user, post }) => {
 	);
 };
 
-export const MetricButtons = ({ count, handleClick, Icon, is_repost }) => {
+export const MetricButtons = ({
+	user,
+	post,
+	is_repost,
+	openRepost,
+	count,
+	handleClick,
+	onClose,
+	Icon,
+}) => {
 	return (
 		<>
 			<div onClick={handleClick} className="metric-btn">
@@ -83,10 +109,27 @@ export const MetricButtons = ({ count, handleClick, Icon, is_repost }) => {
 				// if the metricbutton is a repost button render the repostModal pop up
 				is_repost && (
 					<>
-						<RepostModal />
+						<RepostModal
+							user={user}
+							post={post}
+							isOpen={openRepost}
+							onClose={onClose}
+						/>
 					</>
 				)
 			}
 		</>
 	);
 };
+
+function postType(post) {
+	if (post.is_post) {
+		return "post";
+	} else if (post.is_reply) {
+		return "reply";
+	} else if (post.is_repost) {
+		return "quote";
+	} else {
+		return "repost";
+	}
+}

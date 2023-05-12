@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "./sidebar";
-import TimeLine from "./timeLine";
-import Explorer from "./explorer";
-import Suggestions from "./suggest";
-import { LoginForm } from "./modalLogIn";
-import { SignupForm } from "./modalSignUp";
+import Sidebar from "./mainComponents/sidebar";
+import TimeLine from "./mainComponents/timeLine";
+import Explorer from "./mainComponents/explorer";
+import Suggestions from "./mainComponents/suggest";
+import { LoginForm } from "./theModals/modalLogIn";
+import { SignupForm } from "./theModals/modalSignUp";
 import "./App.css";
-
 function App() {
 	const [activeComponent, setActiveComponent] = useState("Timeline");
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -50,7 +49,7 @@ function App() {
 	}
 
 	return (
-		<div className='App-container'>
+		<div className="App-container">
 			<Sidebar
 				handleButton={handleButtonClick}
 				UserAuth={isAuthenticated}
@@ -59,7 +58,9 @@ function App() {
 			/>
 			{isAuthenticated ? (
 				<>
-					{activeComponent === "Timeline" && <TimeLine user={currentUser} />}
+					{activeComponent === "Timeline" && (
+						<TimeLine user={currentUser} />
+					)}
 					{activeComponent === "Explorer" && <Explorer />}
 				</>
 			) : (
@@ -70,16 +71,24 @@ function App() {
 
 			{/* Authentifacted signal invite*/}
 			{!isAuthenticated && (
-				<div className='bottom-signal'>
-					<div className='invite-signal'>
+				<div className="bottom-signal">
+					<div className="invite-signal">
 						<h6>Don't miss on what's happening.</h6>
 						<p>Twitter users are the first to know.</p>
 					</div>
-					<div className='auth-buttons'>
-						<div onClick={openLoginModal} role='button' className='Sign-in'>
+					<div className="auth-buttons">
+						<div
+							onClick={openLoginModal}
+							role="button"
+							className="Sign-in"
+						>
 							<span>Log in</span>
 						</div>
-						<div onClick={openSignupModal} role='button' className='Sign-up'>
+						<div
+							onClick={openSignupModal}
+							role="button"
+							className="Sign-up"
+						>
 							<span>Sign up</span>
 						</div>
 					</div>

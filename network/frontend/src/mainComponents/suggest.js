@@ -1,8 +1,12 @@
-import { SearchBar, TrendSuggest, UserSuggest } from "./suggestElements";
-import { SignUpOptions } from "./modalSignUp";
-import Braided from "./icons/Braided.JPG";
-import "./suggest.css";
 import { useEffect, useState } from "react";
+import {
+	SearchBar,
+	TrendSuggest,
+	UserSuggest,
+} from "../subComponents/suggestElements";
+import { SignUpOptions } from "../theModals/modalSignUp";
+import Braided from "../icons/Braided.JPG";
+import "./suggest.css";
 
 const Suggestions = ({ UserAuth }) => {
 	const user = {
@@ -18,7 +22,7 @@ const Suggestions = ({ UserAuth }) => {
 	};
 
 	return (
-		<div className='suggest-container'>
+		<div className="suggest-container">
 			{UserAuth ? (
 				<>
 					<SearchBar />

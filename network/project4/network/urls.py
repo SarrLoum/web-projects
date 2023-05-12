@@ -21,7 +21,8 @@ urlpatterns = [
 
     path('api/feed', UserTL.as_view(), name="time-line"),
     path('api/tendances', Tendances.as_view(), name='tendances'),
-
+    path('api/posts/<int:pk>/metrics', Metrics.as_view(), name='metrics'),
+    path('api/posts/<int:pk>/like', LikePost.as_view(), name='likes'),
 
     path('compose/post', Posting.as_view(), name="post"),
     path('compose/reply', Replying.as_view(), name="reply"),

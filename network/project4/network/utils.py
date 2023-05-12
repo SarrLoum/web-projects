@@ -58,7 +58,7 @@ def get_object(pk, type):
 def get_metrics(obj):
     return {
         'likes': UserSerializer(obj.likes.all(), many=True),
-        'replies': ReplySerializer(obj.comments.all(), many=True),
+        'replies': ReplySerializer(obj.replies.all(), many=True),
         'reposts': RepostSerializer(obj.reposts.all(), many=True),
         'quotes': QuoteSerializer(obj.quotes.all(), many=True),
     }

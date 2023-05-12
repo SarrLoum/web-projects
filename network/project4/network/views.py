@@ -29,6 +29,7 @@ class Register(APIView):
             # If it already exists, an IntegrityError will be raised
             user = User.objects.create_user(
                 username=username, email=email, password=password)
+            user.save()
         except IntegrityError:
             return Response({'error': 'Instance already exists.'}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 

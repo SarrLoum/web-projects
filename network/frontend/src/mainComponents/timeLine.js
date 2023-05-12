@@ -1,5 +1,5 @@
-import { Status, Fleet, Feed } from "./TLElements";
-import Braided from "./icons/Braided.JPG";
+import { Status, Fleet, Feed } from "../subComponents/TLElements";
+import Braided from "../icons/Braided.JPG";
 
 import "./timeLine.css";
 

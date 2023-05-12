@@ -1,9 +1,9 @@
-import { User } from "./user";
+import { User } from "../mainComponents/user";
 import { useState } from "react";
-import { UserLogsModal } from "./modalLogIn";
+import { UserLogsModal } from "../theModals/modalLogIn";
 
 import "./sidebarElements.css";
-import { More2 } from "./myIcons";
+import { More2 } from "../widgets/myIcons";
 
 export const Nav = ({ handleButtonClick, Icon, text }) => {
 	return (

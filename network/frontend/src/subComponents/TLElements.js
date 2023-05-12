@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Avatar } from "../user";
-import { Reply, Repost, Quote, Post } from "../posType";
-import { TextInput } from "./modalsWidget";
-import { MediaButtons } from "./myButtons";
+import { Avatar } from "../mainComponents/user";
+import { Reply, Repost, Quote, Post } from "../widgets/posType";
+import { TextInput } from "../widgets/modalsWidget";
+import { MediaButtons } from "../widgets/myButtons";
 
 import "./TLElements.css";
 

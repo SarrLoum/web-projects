@@ -1,4 +1,4 @@
-import { Avatar, UserName2 } from "./user";
+import { Avatar, UserName2 } from "../mainComponents/user";
 import { Metrics } from "./metrics";
 
 import "./posType.css";
