@@ -2,7 +2,7 @@ from django.db.models import Max
 from .models import *
 
 
-def get_price(resquest, id):
+def get_price(id):
 
     # Get the starting bid 
     listing = Listing.objects.get(pk=id)

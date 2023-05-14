@@ -7,32 +7,37 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 class User(AbstractUser):
     pass
 
-class Listing(models.Model):
-
-    art = "Collectibles & Art"
-    electronics = "Electronics"
-    fashion = "Fashion"
-    home = "Home & Garden"
-    automobile = "Auto Part & Accessories"
-    musical = "Musical instruments & gear"
-    sports = "Sporting good"
-    toys = "Toys & hobbies"
-    other = "Other categories"
-
     CATEGORIES = [
-        (art, "Collectibles & art"),
-        (electronics, "Electronics"),
-        (fashion, "Fashion"),
-        (home, "Home & garden"),
-        (automobile, "Auto Parts & Accessories"),
-        (musical, "Musical instruments & gear"),
-        (sports, "Sporting good"),
-        (toys, "Toys & hobbies"),
-        (other, "Other categories"),
+        ("art", "Collectibles & art"),
+        ("electronics", "Electronics"),
+        ("fashion", "Fashion"),
+        ("home", "Home & garden"),
+        ("automobile", "Auto Parts & Accessories"),
+        ("musical", "Musical instruments & gear"),
+        ("sports", "Sporting good"),
+        ("toys", "Toys & hobbies"),
+        ("other", "Other categories"),
     ]
 
+class Category(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    key = models.CharField(max_length=30, unique=True)
+
+
+    @staticmethod
+    def get_key_map():
+        return dict(CATEGORIES)
+    
+    @classmethod
+    def get_key(cls, name):
+        return cls.get_key_map()[name]
+
+
+
+class Listing(models.Model):
+
     title = models.CharField(max_length=100)
-    category = models.CharField(max_length=100, choices=CATEGORIES)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, max_length=100)
     starting_bid = models.FloatField()
     image = models.ImageField()
     description = models.CharField(max_length=200)
@@ -66,5 +71,4 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.comment
-
 

@@ -8,9 +8,9 @@ from django.urls import reverse
 from django.contrib import messages
 
 
-from .models import User, Listing, Bid, Comment
+from .models import User, Listing, Bid
 from .forms import ListingForm, CommentForm
-from .util import get_price, is_owner
+from .utils import get_price, is_owner
 
 
 def index(request):

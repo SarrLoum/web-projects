@@ -3,6 +3,7 @@ from django.db import models
 
 
 class User(AbstractUser):
+    avatar = models.ImageField(blank=True)
     pass
 
 
@@ -16,6 +17,14 @@ class Email(models.Model):
     read = models.BooleanField(default=False)
     archived = models.BooleanField(default=False)
 
+    @property
+    def sender_avatar(self):
+        return self.sender.avatar.url if self.sender.avatar else None
+
+    @property
+    def user_avatar(self):
+        return self.user.avatar.url if self.user.avatar else None
+
     def serialize(self):
         return {
             "id": self.id,
@@ -25,5 +34,7 @@ class Email(models.Model):
             "body": self.body,
             "timestamp": self.timestamp.strftime("%b %d %Y, %I:%M %p"),
             "read": self.read,
-            "archived": self.archived
+            "archived": self.archived,
+            "sender_avatar": self.sender_avatar,
+            "user_avatar": self.user_avatar
         }

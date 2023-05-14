@@ -1,26 +1,49 @@
-{% extends "auctions/layout.html" %}
+{% extends "auctions/layout.html" %} {% block body %}
 
-{% block body %}
-    <h2>Active Listings</h2>
-    <ul class="item-list">
-        {% for listing in active_listing %}
-            <li>
-                <div class="list-item">
-                    <a href="{% url 'listing-page' listing.id %}">
-                        <div class="img-wrapper">
-                            <img src="{{ listing.image.url }}" alt="">
-                        </div></a>                    
-                    <div class="item-details">
-                        <a class="title-link" href="{% url 'listing-page' listing.id %}">{{ listing.title }}</a>
-                        
-                        <span>${{ listing.starting_bid }}</span>
-                        
-                        <div class="description">
-                            {{ listing.description }}
-                        </div>
-                    </div>
-                </div>
-            </li>
-        {% endfor %}
-    </ul>
+<section>
+	<div class="">
+		<div class="auctions">
+			<div>
+				<img src="" atl="" />
+			</div>
+		</div>
+	</div>
+</section>
+
+<section>
+	<ul class="">
+		<li class="auctions">
+			<div>
+				<img src="" atl="" />
+			</div>
+		</li>
+	</ul>
+</section>
+
+<section>
+	<h2>Active Listings</h2>
+	<ul class="item-list">
+		{% for listing in active_listing %}
+		<li>
+			<div class="list-item">
+				<a href="{% url 'listing-page' listing.id %}">
+					<div class="img-wrapper">
+						<img src="{{ listing.image.url }}" alt="" /></div
+				></a>
+				<div class="item-details">
+					<a
+						class="title-link"
+						href="{% url 'listing-page' listing.id %}"
+						>{{ listing.title }}</a
+					>
+
+					<span>${{ listing.starting_bid }}</span>
+
+					<div class="description">{{ listing.description }}</div>
+				</div>
+			</div>
+		</li>
+		{% endfor %}
+	</ul>
+</section>
 {% endblock %}

@@ -1,25 +1,43 @@
 <!-- Modal -->
-<div class="modal fade" id="bidModal" tabindex="-1" aria-labelledby="bidModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert {{ message.tags}} m-2" id="msg" role="alert">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                    <strong>{{message}}</strong>
-                </div>
-            {% endfor %}
-        {% endif %}
-        <div class="modal-content mon-model">
-            <button type="button" class="close-btn" data-bs-dismiss="modal" aria-label="Close">x</button>
-            <h5 class="modal-title" id="bidModalLabel">Please Enter Your Bid</h5>
-            <!-- Bid form -->
-            <form action="{% url 'add-bid' listing.id %}" method="post">
-                {% csrf_token %}
-                <div class="input-container">
-                    <input type="number" name="bidding" step=0.01 placeholder="Enter the amount you want to bid">
-                </div>
-                <button type="submit" class="btn btn-confirm">Confirm</button>
-            </form>
-        </div>
-    </div>
+<div
+	class="modal fade"
+	id="bidModal"
+	tabindex="-1"
+	aria-labelledby="bidModalLabel"
+	aria-hidden="true"
+>
+	<div class="modal-dialog">
+		{% if messages %} {% for message in messages %}
+		<div class="alert {{ message.tags}} m-2" id="msg" role="alert">
+			<button type="button" class="close" data-dismiss="alert">×</button>
+			<strong>{{message}}</strong>
+		</div>
+		{% endfor %} {% endif %}
+		<div class="modal-content mon-model">
+			<button
+				type="button"
+				class="close-btn"
+				data-bs-dismiss="modal"
+				aria-label="Close"
+			>
+				x
+			</button>
+			<h5 class="modal-title" id="bidModalLabel">
+				Please Enter Your Bid
+			</h5>
+			<!-- Bid form -->
+			<form action="{% url 'add-bid' listing.id %}" method="post">
+				{% csrf_token %}
+				<div class="input-container">
+					<input
+						type="number"
+						name="bidding"
+						step="0.01"
+						placeholder="Enter the amount you want to bid"
+					/>
+				</div>
+				<button type="submit" class="btn btn-confirm">Confirm</button>
+			</form>
+		</div>
+	</div>
 </div>

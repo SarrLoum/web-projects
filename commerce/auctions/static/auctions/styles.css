@@ -2,12 +2,14 @@ body {
 	padding: 10px;
 }
 
+ul {
+	list-style-type: none !important;
+}
 /* Active Listing*/
 .item-list {
 	margin-top: 1.25em;
 	display: grid;
 	grid-template-columns: 25% 25% 25% 25%;
-	list-style-type: none;
 }
 
 .item-list > li {

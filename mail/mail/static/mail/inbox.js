@@ -123,7 +123,7 @@ function load_emails(mailbox) {
 								</div>
 							</div>
 							<span class="sender-preview preview-font">${senderName}</span>
-                        	<div class="subject-body">
+                    		<div class="subject-body">
 								<span class="subject-preview preview-font">${email.subject}</span> - 
 								<span class="body-preview">${email.body}</span>
                     		</div>
@@ -177,35 +177,59 @@ function view_email(email_id) {
 	fetch(`/emails/${email_id}`)
 		.then((response) => response.json())
 		.then((email) => {
+			// Email sender's name
+			let senderName = email.sender.slice(0, email.sender.indexOf("@"));
+			let sender_avatar = email.sender_avatar.replace("/", "");
 			// Create a div that display the emmail and all its details
 			let displayEmail = `
 			<div class="email-subject flex justify">
-				<h3>Subject: ${email.subject}</h3>
-				<button id="archive-email">archive</button>
+				<h2>Subject: ${email.subject}</h2>
+				<a href="#" id="archive-email"></a>
 			</div>
 			<div class="flex">
 				<div class="sender-avatar">
-					<img src="" alt="">
+					<div class="avatar-container">
+						<img src="http://localhost:8000/media/bellamy.jpg" alt="" />
+					</div>
 				</div>
 				<div class="body-container grow">
-					<div class="email-header flex justify">
-						<div class="email-header-left">
-							<div>
-								<span>${email.sender.slice(0, email.sender.indexOf("@"))}</span>
-								<span>&lt;${email.sender}&gt;</span>
-							</div>
-							<p>to me</p>
-						</div>
-						<div class="email-header-right">
-							<span>${email.timestamp}</span>
-						</div>
+					<div class="email-header">
+					<table>
+						<tr class="first-row flex">
+							<td class="first-column">
+								<span class="sender-span1">${senderName}</span>
+								<span class="sender-span2">&lt;${email.sender}&gt;</span>
+							</td>
+							<td class="second-column">
+								<span>${email.timestamp}</span>
+								<a class="icon-starred" href="#" id="star-email"></a>
+							</td>
+							<td class="third-column">
+							<a class="icon-reply" href="#" id="response-email"></a>
+							<a class="icon-more" href="#" id="response-email"></a>
+							</td>
+						</tr>
+						<tr class="second-row">
+							<td class="first-column"><span>to me</span></td>
+						</tr>
+					</table>
+				
 					</div>
 					<div class="email-body">
 						<p>${email.body}</p>
 					</div>
+					<div class="rf-btn-container flex">
+						<a class="respond-btn" href="#" id="response-email">
+							<img src="static/mail/media/reply.svg" alt="" >
+							<span>Response</span>
+						</a>
+						<a class="forward-btn" href="#" id="response-email">
+							<img src="static/mail/media/reply.svg" alt="" >
+							<span>Forward</span>
+						</a>
+					</div>
 				</div>
-			</div>
-			<button id="response-email">Respond</button>`;
+			</div>`;
 
 			document.querySelector("#emails-view").innerHTML = displayEmail;
 

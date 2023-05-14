@@ -8,7 +8,7 @@ body {
 }
 
 textarea {
-	min-height: 400px;
+	min-height: 25em;
 }
 ul,
 li {
@@ -157,11 +157,11 @@ button:focus {
 .mailbox {
 	display: flex;
 	align-items: center;
-	margin-left: 10px;
+	margin-left: 0.625em;
 }
 .mailbox > img {
-	margin-left: 10px;
-	margin-right: 10px;
+	margin-left: 0.5em;
+	margin-right: 0.625em;
 }
 .mailbox > h6 {
 	margin-bottom: 0;
@@ -170,6 +170,12 @@ button:focus {
 .mailbox-header {
 	display: flex;
 	height: 3em;
+}
+
+.icon-btn {
+	width: 1.5em;
+	margin-right: 0.31em;
+	place-items: center;
 }
 
 /* Right SIDE (email content)*/
@@ -191,18 +197,24 @@ button:focus {
 }
 .checkbox-container {
 	display: flex;
+	margin-left: 0.625em;
 }
 .form-check {
 	display: flex;
 	align-items: center;
-	margin-right: 10px; /* Add some space between the checkbox and the email content */
+	margin-right: 0.625em;
+	margin-left: 0.625em;
 }
+/* Change the color of the checkbox border and background */
+.form-check-input:checked {
+	background-color: #2196f3;
+	border-color: #2196f3;
+}
+
+/* Increase the size of the checkbox */
 .form-check-input {
-	position: relative;
-	width: 0.85em;
-	height: 0.85em;
-	margin-right: 0.31em; /* Add some space between the checkbox and the email content */
-	margin-left: 0.31em;
+	width: 1rem;
+	height: 1rem;
 }
 .email:hover {
 	background: #f2f5fc;
@@ -265,6 +277,151 @@ button:focus {
 	/* identical to box height */
 
 	color: #2c2d2d;
+}
+.email-subject {
+	width: 100%;
+	padding: 1.31em 4.56em;
+}
+.email-subject h2 {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 1.31rem;
+	line-height: 1.5rem;
+
+	color: #313030;
+}
+.email-subject a {
+	display: inline-block;
+	width: 1.25em;
+	height: 1.25em;
+	background-image: url("media/archive.svg");
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+.sender-avatar {
+	width: 73px;
+}
+
+table {
+	width: 100%;
+}
+td {
+	vertical-align: middle;
+}
+
+.second-row .first-column {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 0.76rem;
+	line-height: 0.91rem;
+	letter-spacing: 0.015rem;
+
+	color: #757575;
+}
+.first-column .sender-span1 {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 600;
+	font-size: 0.89rem;
+	line-height: 1.06rem;
+	/* identical to box height */
+
+	color: #242424;
+}
+.first-column .sender-span2 {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 0.75rem;
+	line-height: 0.91rem;
+	letter-spacing: 0.015rem;
+
+	color: #757575;
+}
+.first-row > span {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 0.7rem;
+	line-height: 0.91rem;
+
+	color: #757575;
+}
+.second-column > span {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 0.75rem;
+	line-height: 0.91rem;
+	padding-left: 40em;
+
+	color: #757575;
+}
+.second-column .icon-starred,
+.third-column .icon-reply,
+.third-column .icon-more {
+	display: inline-block;
+	width: 1.25em;
+	height: 1.25em;
+	margin-bottom: 1.56em;
+	vertical-align: middle;
+}
+
+.second-column .icon-starred {
+	margin-left: 1em;
+	margin-right: 1em;
+	background-image: url("media/starred.svg");
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+.third-column .icon-reply {
+	margin-right: 1em;
+	background-image: url("media/reply.svg");
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+.third-column .icon-more {
+	margin-right: 0;
+	padding: 0.188em;
+	background-image: url("media/more.svg");
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+.rf-btn-container {
+	gap: 0.5rem;
+	margin-top: 3em;
+}
+.respond-btn {
+	padding: 0.625em 1.34em;
+	border: 1px solid #757575;
+	border-radius: 6.25em;
+}
+.forward-btn {
+	padding: 0.3em 1.34em;
+	border: 1px solid #757575;
+	border-radius: 6.25em;
+}
+
+.email-body {
+	margin-top: 0.75em;
+}
+.email-body > p {
+	font-family: "Roboto";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 0.825rem;
+	line-height: 0.94rem;
+
+	color: #242424;
+}
+.sender-avatar > .avatar-container img {
+	height: 2em;
+	width: 2em;
+	border-radius: 6.25em;
+	object-fit: cover;
 }
 
 /* Little Apps  (email content)*/

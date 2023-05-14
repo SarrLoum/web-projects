@@ -1,125 +1,178 @@
-{% extends "auctions/layout.html" %}
+{% extends "auctions/layout.html" %} {% block body %}
+<!-- ====== LISTING PAGE ====== -->
+<div class="listing-container">
+	<!--Listing image -->
+	<div class="listing-img">
+		<img src="{{ listing.image.url }}" alt="" />
+	</div>
 
-{% block body %}
-    <!-- ====== LISTING PAGE ====== -->
-    <div class="listing-container">
-        <!--Listing image -->
-        <div class="listing-img">
-            <img src="{{ listing.image.url }}" alt="">
-        </div>
+	<!-- ==== LISTING DETAILS ==== -->
+	<div class="listing-details">
+		<!-- Title and Category -->
+		<div class="title-category">
+			<h4><strong>{{ listing.title }}</strong></h4>
+			<span>{{ listing.category }}</span>
+		</div>
+		<hr />
+		<!-- Description -->
+		<div class="listing-description">
+			<p>{{ listing.description }}</p>
+		</div>
+		<hr />
+		<!-- == PURCHASE ACTION == -->
+		<div class="purchase-action">
+			<!--price details -->
+			<div class="price-details">
+				<span class="span0">Current price:</span>
+				<span class="span1"> US</span>
+				<span class="span2">${{ listing.starting_bid }}</span>
+			</div>
 
-        <!-- ==== LISTING DETAILS ==== -->
-        <div class="listing-details">
-            <!-- Title and Category -->
-            <div class="title-category">
-                <h4><strong>{{ listing.title }}</strong></h4>
-                <span>{{ listing.category }}</span>
-            </div>
-            <hr>
-            <!-- Description -->
-            <div class="listing-description">
-                <p>{{ listing.description }}</p>
-            </div>
-            <hr>
-            <!-- == PURCHASE ACTION == -->
-            <div class="purchase-action">
-                <!--price details -->
-                <div class="price-details">
-                    <span class="span0">Current price:</span>
-                    <span class="span1"> US</span>
-                    <span class="span2">${{ listing.starting_bid }}</span>
-                </div>
+			<!-- PURCHASE BUTTON-->
+			<div class="purchase-btn">
+				{% if usr_is_owner %}
+				<!-- clause listing -->
+				<form action="" method="post">
+					{% csrf_token %} {% if listing.active %}
+					<input
+						class="btn-general btn-clause"
+						type="submit"
+						value="Close"
+					/>
+					{% else %}
+					<input
+						disabled
+						class="btn-general btn-clause"
+						type="submit"
+						value="Closed"
+					/>
+					{% endif %}
+				</form>
+				<!-- Check Bids -->
+				<form action="" method="post">
+					{% csrf_token %}
+					<input
+						class="btn-general btn-bid"
+						type="submit"
+						value="Check Bids"
+					/>
+				</form>
+				<!-- Edit comment form -->
+				<form action="" method="post">
+					{% csrf_token %}
+					<input
+						class="btn-general btn-comment"
+						type="submit"
+						value="Edit comments"
+					/>
+				</form>
 
-                <!-- PURCHASE BUTTON-->
-                <div class="purchase-btn">
+				{% else %}
+				<!-- Buy Now Button-->
+				<form action="" method="post">
+					{% csrf_token %}
+					<input
+						{%
+						if
+						not
+						listing.active
+						%}
+						desabled
+						{%
+						endif
+						%}
+						class="btn-general btn-buy"
+						type="submit"
+						value="Buy It Now"
+					/>
+				</form>
 
-                    {% if usr_is_owner %}
-                    <!-- clause listing -->
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        {% if listing.active %}
-                            <input class=" btn-general btn-clause" type="submit" value="Close">
-                        {% else %}
-                            <input disabled class=" btn-general btn-clause" type="submit" value="Closed">
-                        {% endif %}
-                    </form>
-                    <!-- Check Bids -->
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        <input class=" btn-general btn-bid" type="submit" value="Check Bids">
-                    </form>
-                    <!-- Edit comment form -->
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        <input class=" btn-general btn-comment" type="submit" value="Edit comments">
-                    </form>
+				<!-- Trigger Modal Bid's Button -->
+				<button
+					{%
+					if
+					not
+					listing.active
+					%}
+					desabled
+					{%
+					endif
+					%}
+					type="button"
+					class="btn-general btn-bid"
+					data-bs-toggle="modal"
+					data-bs-target="#bidModal"
+				>
+					Place a Bid
+				</button>
 
-                    {% else %}
-                    <!-- Buy Now Button-->
-                        <form action="" method="post">
-                            {% csrf_token %}
-                            <input {% if not listing.active %} desabled {% endif %} class=" btn-general btn-buy" type="submit" value="Buy It Now" >
-                        </form>
+				<!-- INCLUDE-->
+				{% include "auctions/bid.html" %}
 
-                        <!-- Trigger Modal Bid's Button -->
-                        <button {% if not listing.active %} desabled {% endif %} type="button" class="btn-general btn-bid" data-bs-toggle="modal" data-bs-target="#bidModal">Place a Bid</button>
-                    
-                        <!-- INCLUDE-->
-                        {% include "auctions/bid.html" %}
+				<!-- Add to watchlist form -->
+				<form
+					action="{% url 'add-watchlist' listing.id %}"
+					method="post"
+				>
+					{% csrf_token %}
+					<input
+						{%
+						if
+						not
+						listing.active
+						%}
+						desabled
+						{%
+						endif
+						%}
+						class="btn-general btn-watchlist"
+						type="submit"
+						value="Add to Watchlist"
+					/>
+				</form>
+				{% endif %}
+			</div>
+		</div>
+	</div>
 
-                        <!-- Add to watchlist form -->
-                        <form action="{% url 'add-watchlist' listing.id %}" method="post">
-                            {% csrf_token %}
-                            <input {% if not listing.active %} desabled {% endif %} class=" btn-general btn-watchlist" type="submit" value="Add to Watchlist">
-                        </form>
-                    {% endif %}
+	<div style="border-left: 1px solid #eae8e8; height: 398px"></div>
+	<!-- ==== TOP5 BIDS ====-->
+	<div class="top5-bids">
+		<div>
+			<h3>Top 5 Bids</h3>
+			<img src="" alt="" />
+		</div>
+		<span>winner</span>
+		<hr />
+	</div>
+</div>
+<hr />
 
-                </div>
-            </div>
-        </div>
+<!-- ====== COMMENTS ====== -->
+<div>
+	<h5>Comments</h5>
+	<div class="post-comment">
+		<form action="{% url 'add-comment' listing.id %}" method="post">
+			{% csrf_token %} {{comment_form}}
+			<input class="btn-general btn-comment" type="submit" />
+		</form>
+	</div>
 
-        <div style="border-left:1px solid #EAE8E8; height:398px"></div>
-        <!-- ==== TOP5 BIDS ====-->
-        <div class="top5-bids">
-            <div>
-                <h3>Top 5 Bids</h3>
-                <img src="" alt="">
-            </div>
-            <span>winner</span>
-            <hr> 
-        </div>
-    </div>
-    <hr>
-
-    <!-- ====== COMMENTS ====== -->
-    <div>
-        <h5>Comments</h5>
-        <div class="post-comment">
-            <form action="{% url 'add-comment' listing.id %}" method="post">
-                {% csrf_token %}
-                {{comment_form}}
-                <input class="btn-general btn-comment"  type="submit" >
-            </form>
-        </div>
-
-        <br>
-        <!---->
-        <div>
-            <ul class="item-list">
-                {% for comment in comments %}
-                    <li>
-                        <div>
-                            <h6>{{ comment.author }}</h6>
-                            <p>{{ comment.comment }}</p>
-                            <span>{{ comment.pub_date }}</span>
-                            <span>{{ comment.rating }}</span>
-
-                        </div>            
-                    </li>
-                {% endfor %}
-            </ul>
-    
-        </div>
-    </div>
+	<br />
+	<!---->
+	<div>
+		<ul class="item-list">
+			{% for comment in comments %}
+			<li>
+				<div>
+					<h6>{{ comment.author }}</h6>
+					<p>{{ comment.comment }}</p>
+					<span>{{ comment.pub_date }}</span>
+					<span>{{ comment.rating }}</span>
+				</div>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
 {% endblock %}
-

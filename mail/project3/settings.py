@@ -121,8 +121,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# Media files in static
+# settings.py
+
+# Media files settings
 MEDIA_URL = '/media/'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static','media')
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
