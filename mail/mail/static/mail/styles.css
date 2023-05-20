@@ -66,6 +66,9 @@ button:focus {
 .justify {
 	justify-content: space-between;
 }
+.justify-right {
+	justify-content: right;
+}
 .grow {
 	flex-grow: 1;
 }
@@ -77,8 +80,23 @@ button:focus {
 	background: #eaf1fb;
 }
 
-.current-user {
-	flex-grow: 1;
+.user-themes,
+.user-apps {
+	width: 1.88em;
+	height: 1.88em;
+	margin-left: 1em;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.current-user img {
+	width: 2.06em;
+	height: 2.06em;
+	margin-left: 1.26em;
+	border-radius: 6.25em;
+	object-fit: cover;
 }
 
 .logos {

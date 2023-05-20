@@ -20,6 +20,14 @@ document.addEventListener("DOMContentLoaded", function () {
 	toggleButton();
 	// By default, load the inbox
 	load_mailbox("inbox");
+
+	// Listen for clicks on the settings
+	var settingsContainer = document.querySelector(".settings-container");
+	var emailsContent = document.querySelector(".emails-content");
+
+	settingsContainer.addEventListener("click", function () {
+		emailsContent.classList.toggle("shrink-width");
+	});
 });
 
 function compose_email() {
@@ -220,11 +228,11 @@ function view_email(email_id) {
 					</div>
 					<div class="rf-btn-container flex">
 						<a class="respond-btn" href="#" id="response-email">
-							<img src="static/mail/media/reply.svg" alt="" >
+							<img src="static/icons/reply.svg" alt="" >
 							<span>Response</span>
 						</a>
 						<a class="forward-btn" href="#" id="response-email">
-							<img src="static/mail/media/reply.svg" alt="" >
+							<img src="static/icons/reply.svg" alt="" >
 							<span>Forward</span>
 						</a>
 					</div>

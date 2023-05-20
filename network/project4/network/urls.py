@@ -15,7 +15,7 @@ urlpatterns = [
 
 
     # API Routes
-    path("login", LogIn.as_view(), name="login"),
+    path("api/login", LogIn.as_view(), name="login"),
     path("logout", LogOut.as_view(), name="logout"),
     path("register", Register.as_view(), name="register"),
 

@@ -29,7 +29,9 @@ import parameters from "../icons/parameters.svg";
 import person from "../icons/person.svg";
 import polls from "../icons/polls.svg";
 
+import quote from "../icons/quote.svg";
 import reposts from "../icons/reposts.svg";
+import repost2 from "../icons/repost2.svg";
 import search from "../icons/search.svg";
 import shares from "../icons/shares.svg";
 import smiley from "../icons/smiley.svg";
@@ -51,6 +53,7 @@ export const More2 = () => <img src={more2} alt="More icon" />;
 
 export const Person = () => <img className="icons" src={person} alt="User" />;
 export const Polls = () => <img src={polls} alt="Polls" />;
+
 export const Smiley = () => <img src={smiley} alt="Smiley" />;
 export const Search = () => <img src={search} alt="search" />;
 
@@ -122,3 +125,12 @@ export const Impressions = () => (
 export const Share = () => (
 	<img className="metric-icon" src={shares} alt="share" />
 );
+
+
+
+export const Repost2 = () => (
+	<img className="icons" src={repost2} alt="Inbox" />
+)
+export const QuoteIcon = () => (
+	<img className="icons" src={quote} alt="Inbox" />
+)

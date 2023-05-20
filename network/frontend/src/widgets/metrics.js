@@ -32,7 +32,7 @@ export const Metrics = ({ user, post }) => {
 	const [openRepost, setOpenRepost] = useState(false);
 
 	function openRepostModal() {
-		setOpenRepost(true);
+		setOpenRepost(!openRepost);
 	}
 	function closeRepostModal() {
 		setOpenRepost(false);
@@ -113,7 +113,7 @@ export const MetricButtons = ({
 							user={user}
 							post={post}
 							isOpen={openRepost}
-							onClose={onClose}
+							closeRepostModal={onClose}
 						/>
 					</>
 				)

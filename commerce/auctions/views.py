@@ -4,13 +4,15 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.http import JsonResponse
+import json
 
 from django.contrib import messages
 
 
-from .models import User, Listing, Bid
+from .models import User, Listing, Bid, ImgCategory, Category
 from .forms import ListingForm, CommentForm
-from .utils import get_price, is_owner
+from .util import get_price, is_owner
 
 
 def index(request):
@@ -18,9 +20,35 @@ def index(request):
     # Create an objects of all the active listing
     active_list = Listing.objects.filter(active=True)
 
+    # Create an objects of all the Category Illustratin=ion mages 
+    categories = ImgCategory.objects.all()
+
+    categoryList = []
+    for category in categories:
+        categoryDict = { 
+            'name': category.category.key, 
+            'images': [ 
+                category.image1, 
+                category.image2, 
+                category.image3, 
+                category.image4, 
+                category.image5],
+        }
+        categoryList.append(categoryDict)
+    
     return render(request, "auctions/index.html", {
-        "active_listing": active_list
+        "active_listing": active_list,
+        "categories": categoryList
     })
+
+def category_img(request):
+    # Create an objects of all the Category Illustratin=ion images 
+    categories = ImgCategory.objects.all()
+
+    serialized_data = [category.serialize() for category in categories]
+
+    return JsonResponse(serialized_data , safe=False)
+
 
 
 def login_view(request):

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import axios from "axios";
+
 import {
 	Apple,
 	OutLog,
@@ -93,18 +95,16 @@ export const LoginStep2 = ({ onClose, userName, getUser }) => {
 	}
 
 	function subitForm() {
-		fetch("/api/login", {
-			method: "POST",
-			body: JSON.stringify({
-				username: userName,
-				password: password,
-			}),
-		})
-			.then((response) => response.json())
-			.then((result, user) => {
-				console.log("submitfuncion is called");
-				console.log(result);
-				getUser(user);
+		const formData = new URLSearchParams();
+		formData.append("username", userName);
+		formData.append("password", password);
+		axios
+			.post("http://localhost:8000/api/login", formData)
+			.then((response) => {
+				console.log("submitfunction is called");
+				console.log(`${userName}'s password ${password}`);
+				console.log(response.data); // Assuming the user data is present in the response
+				getUser(response.data.user); // Adjust this line based on the actual response structure
 			})
 			.catch((error) => console.log(error));
 	}

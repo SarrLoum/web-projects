@@ -1,22 +1,19 @@
 {% extends "auctions/layout.html" %} {% block body %}
-
+<section></section>
 <section>
-	<div class="">
-		<div class="auctions">
-			<div>
-				<img src="" atl="" />
+	<ul id="categories" class="categories flex">
+		{% for category in categories %}
+		<li class="category-item">
+			<div class="category-carousel">
+				{% for image_url in category.images %}
+				<div class="slide">
+					<img src="{{ image_url.url }}" alt="" />
+				</div>
+				{% endfor %}
 			</div>
-		</div>
-	</div>
-</section>
-
-<section>
-	<ul class="">
-		<li class="auctions">
-			<div>
-				<img src="" atl="" />
-			</div>
+			<span id="category-span">{{ category.name }}</span>
 		</li>
+		{% endfor %}
 	</ul>
 </section>
 

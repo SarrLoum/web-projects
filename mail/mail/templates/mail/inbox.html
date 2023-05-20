@@ -11,11 +11,11 @@
 				aria-pressed="false"
 				tabindex="0"
 			>
-				<img src="static/mail/media/3bars menu.svg" alt="" />
+				<img src="static/icons/3bars menu.svg" alt="" />
 			</div>
 			<div class="logo-link">
-				<img src="static/mail/media/X logo.svg" alt="" />
-				<img src="static/mail/media/Mailer.svg" alt="" />
+				<img src="static/icons/X logo.svg" alt="" />
+				<img src="static/icons/Mailer.svg" alt="" />
 			</div>
 		</div>
 		<!-- Email search bar-->
@@ -26,9 +26,25 @@
 		</div>
 
 		<!-- Cuurent user email -->
-		<div class="current-user flex">
-			<h4>{{ request.user.email }}</h4>
-			<img src="" alt="" />
+		<div class="user-params flex grow justify-right">
+			<div class="user-themes">
+				<div id="settings-btn" class="img-container">
+					<img src="static/icons/settings.svg" alt="" />
+				</div>
+			</div>
+			<div class="user-apps">
+				<div class="img-container">
+					<img src="static/icons/group-apps.svg" alt="" />
+				</div>
+			</div>
+
+			<div class="current-user">
+				<img
+					class="grow"
+					src="http://127.0.0.1:8000/static/media/{{ request.user.avatar }}"
+					alt=""
+				/>
+			</div>
 		</div>
 	</header>
 </div>
@@ -48,37 +64,34 @@
 				<li>
 					<button name="mailbox" class="nav-button" id="inbox">
 						<div class="button-content">
-							<img
-								src="static/mail/media/inbox.svg"
-								alt=""
-							/><span>Inbox</span>
+							<img src="static/icons/inbox.svg" alt="" /><span
+								>Inbox</span
+							>
 						</div>
 					</button>
 				</li>
 				<li>
 					<button name="mailbox" class="nav-button" id="starred">
 						<div class="button-content">
-							<img
-								src="static/mail/media/starred.svg"
-								alt=""
-							/><span>Starred</span>
+							<img src="static/icons/starred.svg" alt="" /><span
+								>Starred</span
+							>
 						</div>
 					</button>
 				</li>
 				<li>
 					<button name="mailbox" class="nav-button" id="archived">
 						<div class="button-content">
-							<img
-								src="static/mail/media/archive.svg"
-								alt=""
-							/><span>Archived</span>
+							<img src="static/icons/archived.svg" alt="" /><span
+								>Archived</span
+							>
 						</div>
 					</button>
 				</li>
 				<li>
 					<button name="mailbox" class="nav-button" id="sent">
 						<div class="button-content">
-							<img src="static/mail/media/sent.svg" alt="" /><span
+							<img src="static/icons/sent.svg" alt="" /><span
 								>Sent</span
 							>
 						</div>
@@ -87,7 +100,7 @@
 				<li>
 					<button name="mailbox" class="nav-button" id="spam">
 						<div class="button-content">
-							<img src="static/mail/media/spam.svg" alt="" /><span
+							<img src="static/icons/spam.svg" alt="" /><span
 								>Spam</span
 							>
 						</div>
@@ -96,10 +109,9 @@
 				<li>
 					<button name="mailbox" class="nav-button" id="trash">
 						<div class="button-content">
-							<img
-								src="static/mail/media/trash.svg"
-								alt=""
-							/><span>Trash</span>
+							<img src="static/icons/trash.svg" alt="" /><span
+								>Trash</span
+							>
 						</div>
 					</button>
 				</li>
@@ -129,10 +141,10 @@
 					/>
 				</div>
 				<div class="icon-btn">
-					<img src="static/mail/media/refresh.svg" alt="" class="" />
+					<img src="static/icons/refresh.svg" alt="" class="" />
 				</div>
 				<div class="icon-btn">
-					<img src="static/mail/media/more.svg" alt="" />
+					<img src="static/icons/more.svg" alt="" />
 				</div>
 			</div>
 			<div class="right-button"></div>
@@ -177,6 +189,9 @@
 			</div>
 		</div>
 	</div>
+	<!-- ==== Little Apps ==== -->
+	<div class="settings-container"></div>
+
 	<!-- ==== Little Apps ==== -->
 	<div class="apps-container"></div>
 </main>

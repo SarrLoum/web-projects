@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Avatar, UserName2 } from "../mainComponents/user";
 import { MediaButtons } from "../widgets/myButtons";
 import { TextInput } from "../widgets/modalsWidget";
-import { Repost } from "../widgets/myIcons";
+import { Repost2, QuoteIcon } from "../widgets/myIcons";
 import axios from "axios";
 
 import "./modalPopUps.css";
 
-export const RepostModal = ({ user, post, isOpen, onclose }) => {
+export const RepostModal = ({ user, post, isOpen, closeRepostModal }) => {
 	const postId = post.id;
 	const userId = user.id;
 	const [openQuote, setOpenQuote] = useState(false);
@@ -23,18 +23,21 @@ export const RepostModal = ({ user, post, isOpen, onclose }) => {
 		axios.post(`http://localhost:8000/api/posts/${postId}/repost`, {
 			userId,
 		});
+		console.log('repost button is clicked');
 	};
+
+	
 
 	return (
 		<>
-			<div className={`repost-popup ${isOpen ? "open" : ""}`}>
+			<div id="repost-popup" className={`repost-popup ${isOpen ? "open" : ""}`}>
 				<div className="repost-modal-container">
-					<div onClick={handleRepost} className="repost">
-						<Repost />
+					<div onClick={handleRepost} className="repost-btn">
+						<Repost2 />
 						<span>Repost</span>
 					</div>
-					<div onClick={openQuoteModal} className="Quotes">
-						<Repost />
+					<div onClick={openQuoteModal} className="quote-btn">
+						<QuoteIcon />
 						<span>Quote Post</span>
 					</div>
 				</div>

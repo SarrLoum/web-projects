@@ -1,11 +1,13 @@
 .repost-popup {
-	position: fixed;
+	position: relative;
+	display: inline-block;
+	/*position: fixed;
 	z-index: 1;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: transparent; /* Fallback color */
+	background-color: transparent; /* Fallback color /
 	background-color: transparent; /* Black w/ opacity */
 	display: none;
 }
@@ -29,14 +31,43 @@
 	display: block;
 }
 .repost-modal-container {
-	position: relative;
-	top: 0;
-	width: 5.19em;
-	height: 7.5em;
-	margin-left: 4em;
-	border-radius: 0.94em;
-	background: #0f0;
+	position: absolute;
+	top: -5.19em; /* Adjust this value to position the modal relative to the button */
+	left: 0;
+	
+	width: 9.75em;
+	height: 5.56em;
+
+	background: #FFFFFF;
+	box-shadow: 0px 2px 10px 2px rgba(126, 125, 125, 0.2);
+	border-radius: .625em;
 }
+
+.repost-btn, .quote-btn {
+	display: flex;
+	width: 100%;
+	height: 50%;
+	align-items: center;
+
+}
+
+.repost-btn > .icons, 
+.quote-btn > .icons {
+	margin-left: 13px;
+	margin-right: 8px;
+}
+
+.repost-btn > span, 
+.quote-btn > span {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 600;
+	font-size: 1rem;
+	line-height: 1.125rem;
+
+	color: #0F0F0F;
+}
+
 .quoting-container {
 	display: flex;
 	min-height: 7.06em;
