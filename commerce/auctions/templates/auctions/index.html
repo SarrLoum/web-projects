@@ -1,17 +1,30 @@
 {% extends "auctions/layout.html" %} {% block body %}
-<section></section>
 <section>
-	<ul id="categories" class="categories flex">
+	<div class="carousel-container">
+		<div class="suggestions-carousel">
+			{% for suggest in suggestions %}
+			<div class="suggest-slide">
+				<img src="{{ suggest.image.url }}" alt="" />
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</section>
+
+<section>
+	<ul id="categories" class="carousel-list">
 		{% for category in categories %}
 		<li class="category-item">
-			<div class="category-carousel">
-				{% for image_url in category.images %}
-				<div class="slide">
-					<img src="{{ image_url.url }}" alt="" />
+			<div class="carousel-container">
+				<div class="category-img carousel">
+					{% for image_url in category.images %}
+					<div class="slide">
+						<img src="{{ image_url.url }}" alt="" />
+					</div>
+					{% endfor %}
 				</div>
-				{% endfor %}
 			</div>
-			<span id="category-span">{{ category.name }}</span>
+			<span>{{ category.name }}</span>
 		</li>
 		{% endfor %}
 	</ul>

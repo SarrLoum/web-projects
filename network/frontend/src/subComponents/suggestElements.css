@@ -1,22 +1,87 @@
 .trends-container,
-.user-suggest {
+.suggestions-container {
 	width: 20.81em;
 	margin-left: 2em;
 	margin-bottom: 2em;
 	border-radius: 0.88em;
+	padding: 1em;
 
 	background: #f7f9f8;
 }
 .trends-container > h1,
-.user-suggest > h1 {
-	margin: 0.69em 1em;
-
+.suggestions-container > h1 {
 	font-family: "Inter";
 	font-style: normal;
 	font-weight: 700;
 	font-size: 1.175rem;
 	line-height: 1.44rem;
+	margin: 0;
 	/* identical to box height */
 
-	color: #000000;
+	color: #0f1419;
+}
+
+.search-bar > div {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.5em 1em;
+}
+
+.suggest-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.suggest-wrapper .User > .avatar-container .avatar-img {
+	height: 3em;
+	width: 3em;
+	border-radius: 6.25em;
+	object-fit: cover;
+}
+
+.chatbox-header .username1 {
+	flex-grow: 1;
+}
+.suggest-wrapper > .User .username1 .pseudo-name {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 600;
+	font-size: 1.15rem;
+	line-height: 1rem;
+	color: #0f1419;
+	margin: 0;
+}
+
+.suggest-wrapper > .User .username1 .user-name {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 0.88rem;
+	line-height: 0.88rem;
+	margin-top: 0.4em;
+	/* identical to box height */
+
+	color: #6e757b;
+}
+
+.follow-btn {
+	height: 2em;
+	width: 4.88em;
+	border-radius: 5.87em;
+	background: #181d21;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.follow-btn span {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 700;
+	font-size: 0.85rem;
+	line-height: 1rem;
+
+	color: #ffffff;
 }

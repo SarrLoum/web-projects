@@ -6,6 +6,7 @@ import {
 	HashExplore,
 	Notification,
 	PaperPlane,
+	Params2,
 	Bookmark,
 	List,
 	Person,
@@ -68,7 +69,7 @@ const Sidebar = ({ handleButton, UserAuth, getUser, currentUser }) => {
 			) : (
 				<div className="nav-container">
 					<Nav Icon={HashExplore} text="Explore" />
-					<Nav Icon={List} text="List" />
+					<Nav Icon={Params2} text="List" />
 				</div>
 			)}
 		</div>

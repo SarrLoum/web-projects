@@ -1,3 +1,4 @@
+from django.contrib.auth.hashers import make_password
 from rest_framework import serializers
 from django.utils import timezone
 
@@ -25,11 +26,38 @@ class UserSerializer(serializers.ModelSerializer):
             'birthdate', 'password', 'profile'
         ]
 
-    def validate_birthdate(self, value):
-        if value and value > timezone.now().date():
-            raise serializers.ValidationError(
-                "Birthdate cannot be in the future.")
-        return value
+    def create(self, validated_data):
+        # Desttucture the validated_data to get the profile information
+        profile_data = validated_data.pop('profile', None)
+
+        # Hash the passsword before creating user 
+        password = validated_data.pop('password', None)
+        hashed_password = make_password(password) if password else None
+        user = User.objects.create(password=hashed_password, **validated_data)
+
+        # Add user's Profile
+        if profile_data:
+            profile_serializer = ProfileSerializer(data=profile_data)
+            profile_serializer.is_valid(raise_exception=True)
+            profile = profile_serializer.save(user=user)
+            user.profile = profile
+        return user
+
+    def update(self, instance, validated_data):
+        profile_data = validated_data.pop('profile', None)
+        password = validated_data.pop('password', None)
+        instance = super().update(instance, validated_data)
+        
+        if password:
+            instance.set_password(password)
+            instance.save()
+        
+        if profile_data:
+            profile_serializer = ProfileSerializer(instance.profile, data=profile_data)
+            profile_serializer.is_valid(raise_exception=True)
+            profile_serializer.save()
+        
+        return instance
 
 
 class FollowSerializer(serializers.ModelSerializer):
@@ -93,7 +121,7 @@ class RepostSerializer(serializers.ModelSerializer):
         fields = ['id', 'user', 'post', 'reply', 'quote', 'timestamp', 'is_repost']
 
 
-class LikeSerializers(serializers.ModelSerializer):
+class LikeSerializer(serializers.ModelSerializer):
     likes = UserSerializer()
     post = PostSerializer(required=False, allow_null=True)
     quote = QuoteSerializer(required=False, allow_null=True)
@@ -104,3 +132,34 @@ class LikeSerializers(serializers.ModelSerializer):
         fields = [
                 'id', 'likes', 'post','reply', 'quote', 'timestamp',
             ]
+
+
+
+class ChatSerializer(serializers.ModelSerializer):
+    sender = UserSerializer()
+    recipient = UserSerializer()
+
+    class Meta:
+        model = Chat
+        fields =[
+            'id', 'text', 'media', 'read', 'timestamp', 'sender', 'recipient'
+        ]
+
+
+
+class ChatBoxSerializer(serializers.ModelSerializer):
+    user1 = UserSerializer()
+    user2 = UserSerializer()
+    latest_chat = serializers.SerializerMethodField()
+
+    class Meta:
+        model = ChatBox
+        fields = [
+            'id', 'name', 'user1', 'user2', 'latest_chat' 
+        ]
+
+    def get_latest_chat(self, obj):
+        latest_chat = obj.chats.all().order_by('-timestamp').first()
+        if latest_chat:
+            return ChatSerializer(latest_chat).data
+        return None

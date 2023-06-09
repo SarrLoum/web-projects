@@ -1,0 +1,85 @@
+.chatbox-header {
+	display: flex;
+	align-items: center;
+	vertical-align: center;
+	padding: 0.31em 1em;
+}
+
+.chats-container {
+	padding: 1em;
+}
+
+.chat-list {
+	display: flex;
+	margin-bottom: 0.38em;
+}
+.justify-lefts {
+	justify-content: flex-start;
+}
+.justify-right {
+	justify-content: flex-end;
+}
+
+.chat-list > .left {
+	max-width: 65%;
+	background: #eff3f4;
+	padding: 0.81em 0.9em;
+	border-top-right-radius: 2.5em;
+	border-bottom-right-radius: 2.5em;
+	border-top-left-radius: 2.5em;
+	border-bottom-left-radius: 0.5em;
+}
+
+.chat-list > .right {
+	max-width: 65%;
+	background: #35a0ed;
+	padding: 0.81em 0.9em;
+	border-top-left-radius: 2.5em;
+	border-bottom-left-radius: 2.5em;
+	border-top-right-radius: 2.5em;
+	border-bottom-right-radius: 0.5em;
+}
+.justify-left span {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 0.94rem;
+	line-height: 1.12rem;
+
+	color: #0f1419;
+}
+.justify-right span {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 0.94rem;
+	line-height: 1.12rem;
+
+	color: #fff;
+}
+
+.chatbox-header .username1 {
+	flex-grow: 1;
+	padding-left: 0.5em;
+}
+.chatbox-header > .username1 .pseudo-name {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 600;
+	font-size: 1.25rem;
+	line-height: 1.5rem;
+	color: #0f1419;
+	margin: 0;
+}
+
+.chatbox-header > .username1 .user-name {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 0.75rem;
+	line-height: 0.88rem;
+	margin-top: 0.4em;
+	/* identical to box height */
+
+	color: #6e757b;
+}

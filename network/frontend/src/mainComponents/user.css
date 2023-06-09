@@ -8,23 +8,61 @@
 }
 
 .username2 > .pseudo-name {
-	font-family: 'Inter';
+	font-family: "Inter";
 	font-style: normal;
 	font-weight: 600;
-	font-size: 0.94rem;
+	font-size: 0.88rem;
 	line-height: 1.125rem;
 
 	color: #202021;
-
 }
 
 .username2 > .user-name {
 	margin-left: 0.31em;
-	font-family: 'Inter';
+	font-family: "Inter";
 	font-style: normal;
 	font-weight: 400;
-	font-size: 0.94rem;
+	font-size: 0.88rem;
 	line-height: 1.125rem;
 
-	color: #86898C;
+	color: #86898c;
+}
+
+.user-stats h4 {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 1.25rem;
+	line-height: 1.49rem;
+
+	color: #0f1419;
+}
+
+.user-stats span {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 0.78rem;
+	line-height: 0.94rem;
+
+	color: #87898a;
+}
+
+.follow-stats {
+	display: flex;
+}
+
+.follow-stats span {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 0.81rem;
+	line-height: 1rem;
+	/* identical to box height */
+}
+.follow-stats .value {
+	color: #272a2f;
+}
+.follow-stats .name {
+	color: #87898a;
 }

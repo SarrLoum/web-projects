@@ -11,12 +11,12 @@ import {
 } from "../widgets/myIcons";
 import "./modals.css";
 
-export const LoginForm = ({ isOpen, isClose }) => {
-	const [email, setEmail] = useState("");
+export const LoginForm = ({ isOpen, isClose, getUser }) => {
+	const [username, setUsername] = useState("");
 	const [nextStep, setNextStep] = useState(false);
 
-	function handleEmail(event) {
-		setEmail(event.target.value);
+	function handleUsername(event) {
+		setUsername(event.target.value);
 	}
 
 	function displayNext() {
@@ -34,13 +34,14 @@ export const LoginForm = ({ isOpen, isClose }) => {
 					<LoginStep2
 						displayPreview={displayPreview}
 						onClose={isClose}
-						userName={email}
+						username={username}
+						getUser={getUser}
 					/>
 				) : (
 					<LoginStep1
 						displayNext={displayNext}
 						onClose={isClose}
-						emailOnChange={handleEmail}
+						usernameOnChange={handleUsername}
 					/>
 				)}
 			</div>
@@ -48,7 +49,7 @@ export const LoginForm = ({ isOpen, isClose }) => {
 	);
 };
 
-export const LoginStep1 = ({ displayNext, onClose, emailOnChange }) => {
+export const LoginStep1 = ({ displayNext, onClose, usernameOnChange }) => {
 	return (
 		<>
 			<div className="modal-header">
@@ -73,7 +74,7 @@ export const LoginStep1 = ({ displayNext, onClose, emailOnChange }) => {
 					<input
 						type="text"
 						placeholder="Enter your email here"
-						onChange={emailOnChange}
+						onChange={usernameOnChange}
 					/>
 				</div>
 				<div onClick={displayNext} className="next-btn stack-gap">
@@ -87,33 +88,40 @@ export const LoginStep1 = ({ displayNext, onClose, emailOnChange }) => {
 	);
 };
 
-export const LoginStep2 = ({ onClose, userName, getUser }) => {
+export const LoginStep2 = ({ onClose, username, getUser }) => {
 	const [password, setPassword] = useState("");
 
 	function handlePassword(event) {
 		setPassword(event.target.value);
 	}
 
-	function subitForm() {
-		const formData = new URLSearchParams();
-		formData.append("username", userName);
-		formData.append("password", password);
-		axios
-			.post("http://localhost:8000/api/login", formData)
-			.then((response) => {
-				console.log("submitfunction is called");
-				console.log(`${userName}'s password ${password}`);
-				console.log(response.data); // Assuming the user data is present in the response
-				getUser(response.data.user); // Adjust this line based on the actual response structure
-			})
-			.catch((error) => console.log(error));
-	}
+	const handleLogin = async (e) => {
+		e.preventDefault();
+		const response = await fetch("http://localhost:8000/api/token/", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ username, password }),
+		});
+
+		console.log(response);
+
+		if (response.status === 200) {
+			const { refresh, access } = await response.json();
+			localStorage.setItem("refreshToken", refresh);
+			localStorage.setItem("accessToken", access);
+			window.location.reload();
+			console.log(`the refresh token: ${refresh}`);
+			console.log(`the acces token: ${access}`);
+		} else {
+			alert("An error occurred");
+		}
+	};
 	return (
 		<>
 			<div className="modal-header">
 				<Close closeModal={onClose} />
 			</div>
-			<form method="POST" onSubmit={subitForm}>
+			<form method="POST">
 				<div className="f-container">
 					<div className="input-field disabled">
 						<label htmlFor="email-input">Email</label>
@@ -122,7 +130,7 @@ export const LoginStep2 = ({ onClose, userName, getUser }) => {
 							name="email"
 							id="email-input"
 							type="text"
-							value={userName}
+							value={username}
 							disabled
 						/>
 					</div>
@@ -131,21 +139,25 @@ export const LoginStep2 = ({ onClose, userName, getUser }) => {
 						<br />
 						<input
 							name="password"
-							id="passwordinput"
+							id="password-input"
 							type="password"
 							onChange={handlePassword}
 						/>
 					</div>
 				</div>
 				<div className="modal-footer">
-					<input type="submit" value="Se connecter" />
+					<input
+						onClick={handleLogin}
+						type="submit"
+						value="Se connecter"
+					/>
 				</div>
 			</form>
 		</>
 	);
 };
 
-export const UserLogsModal = ({ onClose, currentUser, getUser }) => {
+export const UserLogsModal = ({ onClose }) => {
 	const [loginModal, setloginModal] = useState(null);
 
 	// Function that sets the state  of the loginModal
@@ -156,7 +168,7 @@ export const UserLogsModal = ({ onClose, currentUser, getUser }) => {
 	// Function that renders the loginModal when its state variable is set
 	function renderLoginModal() {
 		if (loginModal === "login") {
-			return <LoginForm isClose={onClose} getUser={getUser} />;
+			return <LoginForm isClose={onClose} />;
 		} else {
 			return null;
 		}

@@ -3,34 +3,31 @@ import Braided from "../icons/Braided.JPG";
 
 import "./timeLine.css";
 
-const TimeLine = ({ UserAuth }) => {
-	const user = {
-		id: 1,
-		username: "SarrLoum",
-		email: "sarrloum10@gmail.com",
-	};
-
-	const userProfile = {
-		user: 1,
-		avatarUrl: Braided,
-		pseudo_name: "SpaceWalker",
-	};
-
+const TimeLine = ({ currentUser }) => {
 	return (
-		<div className='TL-container'>
-			<div className='home-container'>
-				<h4>Home</h4>
+		<div className="TL-container">
+			<div className="TL-header">
+				<div className="wrapper-tl-header flex column">
+					<div className="home-container grow">
+						<h4>Home</h4>
+					</div>
+
+					<div className="TL-preference flex grow">
+						<a href="#" className="for-you flex grow">
+							<span> For you</span>
+						</a>
+						<a href="#" className="following flex grow">
+							<span> following</span>
+						</a>
+					</div>
+				</div>
 			</div>
-			<div className='TL-preference'>
-				<button className='for-you'>For you</button>
-				<button className='following'>Following</button>
-			</div>
-			<Status userProfile={userProfile} />
-			<div className='fleets-container'>
-				<Fleet userProfile={userProfile} />
-			</div>
-			<div className='feed'>
-				<Feed />
+			<Status user={currentUser} />
+			{/*(<div className="fleets-container">
+				<Fleet user={currentUser} />
+			</div>)*/}
+			<div className="feed">
+				<Feed currentUser={currentUser} />
 			</div>
 		</div>
 	);

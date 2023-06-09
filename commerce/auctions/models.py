@@ -8,6 +8,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 class User(AbstractUser):
     pass
 
+
 CATEGORIES = [
     ("art", "Collectibles & art"),
     ("electronics", "Electronics"),
@@ -19,8 +20,6 @@ CATEGORIES = [
     ("toys", "Toys & hobbies"),
     ("other", "Other categories"),
 ]
-
-
 
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -43,8 +42,6 @@ class ImgCategory(models.Model):
     image1 = models.ImageField()
     image2 = models.ImageField()
     image3 = models.ImageField()
-    image4 = models.ImageField(null=True, blank=True)
-    image5 = models.ImageField(null=True, blank=True)
 
     def serialize(self):
         return {
@@ -52,16 +49,12 @@ class ImgCategory(models.Model):
             "image1": self.image1.url if self.image1 else None,
             "image2": self.image2.url if self.image2 else None,
             "image3": self.image3.url if self.image3 else None,
-            "image4": self.image4.url if self.image4 else None,
-            "image5": self.image5.url if self.image5 else None,
         }
 
     def __str__(self):
         return self.category.name
 
 class Listing(models.Model):
-
-
     title = models.CharField(max_length=100)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, max_length=100)
     starting_bid = models.FloatField()
@@ -101,4 +94,8 @@ class Comment(models.Model):
 
 
 class Suggestion(models.Model):
-    image1 = models.ImageField()
+    name = models.CharField(max_length=10, default=None)
+    image = models.ImageField()
+
+    def __str__(self):
+        return self.name

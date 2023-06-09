@@ -1,7 +1,9 @@
-.post, .reply, .quote, .repost {
-    display:flex;
-    border-bottom: 1px solid #f3f2f2;
-
+.post,
+.reply,
+.quote,
+.repost {
+	display: flex;
+	border-bottom: 1px solid #f3f2f2;
 }
 
 .post > .avatar-container .avatar-img,
@@ -11,23 +13,31 @@
 	height: 2.94em;
 	width: 2.94em;
 	border-radius: 6.25em;
-    margin: 0.69em 1em;
-    object-fit: cover;
+	margin: 0.69em 1em;
+	object-fit: cover;
 }
 
-.post-content {
-    padding-top: 0.7em;
+.container {
+	padding-top: 0.7em;
+	padding-right: 0.8em;
+	flex-grow: 1;
 }
 .post-content > p {
-    margin-top: 0.25em;
-    margin-bottom: 0.88em;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 1rem;
-    line-height: 1.125rem;
-    /* identical to box height */
-    
-    
-    color: #202021;   
+	margin-top: 0.25em;
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 0.96rem;
+	line-height: 1.125rem;
+	/* identical to box height */
+
+	color: #202021;
+}
+
+.media-ariea {
+	margin-top: 0.88em;
+}
+
+.media-ariea img {
+	object-fit: cover;
 }

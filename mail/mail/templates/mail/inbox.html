@@ -27,13 +27,13 @@
 
 		<!-- Cuurent user email -->
 		<div class="user-params flex grow justify-right">
-			<div class="user-themes">
+			<div class="user-themes" id="settings">
 				<div id="settings-btn" class="img-container">
 					<img src="static/icons/settings.svg" alt="" />
 				</div>
 			</div>
-			<div class="user-apps">
-				<div class="img-container">
+			<div class="user-apps" id="apps">
+				<div class="apps-btn">
 					<img src="static/icons/group-apps.svg" alt="" />
 				</div>
 			</div>
@@ -128,73 +128,218 @@
 	</div>
 
 	<!-- ======= MIDDLE SIDE(rightside) (CONTENT) ======= -->
-	<div class="emails-content">
-		<!-- === CONTENT BODY BUTTONS(headers)-->
-		<div class="content-hearder">
-			<div class="left-button">
-				<div class="form-check icon-btn">
-					<input
-						class="form-check-input"
-						type="checkbox"
-						value=""
-						id="flexCheckDefault"
-					/>
+	<div class="content-settings-container">
+		<div class="emails-content">
+			<!-- === CONTENT BODY BUTTONS(headers)-->
+			<div class="content-hearder">
+				<div class="left-button">
+					<div class="form-check icon-btn">
+						<input
+							class="form-check-input"
+							type="checkbox"
+							value=""
+							id="flexCheckDefault"
+						/>
+					</div>
+					<div class="icon-btn">
+						<img src="static/icons/refresh.svg" alt="" class="" />
+					</div>
+					<div class="icon-btn">
+						<img src="static/icons/more.svg" alt="" />
+					</div>
 				</div>
-				<div class="icon-btn">
-					<img src="static/icons/refresh.svg" alt="" class="" />
-				</div>
-				<div class="icon-btn">
-					<img src="static/icons/more.svg" alt="" />
+				<div class="right-button"></div>
+			</div>
+
+			<!-- ==== CONTENT BODY (emails and compose view) ==== -->
+			<div class="content-body">
+				<!-- Emails view -->
+				<div id="emails-view"></div>
+
+				<!-- Compose view -->
+				<div id="compose-view">
+					<h3>New Email</h3>
+					<form id="compose-form">
+						<div class="form-group">
+							From:
+							<input
+								disabled
+								class="form-control"
+								value="{{ request.user.email }}"
+							/>
+						</div>
+						<div class="form-group">
+							To:
+							<input
+								id="compose-recipients"
+								class="form-control"
+							/>
+						</div>
+						<div class="form-group">
+							<input
+								class="form-control"
+								id="compose-subject"
+								placeholder="Subject"
+							/>
+						</div>
+						<div class="sent-email" id="sent-email"></div>
+						<textarea
+							class="form-control"
+							id="compose-body"
+							placeholder="Body"
+						></textarea>
+						<input type="submit" class="btn btn-primary" />
+					</form>
 				</div>
 			</div>
-			<div class="right-button"></div>
 		</div>
+		<!-- ==== Theme settings ==== -->
+		<div class="settings-container">
+			<div class="settings-wrapper flex column">
+				<div class="settings-header">
+					<div class="flex justify">
+						<h5>Quick settings</h5>
+						<span></span>
+					</div>
+					<a href="#" id="all-settings"
+						><div><span>See all settings</span></div></a
+					>
+				</div>
 
-		<!-- ==== CONTENT BODY (emails and compose view) ==== -->
-		<div class="content-body">
-			<!-- Emails view -->
-			<div id="emails-view"></div>
+				<hr />
+				<div class="settings-body" data-simplebar>
+					<div class="mails-apps">
+						<span class="settings-span">Apps in Mails</span>
+						<div class="wpr flex justify">
+							<div class="costumize-apps flex justify column">
+								<p>Chat and Meet</p>
+								<a href="#">
+									<p class="costumize">Costumize</p></a
+								>
+							</div>
+							<img
+								src="static/icons/apps-illustrations.svg"
+								alt=""
+							/>
+						</div>
+					</div>
 
-			<!-- Compose view -->
-			<div id="compose-view">
-				<h3>New Email</h3>
-				<form id="compose-form">
-					<div class="form-group">
-						From:
-						<input
-							disabled
-							class="form-control"
-							value="{{ request.user.email }}"
-						/>
+					<hr />
+
+					<div class="mails-density">
+						<span class="settings-span">Density</span>
+						<form class="density-form flex justify column">
+							<div
+								class="density-radios flex justify"
+								class="flex justify"
+							>
+								<div class="radio-inputs flex justify-center">
+									<input
+										id="default-density"
+										name="default"
+										type="radio"
+									/>
+									<label for="default-density">Default</label>
+								</div>
+								<img
+									src="static/icons/density illustrations1.svg"
+									alt=""
+								/>
+							</div>
+
+							<div class="density-radios flex justify">
+								<div class="radio-inputs flex justify-center">
+									<input
+										id="default-density"
+										name="default"
+										type="radio"
+									/>
+									<label for="default-density"
+										>Comfortable</label
+									>
+								</div>
+								<img
+									src="static/icons/density illustrations2.svg"
+									alt=""
+								/>
+							</div>
+
+							<div class="density-radios flex justify">
+								<div class="radio-inputs flex justify-center">
+									<input
+										id="default-density"
+										name="default"
+										type="radio"
+									/>
+									<label for="default-density">Compact</label>
+								</div>
+								<img
+									src="static/icons/density illustrations3.svg"
+									alt=""
+								/>
+							</div>
+						</form>
 					</div>
-					<div class="form-group">
-						To:
-						<input id="compose-recipients" class="form-control" />
+
+					<hr />
+
+					<div class="themes-settings">
+						<div class="flex justify">
+							<span class="settings-span">Themes</span>
+							<a href="#s"><span class="all-themes">View all</span>
+						</div>
+						<div class="themes-container">
+							<ul class="flex justify">
+								<li>
+									<a href="#">
+										<img
+											src="static/icons/default theme.svg"
+											alt=""
+										/>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<img
+											src="static/icons/default theme.svg"
+											alt=""
+										/>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<img
+											src="static/icons/default theme.svg"
+											alt=""
+										/>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<img
+											src="static/icons/default theme.svg"
+											alt=""
+										/>
+									</a>
+								</li>
+							</ul>
+						</div>
 					</div>
-					<div class="form-group">
-						<input
-							class="form-control"
-							id="compose-subject"
-							placeholder="Subject"
-						/>
-					</div>
-					<div class="sent-email" id="sent-email"></div>
-					<textarea
-						class="form-control"
-						id="compose-body"
-						placeholder="Body"
-					></textarea>
-					<input type="submit" class="btn btn-primary" />
-				</form>
+				</div>
 			</div>
 		</div>
 	</div>
 	<!-- ==== Little Apps ==== -->
-	<div class="settings-container"></div>
-
-	<!-- ==== Little Apps ==== -->
-	<div class="apps-container"></div>
+	<div class="apps-container">
+		<div class="apps-icon-wrapper first-app">
+			<img class="app-icon" src="static/icons/calendar.svg" alt="" />
+		</div>
+		<div class="apps-icon-wrapper">
+			<img class="app-icon" src="static/icons/idea.svg" alt="" />
+		</div>
+	</div>
 </main>
 {% endblock %} {% block script %}
+<script src="https://unpkg.com/simplebar@2.4.3/dist/simplebar.min.js"></script>
 <script src="{% static 'mail/inbox.js' %}"></script>
 {% endblock %}

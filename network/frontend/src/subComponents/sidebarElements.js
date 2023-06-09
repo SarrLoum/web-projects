@@ -24,7 +24,6 @@ export const TweetButton = () => {
 
 export const UserLog = ({ user, Icon, getUser }) => {
 	const [logsModal, setLogsModal] = useState(null);
-
 	//function that sets logsModal state
 	function openUserLog() {
 		setLogsModal("openLogsModal");
@@ -38,7 +37,7 @@ export const UserLog = ({ user, Icon, getUser }) => {
 	// function that renders the user accounts log modal when its state variable is set
 	function renderLogsModal() {
 		if (logsModal === "openLogsModal") {
-			return <UserLogsModal onClose={closeUserLog} getUser={getUser} />;
+			return <UserLogsModal onClose={closeUserLog} />;
 		} else {
 			return null;
 		}

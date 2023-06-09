@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./modalsWidget.css";
 
 export const Year = ({ dateOnChange }) => {
@@ -83,25 +83,43 @@ export const Day = ({ dateOnChange }) => {
 	);
 };
 
-export const TextInput = () => {
+export const TextInput = ({ handleData, handleFocus }) => {
 	const [value, setValue] = useState("");
-	const [height, setHeight] = useState("auto");
+	const [rows, setRows] = useState(1);
 
-	function handleInputChange(event) {
-		setValue(event.target.value);
-		setHeight(event.target.scrollHeight + "px");
+	function handleInputChange(e) {
+		setValue(e.target.value);
+		handleNewLine();
 	}
+
+	function handleNewLine() {
+		const textarea = document.querySelector("#text-input");
+		textarea.style.height = "auto"; // Reset the height to auto
+
+		if (value.includes("\n")) {
+			setRows(rows + 1);
+		}
+
+		const lineHeight = parseFloat(getComputedStyle(textarea).lineHeight);
+		const lines = Math.ceil(textarea.style.scrollHeight / lineHeight);
+		textarea.style.height = `${lineHeight * lines}px`;
+	}
+
 	return (
 		<>
 			<textarea
+				onFocus={handleFocus}
 				type="textarea"
 				name="text"
 				id="text-input"
 				placeholder="What's hapenning?"
 				maxLength="300"
 				value={value}
-				onChange={handleInputChange}
-				style={{ height }}
+				onChange={() => {
+					handleInputChange();
+					handleData();
+				}}
+				rows={rows}
 			></textarea>
 		</>
 	);

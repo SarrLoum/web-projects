@@ -1,35 +1,31 @@
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useEffect, useState } from "react";
+import { getPostMetrics, likePost } from "../apiServices";
+import { getPostType } from "../mainComponents/utils";
 import { RepostModal } from "../theModals/modalPopUps";
-import axios from "axios";
-import { Comment, Impressions, Like, Repost, Share } from "./myIcons";
+import { Bookmark, Comment, Impressions, Like, Repost, Share } from "./myIcons";
 
 import "./metrics.css";
 
-export const Metrics = ({ user, post }) => {
-	const queryClient = useQueryClient();
-	const paramsValue = postType(post);
+export const Metrics = ({ currentUser, post, isThread }) => {
+	const paramsValue = getPostType(post);
 	const pk = post.id;
 
-	const {
-		data: postMetrics,
-		isLoading,
-		error,
-	} = useQuery(
-		["post", post.id],
-		async () => {
-			const response = await axios.get(
-				`http://localhost:8000/api/posts/${pk}/metrics?type=${paramsValue}`
-			);
-			return response.data;
-		},
-		{
-			refetchOnMount: true,
-			refetchOnWindowFocus: true,
-		}
-	);
-
+	const [postMetrics, setPostMetrics] = useState(null);
 	const [openRepost, setOpenRepost] = useState(false);
+
+	useEffect(() => {
+		const fetchPostMetrics = async () => {
+			try {
+				const metrics = await getPostMetrics(pk, paramsValue);
+				setPostMetrics(metrics);
+			} catch (error) {
+				console.error("Error fetching post metrics:", error);
+			}
+		};
+
+		fetchPostMetrics();
+	}, [pk, paramsValue]);
 
 	function openRepostModal() {
 		setOpenRepost(!openRepost);
@@ -38,37 +34,32 @@ export const Metrics = ({ user, post }) => {
 		setOpenRepost(false);
 	}
 
-	const updateLikesMutation = useMutation((userId) =>
-		axios.post(`http://localhost:8000/posts/${post.id}/like`, { userId })
-	);
-
 	const handleLike = () => {
-		updateLikesMutation.mutate(user.id);
+		likePost(pk);
 	};
 
-	const handleComment = () => {};
+	const handleReply = () => {};
 	const handleImpression = () => {};
 	const handleShare = () => {};
 
-	if (isLoading) {
-		return <p>Loading...</p>;
-	}
-	if (error) {
-		return <p>Error loading metrics</p>;
-	}
-
-	const { likes, replies, reposts, quotes, impressions } = postMetrics;
+	const {
+		likes = [],
+		replies = [],
+		reposts = [],
+		quotes = [],
+		impressions = [],
+	} = postMetrics;
 	const allReposts = reposts.length + quotes.length;
 
 	return (
 		<div className="metrics-container">
 			<MetricButtons
 				count={replies.length}
-				handleClick={handleComment}
+				handleClick={handleReply}
 				Icon={Comment}
 			/>
 			<MetricButtons
-				user={post}
+				currentUser={currentUser}
 				post={post}
 				is_repost={true}
 				openRepost={openRepost}
@@ -82,14 +73,52 @@ export const Metrics = ({ user, post }) => {
 				handleClick={handleLike}
 				Icon={Like}
 			/>
-			<MetricButtons handleClick={handleImpression} Icon={Impressions} />
+			{isThread ? (
+				<MetricButtons handleClick={handleImpression} Icon={Bookmark} />
+			) : (
+				<MetricButtons
+					handleClick={handleImpression}
+					Icon={Impressions}
+				/>
+			)}
 			<MetricButtons handleClick={handleShare} Icon={Share} />
 		</div>
 	);
 };
 
+export const StatLinks = ({ post }) => {
+	const paramsValue = getPostType(post);
+	const pk = post.id;
+	const [postMetrics, setPostMetrics] = useState(null);
+
+	useEffect(() => {
+		const metrics = getPostMetrics(pk, paramsValue);
+		setPostMetrics(metrics);
+		console.log("post metrics:", postMetrics);
+	}, [pk, paramsValue]);
+
+	const { reposts, quotes, likes, ...otherMetrics } = postMetrics;
+
+	return (
+		<div className="stats-links">
+			<Stats posts={reposts} value={reposts.length} name={"Retweet"} />
+			<Stats posts={quotes} value={quotes.length} name={"Quote"} />
+			<Stats posts={likes} value={likes.length} name={"Like"} />
+		</div>
+	);
+};
+
+export const Stats = ({ value, name, posts }) => {
+	return (
+		<div className="stats">
+			<span className="value">{value}</span>
+			<span className="name">{name}</span>
+		</div>
+	);
+};
+
 export const MetricButtons = ({
-	user,
+	currentUser,
 	post,
 	is_repost,
 	openRepost,
@@ -110,7 +139,7 @@ export const MetricButtons = ({
 				is_repost && (
 					<>
 						<RepostModal
-							user={user}
+							currentUser={currentUser}
 							post={post}
 							isOpen={openRepost}
 							closeRepostModal={onClose}
@@ -121,15 +150,3 @@ export const MetricButtons = ({
 		</>
 	);
 };
-
-function postType(post) {
-	if (post.is_post) {
-		return "post";
-	} else if (post.is_reply) {
-		return "reply";
-	} else if (post.is_repost) {
-		return "quote";
-	} else {
-		return "repost";
-	}
-}

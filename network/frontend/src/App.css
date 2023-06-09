@@ -71,3 +71,16 @@
 	line-height: 2.25rem;
 	/* identical to box height */
 }
+
+.icon-link {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 2em;
+	height: 2em;
+	border-radius: 6.25em;
+}
+
+.icon-link:hover {
+	background: #edeaea;
+}

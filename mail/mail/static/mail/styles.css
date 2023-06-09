@@ -15,7 +15,6 @@ li {
 	list-style-type: none;
 	padding: 0;
 }
-
 hr {
 	width: 100%;
 	margin: 0;
@@ -32,6 +31,9 @@ main {
 	display: flex;
 }
 
+a {
+	text-decoration: none;
+}
 button {
 	border: none;
 	background: none;
@@ -63,11 +65,17 @@ button:focus {
 .flex {
 	display: flex;
 }
+.column {
+	flex-direction: column;
+}
 .justify {
 	justify-content: space-between;
 }
 .justify-right {
 	justify-content: right;
+}
+.justify-center {
+	justify-content: center;
 }
 .grow {
 	flex-grow: 1;
@@ -89,6 +97,22 @@ button:focus {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	cursor: pointer;
+}
+
+.user-apps:hover {
+	width: 1.88em;
+	height: 1.88em;
+	border-radius: 6.25em;
+
+	background-color: yellow;
+}
+.user-themes:hover {
+	width: 1.88em;
+	height: 1.88em;
+	border-radius: 6.25em;
+
+	background-color: yellow;
 }
 
 .current-user img {
@@ -112,12 +136,11 @@ button:focus {
 
 	text-align: center;
 }
-
 /* \\\\\\\ MAIN SECTION /////// */
 
 /* LEFT SIDE (sidebar)*/
 .side-bar {
-	width: 16em;
+	flex: 0 0 16em;
 }
 
 .btn-compose {
@@ -170,6 +193,8 @@ button:focus {
 	justify-content: space-between;
 	height: 3em;
 }
+.respond-btn {
+}
 
 .left-button,
 .mailbox {
@@ -197,6 +222,39 @@ button:focus {
 }
 
 /* Right SIDE (email content)*/
+.content-settings-container {
+	flex: 1;
+	display: flex;
+}
+/* Little Apps  (email content)*/
+.apps-container {
+	flex: 0 0 3.5em;
+}
+.apps-icon-wrapper {
+	width: 2em;
+	height: 2em;
+	text-align: center;
+
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+	margin-bottom: 1.6em;
+}
+.apps-icon-wrapper > img {
+	line-height: 2em;
+	vertical-align: middle;
+}
+.apps-icon-wrapper:hover {
+	width: 2em;
+	height: 2em;
+	border-radius: 6.25em;
+
+	background: yellow;
+}
+
+.first-app {
+	margin-top: 2em;
+}
+
 .emails-content {
 	width: 65.25em;
 	height: 85vh;
@@ -204,7 +262,6 @@ button:focus {
 
 	background: #fff;
 }
-
 .email {
 	width: 100%;
 	height: 2.56em;
@@ -241,9 +298,6 @@ button:focus {
 	border-color: #eae8e8;
 	box-shadow: 0px 2px 3px rgba(34, 33, 33, 0.25);
 	transform: scale(1);
-}
-
-.email:hover {
 	cursor: pointer;
 }
 
@@ -327,7 +381,9 @@ table {
 td {
 	vertical-align: middle;
 }
-
+.first-row {
+	margin-right: 2em;
+}
 .second-row .first-column {
 	font-family: "Inter";
 	font-style: normal;
@@ -337,6 +393,14 @@ td {
 	letter-spacing: 0.015rem;
 
 	color: #757575;
+}
+.first-column,
+.third-column {
+	flex: 0 0 auto;
+}
+.second-column {
+	flex: 1 0 0;
+	text-align: right;
 }
 .first-column .sender-span1 {
 	font-family: "Inter";
@@ -373,7 +437,6 @@ td {
 	font-weight: 400;
 	font-size: 0.75rem;
 	line-height: 0.91rem;
-	padding-left: 40em;
 
 	color: #757575;
 }
@@ -383,29 +446,42 @@ td {
 	display: inline-block;
 	width: 1.25em;
 	height: 1.25em;
-	margin-bottom: 1.56em;
 	vertical-align: middle;
 }
 
 .second-column .icon-starred {
 	margin-left: 1em;
 	margin-right: 1em;
-	background-image: url("media/starred.svg");
 	background-repeat: no-repeat;
 	background-size: contain;
 }
 .third-column .icon-reply {
 	margin-right: 1em;
-	background-image: url("media/reply.svg");
 	background-repeat: no-repeat;
 	background-size: contain;
 }
 .third-column .icon-more {
 	margin-right: 0;
 	padding: 0.188em;
-	background-image: url("media/more.svg");
 	background-repeat: no-repeat;
 	background-size: contain;
+}
+
+.icon-reply,
+.icon-starred,
+.icon-more {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-decoration: none;
+}
+
+.icon-reply img,
+.icon-starred img,
+.icon-more img {
+	display: block;
+	max-width: 100%;
+	max-height: 100%;
 }
 
 .rf-btn-container {
@@ -413,12 +489,14 @@ td {
 	margin-top: 3em;
 }
 .respond-btn {
-	padding: 0.625em 1.34em;
+	width: 6.5em;
+	height: 2.25em;
 	border: 1px solid #757575;
 	border-radius: 6.25em;
 }
 .forward-btn {
-	padding: 0.3em 1.34em;
+	width: 6.5em;
+	height: 2.25em;
 	border: 1px solid #757575;
 	border-radius: 6.25em;
 }
@@ -427,7 +505,7 @@ td {
 	margin-top: 0.75em;
 }
 .email-body > p {
-	font-family: "Roboto";
+	font-family: "Inter";
 	font-style: normal;
 	font-weight: 400;
 	font-size: 0.825rem;
@@ -441,8 +519,146 @@ td {
 	border-radius: 6.25em;
 	object-fit: cover;
 }
+/* SETTINGS*/
+.settings-container {
+	width: 18.75em;
+	margin-left: 1em;
+	height: 85vh;
+	border-radius: 0.94em;
 
-/* Little Apps  (email content)*/
-.apps-container {
-	flex-grow: 1;
+	display: none;
+	background: #fff;
+	overflow: hidden;
+}
+
+.settings-container > hr {
+	padding-left: 0.19em;
+	padding-right: 1em;
+}
+.settings-span {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 0.75em;
+	line-height: 0.5em;
+	/* identical to box height, or 67% */
+
+	color: #6b6b6b;
+}
+.settings-header {
+	padding: 1.37em 1em;
+}
+.settings-header > div h5 {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 0.94em;
+	line-height: 0.5em;
+	/* identical to box height, or 53% */
+
+	color: #6b6b6b;
+}
+.settings-header > a div {
+	width: 100%;
+	height: 2.19em;
+	border: 1px solid #2c2d2d;
+	border-radius: 6.25em;
+	margin-top: 1.44em;
+	text-align: center;
+}
+.settings-header > a div span {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 0.88rem;
+	line-height: 2.19rem;
+	/* identical to box height, or 57% */
+
+	color: #4087e5;
+}
+
+.settings-wrapper {
+	height: 100%;
+}
+.settings-body {
+	overflow-y: auto;
+	flex: 1;
+}
+.mails-apps,
+.mails-density,
+.themes-settings {
+	padding: 1.25em 1em;
+}
+.mails-apps .wpr {
+	margin-top: 1.31em;
+}
+.costumize-apps p {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 0.84rem;
+	line-height: 0.5rem;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em; /* identical to box height, or 59% */
+
+	color: #8d8d8d;
+}
+.costumize-apps .costumize {
+	color: #387bd3;
+}
+
+.density-form .density-radios {
+	margin-top: 1.06rem;
+}
+
+.radio-inputs {
+	align-items: center;
+	margin: 0;
+}
+.radio-inputs label {
+	margin: 0;
+	margin-left: 1em;
+}
+
+.themes-container ul {
+	overflow-x: auto;
+	margin-top: 1.25em;
+}
+
+.themes-container ul li {
+	flex: 0 0 auto;
+}
+
+.all-themes {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 0.88rem;
+	line-height: 0.5rem;
+	/* identical to box height, or 57% */
+
+	color: #6b9de0;
+}
+
+/* Width and color */
+.settings-body::-webkit-scrollbar {
+	width: 12px;
+	background-color: transparent;
+}
+
+/* Track */
+.settings-body::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+/* Handle */
+.settings-body::-webkit-scrollbar-thumb {
+	width: 10px;
+	border-radius: 6px;
+	background: rgba(167, 163, 161, 0.7);
+}
+
+/* Handle on hover */
+.settings-body::-webkit-scrollbar-thumb:hover {
+	background: rgba(139, 136, 135, 0.7);
 }

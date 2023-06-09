@@ -22,11 +22,41 @@ document.addEventListener("DOMContentLoaded", function () {
 	load_mailbox("inbox");
 
 	// Listen for clicks on the settings
-	var settingsContainer = document.querySelector(".settings-container");
-	var emailsContent = document.querySelector(".emails-content");
+	const emailsContainer = document.querySelector(".emails-content");
+	const settingsContainer = document.querySelector(".settings-container");
+	const settingsButton = document.querySelector("#settings");
 
-	settingsContainer.addEventListener("click", function () {
-		emailsContent.classList.toggle("shrink-width");
+	let initialWidth = emailsContainer.offsetWidth;
+	settingsButton.addEventListener("click", function () {
+		if (settingsContainer.style.display === "none") {
+			let shrinkWidth =
+				initialWidth -
+				(parseFloat(getComputedStyle(settingsContainer).marginLeft) +
+					parseFloat(getComputedStyle(settingsContainer).width));
+			emailsContainer.style.width =
+				shrinkWidth /
+					parseFloat(getComputedStyle(emailsContainer).fontSize) +
+				"em";
+			settingsContainer.style.display = "block";
+
+			console.log("Clicked"); // Check if the event listener is triggered
+			console.log("Shrink Width:", shrinkWidth); // Check the calculated shrink width
+			console.log("Emails Container Width:", emailsContainer.style.width); // Check the width value applied to the emails container
+			console.log(
+				"Settings Container Display:",
+				settingsContainer.style.display
+			); // Check the display property value of the settings container
+		} else {
+			let shrinkWidth =
+				emailsContainer.offsetWidth +
+				(parseFloat(getComputedStyle(settingsContainer).marginLeft) +
+					parseFloat(getComputedStyle(settingsContainer).width));
+			emailsContainer.style.width =
+				shrinkWidth /
+					parseFloat(getComputedStyle(emailsContainer).fontSize) +
+				"em";
+			settingsContainer.style.display = "none";
+		}
 	});
 });
 
@@ -50,7 +80,7 @@ function load_mailbox(mailbox) {
 	document.querySelector(
 		"#emails-view"
 	).innerHTML = `<div class="mailbox-header"><div class="mailbox">
-	<img src="static/mail/media/inbox.svg" alt="" />
+	<img src="static/icons/inbox.svg" alt="" />
 	<h6>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h6></div></div><hr>`;
 
 	//Show all emails of the mailbox
@@ -192,7 +222,9 @@ function view_email(email_id) {
 			let displayEmail = `
 			<div class="email-subject flex justify">
 				<h2>Subject: ${email.subject}</h2>
-				<a href="#" id="archive-email"></a>
+				<a href="#" id="archive-email">
+					<img src="static/icons/archived.svg" alt=""/>
+				</a>
 			</div>
 			<div class="flex">
 				<div class="sender-avatar">
@@ -210,11 +242,17 @@ function view_email(email_id) {
 							</td>
 							<td class="second-column">
 								<span>${email.timestamp}</span>
-								<a class="icon-starred" href="#" id="star-email"></a>
+								<a class="icon-starred" href="#" id="star-email">
+									<img src="static/icons/starred.svg" alt=""/>
+								</a>
 							</td>
 							<td class="third-column">
-							<a class="icon-reply" href="#" id="response-email"></a>
-							<a class="icon-more" href="#" id="response-email"></a>
+							<a class="icon-reply" href="#" id="response-email">
+							<img src="static/icons/reply.svg" alt=""/>
+							</a>
+							<a class="icon-more" href="#" id="response-email">
+								<img src="static/icons/more.svg" alt=""/>
+							</a>
 							</td>
 						</tr>
 						<tr class="second-row">
@@ -227,14 +265,18 @@ function view_email(email_id) {
 						<p>${email.body}</p>
 					</div>
 					<div class="rf-btn-container flex">
-						<a class="respond-btn" href="#" id="response-email">
-							<img src="static/icons/reply.svg" alt="" >
-							<span>Response</span>
-						</a>
-						<a class="forward-btn" href="#" id="response-email">
-							<img src="static/icons/reply.svg" alt="" >
-							<span>Forward</span>
-						</a>
+						<div class="respond-btn">
+							<a href="#" id="response-email">
+									<img src="static/icons/reply.svg" alt="" >
+									<span>Response</span>
+							</a>
+						</div>
+						<div class="forward-btn">
+							<a href="#" id="response-email">
+									<img src="static/icons/reply.svg" alt="" >
+									<span>Forward</span>
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>`;

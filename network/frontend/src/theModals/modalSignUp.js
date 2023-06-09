@@ -4,7 +4,7 @@ import { Year, Day, Month } from "../widgets/modalsWidget";
 import { Apple, Backword, Close, Cube2, Google } from "../widgets/myIcons";
 import "./modals.css";
 
-export const SignupForm = ({ isOpen, isClose, getUser }) => {
+export const SignupForm = ({ isOpen, isClose }) => {
 	const [Step, setNextStep] = useState(0);
 	const [birthdate, setBirthdate] = useState("");
 	const [userInfo, setUserInfo] = useState({
@@ -56,7 +56,6 @@ export const SignupForm = ({ isOpen, isClose, getUser }) => {
 						birthDate={birthdate}
 						displayPreview={displayPreview}
 						onClose={isClose}
-						getUser={getUser}
 					/>
 				);
 			default:
@@ -191,7 +190,6 @@ export const SignupStep2 = ({
 	userEmail,
 	birthDate,
 	displayPreview,
-	getUser,
 }) => {
 	const [passwords, setPasswords] = useState({
 		password: "",
@@ -208,29 +206,20 @@ export const SignupStep2 = ({
 
 	const data = { userName, userEmail, birthDate, ...passwords };
 
-	function submitForm() {
-		fetch("/SignUp", {
+	const handleSignUp = async () => {
+		let response = await fetch("https://localhost:8000/api/register/", {
 			method: "POST",
+			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(data),
-		})
-			.then((response) => response.json())
-			.then((result) => {
-				console.log(result);
-			});
+		});
 
-		fetch("/logIn", {
-			method: "POST",
-			body: JSON.stringify({
-				email: userEmail,
-				password: passwords.password,
-			}),
-		})
-			.then((response) => response.json())
-			.then((user) => {
-				console.log(user);
-				getUser(user);
-			});
-	}
+		if (response.ok) {
+			const { token } = await response.json();
+			localStorage.setItem("token", token);
+		} else {
+			alert("Encountering issues while signing up user try again");
+		}
+	};
 
 	return (
 		<>
@@ -293,7 +282,7 @@ export const SignupStep2 = ({
 					<input
 						type="submit"
 						value="Se connecter"
-						onSubmit={submitForm}
+						onSubmit={handleSignUp}
 					/>
 				</div>
 			</form>

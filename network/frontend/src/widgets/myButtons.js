@@ -2,26 +2,38 @@ import { Calendar, Gif, Image, MapIn, Polls, Smiley } from "./myIcons";
 
 import "./myButtons.css";
 
-export const MediaButtons = () => {
+export const MediaButtons = ({ isReplyF, handleData }) => {
 	return (
 		<div className="media-inputs">
-			<ImgInput Icon={Image} />
-			<ImgInput Icon={Gif} />
-			<InputBtn Icon={Polls} />
-			<InputBtn Icon={Smiley} />
-			<InputBtn Icon={Calendar} />
-			<InputBtn Icon={MapIn} />
+			{!isReplyF ? (
+				<>
+					<ImgInput handleData={handleData} Icon={Image} />
+					<ImgInput handleData={handleData} Icon={Gif} />
+					<InputBtn handleData={handleData} Icon={Polls} />
+					<InputBtn handleData={handleData} Icon={Smiley} />
+					<InputBtn handleData={handleData} Icon={Calendar} />
+					<InputBtn handleData={handleData} Icon={MapIn} />
+				</>
+			) : (
+				<>
+					<ImgInput handleData={handleData} Icon={Image} />
+					<ImgInput handleData={handleData} Icon={Gif} />
+					<InputBtn handleData={handleData} Icon={Smiley} />
+					<InputBtn handleData={handleData} Icon={MapIn} />
+				</>
+			)}
 		</div>
 	);
 };
 
-export const ImgInput = ({ Icon }) => {
+export const ImgInput = ({ handleData, Icon }) => {
 	return (
 		<>
-			<label for="media-input">
+			<label className="media-input" htmlFor="media-input">
 				<Icon />
 			</label>
 			<input
+				onChange={handleData}
 				type="file"
 				name="media"
 				id="media-input"
@@ -35,7 +47,7 @@ export const ImgInput = ({ Icon }) => {
 export const InputBtn = ({ Icon }) => {
 	return (
 		<>
-			<div className="icon-btn">
+			<div className="icon-btn-input">
 				<Icon />
 			</div>
 		</>

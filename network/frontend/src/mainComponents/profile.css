@@ -1,0 +1,120 @@
+.profile-container {
+	height: 100vh;
+	border-right: 1px solid #f3f2f2;
+}
+.profile-header {
+	padding: 1.12em 0.5em;
+}
+
+.profile-cover .user-cover {
+	height: 12.31em;
+	width: 100%;
+}
+
+.profile-cover > .user-cover img {
+	object-fit: fill;
+}
+
+.user-edit {
+	position: absolute;
+	margin-top: 7.81em;
+	padding-left: 1em;
+	padding-right: 1em;
+}
+.user-edit > .avatar-container .avatar-img {
+	width: 8.75em;
+	height: 8.75em;
+
+	background: rgba(217, 217, 217, 0.2);
+	border: 3px solid #ffffff;
+}
+
+.user-edit .edit-btn {
+	box-sizing: border-box;
+	width: 6.94em;
+	height: 2.12em;
+	bottom: 1.25em;
+
+	border: 1px solid #0f1419;
+	border-radius: 6.25em;
+}
+
+.edit-btn {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 1rem;
+	line-height: 1.24rem;
+
+	color: #0f1419;
+}
+
+.user-wall .username1 {
+	padding: 1.24em 1.23em 0.5em auto;
+}
+.bio-container {
+	display: flex;
+	flex-direction: column;
+	gap: 1.06em;
+	padding: 1.24em 0.5em 0.94em auto;
+}
+
+.bio-container p {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 0.9rem;
+	line-height: 1.12rem;
+
+	color: #363739;
+}
+
+.bio-info {
+	display: flex;
+	justify-content: flex-start;
+	gap: 0.69em;
+	flex-grow: 1;
+}
+
+.info {
+	display: flex;
+}
+.info > span {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 0.9rem;
+	line-height: 1.12rem;
+	/* identical to box height */
+
+	color: #87898a;
+}
+
+.follow.stats-wrapper {
+	display: flex;
+	gap: 1.25em;
+	padding-left: 1.24em;
+}
+
+.profile-tweets-container {
+	margin-top: 0.94em;
+}
+.toggles-btn-wrapper {
+	display: flex;
+}
+.toggles-btn-wrapper a {
+	flex-grow: 1;
+}
+
+.toggles-btn-wrapper > a span {
+	padding: 1.06em;
+
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 0.9rem;
+	line-height: 1.12rem;
+	/* identical to box height */
+
+	color: #5c5d5f;
+}

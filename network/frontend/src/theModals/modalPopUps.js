@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
+import { repostPost, quotePost } from "../apiServices";
 import { Avatar, UserName2 } from "../mainComponents/user";
 import { MediaButtons } from "../widgets/myButtons";
 import { TextInput } from "../widgets/modalsWidget";
-import { Repost2, QuoteIcon } from "../widgets/myIcons";
-import axios from "axios";
+import { Repost, QuoteIcon, Close, Earth } from "../widgets/myIcons";
 
 import "./modalPopUps.css";
 
-export const RepostModal = ({ user, post, isOpen, closeRepostModal }) => {
-	const postId = post.id;
-	const userId = user.id;
+export const RepostModal = ({
+	currentUser,
+	post,
+	isOpen,
+	closeRepostModal,
+}) => {
+	const pk = post.id;
 	const [openQuote, setOpenQuote] = useState(false);
 
 	const openQuoteModal = () => {
@@ -20,20 +24,18 @@ export const RepostModal = ({ user, post, isOpen, closeRepostModal }) => {
 	};
 
 	const handleRepost = () => {
-		axios.post(`http://localhost:8000/api/posts/${postId}/repost`, {
-			userId,
-		});
-		console.log('repost button is clicked');
+		repostPost(pk);
 	};
-
-	
 
 	return (
 		<>
-			<div id="repost-popup" className={`repost-popup ${isOpen ? "open" : ""}`}>
+			<div
+				id="repost-popup"
+				className={`repost-popup ${isOpen ? "open" : ""}`}
+			>
 				<div className="repost-modal-container">
 					<div onClick={handleRepost} className="repost-btn">
-						<Repost2 />
+						<Repost />
 						<span>Repost</span>
 					</div>
 					<div onClick={openQuoteModal} className="quote-btn">
@@ -43,57 +45,101 @@ export const RepostModal = ({ user, post, isOpen, closeRepostModal }) => {
 				</div>
 			</div>
 			<QuoteModal
-				onClose={closeQuoteModal}
-				isOpen={openQuote}
 				post={post}
-				user={user}
+				isOpen={openQuote}
+				currentUser={currentUser}
+				onClose={closeQuoteModal}
 			/>
 		</>
 	);
 };
 
-export const QuoteModal = ({ isOpen, post, user }) => {
+export const QuoteModal = ({ post, isOpen, currentUser, onClose }) => {
 	return (
 		<div className={`quote-modal ${isOpen ? "open" : ""}`}>
-			<Quoting user={user} post={post} />
+			<Quoting post={post} currentUser={currentUser} onClose={onClose} />
 		</div>
 	);
 };
 
-export const Quoting = ({ user, post }) => {
+export const Quoting = ({ post, currentUser, onClose }) => {
+	const [quoteData, setQuoteData] = useState({
+		text: "",
+		media: null,
+		post: null,
+		repy: null,
+		parent_quote: null,
+	});
+
+	function handleQuoteData(e) {
+		const { name, value } = e.target;
+
+		setQuoteData((prevState) => ({
+			...prevState,
+			[name]: value,
+		}));
+	}
+	function handleQuotePost() {
+		quotePost(post.id, quoteData);
+	}
+
 	return (
 		<div className="quoting-container">
-			<div className="user-quoting">
-				<Avatar user={user} />
+			<div className="quoting-header">
+				<Close closeModal={onClose} />
+				<div>
+					<a className="draft-btn" href="#">
+						<span>Drafts</span>
+					</a>
+				</div>
 			</div>
-			<div className="form-container">
-				<form action="">
-					<TextInput />
-					<div className="selected-files"></div>
-					<QuotedPost user={user} post={post} />
-					<div className="quoting-btn">
-						<MediaButtons />
-						<input type="submit" value="Tweet" />
+			<form method="POST" onSubmit={handleQuotePost} action="">
+				<div className="quoting-wrapper">
+					<div className="user-quoting">
+						<Avatar user={currentUser} />
 					</div>
-				</form>
-			</div>
+					<div className="quoting-form-container">
+						<div className="tweet-target">
+							<select name="target">
+								<option>Everyone</option>
+								<option>Followers</option>
+								<option>Circle only</option>
+							</select>
+						</div>
+						<TextInput handleData={handleQuoteData} />
+						<div className="selected-files"></div>
+						<QuotedPost post={post} />
+					</div>
+				</div>
+				<div className="quoting-replies-audiences">
+					<Earth />
+					<span>Everyone can reply</span>
+				</div>
+				<hr></hr>
+				<div className="quoting-btn">
+					<MediaButtons handleData={handleQuoteData} />
+					<input type="submit" value="Tweet" />
+				</div>
+			</form>
 		</div>
 	);
 };
 
-export const QuotedPost = ({ user, post }) => {
+export const QuotedPost = ({ post }) => {
 	return (
 		<div className="quoted-post">
-			<Avatar user={user} />
-			<div className="container">
-				<div className="post-content">
-					<UserName2 user={user} />
+			<div className="quoted-post-wrapper">
+				<div className="quoted-post-user">
+					<Avatar user={post.user} />
+					<UserName2 user={post.user} />
+				</div>
+				<div className="quoted-content">
 					<p>{post.text}</p>
-					{post.media != null && (
-						<div className="media-area">{post.media}</div>
-					)}
 				</div>
 			</div>
+			{post.media != null && (
+				<div className="media-area">{post.media}</div>
+			)}
 		</div>
 	);
 };

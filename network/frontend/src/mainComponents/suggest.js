@@ -4,30 +4,20 @@ import {
 	TrendSuggest,
 	UserSuggest,
 } from "../subComponents/suggestElements";
+import { Inbox } from "./inbox";
 import { SignUpOptions } from "../theModals/modalSignUp";
 import Braided from "../icons/Braided.JPG";
 import "./suggest.css";
 
-const Suggestions = ({ UserAuth }) => {
-	const user = {
-		id: 1,
-		username: "SarrLoum",
-		email: "sarrloum10@gmail.com",
-	};
-
-	const userProfile = {
-		user: 1,
-		avatarUrl: Braided,
-		pseudo_name: "SpaceWalker",
-	};
-
+const Suggestions = ({ UserAuth, currentUser }) => {
 	return (
 		<div className="suggest-container">
 			{UserAuth ? (
 				<>
 					<SearchBar />
+					<UserSuggest currentUser={currentUser} />
 					<TrendSuggest />
-					<UserSuggest user={user} userProfile={userProfile} />{" "}
+					<Inbox currentUser={currentUser} />
 				</>
 			) : (
 				<SignUpOptions />

@@ -20,22 +20,21 @@ def get_follower(user):
 def get_threads(user, following):
     # Get all posts, reposts, replies and quotes of  user and user's following
     # Serialize the querysets list
-    post_serializer = PostSerializer(list(Post.objects.filter(
-        Q(user=user) | Q(user__in=following))), many=True)
+    post_serializer = PostSerializer(Post.objects.filter(
+        Q(user=user) | Q(user__in=following)), many=True)
     repost_serializer = RepostSerializer(
-        list(Repost.objects.filter(Q(user=user) | Q(user__in=following))), many=True)
+        Repost.objects.filter(Q(user=user) | Q(user__in=following)), many=True)
     reply_serializer = ReplySerializer(
-        list(Reply.objects.filter(Q(user=user) | Q(user__in=following))), many=True)
+        Reply.objects.filter(Q(user=user) | Q(user__in=following)), many=True)
     quote_serializer = QuoteSerializer(
-        list(Quote.objects.filter(Q(user=user) | Q(user__in=following))), many=True)
+        Quote.objects.filter(Q(user=user) | Q(user__in=following)), many=True)
 
     # Reurn the data of the serialized feed
     return {
-        'user': UserSerializer(user).data,
-        'posts': post_serializer.data,
-        'reposts': repost_serializer.data,
-        'replies': reply_serializer.data,
-        'quotes': quote_serializer.data,
+        'posts': post_serializer,
+        'reposts': repost_serializer,
+        'replies': reply_serializer,
+        'quotes': quote_serializer,
     }
 
 

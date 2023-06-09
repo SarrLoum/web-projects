@@ -1,34 +1,45 @@
 .status-container {
 	display: flex;
-	min-height: 7.06em;
+	justify-content: space-between;
+	gap: 0.9em;
+
+	min-height: 6em;
 	border-bottom: 1px solid #f3f2f2;
+	padding: 0.56em 1.06em;
+}
+
+.flex {
+	display: flex;
+}
+.grow {
+	flex-grow: 1;
 }
 
 .user-status {
 	width: 2.81em;
 	height: 2.81em;
-	border-radius: 50%;
-	padding: 0.56em 1.06em 0 0.87em;
+	border-radius: 6.25em;
 }
 
 .user-status > .avatar-container .avatar-img {
-	height: 2.81em;
-	width: 2.81em;
+	height: 3em;
+	width: 3em;
 	object-fit: cover;
 
-	border-radius: 50%;
+	border-radius: 6.25em;
 }
 
 .form-container {
-	max-width: 29.31em;
+	max-width: 32.31em;
 	flex-grow: 1;
 }
 
 .form > #text-input {
 	font-family: "Inter";
 	font-style: normal;
-	font-weight: 500;
-	font-size: 1.14em;
+	font-weight: 400;
+	font-size: 1.5em;
+	margin-bottom: 0.5em;
 }
 
 .selected-files {
@@ -40,21 +51,21 @@
 .status-btn {
 	display: flex;
 	justify-content: space-between;
+	margin-top: 0.5em;
 }
 
 .status-btn > input {
-	width: 4.56em;
-	height: 2em;
-	border-radius: 5.88em;
+	padding: 0.6em 1.1em;
+	border-radius: 6.25em;
+	border: none;
 
 	background: #4a9cfd;
 	color: #fff;
 
 	font-family: "Inter";
 	font-style: normal;
-	font-weight: 700;
-	font-size: 0.82em;
-	line-height: 1em;
+	font-weight: 600;
+	font-size: 0.96rem;
 }
 
 #text-input {
@@ -62,9 +73,6 @@
 	overflow: hidden;
 
 	width: 95%;
-	margin-top: 1.41em;
-	margin-right: 1.26em;
-
 	border: none;
 
 	font-family: "Inter";
@@ -72,6 +80,22 @@
 	font-weight: 500;
 	font-size: 1.145rem;
 	line-height: 1.375rem;
+
+	color: #a6a5a5;
+}
+
+.reply-post .current-user > .avatar-container .avatar-img {
+	width: 3.06em;
+	height: 3.06em;
+	border-radius: 6.25em;
+}
+
+.replied-user span {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 0.88rem;
+	line-height: 0.88rem;
 
 	color: #a6a5a5;
 }

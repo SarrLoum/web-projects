@@ -1,0 +1,88 @@
+.thread-container {
+	height: 100vh;
+	border-right: 1px solid #f3f2f2;
+}
+
+.thread-header {
+	display: flex;
+	justify-content: flex-start;
+	position: fixed;
+	top: 0;
+	padding: 1em 0.88em;
+	background: #fff;
+}
+.thread-header > a {
+	height: 1.88em;
+	width: 1.88em;
+	border-radius: 6.25em;
+}
+.thread-header > a:hover {
+	background: #edeaea;
+}
+.thread-header h4 {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 1.25rem;
+	line-height: 1.5rem;
+
+	color: #0f1419;
+}
+
+.basepost-wrapper {
+	padding: 1em 0.75em;
+}
+
+.basepost-container .User > .avatar-container .avatar-img {
+	width: 3.06em;
+	height: 3.06em;
+	border-radius: 6.25em;
+}
+
+.basepost-container .User > .username1 h2 {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 0.97rem;
+	line-height: 1.24rem;
+	/* identical to box height */
+
+	color: #0f1419;
+}
+.basepost-container .User > .username1 span {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 0.9rem;
+	line-height: 1.12rem;
+	/* identical to box height */
+
+	color: #87898a;
+}
+
+.basepost-container p {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 1rem;
+	line-height: 1.24rem;
+	display: flex;
+	align-items: center;
+	margin-top: 18px;
+
+	color: #272a2f;
+}
+
+.basepost-container a {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 0.78rem;
+	line-height: 0.94rem;
+
+	color: #30a1ee;
+}
+
+.replies-container {
+	border-top: 1px solid #f3f2f2;
+}

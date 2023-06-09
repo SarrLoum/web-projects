@@ -1,4 +1,46 @@
 .metrics-container {
 	display: flex;
-	margin-bottom: 0.94em;
+	align-items: center;
+	gap: 3.12em;
+
+	margin-top: 0.88em;
+	margin-bottom: 0.88em;
+}
+
+.metric-btn {
+	display: flex;
+	align-items: center;
+	gap: 0.5em;
+}
+
+.metric-btn > span {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 0.75rem;
+	line-height: 0.94rem;
+	/* identical to box height */
+
+	color: #828689;
+}
+
+.stats-links {
+	display: flex;
+	justify-content: flex-start;
+	gap: 1.38em;
+}
+
+.stats span {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 0.81rem;
+	line-height: 1rem;
+	/* identical to box height */
+}
+.stats .value {
+	color: #272a2f;
+}
+.stats .name {
+	color: #87898a;
 }

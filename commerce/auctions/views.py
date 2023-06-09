@@ -10,9 +10,9 @@ import json
 from django.contrib import messages
 
 
-from .models import User, Listing, Bid, ImgCategory, Category
+from .models import User, Listing, Bid, ImgCategory, Category, Suggestion
 from .forms import ListingForm, CommentForm
-from .util import get_price, is_owner
+from .util import get_price, is_owner, get_categories
 
 
 def index(request):
@@ -20,25 +20,15 @@ def index(request):
     # Create an objects of all the active listing
     active_list = Listing.objects.filter(active=True)
 
-    # Create an objects of all the Category Illustratin=ion mages 
-    categories = ImgCategory.objects.all()
+    # get categories in correct format 
+    categoryList = get_categories()
 
-    categoryList = []
-    for category in categories:
-        categoryDict = { 
-            'name': category.category.key, 
-            'images': [ 
-                category.image1, 
-                category.image2, 
-                category.image3, 
-                category.image4, 
-                category.image5],
-        }
-        categoryList.append(categoryDict)
-    
+    suggestions = Suggestion.objects.all()
+
     return render(request, "auctions/index.html", {
         "active_listing": active_list,
-        "categories": categoryList
+        "categories": categoryList,
+        "suggestions": suggestions,
     })
 
 def category_img(request):
@@ -105,24 +95,28 @@ def register(request):
 
 @login_required
 def new_listing(request):
-    # if it is POST (resquest) method then we need to proceed the form data
     if request.method == "POST":
         listing_form = ListingForm(request.POST, request.FILES)
 
         if listing_form.is_valid():
-            # Create the new listing object and store the current logged in user and then save it to the database
+            category_name = listing_form.cleaned_data["category"]
+            category = Category.objects.get(name=category_name)
+            # Save the form data and create a new listing object
             new_listing = listing_form.save(commit=False)
+
+            # Set the owner to the current logged-in user
             new_listing.owner = request.user
+
+            # Save the new listing object
             new_listing.save()
 
-        return HttpResponseRedirect(reverse("index"))
-
-    # if it is a Get method then render the form 
+            return redirect("index")
     else:
-        form = ListingForm()
-        return render(request, "auctions/new_listing.html", {
-            "listing_form" : form
-        })
+        listing_form = ListingForm()
+
+    return render(request, "auctions/new_listing.html", {
+        "listing_form": listing_form
+    })
 
 
 def listing_page(request, listing_id):

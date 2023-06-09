@@ -1,24 +1,61 @@
+.flex {
+	display: flex;
+}
+.column {
+	flex-direction: column;
+}
+.grow {
+	flex-grow: 1;
+}
+h4 {
+	margin: 0;
+}
 .TL-container {
 	height: 100vh;
 	border-right: 1px solid #f3f2f2;
 }
 
-.home-container {
-	height: 3.63em;
+.TL-header {
+	border-bottom: 1px solid #f3f2f2;
+}
+.TL-header-onScroll {
+	display: flex;
+	flex-direction: column;
+	position: fixed;
+	top: 0;
+	background: #fff;
+}
+.wrapper-tl-header {
+	height: 5.3em;
+	padding-top: 0.94em;
+	padding-left: 1.25em;
 }
 
-.home-container > h4 {
-	margin: 0.94em 1.25em;
+.home-container {
 }
 
 .TL-preference {
-	height: 2.88em;
-	border-bottom: 1px solid #f3f2f2;
+	align-items: center;
+	justify-content: center;
+}
+.for-you,
+.following {
+	height: 100%;
+	align-items: center;
+	justify-content: center;
 }
 
-.for-you {
-}
+.for-you span,
+.following span {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 600;
+	font-size: 0.88rem;
+	line-height: 1.06rem;
+	/* identical to box height */
 
+	color: #939191;
+}
 .fleets-container {
 	height: 6.25em;
 	display: flex;
@@ -26,24 +63,23 @@
 	border-bottom: 1px solid #f3f2f2;
 }
 
-.fleets-container > .fleet {
+.fleet {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 
 	height: 3.75em;
 	width: 3.75em;
-	margin: 1.25em 0.45em;
+	margin-left: 0.45em;
+	border-radius: 6.25em;
 
-	border: 1.5px solid;
-	border-radius: 50%;
+	border: 2em solid;
 	background: none;
 }
 
 .fleet > .avatar-container .avatar-img {
-	height: 3.6875em;
-	width: 3.6875em;
-	margin: 0.125em;
+	height: 3.69em;
+	width: 3.69em;
 	border-radius: 6.25em;
 	object-fit: cover;
 }

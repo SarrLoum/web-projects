@@ -1,18 +1,24 @@
 .suggest-container > .search-bar {
-	display: flex;
 	width: 20.81em;
-	height: 2.52em;
-	margin: 0.44em 2em 1.04em 0;
+	height: 2.88em;
+	margin: 0.44em 0 0.88em 2em;
 	border-radius: 6.25em;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
 	background: #f7f9f8;
 }
 .suggest-container > .search-bar input {
+	height: 100%;
 	flex-grow: 1;
-	margin: 0.625 1.01;
-	border: none;
 	border-top-right-radius: 6.25em;
 	border-bottom-right-radius: 6.25em;
+
+	border: none;
+	border-style: none;
+	border-color: Transparent;
 
 	background: #f7f9f8;
 
@@ -21,4 +27,10 @@
 	font-weight: 300;
 	font-size: 0.851rem;
 	line-height: 1rem;
+}
+.suggest-container > .search-bar input:focus {
+	outline: none;
+	border: none;
+	border-style: none;
+	border-color: Transparent;
 }

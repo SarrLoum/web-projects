@@ -95,3 +95,38 @@ class Likes(models.Model):
         return self.likes
 
 # Metric models for Post, Reply, and Quotes
+class ChatBox(models.Model):
+    name = models.CharField(max_length=100, default='chatbox')
+    user1 = models.ForeignKey(User, on_delete=models.  CASCADE, related_name='chexboxes_as_user1', blank=True)
+    user2 = models.ForeignKey(User, on_delete=models.  CASCADE, related_name='chexboxes_as_user2', blank=True)
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        # Set the name based on user1 and user2
+        self.name = f"{self.user1.username} & {self.user2.username} chatbox"
+        super().save(*args, **kwargs)
+
+
+class Chat(models.Model):
+    text = models.TextField(max_length=300, blank=True)
+    media = models.FileField(blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    read = models.BooleanField(default=False)
+    chatbox = models.ForeignKey(ChatBox, on_delete=models.CASCADE, related_name='chats', blank=True, null=True)
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='chats_sent')
+    recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='chats_received')
+
+    def __str__(self):
+        return self.text 
+
+    def save(self, *args, **kwargs):
+        if not self.chatbox:
+            # Create a new ChatBox if it doesn't exist
+            self.chatbox = ChatBox.objects.create(
+                user1=self.sender,
+                user2=self.recipient,
+                name=f"{self.sender} & {self.recipient} chatbox"
+            )
+            super().save(*args, **kwargs)

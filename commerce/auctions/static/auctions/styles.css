@@ -9,14 +9,53 @@ ul {
 .flex {
 	display: flex;
 }
-/* Categorie*/
+.carousel-list {
+	display: flex;
+	justify-content: space-between;
+	padding: 1em;
+}
+
+.carousel-container {
+	width: 8.75em; /* Adjust as needed */
+	height: 8.75em; /* Adjust as needed */
+	overflow: hidden;
+	border-radius: 100%;
+}
+
+.carousel {
+	display: flex;
+	transition: transform 0.5s ease-in-out;
+	transform: translateX(0);
+}
+
+.slide {
+	flex: 0 0 100%;
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.slide img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.category-item {
+	cursor: pointer;
+}
+
+.category-item > span {
+	text-align: center;
+}
+
+/* Categorie*
 .categories {
 	overflow: hidden;
 	padding: 0;
 }
 .category-item {
 	cursor: pointer;
-	padding: 1em 1em;
+	padding: 1em 1em; /* Add this line to ensure the parent container takes up the full width 
 }
 .category-carousel {
 	display: flex;
@@ -33,9 +72,9 @@ ul {
 	width: 10em !important;
 	height: 10em !important;
 	border-radius: 6.25em;
-	*/
+	
 }
-
+*/
 .slide > img {
 	width: 100%;
 	height: auto;
