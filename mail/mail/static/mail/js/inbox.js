@@ -1,3 +1,11 @@
+import {
+	emailElement,
+	viewEmail,
+	userLog,
+	respondOnEmail,
+	subjectRe,
+} from "./utils.js";
+
 document.addEventListener("DOMContentLoaded", function () {
 	// Use buttons to toggle between views
 	document
@@ -58,11 +66,15 @@ document.addEventListener("DOMContentLoaded", function () {
 			settingsContainer.style.display = "none";
 		}
 	});
+
+	// Load the userLog modal with display none
+	userLog();
+	const currentUserLog = document.querySelector(".current-user");
+	currentUserLog.addEventListener("click", showUserLogModal);
 });
 
 function compose_email() {
 	// Show compose view and hide other views
-	document.querySelector("#emails-view").style.display = "none";
 	document.querySelector("#compose-view").style.display = "block";
 
 	// Clear out composition fields
@@ -74,7 +86,6 @@ function compose_email() {
 function load_mailbox(mailbox) {
 	// Show the mailbox and hide other views
 	document.querySelector("#emails-view").style.display = "block";
-	document.querySelector("#compose-view").style.display = "none";
 
 	// Show the mailbox name
 	document.querySelector(
@@ -124,8 +135,8 @@ function send_email(event) {
 			console.log(result);
 		});
 
-	// Load the sent mailbox
-	load_mailbox("sent");
+	// Refresh page
+	window.location.reload();
 }
 
 function load_emails(mailbox) {
@@ -135,39 +146,10 @@ function load_emails(mailbox) {
 		.then((emails) => {
 			// Create an empty email section
 			let emailSection = "";
-			let color = "";
-
+			// Iterate through emails
 			emails.forEach((email) => {
-				// Change background color if the email is read
-				if (email.read == true) {
-					color = "#F2F5FC";
-				} else {
-					color = "#fff";
-				}
-
-				// Format timestamp
-				let dateTime = timesTamp(email.timestamp);
-				//format the subject
-				let senderName = getUserName(email.sender);
 				// For each email create div inside a li element
-				let eachEmail = `<li class="email-list-item"><div id="email-details">
-                        <div style="background: ${color};" class="email" id="email${email.id}" role="button" data-email_id="${email.id}">
-							<div class="checkbox-container">
-								<div class="form-check">
-									<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-								</div>
-								<div class="form-check">
-									<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-								</div>
-							</div>
-							<span class="sender-preview preview-font">${senderName}</span>
-                    		<div class="subject-body">
-								<span class="subject-preview preview-font">${email.subject}</span> - 
-								<span class="body-preview">${email.body}</span>
-                    		</div>
-                        	<span class="datetime-preview preview-font">${dateTime}.</span>
-                        </div>
-                    	</div></li><hr>`;
+				let eachEmail = emailElement(email);
 
 				// Append email inside the email section
 				emailSection += eachEmail;
@@ -215,71 +197,8 @@ function view_email(email_id) {
 	fetch(`/emails/${email_id}`)
 		.then((response) => response.json())
 		.then((email) => {
-			// Email sender's name
-			let senderName = email.sender.slice(0, email.sender.indexOf("@"));
-			let sender_avatar = email.sender_avatar.replace("/", "");
 			// Create a div that display the emmail and all its details
-			let displayEmail = `
-			<div class="email-subject flex justify">
-				<h2>Subject: ${email.subject}</h2>
-				<a href="#" id="archive-email">
-					<img src="static/icons/archived.svg" alt=""/>
-				</a>
-			</div>
-			<div class="flex">
-				<div class="sender-avatar">
-					<div class="avatar-container">
-						<img src="http://localhost:8000/media/bellamy.jpg" alt="" />
-					</div>
-				</div>
-				<div class="body-container grow">
-					<div class="email-header">
-					<table>
-						<tr class="first-row flex">
-							<td class="first-column">
-								<span class="sender-span1">${senderName}</span>
-								<span class="sender-span2">&lt;${email.sender}&gt;</span>
-							</td>
-							<td class="second-column">
-								<span>${email.timestamp}</span>
-								<a class="icon-starred" href="#" id="star-email">
-									<img src="static/icons/starred.svg" alt=""/>
-								</a>
-							</td>
-							<td class="third-column">
-							<a class="icon-reply" href="#" id="response-email">
-							<img src="static/icons/reply.svg" alt=""/>
-							</a>
-							<a class="icon-more" href="#" id="response-email">
-								<img src="static/icons/more.svg" alt=""/>
-							</a>
-							</td>
-						</tr>
-						<tr class="second-row">
-							<td class="first-column"><span>to me</span></td>
-						</tr>
-					</table>
-				
-					</div>
-					<div class="email-body">
-						<p>${email.body}</p>
-					</div>
-					<div class="rf-btn-container flex">
-						<div class="respond-btn">
-							<a href="#" id="response-email">
-									<img src="static/icons/reply.svg" alt="" >
-									<span>Response</span>
-							</a>
-						</div>
-						<div class="forward-btn">
-							<a href="#" id="response-email">
-									<img src="static/icons/reply.svg" alt="" >
-									<span>Forward</span>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>`;
+			let displayEmail = viewEmail(email);
 
 			document.querySelector("#emails-view").innerHTML = displayEmail;
 
@@ -316,14 +235,13 @@ function asArchived(email) {
 }
 
 function respondEmail(email) {
+	console.log("respond email is called");
 	compose_email();
-	let subject = "";
-	if (email.subject.startsWith("Re: ")) {
-		subject = email.subject;
-	} else {
-		subject = `Re: ${email.subject}`;
-	}
-	document.querySelector("#compose-recipients").value = `${email.sender}`;
+	let subject = subjectRe(email);
+
+	document.querySelector(
+		"#compose-recipients"
+	).value = `${email.sender.email}`;
 
 	document.querySelector("#compose-subject").value = `${subject}`;
 
@@ -333,7 +251,7 @@ function respondEmail(email) {
                                     src=""
                                     alt="sender avatar"
                                 />
-                                <span>On ${email.timestamp} ${email.sender} </pan>
+                                <span>On ${email.timestamp} ${email.sender.email} </pan>
                             </div>
                         </div>
 						<p>${email.body}</p>`;
@@ -341,31 +259,15 @@ function respondEmail(email) {
 	document.querySelector("#sent-email").innerHTML = senderMessage;
 }
 
-function timesTamp(timestamp) {
-	// Split the email timestamp and split it to an array of date and time
-	let pubDate = timestamp.split(", ");
-	let pubYear = pubDate[0].slice(7); //2023
-	let dateTamp = pubDate[0].slice(0, 6); //Feb 23
+function showUserLogModal() {
+	console.log("userLog clicked");
+	const logModal = document.querySelector(".userlog-modal");
+	logModal.style.display = "block";
 
-	// Get the browser current date (local date and time)
-	let currentDate = new Date();
-	let currentYear = currentDate.getFullYear() + "";
-	let today = (currentDate + "").slice(4, 15);
-
-	// Return the correct date format
-	if (pubDate[0] == today) {
-		return pubDate[1];
-	} else if (pubYear == currentYear) {
-		return dateTamp;
-	} else {
-		return pubDate[0];
-	}
-}
-
-function getUserName(userEmail) {
-	let user = userEmail.split("@");
-	let userName = user[0];
-
-	console.log(userName);
-	return userName;
+	// Hide the element after 15 seconds
+	setTimeout(() => {
+		if (logModal.onClick === false) {
+			logModal.style.display = "none";
+		}
+	}, 15000);
 }

@@ -38,7 +38,7 @@
 				</div>
 			</div>
 
-			<div class="current-user">
+			<div class="current-user" >
 				<img
 					class="grow"
 					src="http://127.0.0.1:8000/static/media/{{ request.user.avatar }}"
@@ -54,9 +54,11 @@
 	<!-- ======= LEFT SIDE (SIDEBAR) ======= -->
 	<div class="side-bar">
 		<!-- Compose New email button -->
-		<div class="compose-button">
-			<button class="btn-compose" id="compose">New Message</button>
-		</div>
+		<button class="btn-compose" id="compose">
+			<div class="compose-button">
+			<img src="static/icons/pencil.svg" alt="" />
+			<span>Compose</span>
+		</div></button>
 
 		<!-- Nav button container -->
 		<div class="nav-container">
@@ -115,14 +117,6 @@
 						</div>
 					</button>
 				</li>
-
-				<li>
-					<a
-						class="btn btn-sm btn-outline-primary"
-						href="{% url 'logout' %}"
-						>Log Out</a
-					>
-				</li>
 			</ul>
 		</div>
 	</div>
@@ -155,42 +149,6 @@
 			<div class="content-body">
 				<!-- Emails view -->
 				<div id="emails-view"></div>
-
-				<!-- Compose view -->
-				<div id="compose-view">
-					<h3>New Email</h3>
-					<form id="compose-form">
-						<div class="form-group">
-							From:
-							<input
-								disabled
-								class="form-control"
-								value="{{ request.user.email }}"
-							/>
-						</div>
-						<div class="form-group">
-							To:
-							<input
-								id="compose-recipients"
-								class="form-control"
-							/>
-						</div>
-						<div class="form-group">
-							<input
-								class="form-control"
-								id="compose-subject"
-								placeholder="Subject"
-							/>
-						</div>
-						<div class="sent-email" id="sent-email"></div>
-						<textarea
-							class="form-control"
-							id="compose-body"
-							placeholder="Body"
-						></textarea>
-						<input type="submit" class="btn btn-primary" />
-					</form>
-				</div>
 			</div>
 		</div>
 		<!-- ==== Theme settings ==== -->
@@ -338,8 +296,60 @@
 			<img class="app-icon" src="static/icons/idea.svg" alt="" />
 		</div>
 	</div>
+<!-- Compose Modal -->
+<div class="compose-container" id="compose-view">
+	<div class="compose-header-wrapper">
+		<div class="compose-header">
+			<h4>New Message</h4>
+		</div>
+		<div class="scales-btn">
+			<img href="" alt="" />
+			<img href="" alt="" />
+			<img href="" alt="" />
+		</div>
+	</div>
+	<form id="compose-form">
+		<input
+			hidden
+			value="{{ request.user.email }}"
+		/>
+		<div class="compose-input">
+			<input
+				id="compose-recipients"
+				placeholder="Recipients"
+			/>
+		</div>
+		<hr />
+		<div class="compose-input">
+			<input
+				id="compose-subject"
+				placeholder="Subject"
+			/>
+		</div>
+		<hr />
+
+		<div class="compose-textarea">
+			<textarea
+				id="compose-body"
+				placeholder="Body"
+			></textarea>
+			<div class="text-editor" id="toolbar">
+			</div>
+		</div>
+
+		<div class="compose-submit">
+			<div class="send-btn">
+				<input type="submit" value="Send" />
+			</div>
+			<div class="edit-text">
+			</div>
+		</div>
+	</form>
+</div>
+
 </main>
 {% endblock %} {% block script %}
 <script src="https://unpkg.com/simplebar@2.4.3/dist/simplebar.min.js"></script>
-<script src="{% static 'mail/inbox.js' %}"></script>
+<script src="{% static 'mail/js/utils.js' %}" type="module"></script>
+<script src="{% static 'mail/js/inbox.js' %}" type="module"></script>
 {% endblock %}

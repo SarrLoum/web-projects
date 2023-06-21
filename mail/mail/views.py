@@ -11,7 +11,6 @@ from .models import User, Email
 
 
 def index(request):
-
     # Authenticated users view their inbox
     if request.user.is_authenticated:
         return render(request, "mail/inbox.html")
@@ -19,6 +18,14 @@ def index(request):
     # Everyone else is prompted to sign in
     else:
         return HttpResponseRedirect(reverse("login"))
+
+
+
+def get_usr(request):
+    user = request.user
+    user_data = user.serialize()
+    return JsonResponse(user_data, status=200)
+
 
 
 @csrf_exempt

@@ -6,6 +6,13 @@ class User(AbstractUser):
     avatar = models.ImageField(blank=True)
     pass
 
+    def serialize(self):
+        return {
+            "id": self.id,
+            "email": self.email,
+            "avatar": str(self.avatar.url) if self.avatar else None
+        }
+
 
 class Email(models.Model):
     user = models.ForeignKey("User", on_delete=models.CASCADE, related_name="emails")
@@ -28,13 +35,11 @@ class Email(models.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "sender": self.sender.email,
+            "sender": self.sender.serialize(),
             "recipients": [user.email for user in self.recipients.all()],
             "subject": self.subject,
             "body": self.body,
             "timestamp": self.timestamp.strftime("%b %d %Y, %I:%M %p"),
             "read": self.read,
             "archived": self.archived,
-            "sender_avatar": self.sender_avatar,
-            "user_avatar": self.user_avatar
         }
