@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		const slides = Array.from(carousel.querySelectorAll(".slide"));
 		const slideWidth = slides[0].offsetWidth;
 		const slideCount = slides.length;
-		const slideInterval = 1500; // Time between each slide (in milliseconds)
+		const slideInterval = 900; // Time between each slide (in milliseconds)
 		let currentIndex = 0;
 		let timer;
 
@@ -55,4 +55,71 @@ document.addEventListener("DOMContentLoaded", function () {
 		// Wrap carousel on transition end
 		carousel.addEventListener("transitionend", wrapCarousel);
 	});
+
+	dicoverBtnHover();
+	startCarouselSuggest();
+	ratingProduct();
 });
+
+function startCarouselSuggest() {
+	const suggestCarousel = document.querySelector(".suggest-carousel");
+	const suggestSlides = Array.from(
+		document.querySelectorAll(".suggest-slide")
+	);
+	const slideWidth1 = suggestSlides[0].offsetWidth;
+	const slideCount1 = suggestSlides.length;
+	const slidesInterval1 = 7000;
+	let currentIndex1 = 0;
+	let timer1;
+
+	function showSlide1(index) {
+		suggestCarousel.style.transform = `translate(-${
+			index * slideWidth1
+		}px)`;
+	}
+
+	function showNextSlides1() {
+		currentIndex1++;
+		if (currentIndex1 >= slideCount1) {
+			currentIndex1 = 0;
+		}
+		showSlide1(currentIndex1);
+	}
+
+	function startCarousel1() {
+		timer1 = setInterval(showNextSlides1, slidesInterval1);
+	}
+
+	startCarousel1();
+}
+
+function dicoverBtnHover() {
+	const dicoverBtn = document.querySelector(".discover-btn");
+	const forwardBtn = document.querySelector(".discover-img");
+	dicoverBtn.addEventListener("mouseenter", () => {
+		forwardBtn.src = "static/auctions/media/arrow_forward_white.svg";
+	});
+	dicoverBtn.addEventListener("mouseleave", () => {
+		forwardBtn.src = "static/auctions/media/arrow_forward.svg";
+	});
+}
+
+function ratingProduct() {
+	const ratingInput = document.querySelector("#rating-input");
+	const stars = document.querySelectorAll(".star");
+
+	stars.forEach((star) => {
+		star.addEventListener("click", () => {
+			var value = this.getAtributeValue("data-value");
+			ratingInput.value = value;
+
+			stars.forEach(function (s) {
+				if (s.getAttribute("data-value") <= value) {
+					s.classList.add("selected");
+				} else {
+					s.classList.remove("selected");
+				}
+			});
+		});
+	});
+}

@@ -17,6 +17,9 @@
 		<!-- Description -->
 		<div class="listing-description">
 			<p>{{ listing.description }}</p>
+			{% if not listing.active and not usr_is_owner %}
+			<span>THis listing is not actuve anymore</span>
+			{% endif%}
 		</div>
 		<hr />
 		<!-- == PURCHASE ACTION == -->
@@ -137,42 +140,255 @@
 
 	<div style="border-left: 1px solid #eae8e8; height: 398px"></div>
 	<!-- ==== TOP5 BIDS ====-->
-	<div class="top5-bids">
-		<div>
-			<h3>Top 5 Bids</h3>
-			<img src="" alt="" />
+	<div class="seller-wrapper">
+		<div class="garentie-container">
+			<h6>Acheter en toute confiance</h6>
+			<div class="flex gap4">
+				<img src="static/auctions/media/shield_blue.svg" alt="" />
+				<div class="garentie-details">
+					<span>Garentie client eBay</span>
+					<p>
+						Obtenez un remboursement si vous ne recevez pas l’objet
+						que vous avez commandé.
+					</p>
+					<a href="#" class="seller-link">Garentie client eBay</a>
+				</div>
+			</div>
 		</div>
-		<span>winner</span>
-		<hr />
+		<div class="seller-info">
+			<h5>Détails sur le vendeur</h5>
+			<span>traditions-02 (432)</span>
+			<p>100% d’évaluations positives</p>
+			<hr />
+			<a href="#" class="seller-link">Enregistrer le vendeur</a>
+			<a href="#" class="seller-link">Afficher les autres objets</a>
+			<a href="#" class="seller-link">Contacter le vendeur</a>
+			<a href="#" class="seller-link">Visiter la Boutique</a>
+			<hr />
+			<span class="seller-info-span"
+				>Inscrit comme vendeur professionnel</span
+			>
+		</div>
+	</div>
+</div>
+<hr />
+<div>
+	<ul class="item-list grow">
+		{% for listing in similar_items %}
+		<li>
+			<div class="list-item scale-zoom">
+				<a href="{% url 'listing-page' listing.id %}">
+					<div class="img-wrapper scale-zoom2">
+						<img src="{{ listing.image.url }}" alt="" /></div
+				></a>
+				<div class="item-details">
+					<a
+						class="title-link"
+						href="{% url 'listing-page' listing.id %}"
+						>{{ listing.title }}</a
+					>
+
+					<span>${{ listing.starting_bid }}</span>
+
+					<!-- <div class="description">{{ listing.description }}</div> -->
+				</div>
+			</div>
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+
+<div class="object-detailed">
+	<nav>
+		<div class="nav nav-tabs" id="nav-tab" role="tablist">
+			<button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">A propos de cet objet</button>
+			<button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Livraison, retours et paiements</button>
+		</div>
+	</nav>
+	<div class="tab-content" id="nav-tabContent">
+		<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+			
+			<div class="item-info-hearder">
+				<div class="info-header1 flex space-between">
+					<span>Le vendeur assume l’entière responsabilité de cette annonce.</span>
+					<div>
+						<span class="object-serie">Numéro de l’objet eBay :</span>
+						<span class="serie-number">22452026487</span>
+					</div>
+				</div>
+				<div class="flex">
+					<span class="update-day"><span class="last-update">Dernière mise à jour le </span>03 juin 2023 <a href="#">Afficher toutes les modifications</a></span>
+				</div>
+			</div>
+
+			<div class="object-details">
+				<h2>Caractéristiques de l'objet </h2>
+				<div class="flex gap8">
+					<span class="origine">origine :</span><span class="origine-value">Dakar</span>
+				</div>
+				<h1>Description de l’objet fournie par le vendeur</h1>
+				<div class="detailed-description">
+					<h3>{{ listing.title }}</h3>
+					<span class="item-location">{{ listing.location }}</span>
+					<p>
+						{{ listing.description }}
+					</p>
+					<span class="item-state">{{ listing.state }}</span>
+				</div>
+			</div>
+
+			<div class="rules-info">
+				<h5>Informations réglementaires</h5>
+				<span>Reprise des anciens produits</span>
+				<a href="#">En savoir plus sur la reprie un-pour-un de vos équipements en fin de vie</a>
+			</div>
+
+			<div class="seller-more-info">
+				<h5>Informations sur le Vendeur professionnel</h5>
+				<div class="seller-group">
+					<span>Michel Delmas</span>
+					<span>Brocante Vintage</span>
+					<span>22 Rue Philipe le Bon</span>
+					<span>21000 Dijon, France</span>
+				</div>
+				<a href="#">Afficher les coordonnées</a>
+				<div class="seller-matriculation">
+					<span>Numéro d’immatriculation de la société :</span>
+					<span class="matricule">8175538283</span>
+				</div>
+			</div>
+
+			<div class="return-conditions">
+				<h5>Conditions de retour</h5>
+				<div class="return-delai rectangle flex gap9 align-center">
+					<span>Une fois l’objet reçu, contactez le vendeur dans un délai de</span>
+					<span>Frais de retour</span>
+				</div>
+				<div class="delai-value flex gap9 align-center">
+					<span>14 jours</span>
+					<span>L’acheteur paie les frais de retour</span>
+				</div>
+				
+				<p class="return-garentee">Cliquez <a href="#">ici</a> pour en savoir plus sur les retours. Pour les transactions répondant aux conditions requise, vous êtes couvert par la <a href="#">Garentie client eBay</a> si l’objet que vous avez reçu ne correspond pas à
+					la description fournie dans l’annonce</p>
+				<span class="return-frais">L’acheteur doit payer les frais de retour</span>
+
+				<div class="return-delai rectangle flex  align-center margn">
+					<span>Frais de retour</span>
+				</div>
+				<span class="return-valid">Retour acceptés</span>
+			</div>
+
+		</div>
+		<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+			<div></div>
+		</div>
 	</div>
 </div>
 <hr />
 
 <!-- ====== COMMENTS ====== -->
 <div>
-	<h5>Comments</h5>
-	<div class="post-comment">
-		<form action="{% url 'add-comment' listing.id %}" method="post">
-			{% csrf_token %} {{comment_form}}
-			<input class="btn-general btn-comment" type="submit" />
-		</form>
-	</div>
+	<div class=" e-c-wrapper flex cmt-gap">
+		<!-- Evalution aperçu-->
+		<div class="evaluation-wrapper">
+			<h4>Commentaires client</h4>
+			<div class="evaluation-note flex">
+				<div>
+					<img src="" alt="" />
+				</div>
+				<span>{{ comment.rating }}sur 5</span>
+			</div>
+			<span class="total-ratings">nombre d'évaluation</span>
+			<a href="#" class="levels-wrapper flex gap4">
+				{% for rating in ratings %}
+				<div class="rating-level flex gap6 align-center">
+					<span>{{ rating.level }} étoiles</span>
+					<div class="rating-graph">
+						<div style="width:{{ rating.percentage }}%" class="{% if rating.percentage > 0 %}percentage{% endif %}"></div>
+					</div>
+					<span>{{ rating.percentage }}%</span>
+				</div>
+				{% endfor %}
+			</a>
+			<a href="#" class="evaluate-link">Comment fonctionnent les avis et les 
+				évalutaions des clients
+			</a>
+			<hr />
+			<div class="evaluate-btn-wrapper">
+				<h6>Evaluer ce produit</h6>
+				<span>Partagez votre opinion avec les autres clients</span>
+				<a href="#"><div class="evaluate-btn">
+					<span>Ecrire un commentaire client</span>
+				</div></a>
+				<hr />
+			</div>
+			<!--  -->			
+			<div>
+				<h5>Comments</h5>
+				<div class="post-comment">
+					<form action="{% url 'add-comment' listing.id %}" method="post">
+						{% csrf_token %}
+						<div class="form-group">
+							<label for="{{ comment_form.comment.id_for_label }}">Please leave a comment</label>
+							{{ comment_form.comment}}
+						</div>
+						<div class="form-group">
+							<label for="{{ comment_form.comment.id_for_label }}">Please leave a rating</label>
+							<div class="star-rating">
+								<input type="hidden" name="rating" id="rating-input" value="{{ comment_form.rating.value }}">
+								<div class="stars">
+									<span class="star" data-value="1"></span>
+									<span class="star" data-value="2"></span>
+									<span class="star" data-value="3"></span>
+									<span class="star" data-value="4"></span>
+									<span class="star" data-value="5"></span>
+								</div>
+							</div>
+						</div>
 
-	<br />
-	<!---->
-	<div>
-		<ul class="item-list">
+					</form>
+				</div>
+			</div>
+			<br />
+
+		</div>
+
+		<!-- Comment section -->
+		<ul class="comment-wrapper">
 			{% for comment in comments %}
 			<li>
-				<div>
-					<h6>{{ comment.author }}</h6>
-					<p>{{ comment.comment }}</p>
-					<span>{{ comment.pub_date }}</span>
-					<span>{{ comment.rating }}</span>
-				</div>
+				<div class="comment">
+					<div class="costumer flex">
+						<div class="costumer-avatar">
+							<img src="" alt="" />
+						</div>
+						<h6>{{ comment.author }}</h6>
+					</div>
+
+					<div class="ratings-star flex">
+						<div class="rating flex">
+							<img src="" alt="" />
+						</div>
+						<span>Vraiment très bon {{ comment.rating }}</span>
+					</div>
+					<span class="pub-date">Commenté en France le {{ comment.pub_date }}</span>
+					<div class="achat-deetails flex">
+						<span class="item-acheté">digital Storage Capacity: 512Go | Couleur: Vert |  </span>
+						<span class="achat-verifié">Achat vérifié</span>
+					</div>
+					<p>{{ comment.comment|capfirst }}</p>
+
+					<div class="utility flex">
+						<a id="utility" href="#" class="util">Utile</a>
+						<span>|</span>
+						<a  id="utility" href="#" class="not-util">Signaler</a>
+					</div>
+
 			</li>
 			{% endfor %}
 		</ul>
 	</div>
+
 </div>
 {% endblock %}

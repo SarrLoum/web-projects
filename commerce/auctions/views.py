@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.http import JsonResponse
 import json
@@ -10,9 +10,9 @@ import json
 from django.contrib import messages
 
 
-from .models import User, Listing, Bid, ImgCategory, Category, Suggestion
+from .models import User, Listing, Bid, ImgCategory, Category, CATEGORIES, Suggestion
 from .forms import ListingForm, CommentForm
-from .util import get_price, is_owner, get_categories
+from .util import get_price, is_owner, get_categories, search_on_category, ratings_level, similar_listings
 
 
 def index(request):
@@ -99,15 +99,14 @@ def new_listing(request):
         listing_form = ListingForm(request.POST, request.FILES)
 
         if listing_form.is_valid():
-            category_name = listing_form.cleaned_data["category"]
-            category = Category.objects.get(name=category_name)
-            # Save the form data and create a new listing object
+            category_key = listing_form.cleaned_data["category"]
+
+            category_name = Category.get_name(category_key)
+            category = Category.objects.get(key=category_name)
+
             new_listing = listing_form.save(commit=False)
-
-            # Set the owner to the current logged-in user
+            new_listing.category = category
             new_listing.owner = request.user
-
-            # Save the new listing object
             new_listing.save()
 
             return redirect("index")
@@ -118,7 +117,6 @@ def new_listing(request):
         "listing_form": listing_form
     })
 
-
 def listing_page(request, listing_id):
     # get listing id and render all its details 
     listing = Listing.objects.get(pk=listing_id)
@@ -127,21 +125,25 @@ def listing_page(request, listing_id):
     current_usr = request.user 
     owner = is_owner(listing, current_usr)
 
-    # Get all the comments of the listing
+    # Get all the comments of the listing and the ratings 
     comments = listing.comments.all()
-
-    # listing's comment form
-
-    comment_form = CommentForm()
-
+    ratings = ratings_level(comments)
     # Get the listing's current price
     #listing_price = get_price(request, listing_id)
+
+    # Get similar listings
+    similars = similar_listings(listing)
+
+    # listing's comment form
+    comment_form = CommentForm()
 
 
     return render(request, "auctions/listing.html", {
         "listing": listing,
         "usr_is_owner": owner,
         "comments": comments,
+        "ratings": ratings,
+        "similar_items": similars,
         "comment_form": comment_form,
     })
 
@@ -224,3 +226,14 @@ def add_comment(request, listing_id):
             new_comment.save()
 
             return HttpResponseRedirect(reverse("listing-page", args=(listing_id, )))
+
+
+
+def search(request):
+
+    if request.method == "POST":
+        query = request.POST["q"]
+        on_category = request.POST["search-category"]
+
+        search_on_category(query, on_category)
+

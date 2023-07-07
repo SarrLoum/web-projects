@@ -2,30 +2,36 @@ import json
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
+from django.db.models import  Q
 from django.http import JsonResponse
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import User, Email
+from .models import User, Email, WallPaper, MailerApp
 
 
 def index(request):
-    # Authenticated users view their inbox
     if request.user.is_authenticated:
-        return render(request, "mail/inbox.html")
+        # Authenticated users view their inbox
+        inboxes = Email.objects.filter(
+            Q(user=request.user) &
+            Q(archived=False) &
+            Q(starred=False) &
+            Q(spam=False) &
+            Q(trash=False)
+        )
+        total_inbox = inboxes.count()
+
+        all_wallpapers = WallPaper.objects.all()[:7]
+        return render(request, "mail/inbox.html", {
+            "all_wallpapers": all_wallpapers,
+            "inbox_count": total_inbox
+        })
 
     # Everyone else is prompted to sign in
     else:
         return HttpResponseRedirect(reverse("login"))
-
-
-
-def get_usr(request):
-    user = request.user
-    user_data = user.serialize()
-    return JsonResponse(user_data, status=200)
-
 
 
 @csrf_exempt
@@ -95,6 +101,18 @@ def mailbox(request, mailbox):
         emails = Email.objects.filter(
             user=request.user, recipients=request.user, archived=True
         )
+    elif mailbox == "starred":
+        emails = Email.objects.filter(
+            user=request.user, recipients=request.user, starred=True
+        )
+    elif mailbox == "spam":
+        emails = Email.objects.filter(
+            user=request.user, recipients=request.user, spam=True
+        )
+    elif mailbox == "trash":
+        emails = Email.objects.filter(
+            user=request.user, recipients=request.user, trash=True
+        )
     else:
         return JsonResponse({"error": "Invalid mailbox."}, status=400)
 
@@ -124,6 +142,12 @@ def email(request, email_id):
             email.read = data["read"]
         if data.get("archived") is not None:
             email.archived = data["archived"]
+        if data.get("starred") is not None:
+            email.starred = data["starred"]
+        if data.get("spam") is not None:
+            email.spam = data["spam"]
+        if data.get("trash") is not None:
+            email.trash = data["trash"]
         email.save()
         return HttpResponse(status=204)
 
@@ -184,3 +208,27 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "mail/register.html")
+
+
+def get_usr(request):
+    user = request.user
+    user_data = user.serialize()
+    return JsonResponse(user_data, status=200)
+
+
+def change_wallpaper(request, pk):
+    wallpaper = WallPaper.objects.get(pk=pk)
+    data = {
+        'id': wallpaper.id,
+        'image_url': wallpaper.image.url
+    }
+    return JsonResponse(data, status=200)
+
+def get_apps(request):
+    user = request.user
+    apps = MailerApp.objects.all()
+    data = {
+        "user": user.serialize(),
+        "apps": [app.serialize() for app in apps]
+    }
+    return JsonResponse(data, status=200)

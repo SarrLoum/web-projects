@@ -1,4 +1,4 @@
-from django.db.models import Max
+from django.db.models import Max, Q
 from .models import *
 
 
@@ -40,5 +40,41 @@ def get_categories():
         categoryList.append(categoryDict)
 
     return categoryList
+
+
+def search_on_category(query, category):
+    pass
+
+def ratings_level(comments):
+    ratings = []
+    for i in range(5):
+        # sum up the number of comments with rating level i
+        count =  sum(1 for comment in comments if comment.rating == i+1)
+        # Compute the percante of of comments with level i rating (0 if not rating of level i)
+        percentage = count * 100 / len(comments) if count != 0 else 0
+        #Add both values as dictionary to the ratings list
+        ratings.append({"level": i+1, "percentage": percentage})
+    return ratings
+
+
+def similar_listings(listing):
+    similar_items = Listing.objects.filter(
+        ~Q(id=listing.id) &
+        (
+            Q(title__contains=listing.title) | 
+            Q(title__contains="NFT") | 
+            Q(title__contains="sneaker") | 
+            Q(category=listing.category) | 
+            Q(description__contains="nft") | 
+            Q(description__contains="sneaker")
+        )
+    )
+    return similar_items
+
+
+
+
+
+
 
 

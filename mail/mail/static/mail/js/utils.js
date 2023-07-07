@@ -1,6 +1,6 @@
 export const emailElement = (email) => {
 	// Change background color if the email is read
-	let color = email.read ? "#F2F5FC" : "#fff";
+	let color = email.read ? "#F6F9FF" : "#fff";
 
 	// Format timestamp
 	let dateTime = timesTamp(email.timestamp);
@@ -38,7 +38,7 @@ export const viewEmail = (email) => {
     <div class="email-subject flex justify">
         <h2>Subject: ${email.subject}</h2>
         <a href="#" id="archive-email">
-            <img src="static/icons/archived.svg" alt=""/>
+            <img id="archive-email" src="static/icons/archived.svg" alt=""/>
         </a>
     </div>
     <div class="flex">
@@ -79,11 +79,10 @@ export const viewEmail = (email) => {
             <div class="email-body">
                 <p>${email.body}</p>
             </div>
-            <div id="respond"></div>
-            <div class="rf-btn-container flex">
+            <div id="rf-btns" class="rf-btn-container flex">
                 <a class="rf-btn" href="#" id="response-email">
-                        <img src="static/icons/response.svg" alt="" >
-                        <span>Reply</span>
+                        <img id="response-email" src="static/icons/response.svg" alt="" >
+                        <span id="response-email">Reply</span>
                 </a>
                 <a class="rf-btn" href="#" id="forward-email">
                     <img src="static/icons/forward.svg" alt="" >
@@ -113,9 +112,9 @@ export const userLog = () => {
                                 <div class="currentUser">
                                     <div class="user-avatar">
                                         <div class="avatar">
-                                            <img src=${
+                                            <img src="${
 												currentUser?.avatar
-											} alt="">
+											}" alt="">
                                         </div>
                                         <div class="change-avatar">
                                             <img src="static/icons/manage-user.svg" alt="">
@@ -138,7 +137,7 @@ export const userLog = () => {
                                 <img src="static/icons/user-add.svg" alt="">
                                 <span>Add another account </span>
                             </a>
-                            <a id="logout" href="#" class="logout-user">
+                            <a href="http://127.0.0.1:8000/logout" id="logout" class="logout-user">
                                 <img src="static/icons/logout.svg" alt="">
                                 <span>Log out</span>
                             </a>
@@ -153,74 +152,167 @@ export const userLog = () => {
 		});
 };
 
+export const userApps = () => {
+	fetch("/mailer/apps")
+		.then((response) => response.json())
+		.then((data) => {
+			//console.log("currentUser", data);
+			console.log("apps data object:", data);
+
+			const { user, apps } = data;
+			console.log("Username:", user);
+			console.log("apps:", apps);
+
+			const logContainer = document.createElement("div");
+			logContainer.className = "apps-modal";
+
+			let appsContainer = "";
+			apps.forEach((app) => {
+				let appElement = `
+                                <li class="">
+                                    <a href="${app.appUrl}" target="_blank" class="apps-link">
+                                    <div class="app-icon-name">
+                                        <div class="app-icon">
+                                            <img src="${app.icon}" alt="">
+                                        </div>
+                                        <span>${app.name}</span>
+                                    </div>
+                                    </a>
+                                </li>
+                                `;
+				appsContainer += appElement;
+			});
+			let childElement = `
+                            
+                                <div class="apps-card">
+                                    <ul class="google-apps">
+                                        <li class="">
+                                            <a href="#" class="apps-link">
+                                                <div class="app-icon-name">
+                                                    <div class="user-avatar">
+                                                        <img src="${user?.avatar}" alt="">
+                                                    </div>
+                                                    <span>Acount</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        ${appsContainer}
+                                    </ul>                         
+                                </div>`;
+
+			logContainer.innerHTML = childElement;
+			document.body.appendChild(logContainer);
+		});
+};
+
 export const respondOnEmail = (email) => {
+	let currentUser;
+	fetch("/user")
+		.then((response) => response.json())
+		.then((user) => {
+			console.log("currentUser", user);
+			currentUser = user;
+
+			// Email sender's name
+			let sender = email.sender;
+			let senderName = getUserName(sender.email);
+			let subject = subjectRe(email);
+
+			const emailView = document.querySelector("#emails-view");
+			const respondModal = document.createElement("div");
+			respondModal.classList.add("respond-modal");
+
+			let respondElement = `
+                                    <div class="sender-avatar">
+                                        <div class="avatar-container">
+                                        <img src="${currentUser.avatar}" alt="" />
+                                        </div>
+                                    </div>
+                                    <div class="respond-container grow">
+                                        <div class="respond-wrapper">
+                                            <form id="compose-form">
+                                                <input hidden value="${sender.email}" />
+                                                <input hidden value="${subject}" />
+                                
+                                                <div class="respond-header flex">
+                                                    <a class="respond-type" href="#">
+                                                        <img src="static/icons/response.svg" alt="" />
+                                                        <img src="static/icons/arrow-down.svg" alt="" />
+                                                    </a>
+                                                    <div class="compose-input grow">
+                                                        <input
+                                                        id="compose-recipients"
+                                                        placeholder="${senderName}"
+                                                        />
+                                                    </div>
+                                                    <a href="#" id="full-img">
+                                                        <img id="full-img"  src="static/icons/full-picture.svg" alt="" />
+                                                    </a>
+                                                </div>
+                                
+                                                <div class="respond-textarea">
+                                                    <textarea id="compose-body"></textarea>
+                                                    <div class="text-editor rsp-editor" id="toolbar"></div>
+                                                </div>
+                                
+                                                <div class="compose-submit">
+                                                    <div class="send-btn">
+                                                        <input type="submit" value="Send" />
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="other-instance">
+                                            <span>
+                                                You are currently editing your reply in a separate window. <a href="#">Show your draft here.</a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    `;
+
+			respondModal.innerHTML = respondElement;
+			emailView.appendChild(respondModal);
+		});
+};
+
+export const respondForm = (email) => {
 	// Email sender's name
 	let sender = email.sender;
 	let senderName = getUserName(sender.email);
-	let subject = subjectRe(email);
+	let form = `<div class="compose-input respond-header flex">
+                            
+                    <a class="respond-type" href="#">
+                        <img src="static/icons/response.svg" alt="" />
+                        <img src="static/icons/arrow-down.svg" alt="" />
+                    </a>
 
-	const respondModal = document.createElement("div");
-	respondModal.classList.add("respond-modal");
+                    <span>To: </span>
 
-	let respondElement = `
-                <div class="sender-avatar">
-                    <div class="avatar-container">
-                        <img src="${sender.avatar}" alt="" />
+                    <div class="compose-input grow">
+                        <input
+                            id="compose-recipients"
+                            placeholder="${senderName}"
+                            value="${sender.email}"
+                        />
                     </div>
                 </div>
-                <div class="respond-container" ">
-                    <form id="compose-form">
-                        <input
-                            hidden
-                            value="{{ request.user.email }}"
-                        />
-                        <input
-                            hidden
-                            value="${subject}"
-                        />
+                <hr />`;
+	return form;
+};
 
-                        <div class="respond-header flex">
-                        
-                            <a class="respond-type" href="#">
-                                <img src="static/icons/reponse.svg" alt="" />
-                                <img src="static/icons/arrow-down.svg" alt="" />
-                            </div>
+export const emptyMailbox = (mailbox) => {
+	const emailsView = document.createElement("div");
+	emailsView.classList.add("empty-mailbox");
 
-                            <div class="compose-input grow">
-                                <input
-                                    id="compose-recipients"
-                                    placeholder="${senderName}"
-                                    value="${sender.email}"
-                                />
-                            </div>
+	let content = `
+                    <h3>no ${mailbox} emails yet</h3>
+                    <div class="empty-mailbox-illustration">
+                        <img src="static/icons/empty-mailbox.svg" alt="" />
+                    </div>
+                `;
 
-                            <div class="scale-respond">
-                                <img src="static/icons/reponse.svg" alt="" />
-                            </div>
-                        </div>
-                        <hr />
-                        <hr />
-
-                        <div class="compose-textarea">
-                            <textarea
-                                id="compose-body"
-                                placeholder="Body"
-                            ></textarea>
-                            <div class="text-editor" id="toolbar">
-                            </div>
-                        </div>
-
-                        <div class="compose-submit">
-                            <div class="send-btn">
-                                <input type="submit" value="Send" />
-                            </div>
-                        </div>
-                    </form>
-
-                </div>
-                        `;
-
-	return respondElement;
+	emailsView.innerHTML = content;
+	return emailsView;
 };
 
 export function timesTamp(timestamp) {

@@ -5,7 +5,7 @@ import addUser from "../icons/addUser.svg";
 import bellNotification from "../icons/bellNotification.svg";
 import bookmark from "../icons/bookmark.svg";
 import backword from "../icons/backword.svg";
-import candleLine from "./icons/candleLine.svg";
+import candleLine from "../icons/candle-line.svg";
 
 import calendar from "../icons/calendar.svg";
 import comments from "../icons/comments.svg";

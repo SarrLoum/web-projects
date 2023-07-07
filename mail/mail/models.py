@@ -23,6 +23,9 @@ class Email(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     read = models.BooleanField(default=False)
     archived = models.BooleanField(default=False)
+    starred = models.BooleanField(default=False)
+    spam = models.BooleanField(default=False)
+    trash = models.BooleanField(default=False)
 
     @property
     def sender_avatar(self):
@@ -42,4 +45,26 @@ class Email(models.Model):
             "timestamp": self.timestamp.strftime("%b %d %Y, %I:%M %p"),
             "read": self.read,
             "archived": self.archived,
+            "starred": self.starred,
+            "spam": self.spam,
+            "trash": self.trash,
         }
+
+
+class WallPaper(models.Model):
+    image = models.ImageField()
+
+
+class MailerApp(models.Model):
+    icon = models.ImageField()
+    name = models.CharField(max_length=50)
+    app_url = models.CharField(max_length=150, blank=True)
+    
+    def serialize(self):
+        return {
+            "icon": self.icon.url,
+            "name": self.name,
+            "appUrl": self.app_url
+        }
+
+    

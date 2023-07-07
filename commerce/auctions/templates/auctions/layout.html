@@ -13,12 +13,60 @@
 		<link href="{% static 'auctions/styles.css' %}" rel="stylesheet" />
 	</head>
 	<body>
-		<h1>Auctions</h1>
 		<div>
 			{% if user.is_authenticated %} Signed in as
 			<strong>{{ user.username }}</strong>. {% else %} Not signed in.
 			{%endif %}
 		</div>
+		<hr class="hr-line1" />
+
+		<header>
+			<div class="header-wrapper flex gap2">
+				<h1>Auctions</h1>
+				<form
+					class="grow flex gap3 align-center"
+					action=""
+					method="get"
+				>
+					{% csrf_token %}
+					<div class="search-bar grow">
+						<img src="static/auctions/media/search.svg" alt="" />
+						<input
+							type="text"
+							name="q"
+							class="search-input"
+							placeholder="Search on ebay"
+						/>
+						<div class="search-category">
+							<select name="search-category">
+								<option value="All categories">
+									All categories
+								</option>
+								<option value="art">Collectibles / art</option>
+								<option value="electronics">Electronics</option>
+								<option value="fashion">Fashion</option>
+								<option value="home">Home / garden</option>
+								<option value="automobile">
+									Auto Parts / Accessories
+								</option>
+								<option value="musical">
+									Musical instruments / gear
+								</option>
+								<option value="sports">Sporting good</option>
+								<option value="toys">Toys / hobbies</option>
+							</select>
+						</div>
+					</div>
+					<div class="submit-search">
+						<input type="submit" name="submit" value="search" />
+					</div>
+				</form>
+				<div class="deep-search">
+					<span>Advanced Search</span>
+				</div>
+			</div>
+			<hr class="hr-line" />
+		</header>
 		<ul class="nav">
 			<li class="nav-item">
 				<a class="nav-link" href="{% url 'index' %}">Active Listings</a>
@@ -44,7 +92,6 @@
 			</li>
 			{% endif %}
 		</ul>
-		<hr />
 		{% block body %} {% endblock %}
 
 		<!-- ======= JAVASCRIPT SECTION ======-->

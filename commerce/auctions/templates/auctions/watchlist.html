@@ -1,8 +1,8 @@
 {% extends "auctions/layout.html" %} {% block body %}
-<ul>
+<ul class="flex column gap5">
 	{% for item in watched %}
-	<li>
-		<div class="list-item">
+	<li class="flex gap5">
+		<div class="watch-item">
 			<a href="{% url 'listing-page' item.id %}">
 				<div class="img-wrapper">
 					<img src="{{ item.image.url }}" alt="" /></div
@@ -11,9 +11,7 @@
 				<a class="title-link" href="{% url 'listing-page' item.id %}"
 					>{{ item.title }}</a
 				>
-
 				<span>${{ item.starting_bid }}</span>
-
 				<div class="description">{{ item.description }}</div>
 			</div>
 		</div>
@@ -21,3 +19,46 @@
 	{% endfor %}
 </ul>
 {% endblock%}
+
+<!--
+			<div class="item-purchase-wrapper flex">
+			<div class="item-purchase-option grow flex column gap7">
+				<div class="winning-bid">
+					<span>Winning Bid:</span>
+					<span class="winner-span">
+						<strong>{{winning_bid.user}}</strong> |
+						<strong>${{ winning_bid}}</strong></span
+					>
+				</div>
+				<div class="closure-date">
+					<span>Closure date:</span>
+					<span> <strong>{{ item.closure_date}}</strong></span>
+				</div>
+				<div class="shiping">
+					<span>Shipping type:</span>
+					<span>Flexible</span>
+				</div>
+
+				<div class="payment-type flex gap2">
+					<span>Payment type:</span>
+					<div>
+						<img src="static/auctions/media/paypal.svg" alr="" />
+						<img
+							src="static/auctions/media/google_pay.svg"
+							alr=""
+						/>
+						<img src="static/auctions/media/visa.svg" alr="" />
+						<img
+							src="static/auctions/media/mastercard.svg"
+							alr=""
+						/>
+						<img
+							src="static/auctions/media/american_express.svg"
+							alr=""
+						/>
+					</div>
+				</div>
+			</div>
+
+		</div>
+-->

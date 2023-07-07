@@ -28,11 +28,11 @@ class Category(models.Model):
 
     @staticmethod
     def get_key_map():
-        return dict(CATEGORIES)
+        return  {key:name for key, name in CATEGORIES}
     
     @classmethod
-    def get_key(cls, name):
-        return cls.get_key_map()[name]
+    def get_name(cls, key):
+        return cls.get_key_map().get(key)
 
     def __str__(self):
         return self.name
@@ -56,7 +56,7 @@ class ImgCategory(models.Model):
 
 class Listing(models.Model):
     title = models.CharField(max_length=100)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, max_length=100)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, max_length=100, blank=True, null=True,related_name="listings")
     starting_bid = models.FloatField()
     image = models.ImageField()
     description = models.CharField(max_length=200)
