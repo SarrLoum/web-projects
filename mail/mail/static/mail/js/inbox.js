@@ -85,11 +85,12 @@ document.addEventListener("DOMContentLoaded", function () {
 	const expandSpan = document.querySelector("#expand-span");
 	const expandIcon = document.querySelector("#expand-icon");
 	const expandedNav = document.querySelector("#expand-wrapper");
-	const currentWallpaperId = localStorage.getItem("selectedWallpaperId");
 
+	const userWallpaper = JSON.parse(localStorage.getItem("userWallpaper"));
+	let currentWallpaperId = userWallpaper?.WallpaperId;
+
+	// Expand navs btn
 	document.querySelector(".expand-btn").addEventListener("click", () => {
-		console.log("expand button is clicked");
-
 		if (getComputedStyle(expandedNav).display === "none") {
 			expandIcon.src = `static/icons/less${
 				currentWallpaperId ? "_white" : ""
@@ -186,14 +187,12 @@ function closeModals() {
 	// show the userApps and useLodag modals when one of this button is cicked
 	document.body.addEventListener("click", (e) => {
 		if (e.target.id == "current-user") {
-			console.log("userLog clicked");
 			const logModal = document.querySelector(".userlog-modal");
 			const appsModal = document.querySelector(".apps-modal");
 
 			logModal.style.display = "block";
 			appsModal.style.display = "none";
 		} else if (e.target.id === "apps-btn") {
-			console.log("apps clicked");
 			const logModal = document.querySelector(".userlog-modal");
 			const appsModal = document.querySelector(".apps-modal");
 
@@ -326,7 +325,6 @@ function view_email(email_id) {
 			document.body.addEventListener("click", function (event) {
 				if (event.target.id == "archive-email") {
 					asArchived(email);
-					console.log("Archive Button clicked");
 				} else if (event.target.id == "response-email") {
 					respondEmail(email);
 				}
@@ -341,8 +339,6 @@ function respondEmail(email) {
 	// Load the compose modal with respond properties
 	document.body.addEventListener("click", (event) => {
 		if (event.target.id === "full-img") {
-			console.log("scale up btn is clicked");
-
 			document.querySelector(".respond-wrapper").style.display = "none";
 			document.querySelector(".other-instance").style.display = "block";
 			document
@@ -447,7 +443,8 @@ function logOut() {
 }
 
 function setBackground() {
-	const currentWallpaperId = localStorage.getItem("selectedWallpaperId");
+	const userWallpaper = JSON.parse(localStorage.getItem("userWallpaper"));
+	let currentWallpaperId = userWallpaper?.WallpaperId;
 
 	if (currentWallpaperId) {
 		getWallPaper(currentWallpaperId);
@@ -463,7 +460,6 @@ function changeBackground() {
 	// Iterate through the wallpapers
 	wallPapers.forEach((wallPaperItem) => {
 		wallPaperItem.addEventListener("click", () => {
-			console.log(`wallpaper${wallPaperItem.id} is clicked`);
 			// fetch the clicked wallpapers
 			getWallPaper(wallPaperItem.id);
 		});
@@ -475,7 +471,7 @@ function changeBackground() {
 		const bodyElement = document.body;
 		bodyElement.style.backgroundImage = "none";
 		bodyElement.style.backgroundRepeat = "initial";
-		localStorage.removeItem("selectedWallpaperId");
+		localStorage.removeItem("userWallpaper");
 		window.location.reload();
 	});
 }
@@ -484,8 +480,17 @@ function getWallPaper(wallpaperId) {
 	// fetch the clicked wallpaper
 	fetch(`/wallpaper/${wallpaperId}`)
 		.then((response) => response.json())
-		.then((wallpaper) => {
-			localStorage.setItem("selectedWallpaperId", wallpaper.id);
+		.then((data) => {
+			const { user, ...wallpaper } = data;
+			var userWallpaper = {
+				user: user,
+				WallpaperId: wallpaper.id,
+			};
+
+			var userWallpaperString = JSON.stringify(userWallpaper);
+			localStorage.setItem("userWallpaper", userWallpaperString);
+
+			//localStorage.setItem("selectedWallpaperId", wallpaper.id);
 			// change the background of the website when one of them is clicked on
 			const bodyElement = document.body;
 			bodyElement.style.backgroundImage = `url(${wallpaper.image_url})`;
@@ -516,12 +521,19 @@ const colorsTheme = () => {
 	root.style.setProperty("--terms-color", "rgba(255, 255, 254, 1)");
 	root.style.setProperty("--usa-btn-color", "rgba(255, 255, 250, 0.15)");
 	root.style.setProperty("--apps-link-hover", "rgba(44, 46, 47, 1)");
+
+	/*const emailItems = document.querySelectorAll(".email");
+	emailItems.forEach((emailItem) => {
+		const emailStatus = emailItems.dataset.email_status;
+		emailItems.style.background = emailStatus
+			? "transparent;"
+			: "rgba(0, 0, 0, 0.15);";
+	});*/
 };
 
 const iconThemes = (switchBool) => {
 	const usaBtns = document.querySelectorAll(".usa-btn");
 	usaBtns.forEach((usaBtnsItem) => {
-		console.log;
 		switch (usaBtnsItem.id) {
 			case "settings-icon":
 				usaBtnsItem.src = `static/icons/settings${

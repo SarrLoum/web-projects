@@ -19,11 +19,9 @@
 	--userlog-text-color: #595959;
 	--terms-color: #282828;
 }
-
 body {
 	background: #f7f8fc;
 }
-
 ul,
 li {
 	list-style-type: none;
@@ -314,9 +312,13 @@ button:focus {
 	height: 100%;
 	border-bottom-left-radius: 0.94em;
 	border-bottom-right-radius: 0.94em;
-
 	background: var(--email-color);
 	overflow: auto; /* Add this line to enable scrolling */
+}
+.content-body {
+	height: 100%;
+	border-bottom-left-radius: 0.94em;
+	border-bottom-right-radius: 0.94em;
 }
 
 .left-button,

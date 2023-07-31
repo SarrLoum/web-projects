@@ -1,0 +1,431 @@
+{% extends "auctions/layout.html" %} {% block body %}
+
+<main class="category" id="main">
+	<section class="category-section">
+		<!-- ===== PARTIE Header ILLUSTRATION DE CATEGORY ===== -->
+		<div class="category-header">
+			<img
+				src="http://localhost:8000/static/auctions/media/home-icons/homeandgarden0.svg"
+				alt=""
+			/>
+			<div class="category-header-title home-illus-title">
+				<h1>Maison & Jardin</h1>
+				<p>Tous les indispensables pour la maison et le jardin</p>
+			</div>
+		</div>
+
+		<!-- ===== PARTIE NAV LINK DU BODY ===== -->
+		<div class="category-body flex">
+			<div class="category-navs">
+				<!-- Découvertes -->
+				<h5 class="category-navs-h5">Découvrez</h5>
+				<ul class="category-navs-ul">
+					<li class="flex space-between">
+						<a href="#"><span>Animalerie</span></a
+						><img
+							src="http://localhost:8000/static/auctions/media/expand_more.svg"
+							alt=""
+						/>
+					</li>
+					<li class="flex space-between">
+						<a href="#"><span>Bébé, puériculture</span></a
+						><img
+							src="http://localhost:8000/static/auctions/media/expand_more.svg"
+							alt=""
+						/>
+					</li>
+					<li class="flex space-between">
+						<a href="#"><span>Bricolage</span></a
+						><img
+							src="http://localhost:8000/static/auctions/media/expand_more.svg"
+							alt=""
+						/>
+					</li>
+					<li class="flex space-between">
+						<a href="#"><span>Jardin, terrasse</span></a
+						><img
+							src="http://localhost:8000/static/auctions/media/expand_more.svg"
+							alt=""
+						/>
+					</li>
+					<li class="flex space-between">
+						<a href="#"><span>Maison</span></a
+						><img
+							src="http://localhost:8000/static/auctions/media/expand_more.svg"
+							alt=""
+						/>
+					</li>
+					<li class="flex space-between">
+						<a href="#"><span>Vins, Gastronomie</span></a
+						><img
+							src="http://localhost:8000/static/auctions/media/expand_more.svg"
+							alt=""
+						/>
+					</li>
+					<li class="flex space-between">
+						<a href="#"
+							><span>Tous les produits d’électroménager</span></a
+						><img src="" alt="" />
+					</li>
+					<li class="flex space-between">
+						<a href="#"
+							><span>Autres produits d’électroménager</span></a
+						><img src="" alt="" />
+					</li>
+				</ul>
+				<hr />
+
+				<!-- Bon Plans et Sélection -->
+				<h5 class="category-navs-h5">Bon Plans et selections</h5>
+				<ul class="category-navs-ul">
+					<li class="flex space-between">
+						<a href="#"><span>Bon Plans</span></a
+						><img src="" alt="" />
+					</li>
+					<li class="flex space-between">
+						<a href="#"><span>Reconditioné</span></a
+						><img src="" alt="" />
+					</li>
+					<li class="flex space-between">
+						<a href="#"><span>Pièces détachées</span></a
+						><img src="" alt="" />
+					</li>
+					<li class="flex space-between">
+						<a href="#"><span>Objet connectés</span></a
+						><img src="" alt="" />
+					</li>
+				</ul>
+				<hr />
+
+				<!-- Explorer par category -->
+				<h5 class="category-navs-h5">Explorer par Catégories</h5>
+				<ul class="category-navs-ul">
+					<li class="flex space-between">
+						<a href="#"><span>Articles pour la maison</span></a>
+					</li>
+					<li class="flex space-between">
+						<a href="#"
+							><span>Articles pour jardin et terrasse</span></a
+						>
+					</li>
+					<li class="flex space-between">
+						<a href="#"><span>Matériel de bricolage</span></a>
+					</li>
+					<li class="flex space-between">
+						<a href="#"><span>Articles de bébé</span></a>
+					</li>
+					<li class="flex space-between">
+						<a href="#"><span>Animalerie</span></a>
+					</li>
+					<li class="flex space-between">
+						<a href="#"><span>Articles de loisirs créatif</span></a>
+					</li>
+				</ul>
+				<hr />
+
+				<!-- Pièces détachées -->
+				<h5 class="category-navs-h5">Pièces détachées</h5>
+				<a class="nav-categ-link"
+					>Tout pour réparer vos objets du quotidient et prolonger
+					leur durrée de vie</a
+				>
+				<hr />
+			</div>
+
+			<!-- ===== PARTIE CONTENT DU BODY ===== -->
+			<div class="category-content grow">
+				<div class="categ-illustration">
+					<img
+						src="http://localhost:8000/static/auctions/media/home-icons/homeandgarden1.svg"
+						alt=""
+					/>
+					<div class="categ-discovery">
+						<div href="#" class="categ-d-title">
+							<h2 class="">Un été réussi avec Boulanger</h2>
+							<p>
+								Découvrez nos séléctions estivales pour votre
+								maison et jardin
+							</p>
+						</div>
+
+						<div class="categ-hg-btn flex">
+							<span>Découvrez</span>
+							<img
+								class="categ-hg-img"
+								src="static/auctions/media/arrow_forward.svg"
+								alt=""
+							/>
+						</div>
+					</div>
+				</div>
+
+				<div class="category-explore">
+					<h3 class="explore-title">Explorer par Catégorie</h3>
+					<ul class="explore-items home-item-gap">
+						<a href="#">
+							<li class="explore-item">
+								<div class="explore-item-img">
+									<img
+										src="http://localhost:8000/static/auctions/media/home-icons/home.svg"
+										alt=""
+									/>
+								</div>
+								<span>Home</span>
+							</li>
+						</a>
+						<a href="#">
+							<li class="explore-item">
+								<div class="explore-item-img">
+									<img
+										src="http://localhost:8000/static/auctions/media/home-icons/jardin.svg"
+										alt=""
+									/>
+								</div>
+								<span>Jardin et terrasse</span>
+							</li>
+						</a>
+						<a href="#">
+							<li class="explore-item">
+								<div class="explore-item-img">
+									<img
+										src="http://localhost:8000/static/auctions/media/home-icons/meuble.svg"
+										alt=""
+									/>
+								</div>
+								<span>Meubles</span>
+							</li>
+						</a>
+
+						<a href="#">
+							<li class="explore-item">
+								<div class="explore-item-img">
+									<img
+										src="http://localhost:8000/static/auctions/media/home-icons/bricolage.svg"
+										alt=""
+									/>
+								</div>
+								<span>Bricolage</span>
+							</li>
+						</a>
+
+						<a href="#">
+							<li class="explore-item">
+								<div class="explore-item-img">
+									<img
+										src="http://localhost:8000/static/auctions/media/home-icons/petit électroménager.svg"
+										alt=""
+									/>
+								</div>
+								<span>Petit électroménager</span>
+							</li>
+						</a>
+
+						<a href="#">
+							<li class="explore-item">
+								<div class="explore-item-img">
+									<img
+										src="http://localhost:8000/static/auctions/media/home-icons/gros éléctroménager.svg"
+										alt=""
+									/>
+								</div>
+								<span>Gros électroménager</span>
+							</li>
+						</a>
+						<a href="#">
+							<li class="explore-item">
+								<div class="explore-item-img">
+									<img
+										src="http://localhost:8000/static/auctions/media/home-icons/animalerie.svg"
+										alt=""
+									/>
+								</div>
+								<span>Animalerie</span>
+							</li>
+						</a>
+						<a href="#">
+							<li class="explore-item">
+								<div class="explore-item-img">
+									<img
+										src="http://localhost:8000/static/auctions/media/home-icons/loisir créatif.svg"
+										alt=""
+									/>
+								</div>
+								<span>Loisirs créatif</span>
+							</li>
+						</a>
+
+						<a href="#">
+							<li class="explore-item">
+								<div class="explore-item-img">
+									<img
+										src="http://localhost:8000/static/auctions/media/home-icons/vins et viénoiserie.svg"
+										alt=""
+									/>
+								</div>
+								<span>Vins et Gastronomie</span>
+							</li>
+						</a>
+						<a href="#">
+							<li class="explore-item">
+								<div class="explore-item-img">
+									<img
+										src="http://localhost:8000/static/auctions/media/home-icons/puériculture.svg"
+										alt=""
+									/>
+								</div>
+								<span>Puériculture</span>
+							</li>
+						</a>
+					</ul>
+				</div>
+
+				<hr class="hr-categ" />
+
+				<div class="categ-illustration">
+					<img
+						src="http://localhost:8000/static/auctions/media/home-icons/homeandgarden2.svg"
+						alt=""
+					/>
+					<div class="categ-discovery">
+						<div href="#" class="categ-d-title">
+							<h2 class="">Un été réussi avec Boulanger</h2>
+							<p>
+								Découvrez nos séléctions estivales pour votre
+								maison et jardin
+							</p>
+						</div>
+
+						<div class="categ-hg-btn flex">
+							<span>Découvrez</span>
+							<img
+								class="categ-hg-img"
+								src="static/auctions/media/arrow_forward.svg"
+								alt=""
+							/>
+						</div>
+					</div>
+				</div>
+
+				<div class="category-explore">
+					<h3 class="explore-title">Explorer par marque</h3>
+					<ul class="explore-items home-item-gap">
+						<a href="#">
+							<li class="explore-item">
+								<div class="explore-item-img">
+									<img
+										src="http://localhost:8000/static/auctions/media/home-icons/philips.svg"
+										alt=""
+									/>
+								</div>
+								<span>Philips</span>
+							</li>
+						</a>
+						<a href="#">
+							<li class="explore-item">
+								<div class="explore-item-img">
+									<img
+										src="http://localhost:8000/static/auctions/media/home-icons/moulinex.svg"
+										alt=""
+									/>
+								</div>
+								<span>Moulinex</span>
+							</li>
+						</a>
+						<a href="#">
+							<li class="explore-item">
+								<div class="explore-item-img">
+									<img
+										src="http://localhost:8000/static/auctions/media/home-icons/tefal.svg"
+										alt=""
+									/>
+								</div>
+								<span>Tefal</span>
+							</li>
+						</a>
+						<a href="#">
+							<li class="explore-item">
+								<div class="explore-item-img">
+									<img
+										src="http://localhost:8000/static/auctions/media/home-icons/fiskars.svg"
+										alt=""
+									/>
+								</div>
+								<span>Fiskars</span>
+							</li>
+						</a>
+						<a href="#">
+							<li class="explore-item">
+								<div class="explore-item-img">
+									<img
+										src="http://localhost:8000/static/auctions/media/home-icons/xiaomi.svg"
+										alt=""
+									/>
+								</div>
+								<span>Xiaomi</span>
+							</li>
+						</a>
+						<a href="#">
+							<li class="explore-item">
+								<div class="explore-item-img">
+									<img
+										src="http://localhost:8000/static/auctions/media/home-icons/schneider electric.svg"
+										alt=""
+									/>
+								</div>
+								<span>Schneider Electric</span>
+							</li>
+						</a>
+						<a href="#">
+							<li class="explore-item">
+								<div class="explore-item-img">
+									<img
+										src="http://localhost:8000/static/auctions/media/home-icons/peugeot saveur.svg"
+										alt=""
+									/>
+								</div>
+								<span>Peugeot saveurs</span>
+							</li>
+						</a>
+						<a href="#">
+							<li class="explore-item">
+								<div class="explore-item-img">
+									<img
+										src="http://localhost:8000/static/auctions/media/home-icons/wiltec.svg"
+										alt=""
+									/>
+								</div>
+								<span>Wiltec</span>
+							</li>
+						</a>
+						<a href="#">
+							<li class="explore-item">
+								<div class="explore-item-img">
+									<img
+										src="http://localhost:8000/static/auctions/media/home-icons/fuxtec.svg"
+										alt=""
+									/>
+								</div>
+								<span>Fuxtec</span>
+							</li>
+						</a>
+						<a href="#">
+							<li class="explore-item">
+								<div class="explore-item-img">
+									<img
+										src="http://localhost:8000/static/auctions/media/home-icons/scheppah.svg"
+										alt=""
+									/>
+								</div>
+								<span>Scheppach</span>
+							</li>
+						</a>
+					</ul>
+				</div>
+
+				<div class="about-category"></div>
+			</div>
+		</div>
+	</section>
+</main>
+
+{% endblock %}

@@ -1,0 +1,405 @@
+{% extends "auctions/layout.html" %} {% block body %}
+
+<main class="category-art" id="main">
+    <section class="category-section">
+        <!-- ===== PARTIE Header ILLUSTRATION DE CATEGORY ===== -->
+        <div class="category-header">
+            <img 
+                src="http://localhost:8000/static/auctions/media/art-icons/ArtandCollection1.svg"
+                alt="" />
+            <div class="category-header-title art-illus-title">
+                <h1>Oeuvres d’art, antiquités et 
+                    objects de collection</h1>
+                <p>Des objects d’exception sélectionnés pour 
+                    vous</p>
+            </div>
+        </div>
+
+        <!-- ===== PARTIE NAV LINK DU BODY ===== -->
+        <div class="category-body flex">
+            <div class="category-navs">
+                <!-- Découvertes -->
+                <h5 >Découvrez</h5>
+                <ul class="category-navs-ul">
+                    <li class="flex space-between">
+                        <a href="#"><span>Arts, antiquités</span></a><img src="static/auctions/media/expand_more.svg" alt="" />
+                    </li>
+                    <li class="flex space-between">
+                        <a href="#"><span>Céramiques, verres</span></a><img src="static/auctions/media/expand_more.svg" alt="" />
+                    </li>
+                    <li class="flex space-between">
+                        <a href="#"><span>Collections</span></a><img src="static/auctions/media/expand_more.svg" alt="" />
+                    </li>
+                    <li class="flex space-between">
+                        <a href="#"><span>Jouet et Jeux</span></a><img src="static/auctions/media/expand_more.svg" alt="" />
+                    </li>
+                    <li class="flex space-between">
+                        <a href="#"><span>Monnaies</span></a><img src="static/auctions/media/expand_more.svg" alt="" />
+                    </li>
+                    <li class="flex space-between">
+                        <a href="#"><span>Timbres</span></a><img src="static/auctions/media/expand_more.svg" alt="" />
+                    </li>
+                </ul>
+                <hr />
+
+                <!-- Explorer par category -->
+                <h5 class="category-navs-h5">Explorer par Catégories</h5>
+                <ul class="category-navs-ul">
+                    <li class="flex space-between">
+                        <a href="#"><span>Arts et antiquités</span></a>
+                    </li>
+                    
+                    <li class="flex space-between">
+                        <a href="#"><span>Articles de collection</span></a>
+                    </li>
+                    <li class="flex space-between">
+                        <a href="#"><span>Jouet et jeux</span></a>
+                    </li>
+                    <li class="flex space-between">
+                        <a href="#"><span>Monnaies</span></a>
+                    </li>
+                    <li class="flex space-between">
+                        <a href="#"><span>Timbres</span></a>
+                    </li>
+                    <li class="flex space-between">
+                        <a href="#"><span>Céramiques et verres</span></a>
+                    </li>
+                    <li class="flex space-between">
+                        <a href="#"><span>Livres anciens et de
+                            collection</span></a>
+                    </li>
+                    <li class="flex space-between">
+                        <a href="#"><span>Véhicules miniatures</span></a>
+                    </li>
+                </ul>
+                <hr />
+
+            </div>
+
+            <!-- ===== PARTIE CONTENT DU BODY ===== -->
+            <div class="category-content grow">
+
+                <div class="category-explore">
+                    <h3 class="explore-title">Art et antiquités<h3>
+                    <ul class="explore-items">
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/art-icons/beaux-arts.svg"
+                                        alt="" />
+                                </div>
+                                <span>Beaux arts</span>
+                            </li>
+                        </a>
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/art-icons/mobilier.svg"
+                                        alt="" />
+                                </div>
+                                <span>Mobilier</span>
+                            </li>
+                        </a>
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/art-icons/arts décoratifs.svg"
+                                        alt="" />
+                                </div>
+                                <span>Arts décoratifs</span>
+                            </li>
+                        </a>
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/art-icons/artdumonde.svg"
+                                        alt="" />
+                                </div>
+                                <span>Arts du monde</span>
+                            </li>
+                        </a>
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/art-icons/architecture-matériaux antiques.svg"
+                                        alt="" />
+                                </div>
+                                <span>Architecture et matériaux 
+                                        antiques</span>
+                            </li>
+                        </a>
+                    </ul>
+                </div>
+                <hr />
+
+                <div class="category-explore">
+                    <h3 class="explore-title">Objet de collection<h3>
+                    <ul class="explore-items">
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/art-icons/carte collection.png"
+                                        alt="" />
+                            </div>
+                                <span>Jeux de carte à 
+                                    collections</span>
+                            </li>
+                        </a>    
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/art-icons/monnaie.png"
+                                        alt="" />
+                            </div>
+                                <span>Monnaies</span>
+                            </li>
+                        </a>    
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/art-icons/timbre.png"
+                                        alt="" />
+                            </div>
+                                <span>Timbres</span>
+                            </li>
+                        </a>    
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/art-icons/militaria.png"
+                                        alt="" />
+                            </div>
+                                <span>Militaria, souvenirs
+                                    historiques
+                                </span>
+                            </li>
+                        </a>    
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/art-icons/livre manuscrit.png"
+                                        alt="" />
+                            </div>
+                                <span>Livres et manuscrits</span>
+                            </li>
+                        </a>                        
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/art-icons/lettre et vieux papier.png"
+                                        alt="" />
+                            </div>
+                                <span>Lettres et vieux papriers</span>
+                            </li>
+                        </a>                        
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/art-icons/objet quotidien.png"
+                                        alt="" />
+                            </div>
+                                <span>Objet du quotidien</span>
+                            </li>
+                        </a>                       
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/art-icons/objet publicitaire.png"
+                                        alt="" />
+                            </div>
+                                <span>Objet publicitaire</span>
+                            </li>
+                        </a>                        
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/art-icons/objet curiosité.png"
+                                        alt="" />
+                            </div>
+                                <span>Objet curiosité</span>
+                            </li>
+                        </a>                        
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/art-icons/vinyle.png"
+                                        alt="" />
+                            </div>
+                                <span>Vinyles</span>
+                            </li>
+                        </a>    
+                    </ul>
+                </div>
+                <hr />
+
+                <div class="category-explore">
+                    <h3 class="explore-title">Luxe et accessoire<h3>
+                    <ul class="explore-items">
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/art-icons/montre.svg"
+                                        alt="" />
+                            </div>
+                                <span>Montres</span>
+                            </li>
+                        </a>    
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/art-icons/sneakers.svg"
+                                        alt="" />
+                            </div>
+                                <span>Sneakers</span>
+                            </li>
+                        </a>    
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/art-icons/maroqenerie de luxe.svg"
+                                        alt="" />
+                            </div>
+                                <span>Maroquinerie de luxe</span>
+                            </li>
+                        </a>    
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/art-icons/accessoires de luxe.svg"
+                                        alt="" />
+                            </div>
+                                <span>Bijoux et accessoires de luxe</span>
+                            </li>
+                        </a>    
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/art-icons/pierre precieuse.svg"
+                                        alt="" />
+                            </div>
+                                <span>Pierres précieuse et fines</span>
+                            </li>
+                        </a>    
+                    </ul>
+                </div>
+                <hr />
+                <div class="theme-explorer">
+                    <h3 class="explore-title">Explorer par vente thématique<h3>
+                    <div class="explore-carousel-container">
+                        <div class="explore-carousel">
+                            <div class="explore-carousel-by2item" id="carousel-slide">
+                                <div class="explore-carousel-item">
+                                    <div class="explore-item-img">
+                                        <img src="http://localhost:8000/static/auctions/media/art-icons/vente thematique1.svg" alt="" />
+                                    </div>  
+                                    <a href="#">Déco pour tous les budgets</a>      
+                                    <span href="#">Trouvez votre objet ensoleillé!</span>      
+                                </div>    
+                                <div class="explore-carousel-item">
+                                    <div class="explore-item-img">
+                                        <img src="http://localhost:8000/static/auctions/media/art-icons/vente thématique2.svg" alt="" />
+                                    </div>  
+                                    <a href="#">Une table classique et naturelle</a>      
+                                    <span href="#">Atmosphère chaleureuse garentie</span>      
+                                </div>   
+                            </div> 
+                            <div class="explore-carousel-by2item" id="carousel-slide">
+                                <div class="explore-carousel-item">
+                                    <div class="explore-item-img">
+                                        <img src="http://localhost:8000/static/auctions/media/art-icons/vente thematique3.svg" alt="" />
+                                    </div>  
+                                    <a href="#">Notre sélection de mirroirs</a>      
+                                    <span href="#">Succombez au charme de l'ancien</span>      
+                                </div>    
+                                <div class="explore-carousel-item">
+                                    <div class="explore-item-img">
+                                        <img src="http://localhost:8000/static/auctions/media/art-icons/vente thematique4.svg" alt="" />
+                                    </div>  
+                                    <a href="#">Le verre de Murano</a>      
+                                    <span href="#">Découvrez un art vénicien ancestral</span>      
+                                </div> 
+                            </div>   
+                        </div>
+                        <button class="explore-carousel-prev">
+                            <img src="http://localhost:8000/static/auctions/media/art-icons/arrow_preview.svg" alt="" />                 
+                        </button>
+                        <button class="explore-carousel-next">
+                            <img src="http://localhost:8000/static/auctions/media/art-icons/arrow_next.svg" alt="" />                   
+                        </button>
+                        </button>
+                    </div>
+                </div>
+                <hr />
+
+                <div class="theme-explore-more">
+                    <h3 class="explore-title">Explorer plus the selection<h3>
+                    <div class="explore-carousel">
+                        <div class="explore-carousel-by2item" id="carousel-slide">
+                            <div class="explore-carousel-item">
+                                <div class="explore-item-img">
+                                    <img src="http://localhost:8000/static/auctions/media/art-icons/thématique more1.svg" alt="" />
+                                </div>  
+                                <a href="#">Sélections artistes contemporains</a>      
+                                <span href="#">Des oeuvres et le meilleur des talents!</span>      
+                            </div>    
+                            <div class="explore-carousel-item">
+                                <div class="explore-item-img">
+                                    <img src="http://localhost:8000/static/auctions/media/art-icons/thématique more2.svg" alt="" />
+                                </div>  
+                                <a href="#">Street art et Pop culture</a>      
+                                <span href="#">L'art urbain s'invite chez vous</span>      
+                            </div> 
+                        </div>  
+                        <div class="explore-carousel-by2item" id="carousel-slide">
+                            <div class="explore-carousel-item">
+                                <div class="explore-item-img">
+                                    <img src="http://localhost:8000/static/auctions/media/art-icons/thématique more3.svg" alt="" />
+                                </div>  
+                                <a href="#">Mobilier design italien</a>      
+                                <span href="#">Vivez la Dolce Vita avec des pièces cultes!</span>      
+                            </div>
+                            <div class="explore-carousel-item">
+                                <div class="explore-item-img">
+                                    <img src="http://localhost:8000/static/auctions/media/art-icons/thématique more4.svg" alt="" />
+                                </div>  
+                                <a href="#">Mobilier design et vintage</a>      
+                                <span href="#">Des icônes du design chez vous</span>      
+                            </div>
+                        </div>  
+                        <button class="explore-carousel-prev">
+                            <img src="http://localhost:8000/static/auctions/media/art-icons/arrow_preview.svg" alt="" />                 
+                        </button>
+                        <button class="explore-carousel-next">
+                            <img src="http://localhost:8000/static/auctions/media/art-icons/arrow_next.svg" alt="" />                   
+                        </button>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="about-category"></div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
+

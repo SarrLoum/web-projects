@@ -12,7 +12,7 @@ from django.contrib import messages
 
 from .models import User, Listing, Bid, ImgCategory, Category, CATEGORIES, Suggestion
 from .forms import ListingForm, CommentForm
-from .util import get_price, is_owner, get_categories, search_on_category, ratings_level, similar_listings
+from .util import get_price, is_owner, get_categories, search_on_category, ratings_level, similar_listings, get_category_view
 
 
 def index(request):
@@ -237,3 +237,10 @@ def search(request):
 
         search_on_category(query, on_category)
 
+
+
+def category_view(request, category_name):
+
+    html_link = get_category_view(category_name)
+
+    return render(request, html_link)

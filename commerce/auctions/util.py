@@ -73,6 +73,27 @@ def similar_listings(listing):
 
 
 
+def get_category_view(category_name):
+    match category_name:
+        case 'art':
+                return "auctions/Art&collection.html"
+        case 'electronics':
+                return "auctions/electronics.html"
+        case 'fashion':
+            return "auctions/fashion.html"      
+        case 'home':
+            return "auctions/home&garden.html"       
+        case 'automobile':
+            return "auctions/motors.html"
+        case 'musical':
+            return "auctions/musical_intrument&gear.html"      
+        case 'sports':
+            return "auctions/sporting_good.html"      
+        case 'toys':
+            return "auctions/toys&hobbies.html"        
+        case _:
+            return None
+
 
 
 

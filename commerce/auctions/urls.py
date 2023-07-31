@@ -5,6 +5,7 @@ from . import views
 urlpatterns = [
     path("", views.index, name="index"),
     path("category_images", views.category_img, name="category_img"),
+    path("category/<str:category_name>", views.category_view, name="category"),
 
     path("login", views.login_view, name="login"),
     path("logout", views.logout_view, name="logout"),

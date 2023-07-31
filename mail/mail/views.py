@@ -217,12 +217,17 @@ def get_usr(request):
 
 
 def change_wallpaper(request, pk):
+    user = request.user
     wallpaper = WallPaper.objects.get(pk=pk)
+
     data = {
+        "user": user.serialize(),
         'id': wallpaper.id,
         'image_url': wallpaper.image.url
     }
     return JsonResponse(data, status=200)
+
+
 
 def get_apps(request):
     user = request.user

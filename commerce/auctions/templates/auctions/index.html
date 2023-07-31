@@ -1,104 +1,107 @@
 {% extends "auctions/layout.html" %} {% block body %}
 
-<section class="suggestions-container">
-		<div class="suggest-carousel">
-			{% for suggest in suggestions %}
-			<div class="suggest-slide">
-				<img src="{{ suggest.image.url }}" alt="" />
-				<div class="discovery-container suggest-discovery">
-					<div href="#" class="discovery-title">
-						<h2 class="">Sélection artistes contemporains</h2>
-					</div>
-					<div class="discovery-slogan">
-						<span>Des oeuvres et le meilleur des talents</span>
-					</div>
-					<div class="suggest-discover-btn flex">
-						<span>Découvrez</span>
-						<img
-							class="suggest-discover-img"
-							src="static/auctions/media/arrow_forward.svg"
-							alt=""
-						/>
-					</div>
-				</div>
-			</div>
-			{% endfor %}
-		</div>
-</section>
-<section>
-	<ul id="categories" class="carousel-list">
-		{% for category in categories %}
-		<li class="category-item">
-			<div class="carousel-container">
-				<div class="category-img carousel">
-					{% for image_url in category.images %}
-					<div class="slide">
-						<img src="{{ image_url.url }}" alt="" />
-					</div>
-					{% endfor %}
-				</div>
-			</div>
-			<span>{{ category.name }}</span>
-		</li>
-		{% endfor %}
-	</ul>
 
-	<div class="flex gap1">
-		<div class="discovery-container">
-			<a href="#" class="discovery-title">
-				<h2 class="">Sélection artistes contemporains</h2>
-			</a>
-			<div class="discovery-slogan">
-				<span>Des oeuvres et le meilleur des talents</span>
-			</div>
-			<div class="discover-btn flex">
-				<span>Découvrez</span>
-				<img
-					class="discover-img"
-					src="static/auctions/media/arrow_forward.svg"
-					alt=""
-				/>
-			</div>
-		</div>
-		<ul class="item-list grow">
-			{% for listing in active_listing %}
-			<li>
-				<div class="list-item scale-zoom">
-					<a href="{% url 'listing-page' listing.id %}">
-						<div class="img-wrapper scale-zoom2">
-							<img src="{{ listing.image.url }}" alt="" /></div
-					></a>
-					<div class="item-details">
-						<a
-							class="title-link"
-							href="{% url 'listing-page' listing.id %}"
-							>{{ listing.title }}</a
-						>
-						<span>${{ listing.starting_bid }}</span>
+<main class="homepage" id="main">
+	<section class="suggestions-container">
+			<div class="suggest-carousel">
+				{% for suggest in suggestions %}
+				<div class="suggest-slide">
+					<img src="{{ suggest.image.url }}" alt="" />
+					<div class="discovery-container suggest-discovery">
+						<div href="#" class="discovery-title">
+							<h2 class="">Sélection artistes contemporains</h2>
+						</div>
+						<div class="discovery-slogan">
+							<span>Des oeuvres et le meilleur des talents</span>
+						</div>
+						<div class="suggest-discover-btn flex">
+							<span>Découvrez</span>
+							<img
+								class="suggest-discover-img"
+								src="static/auctions/media/arrow_forward.svg"
+								alt=""
+							/>
+						</div>
 					</div>
 				</div>
+				{% endfor %}
+			</div>
+	</section>
+	<section>
+		<ul id="categories" class="carousel-list">
+			{% for category in categories %}
+			<li class="category-item">
+				<a href="{% url 'category' category.name %}" class="carousel-container">
+					<div class="category-img carousel">
+						{% for image_url in category.images %}
+						<div class="slide">
+							<img src="{{ image_url.url }}" alt="" />
+						</div>
+						{% endfor %}
+					</div>
+				</a>
+				<span>{{ category.name }}</span>
 			</li>
 			{% endfor %}
 		</ul>
-	</div>
-</section>
-<hr />
-	<div class="footer-container">
-		<div class="footer-content">
-			<h4></h4>
-			<ul>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
+
+		<div class="flex gap1">
+			<div class="discovery-container">
+				<a href="#" class="discovery-title">
+					<h2 class="">Sélection artistes contemporains</h2>
+				</a>
+				<div class="discovery-slogan">
+					<span>Des oeuvres et le meilleur des talents</span>
+				</div>
+				<div class="discover-btn flex">
+					<span>Découvrez</span>
+					<img
+						class="discover-img"
+						src="static/auctions/media/arrow_forward.svg"
+						alt=""
+					/>
+				</div>
+			</div>
+			<ul class="item-list grow">
+				{% for listing in active_listing %}
+				<li>
+					<div class="list-item scale-zoom">
+						<a href="{% url 'listing-page' listing.id %}">
+							<div class="img-wrapper scale-zoom2">
+								<img src="{{ listing.image.url }}" alt="" /></div
+						></a>
+						<div class="item-details">
+							<a
+								class="title-link"
+								href="{% url 'listing-page' listing.id %}"
+								>{{ listing.title }}</a
+							>
+							<span>${{ listing.starting_bid }}</span>
+						</div>
+					</div>
+				</li>
+				{% endfor %}
 			</ul>
 		</div>
+	</section>
+	<hr />
+		<div class="footer-container">
+			<div class="footer-content">
+				<h4></h4>
+				<ul>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+				</ul>
+			</div>
 
-		<div class="footer-content"></div>
-		<div class="footer-content"></div>
+			<div class="footer-content"></div>
+			<div class="footer-content"></div>
 
-		<div class="footer-content"></div>
-	</div>
-</section>
+			<div class="footer-content"></div>
+		</div>
+	</section>
+</main>
 {% endblock %}

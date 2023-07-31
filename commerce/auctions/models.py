@@ -39,6 +39,7 @@ class Category(models.Model):
 
 class ImgCategory(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="illustrations")
+    view_url = models.CharField(max_length=150, blank=True)
     image1 = models.ImageField()
     image2 = models.ImageField()
     image3 = models.ImageField()
