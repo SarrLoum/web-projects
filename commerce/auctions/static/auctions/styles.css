@@ -1,7 +1,6 @@
 body {
 	padding: 10px;
-	width: 100vw;
-	height: 100vh;
+	width: 100%;
 	overflow-x: hidden;
 }
 .suggestions-container ul {
@@ -53,9 +52,16 @@ body {
 .gap9 {
 	gap: 21.5em;
 }
+.gap10 {
+	gap: 0.75em;
+}
 
 .cmt-gap {
 	gap: 6em;
+}
+
+.text-color-white {
+	color: #fff;
 }
 
 header {
@@ -234,6 +240,7 @@ header {
 	overflow: hidden;
 	border-radius: 100%;
 }
+
 .suggestions-container {
 	width: 100%;
 	height: 20.5rem;
@@ -1546,13 +1553,14 @@ h5 {
 	font-family: "Inter";
 	font-size: 0.9375rem;
 	font-style: normal;
-	font-weight: 500;
+	font-weight: 600;
 	line-height: 92.523%;
 	margin-bottom: 1.19em;
 }
 
 .category-navs-ul {
 	padding: 0;
+	list-style: none;
 }
 .category-navs-ul li {
 	padding-right: 0.81em;
@@ -1717,7 +1725,7 @@ h5 {
 }
 
 .categ-discovery {
-	width: 15.1875em;
+	width: 20.1875em;
 	height: 17.62em;
 	flex-shrink: 0;
 
@@ -1745,10 +1753,24 @@ h5 {
 	line-height: 120%;
 }
 
-.cteg-hg-btn {
-	width: 7.4375em;
-	height: 2.375em;
-	flex-shrink: 0;
+.categ-hg-btn {
+	position: absolute;
+	padding: 0.5em 0.6em;
+	border: 1px solid #fff;
+	margin-top: 8em;
+
+	color: #fff;
+	font-family: "Inter";
+	font-size: 0.88rem;
+	font-style: normal;
+	font-weight: 500;
+	background: transparent;
+	transition: background-color 0.5s ease;
+}
+
+.categ-hg-btn:hover {
+	background-color: #fff;
+	color: #023048;
 }
 
 .theme-explorer,
@@ -1756,19 +1778,30 @@ h5 {
 	padding-top: 0.75rem;
 	padding-bottom: 1.12rem;
 }
-
-.explore-carousel {
+.explore-carousel-container {
+	width: 68rem;
+	overflow: hidden;
 	position: relative;
+}
+.explore-carousel,
+.explore-carousel1 {
 	display: flex;
 	margin-top: 0.94rem;
 	margin-left: 0.3rem;
+	margin-right: 0;
+	right: 0;
+
+	transition: transform 0.5s ease-in-out;
+	transform: translateX(0);
 }
 
 .explore-carousel-by2item {
 	display: flex;
 	width: 65.5rem;
 	gap: 1rem;
-	margin-right: 1rem;
+
+	flex: 0 0 100%;
+	overflow: hidden;
 }
 .explore-carousel-item {
 	width: 32.75rem;
@@ -1814,10 +1847,13 @@ h5 {
 }
 
 .explore-carousel-prev,
-.explore-carousel-next {
+.explore-carousel-next,
+.explore-carousel-prev1,
+.explore-carousel-next1 {
 	width: 2.5rem;
 	height: 2.5rem;
 	border-radius: 6.25rem;
+
 	position: absolute;
 	z-index: 1;
 	display: flex;
@@ -1825,13 +1861,25 @@ h5 {
 	align-items: center;
 	border: transparent;
 	outline: none;
+
+	background: #fafafa;
 }
 
-.explore-carousel-prev {
-	top: 10rem;
-	left: 0;
+.explore-carousel-prev,
+.explore-carousel-prev1 {
+	top: 12rem;
+	left: 0.5rem;
 }
-.explore-carousel-next {
-	top: 10rem;
-	right: 67.5rem;
+.explore-carousel-next,
+.explore-carousel-next1 {
+	top: 12rem;
+	left: 64.5rem;
+}
+
+.explore-carousel-prev:focus,
+.explore-carousel-prev1:focus,
+.explore-carousel-next:focus,
+.explore-carousel-next1:focus {
+	border: transparent;
+	outline: none;
 }

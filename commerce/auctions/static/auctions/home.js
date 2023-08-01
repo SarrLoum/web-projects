@@ -65,17 +65,35 @@ document.addEventListener("DOMContentLoaded", function () {
 		ratingProduct();
 	} else if (main.classList.contains("category-art")) {
 		startCarouselExplore();
+		//startCarouselExplore1();
+	} else if (main.classList.contains("category-fashion")) {
+		categBtnHover();
 	}
 });
 
 function dicoverBtnHover() {
-	const dicoverBtn = document.querySelector(".discover-btn");
-	const forwardBtn = document.querySelector(".discover-img");
+	const dicoverBtn = document.querySelector("#discover-btn");
+	const forwardBtn = document.querySelector("#discover-img");
 	dicoverBtn.addEventListener("mouseenter", () => {
-		forwardBtn.src = "static/auctions/media/arrow_forward_white.svg";
+		forwardBtn.src =
+			"http://localhost:8000/static/auctions/media/arrow_forward_white.svg";
 	});
 	dicoverBtn.addEventListener("mouseleave", () => {
-		forwardBtn.src = "static/auctions/media/arrow_forward.svg";
+		forwardBtn.src =
+			"http://localhost:8000/static/auctions/media/arrow_forward.svg";
+	});
+}
+
+function categBtnHover() {
+	const categBtn = document.querySelector(".categ-hg-btn");
+	const forwardBtn = document.querySelector(".categ-hg-img");
+	categBtn.addEventListener("mouseenter", () => {
+		forwardBtn.src =
+			"http://localhost:8000/static/auctions/media/arrow_forward.svg";
+	});
+	categBtn.addEventListener("mouseleave", () => {
+		forwardBtn.src =
+			"http://localhost:8000/static/auctions/media/arrow_forward_white.svg";
 	});
 }
 
@@ -84,28 +102,28 @@ function startCarouselSuggest() {
 	const suggestSlides = Array.from(
 		document.querySelectorAll(".suggest-slide")
 	);
-	const slideWidth1 = suggestSlides[0].offsetWidth;
-	const slideCount1 = suggestSlides.length;
-	const slidesInterval1 = 7000;
-	let currentIndex1 = 0;
+	const slideWidth0 = suggestSlides[0].offsetWidth;
+	const slideCount0 = suggestSlides.length;
+	const slidesInterval0 = 7000;
+	let currentIndex0 = 0;
 	let timer1;
 
 	function showSlide1(index) {
 		suggestCarousel.style.transform = `translate(-${
-			index * slideWidth1
+			index * slideWidth0
 		}px)`;
 	}
 
 	function showNextSlides1() {
-		currentIndex1++;
-		if (currentIndex1 >= slideCount1) {
-			currentIndex1 = 0;
+		currentIndex0++;
+		if (currentIndex0 >= slideCount0) {
+			currentIndex0 = 0;
 		}
-		showSlide1(currentIndex1);
+		showSlide1(currentIndex0);
 	}
 
 	function startCarousel1() {
-		timer1 = setInterval(showNextSlides1, slidesInterval1);
+		timer1 = setInterval(showNextSlides1, slidesInterval0);
 	}
 
 	startCarousel1();
@@ -116,32 +134,31 @@ function startCarouselExplore() {
 	const exploreSlides = Array.from(
 		document.querySelectorAll("#carousel-slide")
 	);
-	const slideWidth0 = exploreSlides[0].offsetWidth + 2;
-	const slideLength0 = exploreSlides.length;
+	const slideWidth1 = exploreSlides[0].offsetWidth + 2;
 	const prevBtn = document.querySelector(".explore-carousel-prev");
 	const nextBtn = document.querySelector(".explore-carousel-next");
-	let currentIndex0 = 0;
+	let currentIndex1 = 0;
 
 	function showSlide0(index) {
-		console.log("slide width:", slideLength0);
-
 		exploreCarousel.style.transform = `translate(-${
-			index * slideWidth0
+			index * slideWidth1
 		}px)`;
 	}
 
 	function showNextSlide0() {
-		if (currentIndex0 < slideLength0) {
-			currentIndex0++;
-			showSlide0(currentIndex0);
-			console.log("current index in show next slide:", currentIndex0);
+		currentIndex1++;
+		if (currentIndex1 < 2) {
+			showSlide0(currentIndex1);
+		} else {
+			currentIndex1--;
 		}
 	}
 	function showPrevSlide0() {
-		if (currentIndex0 > 0) {
-			currentIndex0--;
-			showSlide0(currentIndex0);
-			console.log("current index in show prev slide:", currentIndex0);
+		currentIndex1--;
+		if (currentIndex1 >= 0) {
+			showSlide0(currentIndex1);
+		} else {
+			currentIndex1 = 0;
 		}
 	}
 
@@ -154,7 +171,48 @@ function startCarouselExplore() {
 		showPrevSlide0();
 	});
 }
+/*
+function startCarouselExplore1() {
+	const exploreCarousel2 = document.querySelector(".explore-carousel1");
+	const exploreSlides = Array.from(
+		document.querySelectorAll("#carousel-slide")
+	);
+	const slideWidth2 = exploreSlides[0].offsetWidth + 2;
+	const prevBtn1 = document.querySelector(".explore-carousel-prev1");
+	const nextBtn1 = document.querySelector(".explore-carousel-next1");
+	let currentIndex2 = 0;
 
+	function showSlide1(index) {
+		exploreCarousel2.style.transform = `translate(-${
+			index * slideWidth2
+		}px)`;
+	}
+
+	function showNextSlide1() {
+		currentIndex2++;
+		if (currentIndex2 < 2) {
+			showSlide1(currentIndex2);
+		} else {
+			currentIndex2--;
+		}
+	}
+	function showPrevSlide1() {
+		currentIndex2--;
+		if (currentIndex2 >= 0) {
+			showSlide1(currentIndex2);
+		} else {
+			currentIndex2 = 0;
+		}
+	}
+
+	nextBtn1.addEventListener("click", () => {
+		showNextSlide1();
+	});
+	prevBtn1.addEventListener("click", () => {
+		showPrevSlide1();
+	});
+}
+*/
 function ratingProduct() {
 	const ratingInput = document.querySelector("#rating-input");
 	const stars = document.querySelectorAll(".star");
