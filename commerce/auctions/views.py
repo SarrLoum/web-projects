@@ -68,7 +68,8 @@ def logout_view(request):
 
 def register(request):
     if request.method == "POST":
-        username = request.POST["username"]
+        firstname = request.POST["firstname"]
+        lastname = request.POST["lastname"]
         email = request.POST["email"]
 
         # Ensure password matches confirmation
@@ -80,6 +81,7 @@ def register(request):
             })
 
         # Attempt to create new user
+        username = f"{firstname} {lastname}" 
         try:
             user = User.objects.create_user(username, email, password)
             user.save()

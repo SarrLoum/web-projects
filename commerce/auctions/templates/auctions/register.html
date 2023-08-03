@@ -1,49 +1,171 @@
-{% extends "auctions/layout.html" %} {% block body %}
-
-<h2>Register</h2>
-
-{% if message %}
-<div>{{ message }}</div>
-{% endif %}
-
-<form action="{% url 'register' %}" method="post">
-	{% csrf_token %}
-	<div class="form-group">
-		<input
-			class="form-control"
-			autofocus
-			type="text"
-			name="username"
-			placeholder="Username"
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>{% block title %}Auctions{% endblock %}</title>
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+			integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+			crossorigin="anonymous"
 		/>
-	</div>
-	<div class="form-group">
-		<input
-			class="form-control"
-			type="email"
-			name="email"
-			placeholder="Email Address"
-		/>
-	</div>
-	<div class="form-group">
-		<input
-			class="form-control"
-			type="password"
-			name="password"
-			placeholder="Password"
-		/>
-	</div>
-	<div class="form-group">
-		<input
-			class="form-control"
-			type="password"
-			name="confirmation"
-			placeholder="Confirm Password"
-		/>
-	</div>
-	<input class="btn btn-primary" type="submit" value="Register" />
-</form>
-
-Already have an account? <a href="{% url 'login' %}">Log In here.</a>
-
-{% endblock %}
+		<link href="{% static 'auctions/styles.css' %}" rel="stylesheet" />
+	</head>
+	<body>
+		{% if message %}
+		<div>{{ message }}</div>
+		{% endif %}
+		<main class="register-page" id="main">
+			<div class="register-h1 flex space-between">
+				<a href="{% url 'index' %}" class="auction-logo-auth">
+					<img
+						src="http://localhost:8000/static/auctions/media/auctions.svg"
+						alt=""
+					/>
+				</div>
+				<span
+					>Already have an account?
+					<a href="{% url 'login' %}">Log In here.</a></span
+				>
+			</div>
+			<div class="register-container">
+				<div class="register">
+					<div class="register-header">
+						<h1>Créer votre compte</h1>
+						<div class="flex justify-center align-center">
+							<div class="account-type flex gap10">
+								<div class="flex align-center gap3">
+									<input
+										type="radio"
+										id="particulier"
+										name="accountType"
+										value="particulier"
+									/>
+									<label for="partculier"
+										>Compte particulier</label
+									>
+								</div>
+								<div class="flex align-center gap3">
+									<input
+										type="radio"
+										id="professionnel"
+										name="accountType"
+										value="professionnel"
+									/>
+									<label for="professionnel"
+										>Compte professionnel</label
+									>
+								</div>
+								<img src="" alt="" />
+							</div>
+						</div>
+					</div>
+					<div class="register-body flex gap0">
+						<form action="{% url 'register' %}" method="post">
+							{% csrf_token %}
+							<div class="flex space-between">
+								<input
+									class="myform-control1"
+									autofocus
+									type="text"
+									name="firstname"
+									id="firstname"
+									placeholder="Prénom"
+								/>
+								<input
+									class="myform-control1"
+									autofocus
+									type="text"
+									name="lastname"
+									id="lastname"
+									placeholder="Nom"
+								/>
+							</div>
+							<div class="">
+								<input
+									class="myform-control"
+									type="email"
+									name="email"
+									id="email"
+									placeholder="Email Address"
+								/>
+							</div>
+							<div class="">
+								<input
+									class="myform-control"
+									type="password"
+									name="password"
+									id="password"
+									placeholder="Password"
+								/>
+							</div>
+							<div class="">
+								<input
+									class="myform-control"
+									type="password"
+									name="confirmation"
+									id="confirmation"
+									placeholder="Confirm Password"
+								/>
+							</div>
+							<div class="register-conditions flex column gap10">
+								<p>
+									Nous vous enverrons régulièrement des
+									e-mails avec des offres concernant nos
+									services. Vous pouvez vous désinscrire de
+									ces e-mails marketing en tout temps, sans
+									frais, via Mon eBay ou en cliquant sur le
+									lien inclus dans les e-mails ou ici.
+								</p>
+								<p>
+									En cliquant sur S'inscrire, vous confirmez
+									avoir lu et accepté les Conditions
+									d'utilisation. Veuillez vous référer à notre
+									Avis sur les données personnelles pour toute
+									information concernant le traitement de vos
+									données.
+								</p>
+							</div>
+							<input
+								class="btn-register"
+								type="submit"
+								value="Register"
+							/>
+						</form>
+						<div class="separator">
+							<div></div>
+							<span>ou</span>
+							<div></div>
+						</div>
+						<div class="big-tech">
+							<a class="big-tech-btn flex tech-gap1" href="#">
+								<img
+									src="http://localhost:8000/static/auctions/media/google.svg"
+									alt=""
+								/>
+								<span>Continuer avec Google</span>
+							</a>
+							<a class="big-tech-btn flex tech-gap2" href="#">
+								<img
+									src="http://localhost:8000/static/auctions/media/facebook.svg"
+									alt=""
+								/>
+								<span>Continuer avec Facebook</span>
+							</a>
+							<a
+								class="big-tech-btn flex align-center tech-gap3"
+								href="#"
+							>
+								<img
+									src="http://localhost:8000/static/auctions/media/apple.svg"
+									alt=""
+								/>
+								<span>Continuer avec Apple</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</body>
+</html>

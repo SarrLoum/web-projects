@@ -68,8 +68,45 @@ document.addEventListener("DOMContentLoaded", function () {
 		//startCarouselExplore1();
 	} else if (main.classList.contains("category-fashion")) {
 		categBtnHover();
+	} else if (main.classList.contains(".register-page")) {
+		handleRegisterInputs();
 	}
 });
+
+function handleRegisterInputs() {
+	const firstName = document.querySelector("#fisrtname");
+	const lastName = document.querySelector("#lastname");
+	const email = document.querySelector("#email");
+	const password = document.querySelector("#password");
+	const confirmation = document.querySelector("#confirmation");
+	const submitBtn = document.querySelector(".btn-register");
+
+	function isInputsValid() {
+		return (
+			firstName.value.trim() !== "" &&
+			lastName.value.trim() !== "" &&
+			email.value.trim() !== "" &&
+			password.value.trim() !== "" &&
+			confirmation.value.trim() !== ""
+		);
+	}
+
+	function updateSubmitBtn() {
+		submitBtn.disabled = !isInputsValid();
+		console.log("submitBtn.disabled:", submitBtn.disabled);
+
+		if (isInputsValid()) {
+			submitBtn.style.background = "#3665F3";
+			console.log("background color changed", submitBtn.style.background);
+		}
+	}
+
+	firstName.addEventListener("input", updateSubmitBtn);
+	lastName.addEventListener("input", updateSubmitBtn);
+	email.addEventListener("input", updateSubmitBtn);
+	password.addEventListener("input", updateSubmitBtn);
+	confirmation.addEventListener("input", updateSubmitBtn);
+}
 
 function dicoverBtnHover() {
 	const dicoverBtn = document.querySelector("#discover-btn");

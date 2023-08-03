@@ -19,8 +19,14 @@ body {
 .space-between {
 	justify-content: space-between;
 }
+.justify-center {
+	justify-content: center;
+}
 .align-center {
 	align-items: center;
+}
+.gap0 {
+	gap: 5em;
 }
 .gap1 {
 	gap: 1.5em;
@@ -60,10 +66,6 @@ body {
 	gap: 6em;
 }
 
-.text-color-white {
-	color: #fff;
-}
-
 header {
 	margin: 0 2.5em !important;
 }
@@ -77,7 +79,255 @@ header {
 	padding-right: 1em;
 }*/
 
-.heading-nav-lef {
+.auction-logo {
+	width: 9.88em;
+	height: 3em;
+}
+.auction-logo-auth {
+	display: block;
+	width: 8.13em;
+	height: 3.62em;
+	margin-bottom: 1em;
+}
+
+.auction-logo img,
+.auction-logo-auth img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.register-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh; /* This will vertically center the content */
+}
+.login-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 2em;
+}
+
+.register-h1 {
+	position: relative;
+	margin-bottom: 2em;
+}
+
+.register-h1 span {
+	color: #333;
+	font-family: "Inter";
+	font-size: 1rem;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+
+	position: absolute;
+	right: 0;
+	bottom: 1em;
+}
+
+.register-header,
+.login-header {
+	text-align: center;
+}
+
+.register-header h1,
+.login-header h1 {
+	color: #333;
+	font-family: "Inter";
+	font-size: 2.25rem;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+	margin-bottom: 0;
+}
+
+.register-header span,
+.login-header span {
+	color: #333;
+	font-family: "Inter";
+	font-size: 0.90625rem;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 147.023%; /* 1.33238rem */
+}
+
+.account-type {
+	margin-top: 0.25em;
+	margin-bottom: 2.25rem;
+}
+input[type="radio"] {
+	width: 1rem;
+	height: 1rem;
+}
+label {
+	margin-bottom: 0;
+}
+
+.login-body {
+	width: 20em;
+	gap: 1.75em;
+}
+
+.register-body form,
+.login-body form {
+	display: flex;
+	flex-direction: column;
+	gap: 1.4rem;
+	margin-bottom: 1.56rem;
+}
+
+.register-body form {
+	width: 18.75rem;
+}
+.login-body form {
+	width: 100%;
+}
+
+.login-body form {
+	margin-bottom: 0;
+}
+
+.myform-control1 {
+	width: 8.625rem;
+	height: 2.5rem;
+	padding-left: 1rem;
+}
+.myform-control {
+	width: 100%;
+	height: 2.5rem;
+	padding-left: 1rem;
+}
+
+.myform-control1,
+.myform-control {
+	border-radius: 0.5rem;
+	border: 1px solid #8f8f8f;
+	background: #f7f7f7;
+	outline: none;
+
+	color: #333;
+	font-family: "Inter";
+	font-size: 0.84375rem;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+
+.myform-control1:focus,
+.myform-control:focus {
+	outline: none;
+}
+
+.register-conditions p {
+	color: #767676;
+	font-family: "Inter";
+	font-size: 0.71875rem;
+	font-style: normal;
+	font-weight: 400;
+	margin: 0;
+}
+.btn-register {
+	width: 100%;
+	height: 2.5625rem;
+	border-radius: 6.25rem;
+	background: #c7c7c7;
+	border: transparent;
+	outline: none;
+
+	color: #fff;
+	font-family: "Inter";
+	font-size: 1.0625rem;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+}
+.btn-register:focus {
+	outline: none;
+}
+
+.big-tech {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 1.06em;
+	margin-bottom: 2em;
+}
+
+.big-tech-btn {
+	padding: 0.6em 1.25em;
+	border-radius: 6.25rem;
+	border: 1px solid #333;
+	text-decoration: none;
+
+	color: #333;
+	font-family: "Inter";
+	font-size: 1rem;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+}
+
+.big-tech-btn span {
+	margin-right: 0.5em;
+}
+
+.big-tech-btn:hover {
+	color: #333;
+	text-decoration: none;
+	background: #faf9f9;
+}
+
+.tech-gap1 {
+	gap: 1.82em;
+}
+.tech-gap2 {
+	gap: 1.37em;
+	color: #fff;
+	background: #4267b2;
+	border: 1px solid #4267b2;
+}
+.tech-gap2:hover {
+	color: #fff;
+	text-decoration: none;
+	background: #3a61b1;
+}
+.tech-gap3 {
+	gap: 1.82em;
+}
+
+.separator {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.25em;
+}
+.separator-login {
+	flex-direction: row;
+}
+
+.separator > div {
+	border-left: 1px solid #eae8e8;
+	height: 228px;
+	margin-top: 6px;
+}
+.separator hr {
+	width: 100%;
+	margin: 0;
+}
+
+.separator > span {
+	color: #333;
+	font-family: "Inter";
+	font-size: 0.75rem;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+}
+
+.heading-nav-left {
 	margin-right: 2em;
 }
 .heading-nav-left > span,
@@ -144,7 +394,7 @@ header {
 	-webkit-appearance: none; /* Safari support */
 	-moz-appearance: none;
 
-	background-image: url("media/expand_more.svg"); /* Set your custom icon image */
+	background-image: url("media/expand_more1.svg"); /* Set your custom icon image */
 	background-repeat: no-repeat;
 	background-position: right 2em center; /* Adjust the position of the icon */
 }
@@ -1582,6 +1832,10 @@ h5 {
 	cursor: pointer;
 }
 
+.category-content {
+	padding-left: 1em;
+}
+
 .categ-discovery .discovery-title > h2 {
 	font-family: "Inter";
 	font-size: 1.75rem;
@@ -1882,4 +2136,151 @@ h5 {
 .explore-carousel-next1:focus {
 	border: transparent;
 	outline: none;
+}
+
+.text-color-white {
+	color: #fff;
+}
+
+.text-color-maron {
+	color: #5c1b05;
+}
+
+.text-color-light-blue {
+	color: #c5e5fb;
+}
+.text-color-blue {
+	color: #121258;
+}
+
+.motors-illustrations {
+	width: 32.625em;
+	height: 19.625em;
+	border-radius: 0.125em;
+	padding: 1.56em 1.62em;
+}
+.motors-moto {
+	background-image: url("media/motors-icons/motors illustrations1.svg");
+}
+.motors-auto {
+	background-image: url("media/motors-icons/motors illustrations2.svg");
+}
+
+.motors-h1 {
+	width: 20.06em;
+}
+.motors-h1 h2 {
+	color: #302f2f;
+	font-family: "Inter";
+	font-size: 1.9375rem;
+	font-style: normal;
+	font-weight: 600;
+	margin-bottom: 0.25em;
+}
+
+.motors-h1 p {
+	color: #302f2f;
+	font-family: "Inter";
+	font-size: 1.03125rem;
+	font-style: normal;
+	font-weight: 600;
+	margin-bottom: 1.75em;
+}
+
+.motors-btn {
+	padding: 0.6em 1.2em;
+	border: 1px solid #302f2f;
+	border-radius: 6.25em;
+	background: none;
+
+	color: #302f2f;
+	text-align: center;
+	font-family: "Inter";
+	font-size: 1rem;
+	font-style: normal;
+	font-weight: 600;
+}
+
+.motors-btn:hover {
+	color: #f7f7f7;
+	border: transparent;
+	background: #302f2f;
+}
+
+.motors-btn:focus {
+	border: transparent;
+	outline: none;
+	color: #f7f7f7;
+	background: #302f2f;
+}
+
+.motors-illust {
+	width: 68.5rem;
+	height: 17.5625rem;
+}
+
+.motors-piece {
+	background-image: url("media/motors-icons/motors illust1.svg");
+}
+.motors-pneu {
+	background-image: url("media/motors-icons/motors illust2.svg");
+}
+
+.motors-illust-h1 {
+	width: 29.5625rem;
+	gap: 1.94em;
+}
+.motors-illust-h2 {
+	width: 21.5rem;
+	gap: 4.06em;
+}
+
+.motors-illust-h1 h2,
+.motors-illust-h2 h2 {
+	color: #622503;
+	font-family: "Inter";
+	font-size: 1.75rem;
+	font-style: normal;
+	font-weight: 600;
+	line-height: 111.523%; /* 1.95163rem */
+	margin-top: 1.76em;
+}
+
+.motors-illust1-btn,
+.motors-illust2-btn {
+	padding: 0.6em 0.94em;
+	background: transparent;
+	transition: background-color 0.5s ease;
+
+	font-family: "Inter";
+	font-size: 1rem;
+	font-style: normal;
+	font-weight: 500;
+}
+
+.motors-illust1-btn {
+	color: #953c0b;
+	border: 1px solid #953c0b;
+	max-width: 8.8125rem;
+}
+
+.motors-illust2-btn {
+	color: #eda628;
+	border: 1px solid #eda628;
+	max-width: 12.4375rem;
+}
+
+.motors-illust1-btn:hover {
+	color: #f8e376;
+	background-color: #953c0b;
+}
+.motors-illust2-btn:hover {
+	color: #fff;
+	background-color: #eda628;
+}
+
+.motors-illust-h1 {
+	position: absolute;
+	z-index: 1;
+	right: 6.25em;
 }

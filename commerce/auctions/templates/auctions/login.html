@@ -1,33 +1,100 @@
-{% extends "auctions/layout.html" %} {% block body %}
-
-<h2>Login</h2>
-
-{% if message %}
-<div>{{ message }}</div>
-{% endif %}
-
-<form action="{% url 'login' %}" method="post">
-	{% csrf_token %}
-	<div class="form-group">
-		<input
-			autofocus
-			class="form-control"
-			type="text"
-			name="username"
-			placeholder="Username"
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>{% block title %}Auctions{% endblock %}</title>
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+			integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+			crossorigin="anonymous"
 		/>
-	</div>
-	<div class="form-group">
-		<input
-			class="form-control"
-			type="password"
-			name="password"
-			placeholder="Password"
-		/>
-	</div>
-	<input class="btn btn-primary" type="submit" value="Login" />
-</form>
+		<link href="{% static 'auctions/styles.css' %}" rel="stylesheet" />
+	</head>
+	<body>
+		{% if message %}
+		<div>{{ message }}</div>
+		{% endif %}
+		<main class="register-page" id="main">
+			<a href="{% url 'index' %}" class="auction-logo-auth">
+				<img
+					src="http://localhost:8000/static/auctions/media/auctions.svg"
+					alt=""
+				/>
+			</a>
 
-Don't have an account? <a href="{% url 'register' %}">Register here.</a>
+			<div class="login-header">
+				<h1>Créer votre compte</h1>
+				<span
+					>Se connecter à Auction ou
+					<a href="{% url 'register' %}">Créer un compte.</a></span
+				>
+			</div>
 
-{% endblock %}
+			<div class="login-container">
+				<div class="login flex column align-center">
+					<div class="login-body flex column">
+						<form action="{% url 'login' %}" method="post">
+							{% csrf_token %}
+							<div class="">
+								<input
+									class="myform-control"
+									type="text"
+									name="username"
+									id="username"
+									placeholder="Username"
+								/>
+							</div>
+							<div class="">
+								<input
+									class="myform-control"
+									type="password"
+									name="password"
+									id="password"
+									placeholder="Password"
+								/>
+							</div>
+
+							<input
+								class="btn-register"
+								type="submit"
+								value="Log in"
+							/>
+						</form>
+						<div class="separator separator-login">
+							<hr />
+							<span>ou</span>
+							<hr />
+						</div>
+						<div class="big-tech">
+							<a class="big-tech-btn flex tech-gap1" href="#">
+								<img
+									src="http://localhost:8000/static/auctions/media/google.svg"
+									alt=""
+								/>
+								<span>Continuer avec Google</span>
+							</a>
+							<a class="big-tech-btn flex tech-gap2" href="#">
+								<img
+									src="http://localhost:8000/static/auctions/media/facebook.svg"
+									alt=""
+								/>
+								<span>Continuer avec Facebook</span>
+							</a>
+							<a
+								class="big-tech-btn flex align-center tech-gap3"
+								href="#"
+							>
+								<img
+									src="http://localhost:8000/static/auctions/media/apple.svg"
+									alt=""
+								/>
+								<span>Continuer avec Apple</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</body>
+</html>

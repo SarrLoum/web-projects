@@ -39,8 +39,14 @@
 		<hr class="hr-line1" />
 
 		<header>
-			<div class="header-wrapper flex gap2">
-				<h1>Auctions</h1>
+			<a href="{% url 'index' %}" class="header-wrapper flex gap2">
+				<div class="auction-logo">
+					<img
+						src="http://localhost:8000/static/auctions/media/auctions.svg"
+						alt=""
+					/>
+				</div>
+
 				<form
 					class="grow flex gap3 align-center"
 					action=""
@@ -85,7 +91,7 @@
 				<div class="deep-search">
 					<span>Advanced Search</span>
 				</div>
-			</div>
+			</a>
 			<hr class="hr-line" />
 		</header>
 
