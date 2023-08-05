@@ -1,37 +1,39 @@
 {% extends "auctions/layout.html" %} {% block body %}
 
-
 <main class="homepage" id="main">
 	<section class="suggestions-container">
-			<div class="suggest-carousel">
-				{% for suggest in suggestions %}
-				<div class="suggest-slide">
-					<img src="{{ suggest.image.url }}" alt="" />
-					<div class="discovery-container suggest-discovery">
-						<div href="#" class="discovery-title">
-							<h2 class="">Sélection artistes contemporains</h2>
-						</div>
-						<div class="discovery-slogan">
-							<span>Des oeuvres et le meilleur des talents</span>
-						</div>
-						<div class="suggest-discover-btn flex">
-							<span>Découvrez</span>
-							<img
-								class="suggest-discover-img"
-								src="static/auctions/media/arrow_forward.svg"
-								alt=""
-							/>
-						</div>
+		<div class="suggest-carousel">
+			{% for suggest in suggestions %}
+			<div class="suggest-slide">
+				<img src="{{ suggest.image.url }}" alt="" />
+				<div class="discovery-container suggest-discovery">
+					<div href="#" class="discovery-title">
+						<h2 class="">Sélection artistes contemporains</h2>
+					</div>
+					<div class="discovery-slogan">
+						<span>Des oeuvres et le meilleur des talents</span>
+					</div>
+					<div class="suggest-discover-btn flex">
+						<span>Découvrez</span>
+						<img
+							class="suggest-discover-img"
+							src="static/auctions/media/arrow_forward.svg"
+							alt=""
+						/>
 					</div>
 				</div>
-				{% endfor %}
 			</div>
+			{% endfor %}
+		</div>
 	</section>
 	<section>
 		<ul id="categories" class="carousel-list">
 			{% for category in categories %}
 			<li class="category-item">
-				<a href="{% url 'category' category.name %}" class="carousel-container">
+				<a
+					href="{% url 'category' category.name %}"
+					class="carousel-container"
+				>
 					<div class="category-img carousel">
 						{% for image_url in category.images %}
 						<div class="slide">
@@ -69,7 +71,10 @@
 					<div class="list-item scale-zoom">
 						<a href="{% url 'listing-page' listing.id %}">
 							<div class="img-wrapper scale-zoom2">
-								<img src="{{ listing.image.url }}" alt="" /></div
+								<img
+									src="{{ listing.image.url }}"
+									alt=""
+								/></div
 						></a>
 						<div class="item-details">
 							<a
@@ -86,23 +91,5 @@
 		</div>
 	</section>
 	<hr />
-		<div class="footer-container">
-			<div class="footer-content">
-				<h4></h4>
-				<ul>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-				</ul>
-			</div>
-
-			<div class="footer-content"></div>
-			<div class="footer-content"></div>
-
-			<div class="footer-content"></div>
-		</div>
-	</section>
 </main>
 {% endblock %}

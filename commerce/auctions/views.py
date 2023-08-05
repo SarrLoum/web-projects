@@ -25,10 +25,13 @@ def index(request):
 
     suggestions = Suggestion.objects.all()
 
+    enchere = "enchere"
+
     return render(request, "auctions/index.html", {
         "active_listing": active_list,
         "categories": categoryList,
         "suggestions": suggestions,
+        "enchere": enchere
     })
 
 def category_img(request):

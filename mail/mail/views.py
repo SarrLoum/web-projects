@@ -134,7 +134,6 @@ def email(request, email_id):
     # Return email contents
     if request.method == "GET":
         return JsonResponse(email.serialize())
-
     # Update whether email is read or should be archived
     elif request.method == "PUT":
         data = json.loads(request.body)
@@ -157,16 +156,18 @@ def email(request, email_id):
             "error": "GET or PUT request required."
         }, status=400)
 
-
 def login_view(request):
     if request.method == "POST":
-
-        # Attempt to sign user in
         email = request.POST["email"]
         password = request.POST["password"]
-        user = authenticate(request, username=email, password=password)
 
-        # Check if authentication successful
+        print("email:", email)
+        print("password:", password)
+
+        user = authenticate(request, username=email, password=password)
+        print("user:", user)
+
+
         if user is not None:
             login(request, user)
             return HttpResponseRedirect(reverse("index"))
@@ -176,7 +177,6 @@ def login_view(request):
             })
     else:
         return render(request, "mail/login.html")
-
 
 def logout_view(request):
     logout(request)
@@ -210,6 +210,19 @@ def register(request):
         return render(request, "mail/register.html")
 
 
+@csrf_exempt  # Make sure to re-apply Ltion
+def validate_credentials(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        email = data.get('email')
+        try:
+            user = User.objects.get(email=email)
+            return JsonResponse({'user': user.serialize(), 'valid': True, 'message': 'Email is valid'})
+        except User.DoesNotExist:
+            return JsonResponse({'valid': False, 'message': 'Email is not valid'})
+
+
+
 def get_usr(request):
     user = request.user
     user_data = user.serialize()
@@ -237,3 +250,5 @@ def get_apps(request):
         "apps": [app.serialize() for app in apps]
     }
     return JsonResponse(data, status=200)
+
+

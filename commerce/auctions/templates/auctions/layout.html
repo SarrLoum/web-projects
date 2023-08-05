@@ -14,7 +14,7 @@
 	</head>
 	<body>
 		<div class="flex space-between">
-			<div class="heading-nav-left flex gap1">
+			<div class="heading-nav-left flex align-center gap1">
 				<span class="auctions-user">
 					{% if user.is_authenticated %} Bonjour
 					<strong>{{ user.username }}</strong>. {% else %} Bonjour
@@ -23,29 +23,41 @@
 				</span>
 				<a href="#">Auctions estilation</a>
 				<a href="#">Bon Plans</a>
+
 				<a href="#">Aide</a>
-				<div class="carte-enchere">
-					<img src="" alt="" />
-				</div>
+				<a href="{% url 'category' enchere %}" class="carte-enchere">
+					<img
+						src="http://localhost:8000/static/auctions/media/enchere carte btn.svg"
+						alt=""
+					/>
+				</a>
 			</div>
-			<div class="heading-nav-right flex gap1">
+			<div class="heading-nav-right flex align-center gap1">
 				<a href="#">Vendre</a>
 				<a href="#">Objet-suivis</a>
 				<a href="#">Mon Auctions</a>
-				<a href="#"><img src="" alt="" /></a>
-				<a href="#"><img src="" alt="" /></a>
+				<a href="#"
+					><img
+						src="http://localhost:8000/static/auctions/media/circle_notifications.svg"
+						alt=""
+				/></a>
+				<a href="#"
+					><img
+						src="http://localhost:8000/static/auctions/media/shopping_cart.svg"
+						alt=""
+				/></a>
 			</div>
 		</div>
 		<hr class="hr-line1" />
 
 		<header>
-			<a href="{% url 'index' %}" class="header-wrapper flex gap2">
-				<div class="auction-logo">
+			<div class="header-wrapper flex gap2">
+				<a href="{% url 'index' %}" class="auction-logo">
 					<img
 						src="http://localhost:8000/static/auctions/media/auctions.svg"
 						alt=""
 					/>
-				</div>
+				</a>
 
 				<form
 					class="grow flex gap3 align-center"
@@ -91,7 +103,7 @@
 				<div class="deep-search">
 					<span>Advanced Search</span>
 				</div>
-			</a>
+			</div>
 			<hr class="hr-line" />
 		</header>
 
@@ -133,6 +145,25 @@
 		</ul>
 		{% block body %} {% endblock %}
 
+		<footer>
+			<div class="footer-container">
+				<div class="footer-content">
+					<h4></h4>
+					<ul>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+					</ul>
+				</div>
+
+				<div class="footer-content"></div>
+				<div class="footer-content"></div>
+
+				<div class="footer-content"></div>
+			</div>
+		</footer>
 		<!-- ======= JAVASCRIPT SECTION ======-->
 		<!-- Bootsrap5 JS-->
 		<script

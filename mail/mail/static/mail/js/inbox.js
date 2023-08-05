@@ -1,4 +1,5 @@
 import {
+	fetchCurrentUser,
 	emailElement,
 	viewEmail,
 	userLog,
@@ -443,7 +444,9 @@ function logOut() {
 }
 
 function setBackground() {
-	const userWallpaper = JSON.parse(localStorage.getItem("userWallpaper"));
+	var currentUser = fetchCurrentUser();
+	var userKey = `user${currentUser.id}_wallpaper`;
+	const userWallpaper = JSON.parse(localStorage.getItem(userKey));
 	let currentWallpaperId = userWallpaper?.WallpaperId;
 
 	if (currentWallpaperId) {
@@ -487,8 +490,9 @@ function getWallPaper(wallpaperId) {
 				WallpaperId: wallpaper.id,
 			};
 
+			var userKey = `user${user.id}_wallpaper`;
 			var userWallpaperString = JSON.stringify(userWallpaper);
-			localStorage.setItem("userWallpaper", userWallpaperString);
+			localStorage.setItem(userKey, userWallpaperString);
 
 			//localStorage.setItem("selectedWallpaperId", wallpaper.id);
 			// change the background of the website when one of them is clicked on

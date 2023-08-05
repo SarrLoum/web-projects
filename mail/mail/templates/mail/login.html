@@ -1,24 +1,151 @@
-{% extends "mail/layout.html" %}
+{% extends "mail/layout.html" %} {% block body %}
 
-{% block body %}
-
-    <h2>Login</h2>
-
-    {% if message %}
-        <div>{{ message }}</div>
-    {% endif %}
-
-    <form action="{% url 'login' %}" method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            <input autofocus class="form-control" type="email" name="email" placeholder="Email">
+<main class="auth-main flex justify-center align-center" id="auth-main">
+	{% if message %}
+	<div>{{ message }}</div>
+	{% endif %}
+    
+	<div class="login-container flex column align-center">
+        <div class="xmailer-div">
+            <img src="http://localhost:8000/static/media/icons/Xmailer_colored.svg" alt="">
         </div>
-        <div class="form-group">
-            <input class="form-control" type="password" name="password" placeholder="Password">
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <div class="login-carousel flex">
+
+                <div class="login-slide flex column align-center">
+                    <div class="login-h1">
+                        <h3>Sign In</h3>
+                        <span>Use your xmailer account</span>
+                    </div>
+                    <div class="myform-group">
+                        <input
+                            class="myform-control"
+                            type="email"
+                            name="email"
+                            id="email"
+                            placeholder="Enter your email"
+                        />
+                        <a href="#">Forgot email?</a>
+                    </div>
+                    <span class="margin1">Not your computer? Use Guest mode to sign in privately. <a href="#">Learn more</a></span>
+                    <div class="step-btn-wrapper flex space-between align-center">
+                        <a href="{% url 'register' %}">Create account</a>
+                        <button class="step-btn next-btn" type="button" id="next-btn">Next</button>
+                    </div>
+                </div>
+                <div class="login-slide flex column align-center">
+                    <div class="login-h1 h1-margin">
+                        <h3 id="username"></h3>
+                        <a href="#" class="login-user flex align-center"> 
+                            <div class="login-avatar">
+                                <img id="login-avatar" src="" alt=""/>
+                            </div>
+                            <span id="login-email"></span>
+                            <img id="login-avatar" src="http:///localhost:8000/static/icons/expand_more.svg" alt=""/>
+                        </a>
+                    </div>
+                    <div class="myform-group margin1">
+                        <span>To continue, first verify it’s you</span>
+                        <input
+                            class="myform-control myform-cntrl-margin"
+                            type="password"
+                            name="password"
+                            id="password"
+                            placeholder="Enter your password"
+                        />
+                        <div class="show-password flex">
+                            <input type="checkbox" id="show-password"/>
+                            <label for="show-password">Show password</label>
+                        </div>    
+                    </div>
+                    <div class="step-btn-wrapper flex space-between align-center">
+                        <a href="{% url 'register' %}">Forgt password?</a>
+                        <button class="submit-btn" type="submit" id="login-submit">Next</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+	</div>
+</main>
+<script>
+    // 
+    const useEmail = document.querySelector("#login-email")
+    const username = document.querySelector("#username");
+    const loginAvatar = document.querySelector("#login-avatar");
+    
+
+    const nextBtn = document.querySelector("#next-btn");
+    const loginCarousel = document.querySelector(".login-carousel");
+    const loginSlides = document.querySelectorAll(".login-slide");
+    const emailInput = document.querySelector("#email");
+    const slideWidth = loginSlides[0].offsetWidth + 5.1;
+    let currentIndex = 0;
+
+    function showStep(index) {
+        console.log("next button clicked");
+        loginCarousel.style.transform = `translateX(-${slideWidth * index}px)`;
+    }
+
+    function showNextStep() {
+        currentIndex = Math.min(currentIndex + 1, 1);
+        showStep(currentIndex);
+    }
+
+    nextBtn.addEventListener("click", async (event) => {
+        event.preventDefault();
+    
+        // Perform email validation using an AJAX request
+        try {
+            const response = await fetch("/validateCredentials", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    // You can include CSRF token if needed
+                    //"X-CSRFToken": csrfToken, // Make sure to define csrfToken
+                },
+                body: JSON.stringify({
+                    email: emailInput.value,
+                }),
+            });
+    
+            if (response.status === 200) {
+                const result = await response.json();
+                if (result.valid) {
+                    // Proceed to the next step if validation is successful
+                    const user = result.user;
+                    // pPre-fill user' name, avatar and email displayer
+                    useEmail.innerHTML = user.email;
+                    username.innerHTML  = `Hi ${user.firstname.toLowerCase()} ${user.lastname.toLowerCase()}`;
+                    loginAvatar.src = user.avatar;
+
+                    // start the Inputs carousel
+                    showNextStep();
+                } else {
+
+                    // Update modal message and show the result
+                    alert(result.message);
+                    console.log("result is not valid");
+                }
+            } else {
+                // Handle non-200 response
+                console.log("Request failed");
+            }
+        } catch (error) {
+            // Handle network error or fetch failure
+            console.error("An error occurred:", error);
+        }
+    });
+    
+</script>
+<footer>
+    <div class="footer-div flex space-between align-center">
+        <div><span>French<pan></div>
+        <div class="xmailer-support flex space-between">
+            <span>Help</pan>
+            <span>Privacy</pan>
+            <span>Terms</pan>
         </div>
-        <input class="btn btn-primary" type="submit" value="Login">
-    </form>
-
-    Don't have an account? <a href="{% url 'register' %}">Register here.</a>
-
+    </div>
+</footer>
 {% endblock %}

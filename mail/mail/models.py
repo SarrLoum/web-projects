@@ -4,11 +4,12 @@ from django.db import models
 
 class User(AbstractUser):
     avatar = models.ImageField(blank=True)
-    pass
 
     def serialize(self):
         return {
             "id": self.id,
+            "firstname": self.first_name,
+            "lastname": self.last_name,
             "email": self.email,
             "avatar": str(self.avatar.url) if self.avatar else None
         }

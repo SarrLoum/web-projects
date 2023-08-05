@@ -1,3 +1,14 @@
+export const fetchCurrentUser = async () => {
+	try {
+		const response = await fetch("/user");
+		const user = await response.json();
+		return user;
+	} catch (error) {
+		console.error("Error fetching current user:", error);
+		throw error;
+	}
+};
+
 export const emailElement = (email) => {
 	// Change background color if the email is read
 	let color = email.read ? "#F6F9FF" : "#fff";

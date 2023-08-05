@@ -7,6 +7,7 @@ urlpatterns = [
     path("login", views.login_view, name="login"),
     path("logout", views.logout_view, name="logout"),
     path("register", views.register, name="register"),
+    path("validateCredentials", views.validate_credentials, name="valid-credentials"),
 
     # API Routes
     path("user", views.get_usr, name="get-user"),
