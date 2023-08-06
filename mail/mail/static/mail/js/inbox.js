@@ -443,8 +443,8 @@ function logOut() {
 	});
 }
 
-function setBackground() {
-	var currentUser = fetchCurrentUser();
+async function setBackground() {
+	var currentUser = await fetchCurrentUser();
 	var userKey = `user${currentUser.id}_wallpaper`;
 	const userWallpaper = JSON.parse(localStorage.getItem(userKey));
 	let currentWallpaperId = userWallpaper?.WallpaperId;
@@ -453,10 +453,10 @@ function setBackground() {
 		getWallPaper(currentWallpaperId);
 	}
 
-	changeBackground();
+	changeBackground(userKey);
 }
 
-function changeBackground() {
+async function changeBackground(userKey) {
 	// Get all wallpapers elements
 	var wallPapers = document.querySelectorAll(".wallpaper-item");
 
@@ -474,7 +474,7 @@ function changeBackground() {
 		const bodyElement = document.body;
 		bodyElement.style.backgroundImage = "none";
 		bodyElement.style.backgroundRepeat = "initial";
-		localStorage.removeItem("userWallpaper");
+		localStorage.removeItem(userKey);
 		window.location.reload();
 	});
 }
@@ -516,7 +516,7 @@ const colorsTheme = () => {
 	root.style.setProperty("--active-nav", "rgba(255, 255, 255, 0.35)");
 	root.style.setProperty("--compose-color", "#fff");
 	root.style.setProperty("--search-bar", "rgba(255, 255, 255, 0.35)");
-	root.style.setProperty("--white-color", "rgba(239, 243, 246, 0.8)");
+	root.style.setProperty("--white-color", "rgba(255,255,255,0.8)");
 
 	root.style.setProperty("--userlog-color", "rgba(44, 46, 47, 1)");
 	root.style.setProperty("--usercard-color", "rgba(31, 31, 30, 1)");

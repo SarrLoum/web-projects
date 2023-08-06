@@ -549,22 +549,22 @@ button:focus {
 .emails-content {
 	width: 65.25em;
 	height: 85vh;
-	border-radius: 0.94em;
+	border-radius: 0.94em !important;
 
 	background: var(--white-color);
 }
 
 .email-view {
 	height: 100%;
-	border-bottom-left-radius: 0.94em;
-	border-bottom-right-radius: 0.94em;
+	border-bottom-left-radius: 0.94em !important;
+	border-bottom-right-radius: 0.94em !important;
 	background: var(--email-color);
 	overflow: auto; /* Add this line to enable scrolling */
 }
 .content-body {
 	height: 100%;
-	border-bottom-left-radius: 0.94em;
-	border-bottom-right-radius: 0.94em;
+	border-bottom-left-radius: 0.94em !important;
+	border-bottom-right-radius: 0.94em !important;
 }
 
 .left-button,
@@ -625,6 +625,7 @@ button:focus {
 .email {
 	width: 100%;
 	height: 2.56em;
+	border-bottom: 1px solid #f1f0f0;
 
 	display: flex;
 	justify-content: space-between;
@@ -919,26 +920,34 @@ td {
 	font-size: 0.75em;
 	line-height: 0.5em;
 	/* identical to box height, or 67% */
-
-	color: #6b6b6b;
+	color: #444746;
 }
+
 .settings-header {
 	padding: 1.37em 1em;
+	padding-bottom: 1em;
+	border-bottom: 1px solid #f1f0f0;
 }
+
 .settings-header > div h5 {
 	font-family: "Inter";
 	font-style: normal;
-	font-weight: 500;
+	font-weight: 400;
 	font-size: 0.94em;
 	line-height: 0.5em;
+	margin: 0;
 	/* identical to box height, or 53% */
-
-	color: #6b6b6b;
+	color: #333;
 }
+
+.settings-header > a {
+	text-decoration: none;
+}
+
 .settings-header > a div {
 	width: 100%;
 	height: 2.19em;
-	border: 1px solid #2c2d2d;
+	border: 1px solid #f1f0f0;
 	border-radius: 6.25em;
 	margin-top: 1.44em;
 	text-align: center;
@@ -946,12 +955,15 @@ td {
 .settings-header > a div span {
 	font-family: "Inter";
 	font-style: normal;
-	font-weight: 400;
+	font-weight: 500;
 	font-size: 0.88rem;
 	line-height: 2.19rem;
 	/* identical to box height, or 57% */
 
-	color: #4087e5;
+	color: #1a73e8;
+}
+.settings-header > a:hover div {
+	background: rgba(195, 220, 254, 0.2);
 }
 
 .settings-wrapper {
@@ -964,10 +976,11 @@ td {
 .mails-apps,
 .mails-density,
 .themes-settings {
-	padding: 1.25em 1em;
+	padding: 0.75em 1em;
+	padding-bottom: 1em;
 }
 .mails-apps .wpr {
-	margin-top: 1.31em;
+	margin-top: 1em;
 }
 .costumize-apps p {
 	font-family: "Inter";
@@ -978,14 +991,28 @@ td {
 	margin-top: 0.5em;
 	margin-bottom: 0.5em; /* identical to box height, or 59% */
 
-	color: #8d8d8d;
+	color: #202124;
 }
 .costumize-apps .costumize {
-	color: #387bd3;
+	padding: 0 0.75rem;
+	margin-left: -0.75rem;
+	border-radius: 6.25rem;
+	margin-bottom: 0;
+
+	color: #1a73e8;
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 0.875rem;
+	text-decoration: none;
+}
+
+.costumize-apps .costumize:hover {
+	background: rgba(195, 220, 254, 0.1);
 }
 
 .density-form .density-radios {
-	margin-top: 1.06rem;
+	margin-top: 1rem;
 }
 
 .radio-inputs {
@@ -993,6 +1020,12 @@ td {
 	margin: 0;
 }
 .radio-inputs label {
+	color: #202124;
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 0.85rem;
+
 	margin: 0;
 	margin-left: 1em;
 }
@@ -1007,14 +1040,14 @@ td {
 }
 
 .all-themes {
+	padding: 0 0.25rem;
+	color: #1a73e8;
 	font-family: "Inter";
 	font-style: normal;
 	font-weight: 500;
 	font-size: 0.88rem;
 	line-height: 0.5rem;
 	/* identical to box height, or 57% */
-
-	color: #6b9de0;
 }
 
 .wallpaper-list {

@@ -11,7 +11,9 @@ export const fetchCurrentUser = async () => {
 
 export const emailElement = (email) => {
 	// Change background color if the email is read
-	let color = email.read ? "#F6F9FF" : "#fff";
+	let color = email.read
+		? "rgba(195, 220, 254, 0.10);"
+		: "rgb(255, 255, 255)";
 
 	// Format timestamp
 	let dateTime = timesTamp(email.timestamp);
@@ -35,7 +37,7 @@ export const emailElement = (email) => {
         </div>
         <span class="datetime-preview preview-font">${dateTime}.</span>
     </div>
-    </div></li><hr>`;
+    </div></li>`;
 	return element;
 };
 
