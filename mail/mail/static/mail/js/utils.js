@@ -11,9 +11,7 @@ export const fetchCurrentUser = async () => {
 
 export const emailElement = (email) => {
 	// Change background color if the email is read
-	let color = email.read
-		? "rgba(195, 220, 254, 0.10);"
-		: "rgb(255, 255, 255)";
+	let color = email.read ? "#f2f6fc;" : "#fff";
 
 	// Format timestamp
 	let dateTime = timesTamp(email.timestamp);
@@ -21,21 +19,32 @@ export const emailElement = (email) => {
 	let senderName = getUserName(email.sender.email);
 
 	let element = `<li class="email-list-item"><div id="email-details">
-    <div style="background: ${color};" class="email" id="email${email.id}" role="button" data-email_id="${email.id}">
+    <div style="background: ${color};" class="email" id="email${
+		email.id
+	}" role="button" data-email_id="${email.id}">
         <div class="checkbox-container">
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <img src="http://localhost:8000/static/icons/checkbox not hover.svg" />
+            </div>
+            <div class="form-check icon-btn">
+                <img src="http://localhost:8000/static/icons/star not hover.svg" />
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <img src="http://localhost:8000/static/icons/important not hover.svg" />
             </div>
         </div>
-        <span class="sender-preview preview-font">${senderName}</span>
+        <span class="sender-preview preview-font ${
+			!email.read ? "unread" : ""
+		}">${senderName}</span>
         <div class="subject-body">
-            <span class="subject-preview preview-font">${email.subject}</span> - 
+            <span class="subject-preview preview-font ${
+				!email.read ? "unread" : ""
+			}">${email.subject}</span> - 
             <span class="body-preview">${email.body}</span>
         </div>
-        <span class="datetime-preview preview-font">${dateTime}.</span>
+        <div class="datetime-preview preview-font grow ${
+			!email.read ? "unread-time" : ""
+		}"><span>${dateTime}</span></div>
     </div>
     </div></li>`;
 	return element;

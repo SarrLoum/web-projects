@@ -20,6 +20,8 @@
 	--terms-color: #282828;
 }
 body {
+	font-family: "Google Sans", Roboto, RobotoDraft, Helvetica, Arial,
+		sans-serif;
 	background: #f7f8fc;
 }
 ul,
@@ -350,12 +352,14 @@ button:focus {
 
 .button-content > .inbox-count span {
 	color: var(--nav-text-color);
-	font-size: 0.9rem;
+	font-size: 0.88rem;
 	font-family: "Inter";
-	font-weight: 500;
+	font-weight: 600;
 }
-.active > span {
-	font-size: 0.94rem;
+.active > .button-content span {
+	font-size: 0.88rem;
+	font-family: "Inter";
+	font-weight: 600;
 }
 
 .button-content > .inbox-count .total-emails {
@@ -376,13 +380,36 @@ button:focus {
 }
 
 .search-form {
+	display: flex;
+	align-items: center;
 	height: 2.94em;
 	width: 45.5em;
+	padding: 0.25em;
 	border-radius: 6.25em;
-
 	background: var(--search-bar);
 }
+.search-theme-change {
+	fill: rgba(255, 255, 255, 0.2);
+	backdrop-filter: blur(0.5px);
+}
 
+.search-form input {
+	height: 100%;
+	border: transparent;
+	outline: none;
+	background: transparent;
+}
+
+.search-icons-btn > img {
+	margin: 0.6em;
+}
+
+.search-icons-btn:hover {
+	border-radius: 6.25em;
+	background: rgba(166, 179, 198, 0.25);
+}
+
+.support-themes,
 .user-themes,
 .user-apps {
 	width: 2.4em;
@@ -449,11 +476,15 @@ button:focus {
 .side-bar {
 	flex: 0 0 16em;
 }
+.sidebar-flexed {
+	flex: 0 0 4em;
+}
 
 .btn-compose {
 	padding: 1em;
 	margin-top: 0.625em;
 	margin-left: 0.75em;
+	margin-right: 0.625em;
 	border-radius: 0.94em;
 
 	background: var(--compose-color);
@@ -464,9 +495,17 @@ button:focus {
 	box-shadow: 0px 5px 8px rgba(19, 18, 18, 0.25);
 	transform: scale(1);
 }
+
 .compose-button {
 	display: flex;
-	gap: 0.5em;
+	gap: 0.8em;
+}
+
+.compose-button span {
+	font-family: "Inter";
+	font-size: 0.875rem;
+	font-weight: 500;
+	margin-top: 0.1em;
 }
 
 .nav-container {
@@ -476,9 +515,14 @@ button:focus {
 .nav-button {
 	width: 14.69em;
 	height: 2em;
-
 	border-top-right-radius: 6.25em;
 	border-bottom-right-radius: 6.25em;
+}
+.nav-button-flexed {
+	width: 2em;
+	height: 2em;
+	border-radius: 6.25em;
+	margin-left: 1.45em;
 }
 
 .nav-expand-wrapper {
@@ -496,6 +540,7 @@ button:focus {
 	margin-left: 1em;
 	margin-right: 1em;
 }
+
 .label-button {
 	margin-top: 1.5em;
 	margin-bottom: 1em;
@@ -515,6 +560,10 @@ button:focus {
 	gap: 1.25em;
 	margin-left: 0.35em;
 	margin-right: 1em;
+}
+.label-content-flexed {
+	margin-left: 1.4em;
+	margin-right: 0;
 }
 
 .label-nav {
@@ -545,13 +594,22 @@ button:focus {
 	display: flex;
 	justify-content: space-between;
 	height: 3em;
+	padding-left: 1em;
+	padding-right: 1em;
+	margin-top: 0.25em;
+	margin-bottom: 0.25em;
+	margin-right: 1em;
 }
+
 .emails-content {
-	width: 65.25em;
+	width: 65.5em;
 	height: 85vh;
 	border-radius: 0.94em !important;
-
 	background: var(--white-color);
+}
+
+.emails-content-sb-flexed {
+	width: 77.25em;
 }
 
 .email-view {
@@ -567,29 +625,147 @@ button:focus {
 	border-bottom-right-radius: 0.94em !important;
 }
 
+.mailbox-header {
+	border-bottom: 1px solid #ecebeb;
+}
+
 .left-button,
+.right-button,
 .mailbox {
 	display: flex;
 	align-items: center;
-	margin-left: 0.625em;
 }
-.mailbox > img {
-	margin-left: 0.5em;
-	margin-right: 0.625em;
+
+.mailbox-container {
+	width: 13em;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+}
+.mailbox-container:hover {
+	background-color: var(--nav-color);
+}
+.mailbox {
+	height: 100%;
+	gap: 1em;
+	padding-left: 0.7em;
+	align-items: center;
+	border-bottom: 3px solid #0b57d0;
+	color: #0b57d0;
 }
 .mailbox > h6 {
+	font-family: "Inter";
+	font-size: 0.875rem;
+	letter-spacing: normal;
+	font-weight: 500;
+	line-height: 1em;
 	margin-bottom: 0;
-	line-height: 3em;
 }
 .mailbox-header {
 	display: flex;
-	height: 3em;
+	height: 3.25em;
+}
+
+.empty-mailbox {
+	height: 80%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.empty-mailbox > h3 {
+	font-family: "Inter";
+	text-align: left;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 1.5rem;
+	/* identical to box height */
+
+	color: #2c2d2d;
+}
+
+.pagination-div {
+	padding: 0 0.5em;
+	margin-right: 0.5em;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.pagination-div span {
+	padding: 0.5em 1em;
+	color: #5f6368;
+	font-family: "Inter";
+	font-size: 0.75rem;
+	font-style: normal;
+	font-weight: 400;
 }
 
 .icon-btn {
-	width: 1.5em;
+	padding: 0.25em;
 	margin-right: 0.31em;
+	border-radius: 6.25em;
 	place-items: center;
+	overflow: hidden;
+	transition: background-color 0.3s ease-in-out;
+}
+.no-margin {
+	margin: 0;
+}
+.icon-btn img {
+	gap: 0.1em;
+	margin: 0.5em;
+}
+
+.combined-btn {
+	margin-right: 0.31em;
+	border-radius: 0.25em;
+	padding: 0;
+}
+
+.combined-icon,
+.select-icon {
+	padding: 0.25em;
+	border-radius: 0.25em;
+	overflow: hidden;
+	transition: background-color 0.3s ease-in-out;
+}
+.combined-icon img,
+.select-icon img {
+	margin: 0.25em;
+}
+
+.combined-icon img {
+	margin-left: 0;
+	margin-right: 0;
+}
+.select-icon img {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.icon-btn:hover {
+	border-radius: 6.25em;
+	background-color: var(--nav-color);
+}
+
+.combined-btn:hover {
+	background: transparent;
+}
+
+.combined-btn:focus {
+	border-radius: 0.25em;
+	background-color: var(--nav-color);
+}
+
+.pagination-div:hover,
+.combined-icon:hover {
+	border-radius: 0.25em;
+	background-color: var(--nav-color);
+}
+
+.select-icon:hover {
+	border-radius: 0.25em;
+	background-color: var(--nav-color);
 }
 
 /* Right SIDE (email content)*/
@@ -599,6 +775,7 @@ button:focus {
 }
 /* Little Apps  (email content)*/
 .apps-container {
+	gap: 0.5em;
 	flex: 0 0 3.5em;
 }
 .apps-icon-wrapper {
@@ -609,37 +786,33 @@ button:focus {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-
-	margin-left: 0.5em;
-	margin-right: 0.5em;
-	margin-bottom: 1.6em;
 }
 .apps-icon-wrapper:hover {
 	background: var(--usa-btn-color);
 }
 
 .first-app {
-	margin-top: 2em;
+	margin-top: 0.5em;
 }
 
 .email {
 	width: 100%;
-	height: 2.56em;
-	border-bottom: 1px solid #f1f0f0;
+	padding: 0.625em 1.25em;
+	/*height: 2.56em;*/
+	border-bottom: 1px solid #ecebeb;
 
 	display: flex;
-	justify-content: space-between;
 	align-items: center;
+	gap: 1em;
 }
 .checkbox-container {
 	display: flex;
-	margin-left: 0.625em;
+	gap: 1em;
 }
 .form-check {
 	display: flex;
 	align-items: center;
-	margin-right: 0.625em;
-	margin-left: 0.625em;
+	padding: 0;
 }
 /* Change the color of the checkbox border and background */
 .form-check-input:checked {
@@ -665,52 +838,61 @@ button:focus {
 /* Emails view preview */
 .preview-font {
 	font-family: "Inter";
+	text-align: right;
 	font-style: normal;
-	font-weight: 600;
-	font-size: 0.95rem;
+	font-weight: 400;
+	font-size: 0.88rem;
 	/* identical to box height */
 
 	color: #2c2d2d;
 }
+.unread {
+	font-weight: 600;
+	font-size: 0.88rem;
+	/* identical to box height */
+}
 
 .sender-preview {
-	margin-left: 0.75em;
-	width: 12.5em;
+	width: 7.5em;
 }
 
 .subject-body {
 	white-space: nowrap;
-	width: 35.62em;
+	width: 40.62em;
 
 	overflow: hidden;
 	text-overflow: ellipsis;
+	margin-right: 2.5em;
 }
 
 .body-preview {
 	font-family: "Inter";
 	font-style: normal;
-	font-weight: 350;
-	font-size: 0.95rem;
+	font-weight: 400;
+	font-size: 0.88rem;
 	/* identical to box height */
 
-	color: #565656;
+	color: #5f6368;
 }
 
-.datetime-preview {
+.datetime-preview > span {
 	white-space: nowrap;
 	flex-grow: 1;
-
 	text-align: right;
-	padding-right: 2em;
-
 	font-family: "Inter";
-	font-style: normal;
-	font-weight: 600;
-	font-size: 0.9rem;
+	font-weight: 400;
+	font-size: 0.75rem;
 	/* identical to box height */
 
-	color: #2c2d2d;
+	color: #5f6368;
 }
+
+.unread-time {
+	font-weight: 600;
+	font-size: 0.75rem;
+	/* identical to box height */
+}
+
 .email-subject {
 	width: 100%;
 	padding: 1.31em 4.56em;
@@ -926,7 +1108,7 @@ td {
 .settings-header {
 	padding: 1.37em 1em;
 	padding-bottom: 1em;
-	border-bottom: 1px solid #f1f0f0;
+	border-bottom: 1px solid #e4e2e2;
 }
 
 .settings-header > div h5 {
@@ -947,7 +1129,7 @@ td {
 .settings-header > a div {
 	width: 100%;
 	height: 2.19em;
-	border: 1px solid #f1f0f0;
+	border: 1px solid #e4e2e2;
 	border-radius: 6.25em;
 	margin-top: 1.44em;
 	text-align: center;
@@ -973,11 +1155,13 @@ td {
 	overflow-y: auto;
 	flex: 1;
 }
+
 .mails-apps,
 .mails-density,
 .themes-settings {
 	padding: 0.75em 1em;
 	padding-bottom: 1em;
+	border-bottom: 1px solid #b9b9b9;
 }
 .mails-apps .wpr {
 	margin-top: 1em;
@@ -1504,4 +1688,13 @@ textarea {
 	font-weight: 500;
 	line-height: normal;
 	margin-top: 0.25em;
+}
+
+/* Interactive css rules */
+.no-margin-left {
+	margin-left: 0;
+}
+
+.hide-buttons {
+	display: none;
 }

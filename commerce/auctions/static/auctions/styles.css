@@ -3,6 +3,10 @@ body {
 	width: 100%;
 	overflow-x: hidden;
 }
+button {
+	border: transparent;
+	outline: none;
+}
 .suggestions-container ul {
 	list-style-type: none !important;
 }

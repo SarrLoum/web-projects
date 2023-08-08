@@ -26,12 +26,24 @@
 		<!-- Email search bar-->
 		<div class="search-bar">
 			<form action="">
-				<div class="search-form"></div>
+				<div class="search-form">
+					<div class="search-icons-btn"><img src="static/icons/search.svg" /></div>
+					<input class="grow" type="text" name="query"/>
+					<div class="search-icons-btn"><img src="static/icons/tune.svg" /></div>
+				</div>
 			</form>
 		</div>
 
 		<!-- Cuurent user email -->
 		<div class="user-params flex grow justify-right align-center">
+			<div class="support-themes" id="support">
+				<img
+					class="usa-btn"
+					id="support-icon"
+					src="static/icons/help.svg"
+					alt=""
+				/>
+			</div>
 			<div class="user-themes" id="settings">
 				<img
 					class="usa-btn"
@@ -71,7 +83,7 @@
 		<button class="btn-compose" id="compose">
 			<div class="compose-button">
 				<img src="static/icons/pencil.svg" alt="" />
-				<span>Compose</span>
+				<span class="nav-label">Compose</span>
 			</div>
 		</button>
 
@@ -89,6 +101,7 @@
 							/>
 							<div
 								class="inbox-count grow flex space-between align-center"
+								
 							>
 								<span>Inbox</span>
 								<span class="total-emails flex align-center"
@@ -106,7 +119,7 @@
 								id="star-icon"
 								src="static/icons/starred.svg"
 								alt=""
-							/><span>Starred</span>
+							/><span class="nav-label">Starred</span>
 						</div>
 					</button>
 				</li>
@@ -118,7 +131,7 @@
 								id="archive-icon"
 								src="static/icons/archived.svg"
 								alt=""
-							/><span>Archived</span>
+							/><span class="nav-label">Archived</span>
 						</div>
 					</button>
 				</li>
@@ -130,7 +143,7 @@
 								id="sent-icon"
 								src="static/icons/sent.svg"
 								alt=""
-							/><span>Sent</span>
+							/><span class="nav-label">Sent</span>
 						</div>
 					</button>
 				</li>
@@ -179,7 +192,7 @@
 									id="spam-icon"
 									src="static/icons/spam.svg"
 									alt=""
-								/><span>Spam</span>
+								/><span class="nav-label">Spam</span>
 							</div>
 						</button>
 					</li>
@@ -191,7 +204,7 @@
 									id="trash-icon"
 									src="static/icons/trash.svg"
 									alt=""
-								/><span>Trash</span>
+								/><span class="nav-label">Trash</span>
 							</div>
 						</button>
 					</li>
@@ -220,7 +233,7 @@
 								id="note-icon"
 								src="static/icons/notes.svg"
 								alt=""
-							/><span>Note</span>
+							/><span class="nav-label">Note</span>
 						</div>
 					</button>
 				</li>
@@ -230,32 +243,117 @@
 
 	<!-- ======= MIDDLE SIDE(rightside) (CONTENT) ======= -->
 	<div class="content-settings-container">
-		<div class="emails-content">
+		<div class="emails-content" data-flexed="false">
 			<!-- === CONTENT BODY BUTTONS(headers)-->
 			<div class="content-hearder">
-				<div class="left-button">
-					<div class="form-check icon-btn">
-						<input
-							class="form-check-input"
-							type="checkbox"
-							value=""
-							id="flexCheckDefault"
-						/>
-					</div>
-					<div class="icon-btn">
+				<div id="header-left-default" class="left-button">
+					<button class="combined-btn">
+						<div class="flex">
+							<div class="combined-icon">
+								<img src="static/icons/checkbox.svg" />
+							</div>
+							<div class="select-icon">
+								<img src="static/icons/arrow-down.svg" />
+							</div>
+						</div>
+					</button>
+					<button class="icon-btn">
 						<img src="static/icons/refresh.svg" alt="" class="" />
-					</div>
-					<div class="icon-btn">
+					</button>
+					<button class="icon-btn">
 						<img src="static/icons/more.svg" alt="" />
+					</button>
+				</div>
+
+				<div id="header-left-email" class="left-button hide-buttons">
+					<button class="icon-btn go-back">
+						<img src="static/icons/go-back.svg" alt="" class="" />
+					</button>
+					<div class="flex">
+						<button class="icon-btn">
+							<img src="static/icons/archive btn.svg" alt="" />
+						</button>
+						<button class="icon-btn">
+							<img src="static/icons/spam btn.svg" alt="" />
+						</button>
+						<button class="icon-btn">
+							<img src="static/icons/trash btn.svg" alt="" />
+						</button>
+
+					</div>
+					<div class="flex">
+						<button class="icon-btn">
+							<img src="static/icons/unread-icon.svg" alt="" />
+						</button>
+						<button class="icon-btn">
+							<img src="static/icons/snooze.svg" alt="" />
+						</button>
+						<button class="icon-btn">
+							<img src="static/icons/add_task.svg" alt="" />
+						</button>
+
+					</div>
+					<div class="flex">
+						<button class="icon-btn">
+							<img src="static/icons/move_to.svg" alt="" />
+						</button>
+						<button class="icon-btn">
+							<img src="static/icons/label.svg" alt="" />
+						</button>
+						<button class="icon-btn">
+							<img src="static/icons/more.svg" alt="" />
+						</button>
+
 					</div>
 				</div>
-				<div class="right-button"></div>
+
+				<div class="right-button">
+					<div id="pagination-btn" class="pagination-div combined-btn">
+						<span id="pagination">1-50 of 9,052</pan>
+					</div>
+					<button class="icon-btn no-margin">
+						<img
+							src="static/icons/arrow_back.svg"
+							alt=""
+							class=""
+						/>
+					</button>
+					<button class="icon-btn">
+						<img
+							src="static/icons/arrow_forward.svg"
+							alt=""
+							class=""
+						/>
+					</button>
+					<button id="split-btn" class="combined-btn">
+						<div class="flex">
+							<div class="combined-icon">
+								<img src="static/icons/horizontal_split.svg" />
+							</div>
+							<div class="select-icon">
+								<img src="static/icons/arrow-down.svg" />
+							</div>
+						</div>
+					</button>
+					<button class="combined-btn">
+						<div class="flex">
+							<div class="combined-icon">
+								<img src="static/icons/language_us.svg" />
+							</div>
+							<div class="select-icon">
+								<img src="static/icons/arrow-down.svg" />
+							</div>
+						</div>
+					</button>
+				</div>
 			</div>
 
 			<!-- ==== CONTENT BODY (emails and compose view) ==== -->
 			<div class="content-body grow">
 				<!-- Emails view -->
+				<div id="mailbox-view" class="email-view"></div>
 				<div id="emails-view" class="email-view"></div>
+
 			</div>
 		</div>
 		<!-- ==== Theme settings ==== -->
@@ -290,7 +388,6 @@
 						</div>
 					</div>
 
-					<hr />
 
 					<div class="mails-density">
 						<span class="settings-span">Density</span>
@@ -302,7 +399,7 @@
 								<div class="radio-inputs flex justify-center">
 									<input
 										id="default-density"
-										name="default"
+										name="density"
 										type="radio"
 										checked
 									/>
@@ -318,7 +415,7 @@
 								<div class="radio-inputs flex justify-center">
 									<input
 										id="comfortable-density"
-										name="comfortable"
+										name="density"
 										type="radio"
 									/>
 									<label for="comfortable-density"
@@ -335,7 +432,7 @@
 								<div class="radio-inputs flex justify-center">
 									<input
 										id="compact-density"
-										name="compact"
+										name="density"
 										type="radio"
 									/>
 									<label for="compact-density">Compact</label>
@@ -348,7 +445,6 @@
 						</form>
 					</div>
 
-					<hr />
 
 					<div class="themes-settings">
 						<div class="flex justify">
@@ -389,7 +485,7 @@
 		</div>
 	</div>
 	<!-- ==== Little Apps ==== -->
-	<div class="apps-container">
+	<div class="apps-container flex column">
 		<div class="apps-icon-wrapper first-app">
 			<img class="app-icon" src="static/icons/calendar.svg" alt="" />
 		</div>

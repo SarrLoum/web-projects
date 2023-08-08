@@ -38,27 +38,41 @@ document.addEventListener("DOMContentLoaded", function () {
 		.querySelector("#compose-form")
 		.addEventListener("submit", send_email);
 
-	// actvite toggle button
-	toggleButton();
 	// By default, load the inbox
 	load_mailbox("inbox");
+
+	// actvite toggle button and interactive nav
+	toggleButton();
+	interactiveNav();
+
+	// Set the backgound image
+	setBackground();
 
 	// Listen for clicks on the settings
 	const emailsContainer = document.querySelector(".emails-content");
 	const settingsContainer = document.querySelector(".settings-container");
 	const settingsButton = document.querySelector("#settings");
 
-	let initialWidth = emailsContainer.offsetWidth;
 	settingsButton.addEventListener("click", function () {
+		let initialWidth = emailsContainer.offsetWidth;
+		var isFlexed = emailsContainer.dataset.flexed === "true";
+
 		if (getComputedStyle(settingsContainer).display === "none") {
-			let shrinkWidth =
-				initialWidth -
-				(parseFloat(getComputedStyle(settingsContainer).marginLeft) +
-					parseFloat(getComputedStyle(settingsContainer).width));
-			emailsContainer.style.width =
+			let settingsWidth = parseFloat(
+				getComputedStyle(settingsContainer).width
+			);
+			let settingsMargin = parseFloat(
+				getComputedStyle(settingsContainer).marginLeft
+			);
+			let shrinkWidth = initialWidth - (settingsWidth + settingsMargin);
+
+			let newWidth =
 				shrinkWidth /
 					parseFloat(getComputedStyle(emailsContainer).fontSize) +
 				"em";
+
+			emailsContainer.style.width = isFlexed ? 56.5 + "em" : newWidth;
+
 			settingsContainer.style.display = "block";
 
 			console.log("Clicked"); // Check if the event listener is triggered
@@ -69,13 +83,10 @@ document.addEventListener("DOMContentLoaded", function () {
 				settingsContainer.style.display
 			); // Check the display property value of the settings container
 		} else {
-			emailsContainer.style.width = 65.25 + "em";
+			emailsContainer.style.width = isFlexed ? 76.5 + "em" : 65.5 + "em";
 			settingsContainer.style.display = "none";
 		}
 	});
-
-	// Set the backgound image
-	setBackground();
 
 	// Load the userLog and userApps modals with display none
 	userLog();
@@ -119,8 +130,9 @@ function compose_email() {
 	document.querySelector("#compose-subject").value = "";
 	document.querySelector("#compose-body").value = "";
 
+	// Handle compose div minimize, maximize and close button
 	let composeWidth = composeView.offsetWidth;
-
+	// Minimize
 	var minimizeCompose = false;
 	document.querySelector("#minimize").addEventListener("click", () => {
 		minimizeCompose = !minimizeCompose;
@@ -132,11 +144,11 @@ function compose_email() {
 			composeView.style.width = "31.81em";
 		}
 	});
-
+	// Close
 	document.querySelector("#close-compose").addEventListener("click", () => {
 		composeView.style.display = "none";
 	});
-
+	// Full window
 	var fullWindow = false;
 	document.querySelector("#full-window").addEventListener("click", () => {
 		if (fullWindow === true) {
@@ -152,79 +164,22 @@ function compose_email() {
 
 function load_mailbox(mailbox) {
 	// Show the mailbox and hide other views
-	document.querySelector("#emails-view").style.display = "block";
+	document.querySelector("#mailbox-view").style.display = "block";
 
 	// Show the mailbox name
 	document.querySelector(
-		"#emails-view"
-	).innerHTML = `<div class="mailbox-header"><div class="mailbox">
-	<img src="static/icons/inbox.svg" alt="" />
-	<h6>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h6></div></div><hr>`;
+		"#mailbox-view"
+	).innerHTML = `<div class="mailbox-header">
+	<div class="mailbox-container">
+		<div class="mailbox">
+			<img src="static/icons/primary inbox.svg" alt="" />
+			<h6>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}
+			</h6>
+		</div>
+	</div></div>`;
 
 	//Show all emails of the mailbox
 	load_emails(mailbox);
-}
-
-function toggleButton() {
-	let navs = document.querySelectorAll(".nav-button");
-
-	// Set the Inbox button as active by default
-	document.getElementById("inbox").classList.add("active");
-
-	navs.forEach((navButton) => {
-		navButton.addEventListener("click", () => {
-			// Remove the active class from all buttons
-			navs.forEach((otherButton) => {
-				otherButton.classList.remove("active");
-			});
-
-			// Add the active class to the clicked button
-			navButton.classList.add("active");
-		});
-	});
-}
-
-function closeModals() {
-	// show the userApps and useLodag modals when one of this button is cicked
-	document.body.addEventListener("click", (e) => {
-		if (e.target.id == "current-user") {
-			const logModal = document.querySelector(".userlog-modal");
-			const appsModal = document.querySelector(".apps-modal");
-
-			logModal.style.display = "block";
-			appsModal.style.display = "none";
-		} else if (e.target.id === "apps-btn") {
-			const logModal = document.querySelector(".userlog-modal");
-			const appsModal = document.querySelector(".apps-modal");
-
-			appsModal.style.display = "block";
-			logModal.style.display = "none";
-		}
-	});
-
-	// Close both modals when click event occurs outside them
-	const currentUserLog = document.querySelector("#current-user");
-	const currentUserApps = document.querySelector("#apps-btn");
-	window.addEventListener("click", (event) => {
-		const logModal = document.querySelector(".userlog-modal");
-		const logChild = document.querySelector(".user-usa");
-
-		const appsModal = document.querySelector(".apps-modal");
-		const appsChild = document.querySelector(".apps");
-
-		let clickedElement = event.target;
-		if (
-			clickedElement !== logModal &&
-			clickedElement !== appsModal &&
-			clickedElement !== currentUserLog &&
-			clickedElement !== logChild &&
-			clickedElement !== currentUserApps &&
-			clickedElement !== appsChild
-		) {
-			logModal.style.display = "none";
-			appsModal.style.display = "none";
-		}
-	});
 }
 
 function send_email(event) {
@@ -275,7 +230,7 @@ function load_emails(mailbox) {
 			let emptyView = emptyMailbox(mailbox);
 
 			// Append the emails list to the email view container
-			const emailView = document.querySelector("#emails-view");
+			const emailView = document.querySelector("#mailbox-view");
 
 			// Render ddinamically the mailbox view wheither it's empty or not
 			if (emails.length === 0) {
@@ -300,10 +255,48 @@ function load_emails(mailbox) {
 						console.log("checkbox clicked");
 					} else if (!event.target.closest(".email .checkbox-ul")) {
 						// The click event occurred on some other element, display the email view
+						console.log("email clicked");
 						const id = element.dataset.email_id;
 						view_email(id);
 						asRead(id);
-						console.log("email clicked");
+						const headerDefaultBtns = document.querySelector(
+							"#header-left-default"
+						);
+						const emailHeaderBtns =
+							document.querySelector("#header-left-email");
+						const paginationBtn =
+							document.querySelector("#pagination-btn");
+						const splitBtn = document.querySelector("#split-btn");
+
+						headerDefaultBtns.style.display = "none";
+						emailHeaderBtns.style.display = "flex";
+						paginationBtn.style.display = "none";
+						splitBtn.style.display = "none";
+
+						const goBackBtn = document.querySelector(".go-back");
+						const navBtns =
+							document.querySelectorAll(".nav-button");
+
+						goBackBtn.addEventListener("click", () => {
+							emailHeaderBtns.style.display = "none";
+							headerDefaultBtns.style.display = "flex";
+							paginationBtn.style.display = "flex";
+							splitBtn.style.display = "flex";
+
+							// Show the mailbox and hide other views
+							const emailView =
+								document.querySelector("#emails-view");
+							emailView.innerHTML = "";
+							const mailboxView =
+								document.querySelector("#mailbox-view");
+							mailboxView.style.display = "block";
+
+							/*navBtns.forEach((navBtn) => {
+								if (navBtn.classList.contains("active")) {
+									//load_mailbox(navBtn.id);
+								}
+							});*/
+						});
 					}
 				});
 			});
@@ -314,6 +307,9 @@ function view_email(email_id) {
 	fetch(`/emails/${email_id}`)
 		.then((response) => response.json())
 		.then((email) => {
+			// Show the mailbox and hide other views
+			document.querySelector("#mailbox-view").style.display = "none";
+
 			// Create a div that display the emmail and all its details
 			let displayEmail = viewEmail(email);
 
@@ -421,6 +417,139 @@ function asTrash(email) {
 	});
 }
 
+function toggleButton() {
+	let navs = document.querySelectorAll(".nav-button");
+
+	// Set the Inbox button as active by default
+	document.getElementById("inbox").classList.add("active");
+
+	navs.forEach((navButton) => {
+		navButton.addEventListener("click", () => {
+			// Remove the active class from all buttons
+			navs.forEach((otherButton) => {
+				otherButton.classList.remove("active");
+			});
+
+			// Add the active class to the clicked button
+			navButton.classList.add("active");
+		});
+	});
+}
+
+function interactiveNav() {
+	var btn3bar = document.querySelector(".btn-3bar");
+	var sidebar = document.querySelector(".side-bar");
+
+	var navBtns = document.querySelectorAll(".nav-button");
+	var btnContents = document.querySelectorAll(".button-content");
+	var labelBtn = document.querySelector(".label-button");
+	var labelContent = document.querySelector(".label-content");
+
+	var labelNav = document.querySelector(".label-nav"); // Select all label spans
+	var navLabels = document.querySelectorAll(".nav-label"); // Select all label span
+	var expandMore = document.querySelector("#expand-span");
+	var labelsInboxDraft = document.querySelectorAll(".inbox-count"); // Select all count spans
+
+	var emailsContent = document.querySelector(".emails-content");
+	var isFlexed = false;
+
+	btn3bar.addEventListener("click", () => {
+		isFlexed = !isFlexed;
+		emailsContent.setAttribute("data-flexed", isFlexed ? "true" : "false");
+		if (isFlexed) {
+			labelBtn.classList.add("no-margin-left");
+			sidebar.classList.add("sidebar-flexed");
+
+			labelContent.classList.add("label-content-flexed");
+			emailsContent.classList.add("emails-content-sb-flexed");
+			emailsContent.style.width = 76.5 + "em";
+
+			navBtns.forEach((navBtn) => {
+				navBtn.classList.add("nav-button-flexed");
+			});
+			btnContents.forEach((btnContent) => {
+				btnContent.classList.add("no-margin-left");
+			});
+
+			// Loop through all label spans and hide them
+			navLabels.forEach((label) => {
+				label.style.display = "none";
+			});
+			expandMore.style.display = "none";
+			labelNav.style.display = "none";
+			// Loop through all count spans and hide them
+			labelsInboxDraft.forEach((count) => {
+				count.style.display = "none";
+			});
+		} else {
+			labelBtn.classList.remove("no-margin-left");
+			sidebar.classList.remove("sidebar-flexed");
+			emailsContent.classList.remove("emails-content-sb-flexed");
+			emailsContent.style.width = 65.5 + "em";
+
+			navBtns.forEach((navBtn) => {
+				navBtn.classList.remove("nav-button-flexed");
+			});
+			btnContents.forEach((btnContent) => {
+				btnContent.classList.remove("no-margin-left");
+			});
+
+			// Loop through all label spans and display them
+			navLabels.forEach((label) => {
+				label.style.display = "block";
+			});
+			expandMore.style.display = "block";
+			labelNav.style.display = "block";
+			// Loop through all count spans and display them
+			labelsInboxDraft.forEach((count) => {
+				count.style.display = "flex";
+			});
+		}
+	});
+}
+
+function closeModals() {
+	// show the userApps and useLodag modals when one of this button is cicked
+	document.body.addEventListener("click", (e) => {
+		if (e.target.id == "current-user") {
+			const logModal = document.querySelector(".userlog-modal");
+			const appsModal = document.querySelector(".apps-modal");
+
+			logModal.style.display = "block";
+			appsModal.style.display = "none";
+		} else if (e.target.id === "apps-btn") {
+			const logModal = document.querySelector(".userlog-modal");
+			const appsModal = document.querySelector(".apps-modal");
+
+			appsModal.style.display = "block";
+			logModal.style.display = "none";
+		}
+	});
+
+	// Close both modals when click event occurs outside them
+	const currentUserLog = document.querySelector("#current-user");
+	const currentUserApps = document.querySelector("#apps-btn");
+	window.addEventListener("click", (event) => {
+		const logModal = document.querySelector(".userlog-modal");
+		const logChild = document.querySelector(".user-usa");
+
+		const appsModal = document.querySelector(".apps-modal");
+		const appsChild = document.querySelector(".apps");
+
+		let clickedElement = event.target;
+		if (
+			clickedElement !== logModal &&
+			clickedElement !== appsModal &&
+			clickedElement !== currentUserLog &&
+			clickedElement !== logChild &&
+			clickedElement !== currentUserApps &&
+			clickedElement !== appsChild
+		) {
+			logModal.style.display = "none";
+			appsModal.style.display = "none";
+		}
+	});
+}
 // Here's the updated showUserLogModal function
 function logOut() {
 	document.querySelector("#logout").addEventListener("click", () => {
@@ -465,6 +594,8 @@ async function changeBackground(userKey) {
 		wallPaperItem.addEventListener("click", () => {
 			// fetch the clicked wallpapers
 			getWallPaper(wallPaperItem.id);
+			const searchForm = document.querySelector("search-form");
+			searchForm.classList.add(".search-theme-change");
 		});
 	});
 
@@ -552,6 +683,11 @@ const iconThemes = (switchBool) => {
 			case "menu":
 				usaBtnsItem.src = `static/icons/3bars menu ${
 					switchBool ? "white" : ""
+				}.svg`;
+				break;
+			case "support-icon":
+				usaBtnsItem.src = `static/icons/help${
+					switchBool ? "_white" : ""
 				}.svg`;
 				break;
 			case "logo-text":
