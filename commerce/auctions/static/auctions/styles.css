@@ -1,7 +1,14 @@
 body {
-	padding: 0 10px;
 	width: 100%;
 	overflow-x: hidden;
+}
+
+main {
+	padding: 0 10px;
+}
+
+.padding {
+	padding: 0 10px;
 }
 button {
 	border: transparent;
@@ -734,7 +741,34 @@ label {
 	display: flex;
 	gap: 3.5em;
 	margin-top: 3.5em;
+	margin-bottom: 4em;
 	margin-left: 4em;
+}
+.listing-hr {
+	margin-left: 3em;
+	margin-right: 3em;
+}
+
+.similar-objects {
+	padding: 1em;
+	padding-right: 1em;
+	margin-left: 2em;
+	margin-right: 2em;
+}
+
+.similar-objects h2 {
+	color: #302f2f;
+	font-size: 2rem;
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+	padding-left: 1em;
+	margin-bottom: 1em;
+}
+
+.similar-objects ul {
+	padding-left: 2em;
 }
 
 .listing-img {
@@ -1412,9 +1446,12 @@ h5 {
 	line-height: normal;
 	letter-spacing: 0.00813rem;
 }
+.evaluate-btn-link {
+	text-decoration: none;
+}
 
 .evaluate-btn {
-	padding: 0.3em 3.52em;
+	padding: 0.55em 3em;
 	flex-shrink: 0;
 	border-radius: 0.5rem;
 	border: 1px solid #d9d9d9;
@@ -1426,7 +1463,7 @@ h5 {
 .evaluate-btn span {
 	color: #302f2f;
 	font-size: 0.78125rem;
-	font-family: Inter;
+	font-family: "Inter";
 	font-style: normal;
 	font-weight: 400;
 	line-height: normal;
@@ -1473,9 +1510,23 @@ h5 {
 	margin-top: 4em;
 	margin-left: 2em;
 }
+
+.nav-tabs {
+	border: none;
+}
+
+.nav-d-c {
+	padding: 0.5em 1em;
+}
+
+.tab-content {
+	padding: 1em;
+	border-radius: 0.25em;
+	border: 1px solid #dee2e6;
+}
 .item-info-hearder {
-	margin-bottom: 2.25em;
-	margin-top: 1.62em;
+	padding-bottom: 2.25em;
+	padding-top: 1.62em;
 }
 
 .info-header1 span {
@@ -1591,7 +1642,7 @@ h5 {
 }
 
 .rules-info {
-	width: 81.625rem;
+	width: 100%;
 	padding: 1.06em;
 	border-radius: 0.1875rem;
 	border: 1px solid #d9d9d9;
@@ -1633,7 +1684,7 @@ h5 {
 }
 
 .seller-more-info {
-	width: 81.625rem;
+	width: 100%;
 	padding: 1em;
 	border-radius: 0.1875rem;
 	border: 1px solid #d9d9d9;
@@ -1700,7 +1751,7 @@ h5 {
 }
 
 .return-conditions {
-	width: 81.625rem;
+	width: 100%;
 	padding: 1em;
 	border-radius: 0.1875rem;
 	border: 1px solid #d9d9d9;
@@ -1718,7 +1769,7 @@ h5 {
 }
 
 .rectangle {
-	width: 77.625rem;
+	width: 100%;
 	height: 1.625rem;
 	background: #e8e8e8;
 }
@@ -1738,8 +1789,9 @@ h5 {
 }
 
 .delai-value {
-	width: 77.625rem;
+	width: 100%;
 	height: 1.8125rem;
+	gap: 35.6em;
 	border-top: 1px solid #d3d2d2;
 	border-bottom: 1px solid #d3d2d2;
 	margin-bottom: 0.56em;
@@ -2287,4 +2339,68 @@ h5 {
 	position: absolute;
 	z-index: 1;
 	right: 6.25em;
+}
+
+footer {
+	width: 100%;
+	border-top: 1px solid #ccc;
+}
+
+.footer-container1 {
+	width: 100%;
+	margin: 1em;
+	padding: 1em;
+
+	display: flex;
+	gap: 5em;
+}
+
+.footer-commu {
+	margin-left: 2em;
+}
+
+.footer-content > a h4 {
+	color: #767676;
+	font-family: "Inter";
+	font-size: 1rem;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+	margin-bottom: 0.88em;
+}
+
+.footer-content ul {
+	display: flex;
+	flex-direction: column;
+	gap: 0.69em;
+	list-style-type: none;
+	padding: 0;
+}
+
+.footer-link {
+	color: #767676;
+	font-family: "Inter";
+	font-size: 0.71875rem;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+
+.footer-term-div {
+	margin: 1em;
+	padding: 1em;
+}
+.footer-term-div span,
+.footer-term {
+	color: #41413f;
+	font-family: "Inter";
+	font-size: 0.75rem;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	margin-bottom: 0.88em;
+}
+
+.countries-selection-btn {
+	padding: 0.5em 0.25em;
 }
