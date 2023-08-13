@@ -26,7 +26,7 @@ def is_owner(listing, user):
 
 def get_categories():
     # Create an objects of all the Category Illustrations mages 
-    categories = ImgCategory.objects.all()
+    categories = ImgCategory.objects.exclude(view_url="enchères")
     categoryList = []
     for category in categories:
         categoryDict = { 

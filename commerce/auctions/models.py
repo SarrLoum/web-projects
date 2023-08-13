@@ -6,7 +6,15 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class User(AbstractUser):
-    pass
+    avatar = models.ImageField(blank=True)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "username": self.username,
+            "email": self.email,
+            "avatar": str(self.avatar.url) if self.avatar else None
+        }
 
 
 CATEGORIES = [
@@ -40,9 +48,9 @@ class Category(models.Model):
 class ImgCategory(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="illustrations")
     view_url = models.CharField(max_length=150, blank=True)
-    image1 = models.ImageField()
-    image2 = models.ImageField()
-    image3 = models.ImageField()
+    image1 = models.ImageField(blank=True, null=True)
+    image2 = models.ImageField(blank=True, null=True)
+    image3 = models.ImageField(blank=True, null=True)
 
     def serialize(self):
         return {
@@ -100,3 +108,9 @@ class Suggestion(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class RecentlyViewed(models.Model):
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="viewed_listings")
+    timestamp = models.DateTimeField(auto_now_add=True)

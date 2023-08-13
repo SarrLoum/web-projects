@@ -1,373 +1,373 @@
-{% extends "auctions/layout.html" %} {% block body %}
+    {% extends "auctions/layout.html" %} {% block body %}
 
+<main class="category" id="main">
+    <section class="category-section">
+        <!-- ===== PARTIE Header ILLUSTRATION DE CATEGORY ===== -->
+        <div class="category-header">
+            <img 
+            src="http://localhost:8000/static/auctions/media/electronics-icons/electronics-illus0.svg" 
+            alt="" />
+    <div class="category-header-title">
+                <h1></h1>
+                <p></p>
+            </div>
+        </div>
 
-<section class="category-section">
-	<!-- ===== PARTIE Header ILLUSTRATION DE CATEGORY ===== -->
-	<div class="category-header">
-        <img 
-        src="http://localhost:8000/static/auctions/media/electronics-icons/electronics-illus0.svg" 
-        alt="" />
-<div class="category-header-title">
-			<h1></h1>
-			<p></p>
-		</div>
-	</div>
-
-	<!-- ===== PARTIE NAV LINK DU BODY ===== -->
-	<div class="category-body flex">
-		<div class="category-navs">
-			<!-- Découvertes -->
-			<h5 >Découvrez</h5>
-			<ul class="category-navs-ul">
-				<li class="flex space-between">
-					<a href="#"><span>Informatique, réseau</span></a><img src="http://localhost:8000/static/auctions/media/expand_more.svg" alt="" />
-				</li>
-				<li class="flex space-between">
-					<a href="#"><span>Téléphonie, mobilité</span></a><img src="http://localhost:8000/static/auctions/media/expand_more.svg" alt="" />
-				</li>
-				<li class="flex space-between">
-					<a href="#"><span>Matériel audio et video</span></a><img src="http://localhost:8000/static/auctions/media/expand_more.svg" alt="" />
-				</li>
-				<li class="flex space-between">
-					<a href="#"><span>Jeux video, consoles</span></a><img src="http://localhost:8000/static/auctions/media/expand_more.svg" alt="" />
-				</li>
-				<li class="flex space-between">
-					<a href="#"><span>Photo, caméscopes</span></a><img src="http://localhost:8000/static/auctions/media/expand_more.svg" alt="" />
-				</li>
-			</ul>
-			<hr />
-
-			<!-- Explorer par category -->
-			<h5 class="category-navs-h5">Explorer par Catégories</h5>
-			<ul class="category-navs-ul">
-				<li class="flex space-between">
-					<a href="#"><span>Téléphonie et mobilité</span></a>
-				</li>
-				
-				<li class="flex space-between">
-					<a href="#"><span>Matériel audio et video</span></a>
-				</li>
-				<li class="flex space-between">
-					<a href="#"><span>Informatique et réseau</span></a>
-				</li>
-				<li class="flex space-between">
-					<a href="#"><span>Jeux vidéo et consoles</span></a>
-				</li>
-				<li class="flex space-between">
-					<a href="#"><span>Photot et caméscopes</span></a>
-				</li>
-			</ul>
-			<hr />
-
-            <h5 class="category-navs-h5">Autres</h5>
-			<ul class="category-navs-ul">
-				<li class="flex space-between">
-					<a href="#"><span>Reconditionné</span></a>
-				</li>
-				
-				<li class="flex space-between">
-					<a href="#"><span>Drônes</span></a>
-				</li>
-			</ul>
-			<hr />
-
-            <h5 class="category-navs-h5">Promotions</h5>
-			<ul class="category-navs-ul">
-				<li class="flex space-between">
-					<a href="#"><span>Bons Plans Tech</span></a>
-				</li>
-			</ul>
-			<hr />
-
-            <h5 class="category-navs-h5">Occasions</h5>
-			<ul class="category-navs-ul">
-				<li class="flex space-between">
-					<a href="#"><span>Recyclage smartphone</span></a>
-				</li>
-				<li class="flex space-between">
-					<a href="#"><span>Recyclage appareils photo et caméscopes</span></a>
-				</li>
-				<li class="flex space-between">
-					<a href="#"><span>Vendez sur ebay</span></a>
-				</li>
-			</ul>
-			<hr />
-		</div>
-
-
-		<!-- ===== PARTIE CONTENT DU BODY ===== -->
-		<div class="category-content grow">
-			<div class="category-explore">
-                <h3 class="explore-title">Explorer par catégorie<h3>
-                <ul class="explore-items">
-                    <a href="#">
-                        <li class="explore-item">
-                            <div class="explore-item-img">
-                                <img 
-                                    src="http://localhost:8000/static/auctions/media/electronics-icons/téléphone.svg" 
-                                    alt="" />
-                            </div>
-                            <span>Téléphones mobile</span>
-                        </li>
-                    </a>
-                    <a href="#">
-                        <li class="explore-item">
-                            <div class="explore-item-img">
-                                <img 
-                                    src="http://localhost:8000/static/auctions/media/electronics-icons/informatique.svg" 
-                                    alt="" />
-                            </div>
-                            <span>Informatique et réseaux</span>
-                        </li>
-                    </a>
-                    <a href="#">
-                        <li class="explore-item">
-                            <div class="explore-item-img">
-                                <img 
-                                    src="http://localhost:8000/static/auctions/media/electronics-icons/console.svg" 
-                                    alt="" />
-                            </div>
-                            <span>Jeux vidéos et console</span>
-                        </li>
-                    </a>
-                    <a href="#">
-                        <li class="explore-item">
-                            <div class="explore-item-img">
-                                <img 
-                                    src="http://localhost:8000/static/auctions/media/electronics-icons/Appareil photo.svg" 
-                                    alt="" />
-                            </div>
-                            <span>Appareils photo et caméscope</span>
-                        </li>
-                    </a>
-                    <a href="#">
-                        <li class="explore-item">
-                            <div class="explore-item-img">
-                                <img 
-                                    src="http://localhost:8000/static/auctions/media/electronics-icons/casque.svg" 
-                                    alt="" />
-                            </div>
-                            <span>Casques et écouteurs</span>
-                        </li>
-                    </a>
-                    <a href="#">
-                        <li class="explore-item">
-                            <div class="explore-item-img">
-                                <img 
-                                    src="http://localhost:8000/static/auctions/media/electronics-icons/enceinte audio.svg" 
-                                    alt="" />
-                            </div>
-                            <span>Enceintes et équipements audio</span>
-                        </li>
-                    </a>
-                    <a href="#">
-                        <li class="explore-item">
-                            <div class="explore-item-img">
-                                <img 
-                                    src="http://localhost:8000/static/auctions/media/electronics-icons/accessoire téléphone.svg" 
-                                    alt="" />
-                            </div>
-                            <span>Accessoires pour téléphones portable</span>
-                        </li>
-                    </a>
-                    <a href="#">
-                        <li class="explore-item">
-                            <div class="explore-item-img">
-                                <img 
-                                    src="http://localhost:8000/static/auctions/media/electronics-icons/tablette.svg" 
-                                    alt="" />
-                            </div>
-                            <span>Tablettes</span>
-                        </li>
-                    </a>
-                    <a href="#">
-                        <li class="explore-item">
-                            <div class="explore-item-img">
-                                <img 
-                                    src="http://localhost:8000/static/auctions/media/electronics-icons/imprimante.svg" 
-                                    alt="" />
-                            </div>
-                            <span>Imprimante</span>
-                        </li>
-                    </a>
-                    <a href="#">
-                        <li class="explore-item">
-                            <div class="explore-item-img">
-                                <img 
-                                    src="http://localhost:8000/static/auctions/media/electronics-icons/télévision.svg" 
-                                    alt="" />
-                            </div>
-                            <span>Télévisions</span>
-                        </li>
-                    </a>
+        <!-- ===== PARTIE NAV LINK DU BODY ===== -->
+        <div class="category-body flex">
+            <div class="category-navs">
+                <!-- Découvertes -->
+                <h5 >Découvrez</h5>
+                <ul class="category-navs-ul">
+                    <li class="flex space-between">
+                        <a href="#"><span>Informatique, réseau</span></a><img src="http://localhost:8000/static/auctions/media/expand_more.svg" alt="" />
+                    </li>
+                    <li class="flex space-between">
+                        <a href="#"><span>Téléphonie, mobilité</span></a><img src="http://localhost:8000/static/auctions/media/expand_more.svg" alt="" />
+                    </li>
+                    <li class="flex space-between">
+                        <a href="#"><span>Matériel audio et video</span></a><img src="http://localhost:8000/static/auctions/media/expand_more.svg" alt="" />
+                    </li>
+                    <li class="flex space-between">
+                        <a href="#"><span>Jeux video, consoles</span></a><img src="http://localhost:8000/static/auctions/media/expand_more.svg" alt="" />
+                    </li>
+                    <li class="flex space-between">
+                        <a href="#"><span>Photo, caméscopes</span></a><img src="http://localhost:8000/static/auctions/media/expand_more.svg" alt="" />
+                    </li>
                 </ul>
+                <hr />
+
+                <!-- Explorer par category -->
+                <h5 class="category-navs-h5">Explorer par Catégories</h5>
+                <ul class="category-navs-ul">
+                    <li class="flex space-between">
+                        <a href="#"><span>Téléphonie et mobilité</span></a>
+                    </li>
+                    
+                    <li class="flex space-between">
+                        <a href="#"><span>Matériel audio et video</span></a>
+                    </li>
+                    <li class="flex space-between">
+                        <a href="#"><span>Informatique et réseau</span></a>
+                    </li>
+                    <li class="flex space-between">
+                        <a href="#"><span>Jeux vidéo et consoles</span></a>
+                    </li>
+                    <li class="flex space-between">
+                        <a href="#"><span>Photot et caméscopes</span></a>
+                    </li>
+                </ul>
+                <hr />
+
+                <h5 class="category-navs-h5">Autres</h5>
+                <ul class="category-navs-ul">
+                    <li class="flex space-between">
+                        <a href="#"><span>Reconditionné</span></a>
+                    </li>
+                    
+                    <li class="flex space-between">
+                        <a href="#"><span>Drônes</span></a>
+                    </li>
+                </ul>
+                <hr />
+
+                <h5 class="category-navs-h5">Promotions</h5>
+                <ul class="category-navs-ul">
+                    <li class="flex space-between">
+                        <a href="#"><span>Bons Plans Tech</span></a>
+                    </li>
+                </ul>
+                <hr />
+
+                <h5 class="category-navs-h5">Occasions</h5>
+                <ul class="category-navs-ul">
+                    <li class="flex space-between">
+                        <a href="#"><span>Recyclage smartphone</span></a>
+                    </li>
+                    <li class="flex space-between">
+                        <a href="#"><span>Recyclage appareils photo et caméscopes</span></a>
+                    </li>
+                    <li class="flex space-between">
+                        <a href="#"><span>Vendez sur ebay</span></a>
+                    </li>
+                </ul>
+                <hr />
             </div>
 
-			<div class="category-explore">
-                <h3 class="explore-title">Explorer par marques<h3>
-                <ul class="explore-items">
-                    <a href="#">
-                        <li class="explore-item">
-                            <div class="explore-item-img">
-                                <img 
-                                    src="http://localhost:8000/static/auctions/media/electronics-icons/xiaomi.svg" 
-                                    alt="" />
-                            </div>
-                            <span>Xiaomi</span>
-                        </li>
-                    </a>    
-                    <a href="#">
-                        <li class="explore-item">
-                            <div class="explore-item-img">
-                                <img 
-                                    src="http://localhost:8000/static/auctions/media/electronics-icons/jabra.svg" 
-                                    alt="" />
-                            </div>
-                            <span>Jabra</span>
-                        </li>
-                    </a>    
-                    <a href="#">
-                        <li class="explore-item">
-                            <div class="explore-item-img">
-                                <img 
-                                    src="http://localhost:8000/static/auctions/media/electronics-icons/asus.svg" 
-                                    alt="" />
-                            </div>
-                            <span>Asus</span>
-                        </li>
-                    </a>    
-                    <a href="#">
-                        <li class="explore-item">
-                            <div class="explore-item-img">
-                                <img 
-                                    src="http://localhost:8000/static/auctions/media/electronics-icons/pny.svg" 
-                                    alt="" />
-                            </div>
-                            <span>PNY</span>
-                        </li>
-                    </a>    
-                    <a href="#">
-                        <li class="explore-item">
-                            <div class="explore-item-img">
-                                <img 
-                                    src="http://localhost:8000/static/auctions/media/electronics-icons/gopro.svg" 
-                                    alt="" />
-                            </div>
-                            <span>GoPro</span>
-                        </li>
-                    </a>    
-                    <a href="#">
-                        <li class="explore-item">
-                            <div class="explore-item-img">
-                                <img 
-                                    src="http://localhost:8000/static/auctions/media/electronics-icons/mobilis.svg" 
-                                    alt="" />
-                            </div>
-                            <span>Mobilis</span>
-                        </li>
-                    </a>    
-                    <a href="#">
-                        <li class="explore-item">
-                            <div class="explore-item-img">
-                                <img 
-                                    src="http://localhost:8000/static/auctions/media/electronics-icons/blackview.svg" 
-                                    alt="" />
-                            </div>
-                            <span>Blackview</span>
-                        </li>
-                    </a>    
-                    <a href="#">
-                        <li class="explore-item">
-                            <div class="explore-item-img">
-                                <img 
-                                    src="http://localhost:8000/static/auctions/media/electronics-icons/umidigi.svg" 
-                                    alt="" />
-                            </div>
-                            <span>UMIDIGI</span>
-                        </li>
-                    </a>    
-                    <a href="#">
-                        <li class="explore-item">
-                            <div class="explore-item-img">
-                                <img 
-                                    src="http://localhost:8000/static/auctions/media/electronics-icons/romoss.svg" 
-                                    alt="" />
-                            </div>
-                            <span>Romoss</span>
-                        </li>
-                    </a> 
-                    <a href="#">
-                        <li class="explore-item">
-                            <div class="explore-item-img">
-                                <img 
-                                    src="http://localhost:8000/static/auctions/media/electronics-icons/poco.svg" 
-                                    alt="" />
-                            </div>
-                            <span>Poco</span>
-                        </li>
-                    </a>    
-                </ul>
-            </div>
-            <hr />
 
-            <div class="categ-illustration text-color-maron">
-                <img 
-                    src="http://localhost:8000/static/auctions/media/electronics-icons/electronics illus1.svg" 
-                    alt="" />
-                <div class="categ-discovery">
-                    <div class="categ-hg-title">
-                        <h2 class="text-color-maron">High Tech</h2>
-                        <p class="text-color-maron">
-                            Découvrez tous les produits de 
-                            boutique boulanger
-                        </p>
-                    </div>
+            <!-- ===== PARTIE CONTENT DU BODY ===== -->
+            <div class="category-content grow">
+                <div class="category-explore">
+                    <h3 class="explore-title">Explorer par catégorie<h3>
+                    <ul class="explore-items">
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/electronics-icons/téléphone.svg" 
+                                        alt="" />
+                                </div>
+                                <span>Téléphones mobile</span>
+                            </li>
+                        </a>
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/electronics-icons/informatique.svg" 
+                                        alt="" />
+                                </div>
+                                <span>Informatique et réseaux</span>
+                            </li>
+                        </a>
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/electronics-icons/console.svg" 
+                                        alt="" />
+                                </div>
+                                <span>Jeux vidéos et console</span>
+                            </li>
+                        </a>
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/electronics-icons/Appareil photo.svg" 
+                                        alt="" />
+                                </div>
+                                <span>Appareils photo et caméscope</span>
+                            </li>
+                        </a>
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/electronics-icons/casque.svg" 
+                                        alt="" />
+                                </div>
+                                <span>Casques et écouteurs</span>
+                            </li>
+                        </a>
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/electronics-icons/enceinte audio.svg" 
+                                        alt="" />
+                                </div>
+                                <span>Enceintes et équipements audio</span>
+                            </li>
+                        </a>
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/electronics-icons/accessoire téléphone.svg" 
+                                        alt="" />
+                                </div>
+                                <span>Accessoires pour téléphones portable</span>
+                            </li>
+                        </a>
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/electronics-icons/tablette.svg" 
+                                        alt="" />
+                                </div>
+                                <span>Tablettes</span>
+                            </li>
+                        </a>
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/electronics-icons/imprimante.svg" 
+                                        alt="" />
+                                </div>
+                                <span>Imprimante</span>
+                            </li>
+                        </a>
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/electronics-icons/télévision.svg" 
+                                        alt="" />
+                                </div>
+                                <span>Télévisions</span>
+                            </li>
+                        </a>
+                    </ul>
+                </div>
 
-                    <div class="categ-hg-btn flex gap10 align-center" id="categ-btn">
-                        <span>Tout afficher</span>
-                        <img
-                            id="categ-img"
-                            class="categ-hg-img"
-                            src="http://localhost:8000/static/auctions/media/arrow_forward_white.svg"
-                            alt=""
-                        />
+                <div class="category-explore">
+                    <h3 class="explore-title">Explorer par marques<h3>
+                    <ul class="explore-items">
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/electronics-icons/xiaomi.svg" 
+                                        alt="" />
+                                </div>
+                                <span>Xiaomi</span>
+                            </li>
+                        </a>    
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/electronics-icons/jabra.svg" 
+                                        alt="" />
+                                </div>
+                                <span>Jabra</span>
+                            </li>
+                        </a>    
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/electronics-icons/asus.svg" 
+                                        alt="" />
+                                </div>
+                                <span>Asus</span>
+                            </li>
+                        </a>    
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/electronics-icons/pny.svg" 
+                                        alt="" />
+                                </div>
+                                <span>PNY</span>
+                            </li>
+                        </a>    
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/electronics-icons/gopro.svg" 
+                                        alt="" />
+                                </div>
+                                <span>GoPro</span>
+                            </li>
+                        </a>    
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/electronics-icons/mobilis.svg" 
+                                        alt="" />
+                                </div>
+                                <span>Mobilis</span>
+                            </li>
+                        </a>    
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/electronics-icons/blackview.svg" 
+                                        alt="" />
+                                </div>
+                                <span>Blackview</span>
+                            </li>
+                        </a>    
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/electronics-icons/umidigi.svg" 
+                                        alt="" />
+                                </div>
+                                <span>UMIDIGI</span>
+                            </li>
+                        </a>    
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/electronics-icons/romoss.svg" 
+                                        alt="" />
+                                </div>
+                                <span>Romoss</span>
+                            </li>
+                        </a> 
+                        <a href="#">
+                            <li class="explore-item">
+                                <div class="explore-item-img">
+                                    <img 
+                                        src="http://localhost:8000/static/auctions/media/electronics-icons/poco.svg" 
+                                        alt="" />
+                                </div>
+                                <span>Poco</span>
+                            </li>
+                        </a>    
+                    </ul>
+                </div>
+                <hr />
+
+                <div class="categ-illustration text-color-maron">
+                    <img 
+                        src="http://localhost:8000/static/auctions/media/electronics-icons/electronics illus1.svg" 
+                        alt="" />
+                    <div class="categ-discovery">
+                        <div class="categ-hg-title">
+                            <h2 class="text-color-maron">High Tech</h2>
+                            <p class="text-color-maron">
+                                Découvrez tous les produits de 
+                                boutique boulanger
+                            </p>
+                        </div>
+
+                        <div class="categ-hg-btn flex gap10 align-center" id="categ-btn">
+                            <span>Tout afficher</span>
+                            <img
+                                id="categ-img"
+                                class="categ-hg-img"
+                                src="http://localhost:8000/static/auctions/media/arrow_forward_white.svg"
+                                alt=""
+                            />
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <br/>
-            <br/>
-            
-            <div class="categ-illustration">
-                <img 
-                    src="http://localhost:8000/static/auctions/media/electronics-icons/electronics illus2.svg" 
-                    alt="" />
-                <div class="categ-discovery">
-                    <div href="#" class="categ-hg-title text-color-white">
-                        <h2 class="">Extension de 
-                            garentie Allianz</h2>
-                        <p>
-                            Pour vos objets High-Tech
-                        </p>
+                <br/>
+                <br/>
+                
+                <div class="categ-illustration">
+                    <img 
+                        src="http://localhost:8000/static/auctions/media/electronics-icons/electronics illus2.svg" 
+                        alt="" />
+                    <div class="categ-discovery">
+                        <div href="#" class="categ-hg-title text-color-white">
+                            <h2 class="">Extension de 
+                                garentie Allianz</h2>
+                            <p>
+                                Pour vos objets High-Tech
+                            </p>
+                        </div>
+
+                        <div class="categ-hg-btn flex gap10 align-center" id="categ-btn">
+                            <span>Découvrer</span>
+                            <img
+                                id="categ-img"
+                                class="categ-hg-img"
+                                src="http://localhost:8000/static/auctions/media/arrow_forward_white.svg"
+                                alt=""
+                            />
+                        </div>
+
+                        <p>Proposé par Allianz.Voir les conditions</p>
                     </div>
-
-                    <div class="categ-hg-btn flex gap10 align-center" id="categ-btn">
-                        <span>Découvrer</span>
-                        <img
-                            id="categ-img"
-                            class="categ-hg-img"
-                            src="http://localhost:8000/static/auctions/media/arrow_forward_white.svg"
-                            alt=""
-                        />
-                    </div>
-
-                    <p>Proposé par Allianz.Voir les conditions</p>
                 </div>
+                <div class="about-category"></div>
             </div>
-			<div class="about-category"></div>
-		</div>
-	</div>
-</section>
-
+        </div>
+    </section>
+</main>
 {% endblock %}
 

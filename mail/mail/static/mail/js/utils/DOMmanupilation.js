@@ -1,14 +1,3 @@
-export const fetchCurrentUser = async () => {
-	try {
-		const response = await fetch("/user");
-		const user = await response.json();
-		return user;
-	} catch (error) {
-		console.error("Error fetching current user:", error);
-		throw error;
-	}
-};
-
 export const emailElement = (email) => {
 	// Change background color if the email is read
 	let color = email.read ? "#f2f6fc;" : "#fff";
@@ -22,27 +11,27 @@ export const emailElement = (email) => {
     <div style="background: ${color};" class="email" id="email${
 		email.id
 	}" role="button" data-email_id="${email.id}">
-        <div class="checkbox-container">
-            <div class="form-check">
+        <div class="checkbox-list flex">
+            <div id="checkbox" class="form-check icon-btn">
                 <img src="http://localhost:8000/static/icons/checkbox not hover.svg" />
             </div>
-            <div class="form-check icon-btn">
+            <div id="checkbox-star" class="form-check icon-btn">
                 <img src="http://localhost:8000/static/icons/star not hover.svg" />
             </div>
-            <div class="form-check">
+            <div id="checkbox-important" class="form-check icon-btn">
                 <img src="http://localhost:8000/static/icons/important not hover.svg" />
             </div>
         </div>
         <span class="sender-preview preview-font ${
 			!email.read ? "unread" : ""
 		}">${senderName}</span>
-        <div class="subject-body">
-            <span class="subject-preview preview-font ${
+        <div class="subject-body flex">
+            <span class="subject-preview preview-font prev-font2 ${
 				!email.read ? "unread" : ""
-			}">${email.subject}</span> - 
-            <span class="body-preview">${email.body}</span>
+			}">${email.subject} - </span>  
+            <span class="body-preview ">${email.body}</span>
         </div>
-        <div class="datetime-preview preview-font grow ${
+        <div class="datetime-preview preview-font ${
 			!email.read ? "unread-time" : ""
 		}"><span>${dateTime}</span></div>
     </div>
@@ -297,6 +286,84 @@ export const respondOnEmail = (email) => {
 		});
 };
 
+export const noteApp = () => {
+	const noteAppContainer = document.createElement("div");
+	noteAppContainer.classList.add("noteApp-wrapper");
+
+	let childElement = `
+
+                    <div class="noteApp-header flex align-center space-between">
+                        
+                        <div class="note-logo">
+                            <h2>KEEP</h2>
+                            <h3>Notes</h3>
+                        </div>
+
+                        <div class="flex gap5 align-center space-between">
+                            <div class="noteApp-btns">
+                                <img src="static/icons/noteApp-icons/search.svg" alt="">
+                            </div>
+                            <div class="noteApp-btns">
+                                <img src="static/icons/noteApp-icons/open_in_new.svg" alt="">
+                            </div>
+                            <div class="noteApp-btns">
+                                <img src="static/icons/noteApp-icons/close.svg" alt="">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="noteApp-wrapper"> 
+                        <div id="newNote-newList" class="flex align-center space-between">
+                            <button id="newNote" class="newNote-btn flex gap">
+                                <img src="static/icons/noteApp-icons/add.svg" alt="" />
+                                <span>Take a note...</span>
+                            </button>
+                            <div id="note-list" class="noteApp-btns">
+                                <img src="static/icons/noteApp-icons/checkbox filled.svg" alt="" />
+                            </div>
+                        </div>
+                        <div id="noteApp-home" class="noteApp-body-">
+                            <div class="folder-image flex align-center justify-center">
+                                <img src="static/icons/noteApp-icons/folder icon.svg" alt=""/>
+                            </div>
+                            <div class="noteApp-slogan">
+                                <h1>No notes yet</h1>
+                                <p>Your notes from Google keep will
+                                    show up here</p>
+                            </div>
+
+                            <div class="plateform-btns">
+                                <div class="plateform-btn flex gap2">
+                                    <img src="static/icons/noteApp-icons/android icon.svg" alt=""/>
+                                    <span>Android devices</span>
+                                </div>
+                                <div class="plateform-btn flex gap2">
+                                    <img src="static/icons/noteApp-icons/ios icon.svg" alt=""/>
+                                    <span>iPhone & iPad</span>
+                                </div>
+                                <div class="plateform-btn flex gap2">
+                                    <img src="static/icons/noteApp-icons/web icon.svg" alt=""/>
+                                    <span>Web app</span>
+                                </div>
+                                <div class="plateform-btn flex gap2">
+                                    <img src="chrome extension" alt=""/>
+                                    <span>Chrome extension</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div id="noteApp-body" class="noteApp-body-"></div>
+                    </div>
+                    
+                        `;
+
+	noteAppContainer.append(childElement);
+
+	return noteAppContainer;
+};
+
 export const respondForm = (email) => {
 	// Email sender's name
 	let sender = email.sender;
@@ -335,6 +402,17 @@ export const emptyMailbox = (mailbox) => {
 
 	emailsView.innerHTML = content;
 	return emailsView;
+};
+
+export const fetchCurrentUser = async () => {
+	try {
+		const response = await fetch("/user");
+		const user = await response.json();
+		return user;
+	} catch (error) {
+		console.error("Error fetching current user:", error);
+		throw error;
+	}
 };
 
 export function timesTamp(timestamp) {

@@ -22,16 +22,16 @@
 						src="http://localhost:8000/static/auctions/media/auctions.svg"
 						alt=""
 					/>
-				</div>
+				</a>
 				<span
-					>Already have an account?
-					<a href="{% url 'login' %}">Log In here.</a></span
+					>Déjà membre?
+					<a href="{% url 'login' %}">Se connecter</a></span
 				>
 			</div>
 			<div class="register-container">
 				<div class="register">
 					<div class="register-header">
-						<h1>Créer votre compte</h1>
+						<h1>Créer un compte</h1>
 						<div class="flex justify-center align-center">
 							<div class="account-type flex gap10">
 								<div class="flex align-center gap3">
@@ -40,6 +40,7 @@
 										id="particulier"
 										name="accountType"
 										value="particulier"
+										checked
 									/>
 									<label for="partculier"
 										>Compte particulier</label
@@ -130,6 +131,7 @@
 								class="btn-register"
 								type="submit"
 								value="Register"
+								disabled
 							/>
 						</form>
 						<div class="separator">
@@ -168,4 +170,49 @@
 			</div>
 		</main>
 	</body>
+	<script>
+		const firstName = document.querySelector("#firstname");
+		const lastName = document.querySelector("#lastname");
+		const email = document.querySelector("#email");
+		const password = document.querySelector("#password");
+		const confirmation = document.querySelector("#confirmation");
+		const submitBtn = document.querySelector(".btn-register");
+
+		function isInputsValid() {
+			return (
+				firstName.value.trim() !== "" &&
+				lastName.value.trim() !== "" &&
+				email.value.trim() !== "" &&
+				password.value.trim() !== "" &&
+				confirmation.value.trim() !== ""
+			);
+		}
+
+		function updateSubmitBtn() {
+			const isValid = isInputsValid(); // Store the validity check result			
+			submitBtn.disabled = !isValid;
+
+
+			if (isValid) {
+				submitBtn.style.backgroundColor = "#3665F3"; // Corrected property name
+			}
+		}
+
+		// Add event listeners for all input fields
+		firstName.addEventListener("input", updateSubmitBtn);
+		lastName.addEventListener("input", updateSubmitBtn);
+		email.addEventListener("input", updateSubmitBtn);
+		password.addEventListener("input", updateSubmitBtn);
+		confirmation.addEventListener("input", updateSubmitBtn);
+
+
+	</script>
+	<footer>
+		<div class="footer-container3">
+			<div class="footer-term-div3 flex justify-center">
+				<span>Copyright © 1995-2023 eBay Inc. Tous droits réservés. <a class="footer-term" href="">Conditions d'utilisation</a>, <a class="footer-term" href="">Avis sur les données personnelles</a>, <a class="footer-term" href="">Conditions d'utilisation des services de paiement</a>, <a class="footer-term" href="">cookies</a> et <a class="footer-term" href="">AdChoice</a>	
+				</span>
+			</div>	
+		</div>		
+	</footer>
 </html>

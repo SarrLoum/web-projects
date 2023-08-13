@@ -50,6 +50,13 @@ class Email(models.Model):
             "spam": self.spam,
             "trash": self.trash,
         }
+class ParentLabelNote(models.Model):
+    name = models.CharField(max_length=100)
+
+
+class LabelNote(models.Model):
+    name = models.CharField(max_length=100)
+    parent = models.ForeignKey(ParentLabelNote, on_delete=models.CASCADE, related_name="child_notes", blank=True, null=True)
 
 
 class WallPaper(models.Model):

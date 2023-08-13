@@ -1,3 +1,4 @@
+import { KeepNoteApp } from "./thirdPardApps/keepNoteApp.js";
 import {
 	fetchCurrentUser,
 	emailElement,
@@ -7,7 +8,7 @@ import {
 	respondOnEmail,
 	emptyMailbox,
 	subjectRe,
-} from "./utils.js";
+} from "./utils/DOMmanupilation.js";
 
 document.addEventListener("DOMContentLoaded", function () {
 	// Use buttons to toggle between views
@@ -41,6 +42,12 @@ document.addEventListener("DOMContentLoaded", function () {
 	// By default, load the inbox
 	load_mailbox("inbox");
 
+	var windowWidth = window.innerWidth;
+	console.log("Viewport width: " + windowWidth);
+
+	var screenWidth = screen.width;
+	console.log("Screen width: " + screenWidth);
+
 	// actvite toggle button and interactive nav
 	toggleButton();
 	interactiveNav();
@@ -48,45 +55,9 @@ document.addEventListener("DOMContentLoaded", function () {
 	// Set the backgound image
 	setBackground();
 
-	// Listen for clicks on the settings
-	const emailsContainer = document.querySelector(".emails-content");
-	const settingsContainer = document.querySelector(".settings-container");
-	const settingsButton = document.querySelector("#settings");
-
-	settingsButton.addEventListener("click", function () {
-		let initialWidth = emailsContainer.offsetWidth;
-		var isFlexed = emailsContainer.dataset.flexed === "true";
-
-		if (getComputedStyle(settingsContainer).display === "none") {
-			let settingsWidth = parseFloat(
-				getComputedStyle(settingsContainer).width
-			);
-			let settingsMargin = parseFloat(
-				getComputedStyle(settingsContainer).marginLeft
-			);
-			let shrinkWidth = initialWidth - (settingsWidth + settingsMargin);
-
-			let newWidth =
-				shrinkWidth /
-					parseFloat(getComputedStyle(emailsContainer).fontSize) +
-				"em";
-
-			emailsContainer.style.width = isFlexed ? 56.5 + "em" : newWidth;
-
-			settingsContainer.style.display = "block";
-
-			console.log("Clicked"); // Check if the event listener is triggered
-			console.log("Shrink Width:", shrinkWidth); // Check the calculated shrink width
-			console.log("Emails Container Width:", emailsContainer.style.width); // Check the width value applied to the emails container
-			console.log(
-				"Settings Container Display:",
-				settingsContainer.style.display
-			); // Check the display property value of the settings container
-		} else {
-			emailsContainer.style.width = isFlexed ? 76.5 + "em" : 65.5 + "em";
-			settingsContainer.style.display = "none";
-		}
-	});
+	// For flexing the emails container div
+	flexEmailsContainer();
+	thirdPartApps();
 
 	// Load the userLog and userApps modals with display none
 	userLog();
@@ -158,6 +129,53 @@ function compose_email() {
 		} else {
 			composeView.style.bottom = 0;
 			composeView.style.width = "31.81em";
+		}
+	});
+}
+
+function flexEmailsContainer() {
+	// Listen for clicks on the settings
+	const emailsContainer = document.querySelector(".emails-content");
+	const settingsContainer = document.querySelector(".settings-container");
+	const settingsButton = document.querySelector("#settings");
+
+	settingsButton.addEventListener("click", function () {
+		let initialWidth = emailsContainer.offsetWidth;
+		var isFlexed = emailsContainer.dataset.flexed === "true";
+
+		if (getComputedStyle(settingsContainer).display === "none") {
+			let settingsWidth = parseFloat(
+				getComputedStyle(settingsContainer).width
+			);
+			let settingsMargin = parseFloat(
+				getComputedStyle(settingsContainer).marginLeft
+			);
+			let shrinkWidth = initialWidth - (settingsWidth + settingsMargin);
+
+			let newWidth =
+				shrinkWidth /
+					parseFloat(getComputedStyle(emailsContainer).fontSize) +
+				"em";
+
+			emailsContainer.style.maxWidth = isFlexed ? 56.5 + "em" : newWidth;
+
+			settingsContainer.style.display = "block";
+
+			console.log("Clicked"); // Check if the event listener is triggered
+			console.log("Shrink Width:", shrinkWidth); // Check the calculated shrink width
+			console.log(
+				"Emails Container Width:",
+				emailsContainer.style.maxWidth
+			); // Check the width value applied to the emails container
+			console.log(
+				"Settings Container Display:",
+				settingsContainer.style.display
+			); // Check the display property value of the settings container
+		} else {
+			emailsContainer.style.maxWidth = isFlexed
+				? 76.5 + "em"
+				: 65.5 + "em";
+			settingsContainer.style.display = "none";
 		}
 	});
 }
@@ -245,15 +263,12 @@ function load_emails(mailbox) {
 			// Loop through the collection
 			Array.from(elements).forEach((element) => {
 				element.addEventListener("click", function (event) {
-					if (
-						event.target.tagName.toLowerCase() === "input" &&
-						event.target.type === "checkbox"
-					) {
-						// The click event occurred on the checkbox element, toggle its status
-						event.stopPropagation();
-						//event.target.checked = !event.target.checked;
-						console.log("checkbox clicked");
-					} else if (!event.target.closest(".email .checkbox-ul")) {
+					if (event.target.closest(".form-check")) {
+						event.preventDefault();
+						console.log(
+							"checkbox is clicked ========>>>>>>>>>>><<"
+						);
+					} else if (!event.target.closest(".email .form-check")) {
 						// The click event occurred on some other element, display the email view
 						console.log("email clicked");
 						const id = element.dataset.email_id;
@@ -414,6 +429,67 @@ function asTrash(email) {
 		body: JSON.stringify({
 			trash: !email.trash,
 		}),
+	});
+}
+
+function thirdPartApps() {
+	const myAppsDIv = document.querySelector("#thirdPart-apps");
+	const emailContentDiv = document.querySelector(
+		".content-settings-container"
+	);
+	const myAppsBtns = document.querySelectorAll(".apps-icon-wrapper");
+
+	myAppsBtns.forEach((myAppBtn) => {
+		myAppBtn.addEventListener("click", () => {
+			emailContentDiv.style.maxWidth = 45.75 + "em";
+			myAppsDIv.style.display = "block";
+
+			if (myAppBtn.id === "keep-note") {
+				KeepNoteApp();
+			}
+		});
+	});
+}
+function addLabels() {
+	const submitLabelBtn = document.querySelector("#submit-label");
+	const labelNameInput = document.querySelector("#label-name");
+	const parentLabelInput = document.querySelector("#parent-label");
+	const nestedCheckbox = document.querySelector("#nested");
+	const firstOption = document.querySelector("#option0");
+
+	var isNested = nestedCheckbox.checked === "true";
+	if (isNested) {
+		firstOption.innerHTML = "Please Select a parent";
+
+		fetch("/label/new")
+			.then((response) => response.json())
+			.then((labels) => {
+				let index = 0; // keep track of the number of labels
+				labels.forEach((label) => {
+					index += 1;
+					//create a new option
+					const option = document.createElement("option");
+					option.id = `option${index}`;
+					option.style.marginLeft = `${index}em`;
+					// add the option to the select input
+					parentLabelInput.appendChild(option);
+				});
+			});
+	}
+
+	submitLabelBtn.addEventListener("click", (event) => {
+		event.preventDefault();
+
+		const labelName = labelNameInput.value.strip();
+		const parentLabel = parentLabelInput.value.strip();
+
+		fetch("/label/new", {
+			mehthod: "POST",
+			body: JSON.stringify({
+				name: labelName,
+				parent: parentLabel,
+			}),
+		});
 	});
 }
 

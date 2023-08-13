@@ -15,7 +15,7 @@
 		{% if message %}
 		<div>{{ message }}</div>
 		{% endif %}
-		<main class="register-page" id="main">
+		<main class="login-page" id="main">
 			<a href="{% url 'index' %}" class="auction-logo-auth">
 				<img
 					src="http://localhost:8000/static/auctions/media/auctions.svg"
@@ -59,6 +59,7 @@
 								class="btn-register"
 								type="submit"
 								value="Log in"
+								disabled
 							/>
 						</form>
 						<div class="separator separator-login">
@@ -97,4 +98,42 @@
 			</div>
 		</main>
 	</body>
+	<script>
+		const email = document.querySelector("#email");
+		const password = document.querySelector("#password");
+		const submitBtn = document.querySelector(".btn-register");
+
+		function isInputsValid() {
+			return (
+				username.value.trim() !== "" && // Added condition for username
+				password.value.trim() !== ""
+			);
+		}
+
+		function updateSubmitBtn() {
+			const isValid = isInputsValid(); // Store the validity check result
+			submitBtn.disabled = !isValid;
+
+			if (isValid) {
+				submitBtn.style.backgroundColor = "#3665F3"; // Corrected property name
+			} 
+		}
+
+		username.addEventListener("input", updateSubmitBtn); // Add event listener for username
+		password.addEventListener("input", updateSubmitBtn);
+
+		username.addEventListener("change", updateSubmitBtn); // Add event listener for username
+		password.addEventListener("change", updateSubmitBtn);
+
+
+
+	</script>
+	<footer>
+		<div class="footer-container3">
+			<div class="footer-term-div3 flex justify-center">
+				<span>Copyright © 1995-2023 eBay Inc. Tous droits réservés. <a class="footer-term" href="">Conditions d'utilisation</a>, <a class="footer-term" href="">Avis sur les données personnelles</a>, <a class="footer-term" href="">Conditions d'utilisation des services de paiement</a>, <a class="footer-term" href="">cookies</a> et <a class="footer-term" href="">AdChoice</a>	
+				</span>
+			</div>	
+		</div>		
+	</footer>
 </html>

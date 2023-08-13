@@ -25,8 +25,63 @@
 			</div>
 			{% endfor %}
 		</div>
+
 	</section>
-	<section>
+	<section class="discount-section">
+		{% if is_viewed_listings %}
+
+			<h3 class="no-margin">
+				Your recently viewed items
+			</h3>
+
+			<ul class="item-list grow no-margin negative-left grid-scaled">
+				{% for viewed_listing in user_viewed_listings %}
+				<li class="grid-items-scaled flex column">
+					<div class="list-item scale-zoom">
+						<a href="{% url 'listing-page' viewed_listing.listing.id %}">
+							<div class="img-wrapper scale-zoom2">
+								<img
+									src="{{ viewed_listing.listing.image.url }}"
+									alt=""
+								/></div
+						></a>
+						<div class="item-details">
+							<a
+								class="title-link"
+								href="{% url 'listing-page' viewed_listing.listing.id %}"
+								>{{ viewed_listing.listing.title }}</a
+							>
+							<span>${{ viewed_listing.listing.starting_bid }}</span>
+						</div>
+					</div>
+				</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<div class="discount-wrapper flex space space-between">
+			<div class="discount-slogan">
+				<h2>Cheer on your team</h2>
+				<span>support women soccer with fan gear, trading cards and more</span>
+			</div>
+			<a href="#" class="discount-btn flex gap2">
+				<span>Shop {% now "DATE_FORMAT" %}</span>
+				<img src="static/auctions/media/arrow_forward1.svg" alt="" />
+			</a>
+		</div>
+	</section>
+
+
+	<section class="categories-section">
+
+		<a href class="no-margin">
+			<span>
+				Trending Categories
+			</span>
+			<span>
+				<span class="categAll">See all <img src="static/auctions/media/arrow_forward1.svg" alt=""/></span>
+			</span>
+		</a>
+
 		<ul id="categories" class="carousel-list">
 			{% for category in categories %}
 			<li class="category-item">
@@ -67,7 +122,7 @@
 			</div>
 			<ul class="item-list grow">
 				{% for listing in active_listing %}
-				<li>
+				<li class="flex column">
 					<div class="list-item scale-zoom">
 						<a href="{% url 'listing-page' listing.id %}">
 							<div class="img-wrapper scale-zoom2">
@@ -90,5 +145,40 @@
 			</ul>
 		</div>
 	</section>
+
+	<section class="futCard-section">
+		<a href class="no-margin">
+			<span>
+				Best of Fifa FUT cards
+			</span>
+			<span>
+				<span class="categAll">See all <img src="static/auctions/media/arrow_forward1.svg" alt=""/></span>
+			</span>
+		</a>
+
+
+		<ul class="item-list grow no-margin negative-left grid-scaled">
+			{% for listing in active_listing %}
+			<li class="grid-items-scaled flex column">
+				<div class="list-item scale-zoom">
+					<a href="{% url 'listing-page' listing.id %}">
+						<div class="img-wrapper scale-zoom2">
+							<img
+								src="{{ listing.image.url }}"
+								alt=""
+							/></div
+					></a>
+					<div class="item-details">
+						<a
+							class="title-link"
+							href="{% url 'listing-page' listing.id %}"
+							>{{ listing.title }}</a
+						>
+						<span>${{ listing.starting_bid }}</span>
+					</div>
+				</div>
+			</li>
+			{% endfor %}
+		</ul>
 </main>
 {% endblock %}

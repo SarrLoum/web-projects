@@ -1,23 +1,38 @@
 {% extends "auctions/layout.html" %} {% block body %}
-<ul class="flex column gap5">
-	{% for item in watched %}
-	<li class="flex gap5">
-		<div class="watch-item">
-			<a href="{% url 'listing-page' item.id %}">
-				<div class="img-wrapper">
-					<img src="{{ item.image.url }}" alt="" /></div
-			></a>
-			<div class="item-details">
-				<a class="title-link" href="{% url 'listing-page' item.id %}"
-					>{{ item.title }}</a
-				>
-				<span>${{ item.starting_bid }}</span>
-				<div class="description">{{ item.description }}</div>
-			</div>
+
+
+<main id="main" class="watchlist-page">
+	{% if watched %}
+		<div class="whatchlist-header">
+			<h1>Your Watchlist items</h1>
 		</div>
-	</li>
-	{% endfor %}
-</ul>
+		<ul class="flex column gap5">
+			{% for item in watched %}
+			<li class="flex gap5">
+				<div class="watch-item flex">
+					<a href="{% url 'listing-page' item.id %}">
+						<div class="img-wrapper">
+							<img src="{{ item.image.url }}" alt="" /></div
+					></a>
+					<div class="item-details">
+						<a class="title-link" href="{% url 'listing-page' item.id %}"
+							>{{ item.title }}</a
+						>
+						<span>${{ item.starting_bid }}</span>
+						<div class="description">{{ item.description }}</div>
+					</div>
+				</div>
+			</li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		<div class="whatchlist-header">
+			<h1>You have no item in watchlist yet</h1>
+		</div>
+
+	{% endif %}
+</main>
+
 {% endblock%}
 
 <!--

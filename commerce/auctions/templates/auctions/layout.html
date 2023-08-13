@@ -16,12 +16,21 @@
 		<div class="flex space-between padding">
 			<div class="heading-nav-left flex align-center gap1">
 				<span class="auctions-user">
-					{% if user.is_authenticated %} Bonjour
-					<strong>{{ user.username }}</strong>. {% else %} Bonjour
-					<a href="#">Connectez-vous</a>
-					{%endif %}
+					{% if user.is_authenticated %}
+						<button id="current-user" class="current-user"> 
+							Bonjour
+							<strong>{{ user.username }}</strong>
+							<img src="http://127.0.0.1:8000/static/auctions/media/expand_more1.svg
+							" alt="" />
+						</button>
+					{% else %} 
+						Bonjour
+						<a class="default-link" href="{% url 'login' %}">Connectez-vous</a>
+						ou
+						<a class="default-link" href="{% url 'register' %}">inscrivez-vous</a>
+					{% endif %}
 				</span>
-				<a href="#">Auctions estilation</a>
+				<a href="#">Auctions estimation</a>
 				<a href="#">Bon Plans</a>
 
 				<a href="#">Aide</a>
@@ -31,6 +40,7 @@
 						alt=""
 					/>
 				</a>
+			
 			</div>
 			<div class="heading-nav-right flex align-center gap1">
 				<a href="#">Vendre</a>
@@ -51,7 +61,7 @@
 		<hr class="hr-line1" />
 
 		<header>
-			<div class="header-wrapper flex gap2">
+			<div class="header-wrapper flex gap1">
 				<a href="{% url 'index' %}" class="auction-logo">
 					<img
 						src="http://localhost:8000/static/auctions/media/auctions.svg"
@@ -91,7 +101,7 @@
 								<option value="musical">
 									Musical instruments / gear
 								</option>
-								<option value="sports">Sporting good</option>
+								<option value="sports">Sporting good</op>
 								<option value="toys">Toys / hobbies</option>
 							</select>
 						</div>
@@ -105,44 +115,47 @@
 				</div>
 			</div>
 			<hr class="hr-line" />
+			<div>
+				<ul class="topnav">
+					<li class="nav-item">
+						<a class="nav-link active" href="{% url 'index' %}"
+							><span>Active Listings</span></a
+						>
+					</li>
+					{% if user.is_authenticated %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'new_listing' %}"
+							><span>Create listing</span></a
+						>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'watched' %}"
+							><span>Watchlist</span></a
+						>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'logout' %}"
+							><span>Log Out</span></a
+						>
+					</li>
+					{% else %}
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'login' %}"
+							><span>Log In</span></a
+						>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'register' %}"
+							><span>Register</span></a
+						>
+					</li>
+					{% endif %}
+				</ul>
+			<div>
+			<hr class="hr-line no-margin" />
+
 		</header>
 
-		<ul class="nav topnav">
-			<li class="nav-item">
-				<a class="nav-link active" href="{% url 'index' %}"
-					><span>Active Listings</span></a
-				>
-			</li>
-			{% if user.is_authenticated %}
-			<li class="nav-item">
-				<a class="nav-link" href="{% url 'new_listing' %}"
-					><span>Create listing</span></a
-				>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="{% url 'watched' %}"
-					><span>Watchlist</span></a
-				>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="{% url 'logout' %}"
-					><span>Log Out</span></a
-				>
-			</li>
-			{% else %}
-			<li class="nav-item">
-				<a class="nav-link" href="{% url 'login' %}"
-					><span>Log In</span></a
-				>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="{% url 'register' %}"
-					><span>Register</span></a
-				>
-			</li>
-			{% endif %}
-			<hr style="margin: 0" />
-		</ul>
 		{% block body %} {% endblock %}
 		<!-- ======= JAVASCRIPT SECTION ======-->
 		<!-- Bootsrap5 JS-->
@@ -154,94 +167,214 @@
 		<script src="{% static 'auctions/home.js' %}"></script>
 
 		<!-- Jquery -->
+
+		<div class="user-modal">
+			<span class="user-modal-span">Actuellement en</span>
+			<a href="#" class="user-div current-active flex">
+				<div class="current-user-avatar flex align-center justify-center">
+				</div>
+				<div class="user-info">
+					<span class="current-username"></span>
+					<div class="current-accountType flex space-between">
+						<span>Personel</span>
+						<img src="http://localhost:8000/static/auctions/media/check-icon.svg" alt="" />
+					</div>
+					<span class="current-email"></span>	
+				</div>
+			</a>
+
+			<span class="user-modal-span">Vos comptes</span>
+			<div class="current-account-div">
+				<a href="#" class="account-links flex align-center">
+					<span>My bids</span>
+				</a>
+				<a href="#" class="account-links flex align-center">
+					<span>Convert to business</span>
+				</a>
+			</div>
+
+			<span class="user-modal-span">Plus d'a</span>
+			<div class="current-account-div">
+				<a href="#" class="account-links flex align-center">
+					<span>Settings</span>
+				</a>
+				<a href="{% url 'logout' %}" class="account-links flex align-center">
+					<span>Se déconnecter</span>
+
+				</a>
+			</div>
+		</div>
+
 	</body>
 
 	<footer>
+
+		<!-- FOOTER  --> 
 		<div class="footer-container1">
-			<div class="footer-content">
-				<a href=""><h4>Acheter</h4></a>
-				<ul>
-					<a href=""><li class="footer-link">Comment acheter</li></a>
-					<a href=""><li class="footer-link">Acheter par categories</li></a>
-					<a href=""><li class="footer-link">Promotion</li></a>
-					<a href=""><li class="footer-link">Application auctions</li></a>
-					<a href=""><li class="footer-link">Marques</li></a>
-					<a href=""><li class="footer-link">Marques de voiture</li></a>
-					<a href=""><li class="footer-link">
-						Droits et obligations sur auctions
-					</li>
-					<a href=""><li class="footer-link">auctions Extra</li></a>
-				</ul>
-			</div>
-
-			<div class="footer-content">
-				<a href=""><h4>Vendre</h4></a>
-				<ul>
-					<a href=""><li class="footer-link">Comment vendre</li></a>
-					<a href=""><li class="footer-link">Outils de vente</li></a>
-					<a href=""><li class="footer-link">Espace vendeurs</li></a>
-					<a href=""><li class="footer-link">Ouvrir une boutique auctions</li></a>
-					<a href=""><li class="footer-link">Espace livraison</li></a>
-					<a href=""><li class="footer-link">Frais de vente</li></a>
-					<a href=""><li class="footer-link">Protection des vendeurs</li></a>
-					<a href=""><li class="footer-link">Vendre à l'international</li></a>
-					<a href=""><li class="footer-link">
-						Fonctionnement de la plateforme auctions
-					</li></a>
-					<a href=""><li class="footer-link"></li></a>
-				</ul>
-			</div>
-			<div class="footer-content">
-				<a href=""><h4>A propos de auctions</h4></a>
-				<ul>
-					<a href=""><li class="footer-link">Consommation raisonnée</li></a>
-					<a href=""><li class="footer-link">Mentions légales</li></a>
-					<a href=""><li class="footer-link">auctions advertising</li></a>
-					<a href=""><li class="footer-link">Affiliation</li></a>
-					<a href=""><li class="footer-link">VeRO: propiété intellectuelle</li></a>
-					<a href=""><li class="footer-link">
-						Programme auctions des développeurs
-					</li></a>
-					<a href=""><li class="footer-link">Communiqués de presse</li></a>
-					<a href=""><li class="footer-link">Opportunités de carrière</li></a>
-					<a href=""><li class="footer-link">Décisions de justice</li></a>
-				</ul>
-			</div>
-
-			<div class="footer-content">
-				<a href=""><h4>Aide</h4></a>
-				<ul>
-					<a href=""><li class="footer-link">Espace Sécurité</li></a>
-					<a href=""><li class="footer-link">Garentie client Kolways</li></a>
-				</ul>
-			</div>
-
-			<div class="footer-content footer-commu">
-				<a href=""><h4>Communauté</h4></a>
-				<ul>
-					<a  href=""><li class="footer-link">Facebook</li></a>
-					<a href=""><li class="footer-link">Twitter</li></a>
-					<a href=""><li class="footer-link">Intagram</li></a>
-					<a href=""><li class="footer-link">Pintrest</li></a>
-					<a href=""><li class="footer-link">Actualité auctions</li></a>
-					<a href=""><li class="footer-link">Forums d'entraide</li></a>
-					<a href=""><li class="footer-link">Forums de discussion</li></a>
-					<a href=""><li class="footer-link">Groupes</li></a>
-				</ul>
+			<div class="footer-content-wrapper">
+				<div class="footer-content">
+					<a href=""><h4>Acheter</h4></a>
+					<ul>
+						<a href=""><li class="footer-link">Comment acheter</li></a>
+						<a href=""><li class="footer-link">Acheter par categories</li></a>
+						<a href=""><li class="footer-link">Promotion</li></a>
+						<a href=""><li class="footer-link">Application auctions</li></a>
+						<a href=""><li class="footer-link">Marques</li></a>
+						<a href=""><li class="footer-link">Marques de voiture</li></a>
+						<a href=""><li class="footer-link">
+							Droits et obligations sur auctions
+						</li>
+						<a href=""><li class="footer-link">auctions Extra</li></a>
+					</ul>
+				</div>
 
 				<div class="footer-content">
-					<a href=""><h4>Sites auctions</h4></a>
-					<div class="contries-selection-btn">
-						<img id="country-flag" src="" alt="">
-						<span id="country-name"></span>
-						<img src="" alt="">
+					<a href=""><h4>Vendre</h4></a>
+					<ul>
+						<a href=""><li class="footer-link">Comment vendre</li></a>
+						<a href=""><li class="footer-link">Outils de vente</li></a>
+						<a href=""><li class="footer-link">Espace vendeurs</li></a>
+						<a href=""><li class="footer-link">Ouvrir une boutique auctions</li></a>
+						<a href=""><li class="footer-link">Espace livraison</li></a>
+						<a href=""><li class="footer-link">Frais de vente</li></a>
+						<a href=""><li class="footer-link">Protection des vendeurs</li></a>
+						<a href=""><li class="footer-link">Vendre à l'international</li></a>
+						<a href=""><li class="footer-link">
+							Fonctionnement de la plateforme auctions
+						</li></a>
+						<a href=""><li class="footer-link"></li></a>
+					</ul>
+				</div>
+				<div class="footer-content">
+					<a href=""><h4>A propos de auctions</h4></a>
+					<ul>
+						<a href=""><li class="footer-link">Consommation raisonnée</li></a>
+						<a href=""><li class="footer-link">Mentions légales</li></a>
+						<a href=""><li class="footer-link">auctions advertising</li></a>
+						<a href=""><li class="footer-link">Affiliation</li></a>
+						<a href=""><li class="footer-link">VeRO: Propriété intellectuelle</li></a>
+						<a href=""><li class="footer-link">
+							Programme auctions des développeurs
+						</li></a>
+						<a href=""><li class="footer-link">Communiqués de presse</li></a>
+						<a href=""><li class="footer-link">Opportunités de carrière</li></a>
+						<a href=""><li class="footer-link">Décisions de justice</li></a>
+					</ul>
+				</div>
+
+				<div class="footer-content">
+					<a href=""><h4>Aide</h4></a>
+					<ul>
+						<a href=""><li class="footer-link">Espace Sécurité</li></a>
+						<a href=""><li class="footer-link">Garentie client Kolways</li></a>
+					</ul>
+				</div>
+
+				<div class="footer-content footer-commu">
+					<a href=""><h4>Communauté</h4></a>
+					<ul>
+						<a  href=""><li class="footer-link">Facebook</li></a>
+						<a href=""><li class="footer-link">Twitter</li></a>
+						<a href=""><li class="footer-link">Intagram</li></a>
+						<a href=""><li class="footer-link">Pintrest</li></a>
+						<a href=""><li class="footer-link">Actualité auctions</li></a>
+						<a href=""><li class="footer-link">Forums d'entraide</li></a>
+						<a href=""><li class="footer-link">Forums de discussion</li></a>
+						<a href=""><li class="footer-link">Groupes</li></a>
+					</ul>
+
+					<div class="footer-content">
+						<a href=""><h4>Sites auctions</h4></a>
+						<button class="countries-btn flex align-center">
+							<img class="country-flag" src="http://localhost:8000/static/auctions/media/country-flags/mo-flag.gif" alt="">
+							<span id="country-name">
+								Maroc
+							</span>
+							<img id="" src="http://127.0.0.1:8000/static/auctions/media/expand_more1.svg
+							" alt="">
+
+						</button>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="footer-term-div">
-			<span>Copyright © 1995-2023 eBay Inc. Tous droits réservés. <a class="footer-term" href="">Conditions d'utilisation</a>, <a class="footer-term" href="">Avis sur les données personnelles</a>, <a class="footer-term" href="">Conditions d'utilisation des services de paiement</a>, <a class="footer-term" href="">cookies</a> et <a class="footer-term" href="">AdChoice</a>	
-			</span>
-		</div>
+			<div class="footer-term-div">
+				<span>Copyright © 1995-2023 eBay Inc. Tous droits réservés. <a class="footer-term" href="">Conditions d'utilisation</a>, <a class="footer-term" href="">Avis sur les données personnelles</a>, <a class="footer-term" href="">Conditions d'utilisation des services de paiement</a>, <a class="footer-term" href="">cookies</a> et <a class="footer-term" href="">AdChoice</a>	
+				</span>
+			</div>	
+
+			<div class="country-as-div flex space-between">
+				<div class="flex column gap1">
+					<a href="#" class="flex align-center gap10"><img class="country-flag" src="http://localhost:8000/static/auctions/media/country-flags/mo-flag.gif" alt=""><span class="country-name" >Maroc</span></a>
+					<a href="#" class="flex align-center gap10"><img class="country-flag" src="http://localhost:8000/static/auctions/media/country-flags/sg-flag.gif" alt=""><span class="country-name">Senegal</span></a>
+					<a href="#" class="flex align-center gap10"><img class="country-flag" src="http://localhost:8000/static/auctions/media/country-flags/ni-flag.gif" alt=""><span class="country-name">Nigeria</span></a>
+					<a href="#" class="flex align-center gap10"><img class="country-flag" src="http://localhost:8000/static/auctions/media/country-flags/sf-flag.gif" alt=""><span class="country-name">Afriqque du Sud</span></a>
+					<a href="#" class="flex align-center gap10"><img class="country-flag" src="http://localhost:8000/static/auctions/media/country-flags/eg-flag.gif" alt=""><span class="country-name">Egypte</span></a>
+				</div>
+				<div class="flex column gap1">
+
+					<a href="#" class="flex align-center gap10"><img class="country-flag" src="http://localhost:8000/static/auctions/media/country-flags/fr-flag.gif" alt=""><span class="country-name">France</span></a>
+					<a href="#" class="flex align-center gap10"><img class="country-flag" src="http://localhost:8000/static/auctions/media/country-flags/be-flag.gif" alt=""><span class="country-name">Belgique</span></a>
+					<a href="#" class="flex align-center gap10"><img class="country-flag" src="http://localhost:8000/static/auctions/media/country-flags/sp-flag.gif" alt=""><span class="country-name">Espagne</span></a>
+					<a href="#" class="flex align-center gap10"><img class="country-flag" src="http://localhost:8000/static/auctions/media/country-flags/po-flag.gif" alt=""><span class="country-name">Portugal</span></a>
+					<a href="#" class="flex align-center gap10"><img class="country-flag" src="http://localhost:8000/static/auctions/media/country-flags/nl-flag.gif" alt=""><span class="country-name">Pays-bas</span></a>
+				</div>
+				<div class="flex column gap1">
+					<a href="#" class="flex align-center gap10"><img class="country-flag" src="http://localhost:8000/static/auctions/media/country-flags/ca-flag.gif" alt=""><span class="country-name">Canada</span></a>
+					<a href="#" class="flex align-center gap10"><img class="country-flag" src="http://localhost:8000/static/auctions/media/country-flags/us-flag.gif" alt=""><span class="country-name">Etats-Unies</span></a>
+					<a href="#" class="flex align-center gap10"><img class="country-flag" src="http://localhost:8000/static/auctions/media/country-flags/uk-flag.gif" alt=""><span class="country-name">Royaumes Unies</span></a>
+					<a href="#" class="flex align-center gap10"><img class="country-flag" src="http://localhost:8000/static/auctions/media/country-flags/br-flag.gif" alt=""><span class="country-name">Australie</span></a>
+					<a href="#" class="flex align-center gap10"><img class="country-flag" src="http://localhost:8000/static/auctions/media/country-flags/nz-flag.gif" alt=""><span class="country-name">Nouvelle-Zéland</span></a>
+
+				</div>
+				<div class="flex column gap1">
+					<a href="#" class="flex align-center gap10"><img class="country-flag" src="http://localhost:8000/static/auctions/media/country-flags/mx-flag.gif" alt=""><span class="country-name">Mexique</span></a>
+					<a href="#" class="flex align-center gap10"><img class="country-flag" src="http://localhost:8000/static/auctions/media/country-flags/co-flag.gif" alt=""><span class="country-name">Comlobie</span></a>
+					<a href="#" class="flex align-center gap10"><img class="country-flag" src="http://localhost:8000/static/auctions/media/country-flags/br-flag.gif" alt=""><span class="country-name">Brasil</span></a>
+					<a href="#" class="flex align-center gap10"><img class="country-flag" src="http://localhost:8000/static/auctions/media/country-flags/ar-flag.gif" alt=""><span class="country-name">Argentine</span></a>
+				</div>
+				<div class="flex column gap1">
+					<a href="#" class="flex align-center gap10"><img class="country-flag" src="http://localhost:8000/static/auctions/media/country-flags/rs-flag.gif" alt=""><span class="country-name">Russie</span></a>
+					<a href="#" class="flex align-center gap10"><img class="country-flag" src="http://localhost:8000/static/auctions/media/country-flags/ch-flag.gif" alt=""><span class="country-name">Chine</span></a>
+					<a href="#" class="flex align-center gap10"><img class="country-flag" src="http://localhost:8000/static/auctions/media/country-flags/ja-flag.gif" alt=""><span class="country-name">Japon</span></a>
+					<a href="#" class="flex align-center gap10"><img class="country-flag" src="http://localhost:8000/static/auctions/media/country-flags/my-flag.gif" alt=""><span class="country-name">Malaisie</span></a>
+				</div>
+			</div>
+		</div>		
+		
+		<!-- FOOTER 2 --> 
+		<div class="footer-container2 align-center justify-center">
+
+			<div>
+				<div class="footer-content-div">
+					<div class="footer-content2">
+						<ul class="flex gap7 row">
+							<a href=""><li class="footer-link">A propos de auctions</li></a>
+							<a href=""><li class="footer-link">Consommation raisonnée</li></a>
+							<a href=""><li class="footer-link">Actualités auctions</li></a>
+							<a href=""><li class="footer-link">Communauté</li></a>
+							<a href=""><li class="footer-link">La sécurité sur auctions</li></a>
+							<a href=""><li class="footer-link">Comment vendre</li></a>
+							<a href=""><li class="footer-link">ESpace vendeurs</li></a>
+							<a href=""><li class="footer-link">VeRO: Programme de protection de la propriété intellectuelle</li></a>
+						</ul>
+					</div>
+					<div class="footer-content2">
+						<ul class="flex gap7">
+							<a href=""><li class="footer-link">Réglements et sécurité</li></a>
+							<a href=""><li class="footer-link">Affliation</li></a>
+							<a href=""><li class="footer-link">Traductions</li></a>
+							<a href=""><li class="footer-link">Advertising aucTions</li></a>
+							<a href=""><li class="footer-link">Aide</li></a>
+							<a href=""><li class="footer-link">Plan du site</li></a>
+							<a href=""><li class="footer-link">Droits acheteurs particuliers</li></a>
+							<a href=""><li class="footer-link">Notre plateforme</li></a>
+						</ul>
+					</div>
+				</div>
+				<div class="footer-term-div">
+					<span>Copyright © 1995-2023 eBay Inc. Tous droits réservés. <a class="footer-term" href="">Conditions d'utilisation</a>, <a class="footer-term" href="">Avis sur les données personnelles</a>, <a class="footer-term" href="">Conditions d'utilisation des services de paiement</a>, <a class="footer-term" href="">cookies</a> et <a class="footer-term" href="">AdChoice</a>	
+					</span>
+				</div>	
+			</div>
 	</footer>
 </html>

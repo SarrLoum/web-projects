@@ -1,548 +1,609 @@
 {% extends "mail/layout.html" %} {% load static %} {% block body %}
 
-<!-- ====== HEADER ====== -->
-<div class="header-container">
-	<header>
-		<!-- Logo link and sidebar button-->
-		<div class="logos flex">
-			<a href="#" class="btn-3bar">
-				<img
-					class="usa-btn"
-					id="menu"
-					src="static/icons/3bars menu.svg"
-					alt=""
-				/>
-			</a>
-			<a href="#" class="logo-link">
-				<img src="static/icons/X logo.svg" alt="" />
-				<img
-					class="usa-btn"
-					id="logo-text"
-					src="static/icons/Mailer.svg"
-					alt=""
-				/>
-			</a>
-		</div>
-		<!-- Email search bar-->
-		<div class="search-bar">
-			<form action="">
-				<div class="search-form">
-					<div class="search-icons-btn"><img src="static/icons/search.svg" /></div>
-					<input class="grow" type="text" name="query"/>
-					<div class="search-icons-btn"><img src="static/icons/tune.svg" /></div>
+<div class="body-wrapper flex">
+	<div class="mailApp-container grow">
+		<!-- ====== HEADER ====== -->
+		<header>
+			<div class="header-container">
+				<!-- Logo link and sidebar button-->
+				<div class="logos flex">
+					<a href="#" class="btn-3bar">
+						<img
+							class="usa-btn"
+							id="menu"
+							src="static/icons/3bars menu.svg"
+							alt=""
+						/>
+					</a>
+					<a href="#" class="logo-link">
+						<img src="static/icons/X logo.svg" alt="" />
+						<img
+							class="usa-btn"
+							id="logo-text"
+							src="static/icons/Mailer.svg"
+							alt=""
+						/>
+					</a>
 				</div>
-			</form>
-		</div>
-
-		<!-- Cuurent user email -->
-		<div class="user-params flex grow justify-right align-center">
-			<div class="support-themes" id="support">
-				<img
-					class="usa-btn"
-					id="support-icon"
-					src="static/icons/help.svg"
-					alt=""
-				/>
-			</div>
-			<div class="user-themes" id="settings">
-				<img
-					class="usa-btn"
-					id="settings-icon"
-					src="static/icons/settings.svg"
-					alt=""
-				/>
-			</div>
-			<div class="user-apps" id="apps-btn">
-				<img
-					class="usa-btn apps"
-					id="apps-btn"
-					src="static/icons/group-apps.svg"
-					alt=""
-				/>
-			</div>
-
-			<div class="current-user-wrapper">
-				<div class="current-user" id="current-user">
-					<img
-						id="current-user"
-						class="usa-btn user-usa grow"
-						src="http://127.0.0.1:8000/static/media/{{ request.user.avatar }}"
-						alt=""
-					/>
+				<!-- Email search bar-->
+				<div class="search-bar">
+					<form action="">
+						<div class="search-form">
+							<div class="search-icons-btn"><img src="static/icons/search.svg" /></div>
+							<input class="grow" type="text" name="query"/>
+							<div class="search-icons-btn"><img src="static/icons/tune.svg" /></div>
+						</div>
+					</form>
 				</div>
-			</div>
-		</div>
-	</header>
-</div>
 
-<!-- ===== Main (Body) ===== -->
-<main>
-	<!-- ======= LEFT SIDE (SIDEBAR) ======= -->
-	<div class="side-bar">
-		<!-- Compose New email button -->
-		<button class="btn-compose" id="compose">
-			<div class="compose-button">
-				<img src="static/icons/pencil.svg" alt="" />
-				<span class="nav-label">Compose</span>
-			</div>
-		</button>
+				<!-- Cuurent user email -->
+				<div class="user-params flex  justify-right align-center">
+					<div class="support-themes" id="support">
+						<img
+							class="usa-btn"
+							id="support-icon"
+							src="static/icons/help.svg"
+							alt=""
+						/>
+					</div>
+					<div class="user-themes" id="settings">
+						<img
+							class="usa-btn"
+							id="settings-icon"
+							src="static/icons/settings.svg"
+							alt=""
+						/>
+					</div>
+					<div class="user-apps" id="apps-btn">
+						<img
+							class="usa-btn apps"
+							id="apps-btn"
+							src="static/icons/group-apps.svg"
+							alt=""
+						/>
+					</div>
 
-		<!-- Nav button container -->
-		<div class="nav-container">
-			<ul>
-				<li>
-					<button name="mailbox" class="nav-button" id="inbox">
-						<div class="button-content">
+					<div class="current-user-wrapper">
+						<div class="current-user" id="current-user">
 							<img
-								class="nav-icons"
-								id="inbox-icon"
-								src="static/icons/inbox.svg"
+								id="current-user"
+								class="usa-btn user-usa grow"
+								src="http://127.0.0.1:8000/static/media/{{ request.user.avatar }}"
 								alt=""
 							/>
-							<div
-								class="inbox-count grow flex space-between align-center"
-								
-							>
-								<span>Inbox</span>
-								<span class="total-emails flex align-center"
-									>{{ inbox_count }}</span
-								>
-							</div>
 						</div>
-					</button>
-				</li>
-				<li>
-					<button name="mailbox" class="nav-button" id="starred">
-						<div class="button-content">
-							<img
-								class="nav-icons"
-								id="star-icon"
-								src="static/icons/starred.svg"
-								alt=""
-							/><span class="nav-label">Starred</span>
-						</div>
-					</button>
-				</li>
-				<li>
-					<button name="mailbox" class="nav-button" id="archived">
-						<div class="button-content">
-							<img
-								class="nav-icons"
-								id="archive-icon"
-								src="static/icons/archived.svg"
-								alt=""
-							/><span class="nav-label">Archived</span>
-						</div>
-					</button>
-				</li>
-				<li>
-					<button name="mailbox" class="nav-button" id="sent">
-						<div class="button-content">
-							<img
-								class="nav-icons"
-								id="sent-icon"
-								src="static/icons/sent.svg"
-								alt=""
-							/><span class="nav-label">Sent</span>
-						</div>
-					</button>
-				</li>
-				<li>
-					<button name="mailbox" class="nav-button" id="spam">
-						<div class="button-content">
-							<img
-								class="nav-icons"
-								id="draft-icon"
-								src="static/icons/draft.svg"
-								alt=""
-							/>
-							<div
-								class="inbox-count grow flex space-between align-center"
-							>
-								<span>Draft</span>
-								<span class="total-emails"
-									>{{ inbox_count }}</span
-								>
-							</div>
-						</div>
-					</button>
-				</li>
-				<li>
-					<button
-						name="mailbox"
-						class="nav-button expand-btn"
-						id="spam"
-					>
-						<div class="button-content">
-							<img
-								class="nav-icons"
-								id="expand-icon"
-								src="static/icons/expand.svg"
-								alt=""
-							/><span id="expand-span">More</span>
-						</div>
-					</button>
-				</li>
-				<div class="nav-expand-wrapper" id="expand-wrapper">
-					<li>
-						<button name="mailbox" class="nav-button" id="spam">
-							<div class="button-content">
-								<img
-									class="nav-icons"
-									id="spam-icon"
-									src="static/icons/spam.svg"
-									alt=""
-								/><span class="nav-label">Spam</span>
-							</div>
-						</button>
-					</li>
-					<li>
-						<button name="mailbox" class="nav-button" id="trash">
-							<div class="button-content">
-								<img
-									class="nav-icons"
-									id="trash-icon"
-									src="static/icons/trash.svg"
-									alt=""
-								/><span class="nav-label">Trash</span>
-							</div>
-						</button>
-					</li>
+					</div>
 				</div>
-				<li class="label-list">
-					<div name="mailbox" class="label-button" id="trash">
-						<div class="label-content grow">
-							<span class="label-nav">Labels</span>
-							<button class="nav-label-btn">
+			</div>
+		</header>
+
+		<!-- ===== Main (Body) ===== -->
+		<main class="flex">
+			
+			<!-- ======= LEFT SIDE (SIDEBAR) ======= -->
+			<div class="side-bar">
+				<!-- Compose New email button -->
+				<button class="btn-compose" id="compose">
+					<div class="compose-button">
+						<img src="static/icons/pencil.svg" alt="" />
+						<span class="nav-label">Compose</span>
+					</div>
+				</button>
+
+				<!-- Nav button container -->
+				<div class="nav-container">
+					<ul>
+						<li>
+							<button name="mailbox" class="nav-button" id="inbox">
+								<div class="button-content">
+									<img
+										class="nav-icons"
+										id="inbox-icon"
+										src="static/icons/inbox.svg"
+										alt=""
+									/>
+									<div
+										class="inbox-count grow flex space-between align-center"
+										
+									>
+										<span>Inbox</span>
+										<span class="total-emails flex align-center"
+											>{{ inbox_count }}</span
+										>
+									</div>
+								</div>
+							</button>
+						</li>
+						<li>
+							<button name="mailbox" class="nav-button" id="starred">
+								<div class="button-content">
+									<img
+										class="nav-icons"
+										id="star-icon"
+										src="static/icons/starred.svg"
+										alt=""
+									/><span class="nav-label">Starred</span>
+								</div>
+							</button>
+						</li>
+						<li>
+							<button name="mailbox" class="nav-button" id="archived">
+								<div class="button-content">
+									<img
+										class="nav-icons"
+										id="archive-icon"
+										src="static/icons/archived.svg"
+										alt=""
+									/><span class="nav-label">Archived</span>
+								</div>
+							</button>
+						</li>
+						<li>
+							<button name="mailbox" class="nav-button" id="sent">
+								<div class="button-content">
+									<img
+										class="nav-icons"
+										id="sent-icon"
+										src="static/icons/sent.svg"
+										alt=""
+									/><span class="nav-label">Sent</span>
+								</div>
+							</button>
+						</li>
+						<li>
+							<button name="mailbox" class="nav-button" id="spam">
+								<div class="button-content">
+									<img
+										class="nav-icons"
+										id="draft-icon"
+										src="static/icons/draft.svg"
+										alt=""
+									/>
+									<div
+										class="inbox-count grow flex space-between align-center"
+									>
+										<span>Draft</span>
+										<span class="total-emails"
+											>{{ inbox_count }}</span
+										>
+									</div>
+								</div>
+							</button>
+						</li>
+						<li>
+							<button
+								name="mailbox"
+								class="nav-button expand-btn"
+								id="spam"
+							>
+								<div class="button-content">
+									<img
+										class="nav-icons"
+										id="expand-icon"
+										src="static/icons/expand.svg"
+										alt=""
+									/><span id="expand-span">More</span>
+								</div>
+							</button>
+						</li>
+						<div class="nav-expand-wrapper" id="expand-wrapper">
+							<li>
+								<button name="mailbox" class="nav-button" id="spam">
+									<div class="button-content">
+										<img
+											class="nav-icons"
+											id="spam-icon"
+											src="static/icons/spam.svg"
+											alt=""
+										/><span class="nav-label">Spam</span>
+									</div>
+								</button>
+							</li>
+							<li>
+								<button name="mailbox" class="nav-button" id="trash">
+									<div class="button-content">
+										<img
+											class="nav-icons"
+											id="trash-icon"
+											src="static/icons/trash.svg"
+											alt=""
+										/><span class="nav-label">Trash</span>
+									</div>
+								</button>
+							</li>
+						</div>
+						<li class="label-list">
+							<div name="mailbox" class="label-button" id="trash">
+								<div class="label-content grow">
+									<span class="label-nav">Labels</span>
+									<button class="nav-label-btn" data-toggle="modal" data-target="#staticBackdrop">
+										<img
+											class="nav-icons"
+											id="add-icon"
+											src="static/icons/add.svg"
+											alt=""
+										/>
+									</button>
+								</div>
+							</div>
+						</li>
+
+						<li>
+							<button name="mailbox" class="nav-button" id="trash">
+								<div class="button-content">
+									<img
+										class="nav-icons"
+										id="note-icon"
+										src="static/icons/notes.svg"
+										alt=""
+									/><span class="nav-label">Note</span>
+								</div>
+							</button>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- ======= MIDDLE SIDE(rightside) (CONTENT) ======= -->
+			<div class="content-settings-container">
+				<div class="emails-content" data-flexed="false">
+					<!-- === CONTENT BODY BUTTONS(headers)-->
+					<div class="content-hearder">
+						<div id="header-left-default" class="left-button">
+							<button class="combined-btn">
+								<div class="flex">
+									<div class="combined-icon">
+										<img src="static/icons/checkbox.svg" />
+									</div>
+									<div class="select-icon">
+										<img src="static/icons/arrow-down.svg" />
+									</div>
+								</div>
+							</button>
+							<button class="icon-btn">
+								<img src="static/icons/refresh.svg" alt="" class="" />
+							</button>
+							<button class="icon-btn">
+								<img src="static/icons/more.svg" alt="" />
+							</button>
+						</div>
+
+						<div id="header-left-email" class="left-button hide-buttons">
+							<button class="icon-btn go-back">
+								<img src="static/icons/go-back.svg" alt="" class="" />
+							</button>
+							<div class="flex">
+								<button class="icon-btn">
+									<img src="static/icons/archive btn.svg" alt="" />
+								</button>
+								<button class="icon-btn">
+									<img src="static/icons/spam btn.svg" alt="" />
+								</button>
+								<button class="icon-btn">
+									<img src="static/icons/trash btn.svg" alt="" />
+								</button>
+
+							</div>
+							<div class="flex">
+								<button class="icon-btn">
+									<img src="static/icons/unread-icon.svg" alt="" />
+								</button>
+								<button class="icon-btn">
+									<img src="static/icons/snooze.svg" alt="" />
+								</button>
+								<button class="icon-btn">
+									<img src="static/icons/add_task.svg" alt="" />
+								</button>
+
+							</div>
+							<div class="flex">
+								<button class="icon-btn">
+									<img src="static/icons/move_to.svg" alt="" />
+								</button>
+								<button class="icon-btn">
+									<img src="static/icons/label.svg" alt="" />
+								</button>
+								<button class="icon-btn">
+									<img src="static/icons/more.svg" alt="" />
+								</button>
+
+							</div>
+						</div>
+
+						<div class="right-button">
+							<div id="pagination-btn" class="pagination-div combined-btn">
+								<span id="pagination">1-50 of 9,052</pan>
+							</div>
+							<button class="icon-btn no-margin">
 								<img
-									class="nav-icons"
-									id="add-icon"
-									src="static/icons/add.svg"
+									src="static/icons/arrow_back.svg"
 									alt=""
+									class=""
 								/>
+							</button>
+							<button class="icon-btn">
+								<img
+									src="static/icons/arrow_forward.svg"
+									alt=""
+									class=""
+								/>
+							</button>
+							<button id="split-btn" class="combined-btn">
+								<div class="flex">
+									<div class="combined-icon">
+										<img src="static/icons/horizontal_split.svg" />
+									</div>
+									<div class="select-icon">
+										<img src="static/icons/arrow-down.svg" />
+									</div>
+								</div>
+							</button>
+							<button class="combined-btn">
+								<div class="flex">
+									<div class="combined-icon">
+										<img src="static/icons/language_us.svg" />
+									</div>
+									<div class="select-icon">
+										<img src="static/icons/arrow-down.svg" />
+									</div>
+								</div>
 							</button>
 						</div>
 					</div>
-				</li>
 
-				<li>
-					<button name="mailbox" class="nav-button" id="trash">
-						<div class="button-content">
-							<img
-								class="nav-icons"
-								id="note-icon"
-								src="static/icons/notes.svg"
-								alt=""
-							/><span class="nav-label">Note</span>
-						</div>
-					</button>
-				</li>
-			</ul>
-		</div>
-	</div>
+					<!-- ==== CONTENT BODY (emails and compose view) ==== -->
+					<div class="content-body grow">
+						<!-- Emails view -->
+						<div id="mailbox-view" class="email-view"></div>
+						<div id="emails-view" class="email-view"></div>
 
-	<!-- ======= MIDDLE SIDE(rightside) (CONTENT) ======= -->
-	<div class="content-settings-container">
-		<div class="emails-content" data-flexed="false">
-			<!-- === CONTENT BODY BUTTONS(headers)-->
-			<div class="content-hearder">
-				<div id="header-left-default" class="left-button">
-					<button class="combined-btn">
-						<div class="flex">
-							<div class="combined-icon">
-								<img src="static/icons/checkbox.svg" />
-							</div>
-							<div class="select-icon">
-								<img src="static/icons/arrow-down.svg" />
-							</div>
-						</div>
-					</button>
-					<button class="icon-btn">
-						<img src="static/icons/refresh.svg" alt="" class="" />
-					</button>
-					<button class="icon-btn">
-						<img src="static/icons/more.svg" alt="" />
-					</button>
-				</div>
 
-				<div id="header-left-email" class="left-button hide-buttons">
-					<button class="icon-btn go-back">
-						<img src="static/icons/go-back.svg" alt="" class="" />
-					</button>
-					<div class="flex">
-						<button class="icon-btn">
-							<img src="static/icons/archive btn.svg" alt="" />
-						</button>
-						<button class="icon-btn">
-							<img src="static/icons/spam btn.svg" alt="" />
-						</button>
-						<button class="icon-btn">
-							<img src="static/icons/trash btn.svg" alt="" />
-						</button>
-
-					</div>
-					<div class="flex">
-						<button class="icon-btn">
-							<img src="static/icons/unread-icon.svg" alt="" />
-						</button>
-						<button class="icon-btn">
-							<img src="static/icons/snooze.svg" alt="" />
-						</button>
-						<button class="icon-btn">
-							<img src="static/icons/add_task.svg" alt="" />
-						</button>
-
-					</div>
-					<div class="flex">
-						<button class="icon-btn">
-							<img src="static/icons/move_to.svg" alt="" />
-						</button>
-						<button class="icon-btn">
-							<img src="static/icons/label.svg" alt="" />
-						</button>
-						<button class="icon-btn">
-							<img src="static/icons/more.svg" alt="" />
-						</button>
 
 					</div>
 				</div>
-
-				<div class="right-button">
-					<div id="pagination-btn" class="pagination-div combined-btn">
-						<span id="pagination">1-50 of 9,052</pan>
-					</div>
-					<button class="icon-btn no-margin">
-						<img
-							src="static/icons/arrow_back.svg"
-							alt=""
-							class=""
-						/>
-					</button>
-					<button class="icon-btn">
-						<img
-							src="static/icons/arrow_forward.svg"
-							alt=""
-							class=""
-						/>
-					</button>
-					<button id="split-btn" class="combined-btn">
-						<div class="flex">
-							<div class="combined-icon">
-								<img src="static/icons/horizontal_split.svg" />
+				<!-- ==== Theme settings ==== -->
+				<div class="settings-container">
+					<div class="settings-wrapper flex column">
+						<div class="settings-header">
+							<div class="flex justify">
+								<h5>Quick settings</h5>
 							</div>
-							<div class="select-icon">
-								<img src="static/icons/arrow-down.svg" />
-							</div>
-						</div>
-					</button>
-					<button class="combined-btn">
-						<div class="flex">
-							<div class="combined-icon">
-								<img src="static/icons/language_us.svg" />
-							</div>
-							<div class="select-icon">
-								<img src="static/icons/arrow-down.svg" />
-							</div>
-						</div>
-					</button>
-				</div>
-			</div>
-
-			<!-- ==== CONTENT BODY (emails and compose view) ==== -->
-			<div class="content-body grow">
-				<!-- Emails view -->
-				<div id="mailbox-view" class="email-view"></div>
-				<div id="emails-view" class="email-view"></div>
-
-			</div>
-		</div>
-		<!-- ==== Theme settings ==== -->
-		<div class="settings-container">
-			<div class="settings-wrapper flex column">
-				<div class="settings-header">
-					<div class="flex justify">
-						<h5>Quick settings</h5>
-					</div>
-					<a href="#" id="all-settings"
-						><div class="flex justify-center align-center">
-							<span>See all settings</span>
-						</div></a
-					>
-				</div>
-				<div class="settings-body" data-simplebar>
-					<div class="mails-apps">
-						<span class="settings-span">Apps in Mails</span>
-						<div class="wpr flex justify">
-							<div class="costumize-apps flex justify column">
-								<p>Chat and Meet</p>
-								<a
-									href="#"
-									class="costumize flex justify-center align-center"
-									>Costumize</a
-								>
-							</div>
-							<img
-								src="static/icons/apps-illustrations.svg"
-								alt=""
-							/>
-						</div>
-					</div>
-
-
-					<div class="mails-density">
-						<span class="settings-span">Density</span>
-						<form class="density-form flex justify column">
-							<div
-								class="density-radios flex justify"
-								class="flex justify"
+							<a href="#" id="all-settings"
+								><div class="flex justify-center align-center">
+									<span>See all settings</span>
+								</div></a
 							>
-								<div class="radio-inputs flex justify-center">
-									<input
-										id="default-density"
-										name="density"
-										type="radio"
-										checked
+						</div>
+						<div class="settings-body" data-simplebar>
+							<div class="mails-apps">
+								<span class="settings-span">Apps in Mails</span>
+								<div class="wpr flex justify">
+									<div class="costumize-apps flex justify column">
+										<p>Chat and Meet</p>
+										<a
+											href="#"
+											class="costumize flex justify-center align-center"
+											>Costumize</a
+										>
+									</div>
+									<img
+										src="static/icons/apps-illustrations.svg"
+										alt=""
 									/>
-									<label for="default-density">Default</label>
 								</div>
-								<img
-									src="static/icons/density illustrations1.svg"
-									alt=""
-								/>
 							</div>
 
-							<div class="density-radios flex justify">
-								<div class="radio-inputs flex justify-center">
-									<input
-										id="comfortable-density"
-										name="density"
-										type="radio"
-									/>
-									<label for="comfortable-density"
-										>Comfortable</label
+
+							<div class="mails-density">
+								<span class="settings-span">Density</span>
+								<form class="density-form flex justify column">
+									<div
+										class="density-radios flex justify"
+										class="flex justify"
+									>
+										<div class="radio-inputs flex justify-center">
+											<input
+												id="default-density"
+												name="density"
+												type="radio"
+												checked
+											/>
+											<label for="default-density">Default</label>
+										</div>
+										<img
+											src="static/icons/density illustrations1.svg"
+											alt=""
+										/>
+									</div>
+
+									<div class="density-radios flex justify">
+										<div class="radio-inputs flex justify-center">
+											<input
+												id="comfortable-density"
+												name="density"
+												type="radio"
+											/>
+											<label for="comfortable-density"
+												>Comfortable</label
+											>
+										</div>
+										<img
+											src="static/icons/density illustrations2.svg"
+											alt=""
+										/>
+									</div>
+
+									<div class="density-radios flex justify">
+										<div class="radio-inputs flex justify-center">
+											<input
+												id="compact-density"
+												name="density"
+												type="radio"
+											/>
+											<label for="compact-density">Compact</label>
+										</div>
+										<img
+											src="static/icons/density illustrations3.svg"
+											alt=""
+										/>
+									</div>
+								</form>
+							</div>
+
+
+							<div class="themes-settings">
+								<div class="flex justify">
+									<span class="settings-span">Theme</span>
+									<a class="all-themes" href="#"
+										><span>View all</span></a
 									>
 								</div>
-								<img
-									src="static/icons/density illustrations2.svg"
-									alt=""
-								/>
-							</div>
-
-							<div class="density-radios flex justify">
-								<div class="radio-inputs flex justify-center">
-									<input
-										id="compact-density"
-										name="density"
-										type="radio"
-									/>
-									<label for="compact-density">Compact</label>
+								<div class="themes-container">
+									<ul class="flex gap justify flex-wrapp">
+										<a href="#" id="default-wallpaper">
+											<li class="wallpaper-list">
+												<img
+													src="static/icons/default theme.svg"
+													alt=""
+												/>
+											</li>
+										</a>
+										{% for wallpaper in all_wallpapers %}
+										<a
+											href="#"
+											class="wallpaper-item"
+											id="{{wallpaper.id}}"
+										>
+											<li class="wallpaper-list">
+												<img
+													src="{{ wallpaper.image.url }}"
+													alt=""
+												/>
+											</li>
+										</a>
+										{% endfor %}
+									</ul>
 								</div>
-								<img
-									src="static/icons/density illustrations3.svg"
-									alt=""
-								/>
 							</div>
-						</form>
-					</div>
-
-
-					<div class="themes-settings">
-						<div class="flex justify">
-							<span class="settings-span">Theme</span>
-							<a class="all-themes" href="#"
-								><span>View all</span></a
-							>
-						</div>
-						<div class="themes-container">
-							<ul class="flex gap justify flex-wrapp">
-								<a href="#" id="default-wallpaper">
-									<li class="wallpaper-list">
-										<img
-											src="static/icons/default theme.svg"
-											alt=""
-										/>
-									</li>
-								</a>
-								{% for wallpaper in all_wallpapers %}
-								<a
-									href="#"
-									class="wallpaper-item"
-									id="{{wallpaper.id}}"
-								>
-									<li class="wallpaper-list">
-										<img
-											src="{{ wallpaper.image.url }}"
-											alt=""
-										/>
-									</li>
-								</a>
-								{% endfor %}
-							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	<!-- ==== Little Apps ==== -->
-	<div class="apps-container flex column">
-		<div class="apps-icon-wrapper first-app">
-			<img class="app-icon" src="static/icons/calendar.svg" alt="" />
-		</div>
-		<div class="apps-icon-wrapper">
-			<img class="app-icon" src="static/icons/idea.svg" alt="" />
-		</div>
-	</div>
-	<!-- Compose Modal -->
-	<div class="compose-container" id="compose-view">
-		<div class="compose-header-wrapper">
-			<div class="compose-header">
-				<h4 id="response-subject">New Message</h4>
+			<!-- ==== Little Apps ==== -->
+			<div class="apps-container flex column">
+				<div class="appIcon">
+					<div id="calendar" class="apps-icon-wrapper first-app">
+						<img class="app-icon" src="static/icons/calendar.svg" alt="" />
+					</div>
+				</div>
+				<div class="appIcon">
+					<div id="keep-note"  class="apps-icon-wrapper">
+						<img class="app-icon" src="static/icons/idea.svg" alt="" />
+					</div>
+				</div>
+				<div class="appIcon">
+					<div id="task"  class="apps-icon-wrapper">
+						<img class="app-icon" src="static/icons/task.svg" alt="" />
+					</div>
+				</div>
+				<div class="appIcon">
+					<div id="contact"  class="apps-icon-wrapper">
+						<img class="app-icon" src="static/icons/contact.svg" alt="" />
+					</div>
+				</div>
 			</div>
-			<div class="scales-btn">
-				<a href="#" id="minimize"
-					><img id="minimize" src="static/icons/minimize.svg" alt=""
-				/></a>
-				<a href="#" id="full-window"
-					><img
-						id="full-window"
-						src="static/icons/open_in_full.svg"
-						alt=""
-				/></a>
-				<a href="#" id="close-compose"
-					><img
-						id="close-compose"
-						src="static/icons/close.svg"
-						alt=""
-				/></a>
-			</div>
-		</div>
-		<form id="compose-form">
-			<input hidden value="{{ request.user.email }}" />
-			<div class="compose-input">
-				<input id="compose-recipients" placeholder="Recipients" />
-			</div>
-			<hr />
-			<div class="compose-input">
-				<input id="compose-subject" placeholder="Subject" />
-			</div>
-			<hr />
-			<div class="compose-textarea">
-				<textarea id="compose-body"></textarea>
-				<div class="text-editor" id="toolbar"></div>
+			<!-- Compose Modal -->
+			<div class="compose-container" id="compose-view">
+				<div class="compose-header-wrapper">
+					<div class="compose-header">
+						<h4 id="response-subject">New Message</h4>
+					</div>
+					<div class="scales-btn">
+						<a href="#" id="minimize"
+							><img id="minimize" src="static/icons/minimize.svg" alt=""
+						/></a>
+						<a href="#" id="full-window"
+							><img
+								id="full-window"
+								src="static/icons/open_in_full.svg"
+								alt=""
+						/></a>
+						<a href="#" id="close-compose"
+							><img
+								id="close-compose"
+								src="static/icons/close.svg"
+								alt=""
+						/></a>
+					</div>
+				</div>
+				<form id="compose-form">
+					<input hidden value="{{ request.user.email }}" />
+					<div class="compose-input">
+						<input id="compose-recipients" placeholder="Recipients" />
+					</div>
+					<hr />
+					<div class="compose-input">
+						<input id="compose-subject" placeholder="Subject" />
+					</div>
+					<hr />
+					<div class="compose-textarea">
+						<textarea id="compose-body"></textarea>
+						<div class="text-editor" id="toolbar"></div>
+					</div>
+
+					<div class="compose-submit">
+						<div class="send-btn">
+							<input type="submit" value="Send" />
+						</div>
+						<div class="edit-text"></div>
+					</div>
+				</form>
 			</div>
 
-			<div class="compose-submit">
-				<div class="send-btn">
-					<input type="submit" value="Send" />
+			<!-- Vertically centered modal -->
+			<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="myModal-header flex space-between">
+							<h5 class="modal-title" id="staticBackdropLabel">New label</h5>
+							<button type="button" class="close-label-modal" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="myModal-body">
+							<!-- Modal content goes here -->
+							<form method="Post">
+								<div>
+									<label class="note-label">Please enter a new label name</label>
+								</div>
+								<input class="label-input" type="text" name="label-name" id="label-name" />
+								<div class="flex align-center gap2">
+									<input id="nested" type="checkbox" name="nested">
+									<label class="note-label">Nest label under</label>
+								</div>
+								<select class="label-input" type="text" name="parent-label" id="parent-label">
+									<option id="option0"></option>
+								</select>					
+							</form>
+						</div>
+						<div class="myModal-footer">
+							<button type="button" class="cancel-label-btn" data-dismiss="modal"><span>Cancel</span></button>
+							<button id="submit-label" type="button" class="add-label-btn"><span>Create</span></button>
+						</div>
+					</div>
 				</div>
-				<div class="edit-text"></div>
 			</div>
-		</form>
+			
+		</main>
 	</div>
-</main>
-{% endblock %} {% block script %}
-<script src="https://unpkg.com/simplebar@2.4.3/dist/simplebar.min.js"></script>
-<script src="{% static 'mail/js/utils.js' %}" type="module"></script>
-<script src="{% static 'mail/js/inbox.js' %}" type="module"></script>
-{% endblock %}
+	<div id="thirdPart-apps" class="thirdPart-apps"></div>
+</div>
+
+	{% endblock %} {% block script %}
+	<!-- Include jQuery -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<!-- Include Bootstrap JS -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script src="{% static 'mail/js/utils.js' %}" type="module"></script>
+	<script src="{% static 'mail/js/inbox.js' %}" type="module"></script>
+	{% endblock %}

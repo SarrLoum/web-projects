@@ -1,6 +1,15 @@
 document.addEventListener("DOMContentLoaded", function () {
+	// Callthe show user model function
+	showUserModal();
+
 	const main = document.querySelector("#main");
+	const footer1 = document.querySelector(".footer-container1");
+	const footer2 = document.querySelector(".footer-container2");
+
 	if (main.classList.contains("homepage")) {
+		footer1.style.display = "block";
+		footer2.style.display = "none";
+
 		const carousels = document.querySelectorAll(".carousel");
 
 		carousels.forEach((carousel) => {
@@ -62,52 +71,131 @@ document.addEventListener("DOMContentLoaded", function () {
 
 		dicoverBtnHover();
 		startCarouselSuggest();
-		ratingProduct();
-	} else if (main.classList.contains("category-art")) {
+
+		const countriesBtn = document.querySelector(".countries-btn");
+		const countriesDiv = document.querySelector(".country-as-div");
+
+		countriesBtn.addEventListener("mouseenter", () => {
+			countriesDiv.style.display = "flex";
+		});
+	}
+
+	if (main.classList.contains("category-art")) {
 		startCarouselExplore();
 		//startCarouselExplore1();
-	} else if (main.classList.contains("category-fashion")) {
+	}
+
+	if (main.classList.contains("category-fashion")) {
 		categBtnHover();
-	} else if (main.classList.contains(".register-page")) {
-		handleRegisterInputs();
+	}
+
+	if (main.classList.contains("category")) {
+		footer1.style.display = "none";
+		footer2.style.display = "flex";
+	}
+
+	if (
+		main.classList.contains("listing-page") ||
+		main.classList.contains("new-listing-page") ||
+		main.classList.contains("watchlist-page")
+	) {
+		footer1.style.display = "none";
+		footer2.style.display = "flex";
+
+		const evaluateBtn = document.querySelector(".evaluate-btn");
+		const commentForm = document.querySelector(".comment-form-div");
+		var isShown = false;
+		evaluateBtn.addEventListener("click", () => {
+			isShown = !isShown;
+			if (isShown) {
+				commentForm.style.display = "block";
+			} else {
+				commentForm.style.display = "none";
+			}
+		});
+
+		ratingProduct();
 	}
 });
 
-function handleRegisterInputs() {
-	const firstName = document.querySelector("#fisrtname");
-	const lastName = document.querySelector("#lastname");
-	const email = document.querySelector("#email");
-	const password = document.querySelector("#password");
-	const confirmation = document.querySelector("#confirmation");
-	const submitBtn = document.querySelector(".btn-register");
+async function showUserModal() {
+	const currentUserBtn = document.querySelector("#current-user");
+	const userModal = document.querySelector(".user-modal");
 
-	function isInputsValid() {
-		return (
-			firstName.value.trim() !== "" &&
-			lastName.value.trim() !== "" &&
-			email.value.trim() !== "" &&
-			password.value.trim() !== "" &&
-			confirmation.value.trim() !== ""
-		);
-	}
+	currentUserBtn.addEventListener("click", (event) => {
+		event.stopPropagation(); // Prevent the click event from propagating to the body element
+		userModal.style.display = "block";
+	});
 
-	function updateSubmitBtn() {
-		submitBtn.disabled = !isInputsValid();
-		console.log("submitBtn.disabled:", submitBtn.disabled);
+	document.body.addEventListener("click", (event) => {
+		const eventTarget = event.target;
+		const userModal = document.querySelector(".user-modal"); // Make sure you have the correct selector for the user modal
+		if (eventTarget !== userModal && !userModal.contains(eventTarget)) {
+			userModal.style.display = "none";
+		}
+	});
 
-		if (isInputsValid()) {
-			submitBtn.style.background = "#3665F3";
-			console.log("background color changed", submitBtn.style.background);
+	const user = await getCurrentUser();
+
+	if (user) {
+		console.log("current User", user); // Changed from print to console.log
+		console.log("current Username", user.username); // Changed from print to console.log
+		console.log("current user email", user.email); // Changed from print to console.log
+
+		const userAvatar = document.querySelector(".current-user-avatar");
+		const username = document.querySelector(".current-username");
+		const userEmail = document.querySelector(".current-email");
+
+		username.innerHTML = user.username;
+		userEmail.innerHTML = user.email;
+
+		const firstLetter = user.username[0].toUpperCase(); // Changed toUpperCase()
+
+		if (user.avatar) {
+			const avatarImg = document.createElement("img");
+			avatarImg.src = user.avatar;
+			avatarImg.alt = "";
+			userAvatar.innerHTML = ""; // Clear existing content
+			userAvatar.appendChild(avatarImg);
+		} else {
+			const userSpan = document.createElement("span");
+			userSpan.textContent = firstLetter;
+			userAvatar.innerHTML = ""; // Clear existing content
+			userAvatar.appendChild(userSpan);
 		}
 	}
 
-	firstName.addEventListener("input", updateSubmitBtn);
-	lastName.addEventListener("input", updateSubmitBtn);
-	email.addEventListener("input", updateSubmitBtn);
-	password.addEventListener("input", updateSubmitBtn);
-	confirmation.addEventListener("input", updateSubmitBtn);
+	const accountLinks = document.querySelectorAll(".account-links");
+	const userDiv = document.querySelector(".user-div");
+
+	userDiv.addEventListener("mouseleve", () => {
+		userDiv.classList.remove("current-active");
+	});
+
+	accountLinks.forEach((accountLink) => {
+		accountLink.addEventListener("mouseenter", () => {
+			let active = document.querySelector(".current-active");
+			active.classList.remove("current-active");
+			accountLink.classList.add("current-active");
+
+			userDiv.addEventListener("mouseenter", () => {
+				let active = document.querySelector(".current-active");
+				active.classList.remove("current-active");
+				userDiv.classList.add("current-active");
+			});
+		});
+	});
 }
 
+async function getCurrentUser() {
+	const response = await fetch("/user");
+
+	if (response.status === 200) {
+		const data = await response.json();
+		return data.user;
+	}
+	return null;
+}
 function dicoverBtnHover() {
 	const dicoverBtn = document.querySelector("#discover-btn");
 	const forwardBtn = document.querySelector("#discover-img");
@@ -256,7 +344,7 @@ function ratingProduct() {
 
 	stars.forEach((star) => {
 		star.addEventListener("click", () => {
-			var value = star.getAtributeValue("data-value");
+			var value = star.getAtribute("data-value");
 			ratingInput.value = value;
 
 			stars.forEach(function (s) {

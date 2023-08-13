@@ -1,6 +1,7 @@
 {% extends "auctions/layout.html" %} {% block body %}
 
-<main id="listing-page" class="listing-main">
+<main id="main" class="listing-page">
+
 	<!-- ====== LISTING PAGE ====== -->
 	<div class="listing-container">
 		<!--Listing image -->
@@ -180,7 +181,7 @@
 		<h2>Articles Similaires</h2>
 		<ul class="item-list grow">
 			{% for listing in similar_items %}
-			<li>
+			<li class="flex column">
 				<div class="list-item scale-zoom">
 					<a href="{% url 'listing-page' listing.id %}">
 						<div class="img-wrapper scale-zoom2">
@@ -378,15 +379,15 @@
 								>Partagez votre opinion avec les autres
 								clients</span
 							>
-							<a class="evaluate-btn-link" href="#"
+							<div class="evaluate-btn-link" 
 								><div class="evaluate-btn flex align-center">
 									<span>Ecrire un commentaire client</span>
-								</div></a
-							>
+								</div>
+							</div>
 							<hr />
 						</div>
 						<!--  -->
-						<div>
+						<div class="comment-form-div">
 							<h5>Comments</h5>
 							<div class="post-comment">
 								<form
@@ -451,9 +452,13 @@
 						<li>
 							<div class="comment">
 								<div class="costumer flex">
-									<div class="costumer-avatar">
-										<img src="" alt="" />
-									</div>
+									<div class="costumer-avatar flex align-center justify-center">
+										{% if comment.author.avatar %}
+											<img src="{{ comment.author.avatar.url}}" alt="" />
+										{% else %}
+											<span>{{ comment.author.username.0|upper }}
+										{% endif %}
+										</div>
 									<h6>{{ comment.author }}</h6>
 								</div>
 

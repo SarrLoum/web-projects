@@ -9,33 +9,46 @@ import json
 
 from django.contrib import messages
 
-
-from .models import User, Listing, Bid, ImgCategory, Category, CATEGORIES, Suggestion
 from .forms import ListingForm, CommentForm
+from .models import *
 from .util import get_price, is_owner, get_categories, search_on_category, ratings_level, similar_listings, get_category_view
 
 
 def index(request):
-
+    user = request.user
     # Create an objects of all the active listing
     active_list = Listing.objects.filter(active=True)
 
+    is_viewed_listings= None
+    viewed_listings = None
+    if user.is_authenticated:
+        # User's recently viewed itemsl
+        is_viewed_listings = RecentlyViewed.objects.filter(user=request.user.id)
+        viewed_listings = user.viewed_listings.all().order_by("-timestamp")[:2]
+
     # get categories in correct format 
     categoryList = get_categories()
-
     suggestions = Suggestion.objects.all()
+    enchere = ImgCategory.objects.get(view_url="enchères")
+    serialized_enchere = {
+                            'name': enchere.category.key,
+                        }
 
-    enchere = "enchere"
+
 
     return render(request, "auctions/index.html", {
         "active_listing": active_list,
         "categories": categoryList,
         "suggestions": suggestions,
-        "enchere": enchere
+        "enchere": serialized_enchere,
+        "is_viewed_listings": is_viewed_listings,
+        "user_viewed_listings": viewed_listings
     })
 
+
+
 def category_img(request):
-    # Create an objects of all the Category Illustratin=ion images 
+    # Create an objects of all the Category Illustration images 
     categories = ImgCategory.objects.all()
 
     serialized_data = [category.serialize() for category in categories]
@@ -64,9 +77,11 @@ def login_view(request):
         return render(request, "auctions/login.html")
 
 
+
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
+
 
 
 def register(request):
@@ -83,7 +98,7 @@ def register(request):
                 "message": "Passwords must match."
             })
 
-        # Attempt to create new user
+        # Attempt to create new 
         username = f"{firstname} {lastname}" 
         try:
             user = User.objects.create_user(username, email, password)
@@ -122,19 +137,24 @@ def new_listing(request):
         "listing_form": listing_form
     })
 
+
 def listing_page(request, listing_id):
     # get listing id and render all its details 
     listing = Listing.objects.get(pk=listing_id)
 
     # Check if the listing is posted(owned) by the current user 
-    current_usr = request.user 
-    owner = is_owner(listing, current_usr)
+    user = request.user 
+    owner = is_owner(listing, user)
+
+
+    if user.is_authenticated:
+        # Mark as viewed
+        viewed, created = RecentlyViewed.objects.get_or_create(listing=listing, user=user)
+        viewed.save()
 
     # Get all the comments of the listing and the ratings 
     comments = listing.comments.all()
     ratings = ratings_level(comments)
-    # Get the listing's current price
-    #listing_price = get_price(request, listing_id)
 
     # Get similar listings
     similars = similar_listings(listing)
@@ -152,6 +172,7 @@ def listing_page(request, listing_id):
         "comment_form": comment_form,
     })
 
+
 def close_listing(request, listing_id):
     # Get the listing and close it
     listing = Listing.objects.get(pk=listing_id)
@@ -159,7 +180,6 @@ def close_listing(request, listing_id):
     listing.save()
 
     return HttpResponseRedirect(reverse("listing-page", args=(listing_id, )))
-
 
 
 def add_watchlist(request, listing_id):
@@ -235,7 +255,6 @@ def add_comment(request, listing_id):
 
 
 def search(request):
-
     if request.method == "POST":
         query = request.POST["q"]
         on_category = request.POST["search-category"]
@@ -244,8 +263,13 @@ def search(request):
 
 
 
+
 def category_view(request, category_name):
-
     html_link = get_category_view(category_name)
-
     return render(request, html_link)
+
+
+def get_user(request):
+    user = request.user
+    user_data = user.serialize() if user.is_authenticated else None
+    return JsonResponse({"user": user_data}, status=200)

@@ -34,16 +34,15 @@ hr {
 	margin: 0;
 }
 
-header {
+.mailApp-container {
+	max-width: 100%;
+	overflow: hidden;
+}
+
+.header-container {
 	display: flex;
 	padding: 0.56em;
 	align-items: center;
-}
-
-body,
-main {
-	display: flex;
-	overflow: hidden;
 }
 
 a {
@@ -91,6 +90,28 @@ button {
 .gap2 {
 	gap: 0.25em;
 }
+.gap3 {
+	gap: 0.5em;
+}
+.gap4 {
+	gap: 0.75em;
+}
+.gap5 {
+	gap: 1em;
+}
+.gap6 {
+	gap: 1.25em;
+}
+.gap7 {
+	gap: 1.5em;
+}
+.gap8 {
+	gap: 1.75em;
+}
+.gap9 {
+	gap: 2em;
+}
+
 .flex-wrapp {
 	flex-wrap: wrap;
 }
@@ -379,11 +400,15 @@ button:focus {
 	height: 4.06em;
 }
 
+.search-bar {
+	flex-shrink: 1;
+	flex-grow: 1;
+}
 .search-form {
 	display: flex;
 	align-items: center;
 	height: 2.94em;
-	width: 45.5em;
+	max-width: 45.5em;
 	padding: 0.25em;
 	border-radius: 6.25em;
 	background: var(--search-bar);
@@ -443,7 +468,7 @@ button:focus {
 }
 
 .logos {
-	flex: 0 0 15.44em;
+	width: 15.44em;
 	height: 2.94em;
 
 	/*padding-left: 0.95em;*/
@@ -474,10 +499,10 @@ button:focus {
 /* \\\\\\\ MAIN SECTION /////// */
 /* LEFT SIDE (sidebar)*/
 .side-bar {
-	flex: 0 0 16em;
+	width: 16em;
 }
 .sidebar-flexed {
-	flex: 0 0 4em;
+	width: 4em;
 }
 
 .btn-compose {
@@ -510,6 +535,7 @@ button:focus {
 
 .nav-container {
 	margin-top: 1.125em;
+	padding-right: 1.31em;
 }
 
 .nav-button {
@@ -590,6 +616,13 @@ button:focus {
 	border: 1px solid #fafafa;
 }
 
+.content-settings-container {
+	max-width: 65.5em;
+	flex-shrink: 1;
+	flex-grow: 1;
+	display: flex;
+}
+
 .content-hearder {
 	display: flex;
 	justify-content: space-between;
@@ -602,8 +635,11 @@ button:focus {
 }
 
 .emails-content {
-	width: 65.5em;
+	max-width: 100%;
+	flex-shrink: 1;
+	flex-grow: 1;
 	height: 85vh;
+	overflow: hidden;
 	border-radius: 0.94em !important;
 	background: var(--white-color);
 }
@@ -769,14 +805,13 @@ button:focus {
 }
 
 /* Right SIDE (email content)*/
-.content-settings-container {
-	flex: 1;
-	display: flex;
-}
 /* Little Apps  (email content)*/
 .apps-container {
 	gap: 0.5em;
-	flex: 0 0 3.5em;
+}
+.appIcon {
+	padding-left: 0.5em;
+	padding-right: 0.5em;
 }
 .apps-icon-wrapper {
 	width: 2.94em;
@@ -805,10 +840,7 @@ button:focus {
 	align-items: center;
 	gap: 1em;
 }
-.checkbox-container {
-	display: flex;
-	gap: 1em;
-}
+
 .form-check {
 	display: flex;
 	align-items: center;
@@ -838,7 +870,8 @@ button:focus {
 /* Emails view preview */
 .preview-font {
 	font-family: "Inter";
-	text-align: right;
+	text-align: left;
+
 	font-style: normal;
 	font-weight: 400;
 	font-size: 0.88rem;
@@ -846,26 +879,46 @@ button:focus {
 
 	color: #2c2d2d;
 }
+
+.prev-font2 {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
 .unread {
 	font-weight: 600;
 	font-size: 0.88rem;
 	/* identical to box height */
 }
 
+.checkbox-list {
+	width: 7em;
+}
+
 .sender-preview {
-	width: 7.5em;
+	max-width: 8em;
+	text-align: left;
 }
 
 .subject-body {
+	max-width: 100%; /* 40.62em;*/
+	flex-shrink: 1;
+	flex-grow: 1;
+	padding-right: 2.5em;
 	white-space: nowrap;
-	width: 40.62em;
-
 	overflow: hidden;
 	text-overflow: ellipsis;
-	margin-right: 2.5em;
 }
 
 .body-preview {
+	max-width: 100%; /* 40.62em;*/
+	flex-shrink: 1;
+	flex-grow: 1;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
 	font-family: "Inter";
 	font-style: normal;
 	font-weight: 400;
@@ -1697,4 +1750,159 @@ textarea {
 
 .hide-buttons {
 	display: none;
+}
+
+.modal-content {
+	padding: 1em;
+}
+
+.myModal-body {
+	padding-top: 0.75em;
+	padding-bottom: 0.75em;
+}
+
+.myModal-footer {
+	display: flex;
+	justify-content: flex-end;
+	gap: 0.75em;
+	padding-top: 0.5em;
+}
+
+.close-label-modal {
+	padding: 0 0.65em;
+	border-radius: 6.25em;
+}
+
+.note-label {
+	font-family: "Inter";
+	font-size: 0.875rem;
+	letter-spacing: normal;
+	background: none;
+	color: #5f6368;
+	line-height: 1.25rem;
+	margin: 0;
+}
+
+.label-input {
+	width: 90%;
+	height: 1.5em;
+	margin-bottom: 0.5em;
+	margin-top: 0.25rem;
+}
+
+.cancel-label-btn span,
+.add-label-btn span {
+	font-size: 0.875rem;
+	font-weight: 500;
+	letter-spacing: normal;
+	line-height: 1.25rem;
+}
+
+.cancel-label-btn,
+.add-label-btn {
+	padding: 0.4em 1.2em;
+	border-radius: 6.25em;
+	margin-bottom: 0.25rem;
+}
+
+.add-label-btn {
+	color: #fff;
+	background: #2079ed;
+	border: 1px solid #2079ed;
+}
+.add-label-btn:hover {
+	color: #fff;
+	background: #2079ed;
+	border: 1px solid #2079ed;
+	box-shadow: 0px 1px 3px rgb(48, 172, 234, 0.75);
+}
+
+.thirdPart-apps {
+	align-items: center;
+	justify-content: center;
+	width: 19.65em;
+	height: 100vh;
+	background: #fff;
+	display: none;
+}
+
+.noteApp-header {
+	padding: 1.04em 0.98em;
+	border-bottom: solid 1px #f1f3f4;
+}
+.noteApp-wrapper {
+	padding: 1.04em 0.75em;
+}
+.noteApp-header h2 {
+	color: #5f6368;
+	font-family: "Inter";
+	font-size: 0.65413rem;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	letter-spacing: 0.05563rem;
+}
+
+.noteApp-header h3 {
+	color: #3c4043;
+	font-family: "Inter";
+	font-size: 1.01394rem;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+}
+
+.newNote-btn {
+	padding: 0.75em 0.25em;
+	gap: 0.25em;
+}
+
+.newNote-btn span {
+	color: #5f6368;
+	font-family: "Inter";
+	font-size: 0.91581rem;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+}
+
+.noteApp-btns {
+	padding: 0.25em;
+}
+
+.newNote-btn:hover,
+.noteApp-btns:hover {
+	background-color: #f1f3f4;
+}
+
+.folder-image {
+	margin-top: 2.42em;
+	margin-bottom: 1.57em;
+}
+
+.noteApp-slogan h1 {
+	color: rgba(0, 0, 0, 0.87);
+	font-family: "Inter";
+	font-size: 1.341rem;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+.noteApp-slogan p {
+	color: #5f6368;
+	text-align: center;
+	font-family: "Inter";
+	font-size: 0.85038rem;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+
+.plateform-btn span {
+	color: #5f6368;
+	font-family: "Inter";
+	font-size: 0.91581rem;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
 }
