@@ -299,67 +299,73 @@ export const noteApp = () => {
                             <h3>Notes</h3>
                         </div>
 
-                        <div class="flex gap5 align-center space-between">
-                            <div class="noteApp-btns">
+                        <div class="flex align-center space-between">
+                            <button id="search-note" class="noteApp-btns">
                                 <img src="static/icons/noteApp-icons/search.svg" alt="">
-                            </div>
-                            <div class="noteApp-btns">
+                            </button>
+                            <button id="open-in-new" class="noteApp-btns">
                                 <img src="static/icons/noteApp-icons/open_in_new.svg" alt="">
-                            </div>
-                            <div class="noteApp-btns">
+                            </button>
+                            <button id="closeApp-btn" class="noteApp-btns">
                                 <img src="static/icons/noteApp-icons/close.svg" alt="">
-                            </div>
+                            </button>
                         </div>
 
                     </div>
 
-                    <div class="noteApp-wrapper"> 
-                        <div id="newNote-newList" class="flex align-center space-between">
-                            <button id="newNote" class="newNote-btn flex gap">
-                                <img src="static/icons/noteApp-icons/add.svg" alt="" />
-                                <span>Take a note...</span>
-                            </button>
-                            <div id="note-list" class="noteApp-btns">
-                                <img src="static/icons/noteApp-icons/checkbox filled.svg" alt="" />
+                    <div class="noteApp-body-container">
+                        <div class="noteApp-body-wrapper"> 
+                            <div id="newNote-newList" class="flex align-center space-between">
+                                <button id="newNote" class="newNote-btn grow flex align-center gap">
+                                    <img src="static/icons/noteApp-icons/add.svg" alt="" />
+                                    <span>Take a note...</span>
+                                </button>
+                                <button id="newList" class="noteApp-btns">
+                                    <img src="static/icons/noteApp-icons/checkbox filled.svg" alt="" />
+                                </button>
+                            </div>
+                            <div id="noteApp-home" class="noteApp-body">
+                                <div class="folder-image-container flex align-center justify-center">
+                                    <div class="folder-image">
+                                        <img src="static/icons/noteApp-icons/folder icon.svg" alt=""/>
+                                    </div>
+                                </div>
+                                <div class="noteApp-slogan">
+                                    <h1>No notes yet</h1>
+                                    <p>Your notes from Google keep will
+                                        show up here</p>
+                                </div>
+
+                                <div class="flex justify-center">
+                                    <div class="flex column gap7">
+                                        <a href="https://play.google.com/store/apps/details?id=com.google.android.keep" target="_blank" class="plateform-btn flex align-center gap5">
+                                            <img src="static/icons/noteApp-icons/android icon.svg" alt=""/>
+                                            <span>Android devices</span>
+                                        </a> 
+                                        <a href="https://apps.apple.com/app/id1029207872" target="_blank" class="plateform-btn flex align-center gap5">
+                                            <img src="static/icons/noteApp-icons/ios icon.svg" alt=""/>
+                                            <span>iPhone & iPad</span>
+                                        </a>
+                                        <a href="https://keep.google.com" target="_blank" class="plateform-btn flex align-center gap5">
+                                            <img src="static/icons/noteApp-icons/web icon.svg" alt=""/>
+                                            <span>Web app</span>
+                                        </a>
+                                        <a href="https://chrome.google.com/webstore/detail/google-keep-chrome-extens/lpcaedmchfhocbbapmcbpinfpgnhiddi" target="_blank" class="plateform-btn flex align-center gap5">
+                                            <img src="static/icons/noteApp-icons/chrome extension.svg" alt=""/>
+                                            <span>chrome extension</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="noteApp-body" class="noteApp-body">
+                                <div id="addNote-wrapper" class="addNote-wrapper"></div>
                             </div>
                         </div>
-                        <div id="noteApp-home" class="noteApp-body-">
-                            <div class="folder-image flex align-center justify-center">
-                                <img src="static/icons/noteApp-icons/folder icon.svg" alt=""/>
-                            </div>
-                            <div class="noteApp-slogan">
-                                <h1>No notes yet</h1>
-                                <p>Your notes from Google keep will
-                                    show up here</p>
-                            </div>
-
-                            <div class="plateform-btns">
-                                <div class="plateform-btn flex gap2">
-                                    <img src="static/icons/noteApp-icons/android icon.svg" alt=""/>
-                                    <span>Android devices</span>
-                                </div>
-                                <div class="plateform-btn flex gap2">
-                                    <img src="static/icons/noteApp-icons/ios icon.svg" alt=""/>
-                                    <span>iPhone & iPad</span>
-                                </div>
-                                <div class="plateform-btn flex gap2">
-                                    <img src="static/icons/noteApp-icons/web icon.svg" alt=""/>
-                                    <span>Web app</span>
-                                </div>
-                                <div class="plateform-btn flex gap2">
-                                    <img src="chrome extension" alt=""/>
-                                    <span>Chrome extension</span>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div id="noteApp-body" class="noteApp-body-"></div>
                     </div>
                     
                         `;
 
-	noteAppContainer.append(childElement);
+	noteAppContainer.innerHTML = childElement;
 
 	return noteAppContainer;
 };

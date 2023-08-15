@@ -1,4 +1,4 @@
-import { KeepNoteApp } from "./thirdPardApps/keepNoteApp.js";
+import { KeepNoteApp } from "./thirdPartApps/keepNoteApp.js";
 import {
 	fetchCurrentUser,
 	emailElement,
@@ -8,7 +8,7 @@ import {
 	respondOnEmail,
 	emptyMailbox,
 	subjectRe,
-} from "./utils/DOMmanupilation.js";
+} from "./utils/DOMmanipulation.js";
 
 document.addEventListener("DOMContentLoaded", function () {
 	// Use buttons to toggle between views
@@ -441,7 +441,8 @@ function thirdPartApps() {
 
 	myAppsBtns.forEach((myAppBtn) => {
 		myAppBtn.addEventListener("click", () => {
-			emailContentDiv.style.maxWidth = 45.75 + "em";
+			emailContentDiv.style.maxWidth = 46.85 + "em";
+
 			myAppsDIv.style.display = "block";
 
 			if (myAppBtn.id === "keep-note") {

@@ -33,7 +33,10 @@ hr {
 	width: 100%;
 	margin: 0;
 }
-
+/*
+.body-wrapper {
+	overflow: hidden;
+}*/
 .mailApp-container {
 	max-width: 100%;
 	overflow: hidden;
@@ -76,6 +79,9 @@ button {
 
 .justify-center {
 	justify-content: center;
+}
+.justify-end {
+	justify-content: flex-end;
 }
 .align-center {
 	align-items: center;
@@ -744,9 +750,7 @@ button:focus {
 	overflow: hidden;
 	transition: background-color 0.3s ease-in-out;
 }
-.no-margin {
-	margin: 0;
-}
+
 .icon-btn img {
 	gap: 0.1em;
 	margin: 0.5em;
@@ -1820,18 +1824,28 @@ textarea {
 .thirdPart-apps {
 	align-items: center;
 	justify-content: center;
-	width: 19.65em;
+	width: 18.65em;
 	height: 100vh;
 	background: #fff;
 	display: none;
 }
 
 .noteApp-header {
-	padding: 1.04em 0.98em;
+	padding: 1em 0.95em;
+	padding-right: 0.25em;
 	border-bottom: solid 1px #f1f3f4;
 }
-.noteApp-wrapper {
-	padding: 1.04em 0.75em;
+
+.noteApp-body-container {
+	overflow: hidden;
+}
+.noteApp-body-wrapper {
+	padding: 0.5em 0.75em;
+	padding-right: 0.5em;
+	overflow-x: hidden;
+	overflow-y: auto;
+	max-height: calc(100vh - 73px); /* Adjust the max-height as needed */
+	position: relative;
 }
 .noteApp-header h2 {
 	color: #5f6368;
@@ -1841,6 +1855,7 @@ textarea {
 	font-weight: 500;
 	line-height: normal;
 	letter-spacing: 0.05563rem;
+	margin: 0;
 }
 
 .noteApp-header h3 {
@@ -1850,10 +1865,13 @@ textarea {
 	font-style: normal;
 	font-weight: 500;
 	line-height: normal;
+	margin: 0;
 }
 
 .newNote-btn {
-	padding: 0.75em 0.25em;
+	max-width: 14em;
+	padding: 0.4em 0.75em;
+	border-radius: 6.25em;
 	gap: 0.25em;
 }
 
@@ -1867,21 +1885,38 @@ textarea {
 }
 
 .noteApp-btns {
-	padding: 0.25em;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.5em;
 }
 
+.noteList-btns:hover,
 .newNote-btn:hover,
 .noteApp-btns:hover {
+	border-radius: 6.25em;
 	background-color: #f1f3f4;
 }
 
-.folder-image {
+.folder-image-container {
 	margin-top: 2.42em;
 	margin-bottom: 1.57em;
 }
 
+.folder-image {
+	height: 11.25rem;
+}
+
+.folder-image img {
+	object-fit: cover;
+}
+
+.noteApp-slogan {
+	margin-bottom: 3em;
+}
 .noteApp-slogan h1 {
 	color: rgba(0, 0, 0, 0.87);
+	text-align: center;
 	font-family: "Inter";
 	font-size: 1.341rem;
 	font-style: normal;
@@ -1905,4 +1940,111 @@ textarea {
 	font-style: normal;
 	font-weight: 500;
 	line-height: normal;
+}
+
+.plateform-btn {
+	padding: 0.3em 0.75em;
+}
+
+.plateform-btn:hover {
+	background-color: rgb(241, 243, 244, 0.5);
+	text-decoration: none;
+}
+
+.noteList-div {
+	width: 100%;
+	border-radius: 0.5rem;
+	border: 1px solid #dadce0;
+	padding-top: 0.5em;
+	padding-bottom: 1em;
+	padding-left: 1em;
+	padding-right: 0.75em;
+}
+.noteList-div:hover {
+	box-shadow: 0px 1px 3px 0.5px rgba(0, 0, 0, 0.15);
+}
+
+.note-titleInput,
+.note-bodyInput {
+	margin-bottom: 0.25em;
+}
+
+.note-titleInput input {
+	max-width: 13.5em;
+	border: transparent;
+	outline: none;
+
+	color: #5f6368;
+	font-family: "Inter";
+	font-size: 0.8125rem;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+}
+
+.note-bodyInput input {
+	width: 100%;
+	border: transparent;
+	outline: none;
+
+	color: #5f6368;
+	font-family: "Inter";
+	font-size: 0.86rem;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+}
+
+.noteItem input {
+	height: 2em;
+}
+
+.list-noteItem input {
+	color: #5f6368;
+	font-size: 0.88rem;
+}
+
+.add-noteList {
+	position: relative;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+
+	color: #5f6368;
+	font-family: "Inter";
+	font-size: 0.84375rem;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+}
+
+.checked-notes-wrapper {
+	border-top: 1px solid #b9b9b9;
+	margin: 0.25em;
+	padding-top: 0.25em;
+	display: none;
+}
+
+.checkec-notes-count {
+	color: rgba(0, 0, 0, 0.54);
+	font-family: "Inter";
+	font-size: 0.75rem;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+
+.checked {
+	text-decoration: line-through;
+}
+
+.close-noteItem {
+	padding: 0.2em;
+}
+
+.no-margin {
+	margin: 0;
+}
+
+.no-padding {
+	padding: 0;
 }

@@ -604,6 +604,15 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<!-- Include Bootstrap JS -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-	<script src="{% static 'mail/js/utils.js' %}" type="module"></script>
+	
+	<!-- THIRD PART APPS -->
+	<script src="{% static 'mail/js/thirdPartApps/contactApp.js' %}" type="module"></script>
+	<script src="{% static 'mail/js/thirdPartApps/keepNoteApp.js' %}" type="module"></script>
+	<script src="{% static 'mail/js/thirdPartApps/taskApp.js' %}" type="module"></script>
+	<!-- utils -->
+	<script src="{% static 'mail/js/utils/components.js' %}" type="module"></script>
+	<script src="{% static 'mail/js/utils/DOMmanipulation.js' %}" type="module"></script>
+	<!-- Main App-->
+	<script src="{% static 'mail/js/mailApp.js' %}" type="module"></script>
 	<script src="{% static 'mail/js/inbox.js' %}" type="module"></script>
 	{% endblock %}
