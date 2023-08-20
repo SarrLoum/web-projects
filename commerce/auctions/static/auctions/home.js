@@ -102,6 +102,9 @@ document.addEventListener("DOMContentLoaded", function () {
 		footer1.style.display = "none";
 		footer2.style.display = "flex";
 
+		// Active listing signals function
+		activeListingSignal();
+
 		const evaluateBtn = document.querySelector(".evaluate-btn");
 		const commentForm = document.querySelector(".comment-form-div");
 		var isShown = false;
@@ -117,6 +120,34 @@ document.addEventListener("DOMContentLoaded", function () {
 		ratingProduct();
 	}
 });
+
+function activeListingSignal() {
+	// get signal div
+	const isListingActive = document.querySelector(".isActive");
+
+	function fadeIn() {
+		// fade in function
+		isListingActive.style.opacity = 1;
+	}
+
+	function fadeOut() {
+		// fade out function
+		isListingActive.style.opacity = 0;
+	}
+
+	function toggleFade() {
+		fadeIn();
+
+		setTimeout(() => {
+			fadeOut();
+			// After fadeOut completes, call toggleFade again to create the loop
+			setTimeout(toggleFade, 3000);
+		}, 3000);
+	}
+
+	// Start the initial loop
+	toggleFade();
+}
 
 async function showUserModal() {
 	const currentUserBtn = document.querySelector("#current-user");
@@ -296,6 +327,7 @@ function startCarouselExplore() {
 		showPrevSlide0();
 	});
 }
+
 /*
 function startCarouselExplore1() {
 	const exploreCarousel2 = document.querySelector(".explore-carousel1");

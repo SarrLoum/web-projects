@@ -166,8 +166,7 @@
 		></script>
 		<script src="{% static 'auctions/home.js' %}"></script>
 
-		<!-- Jquery -->
-
+		<!-- User Modal -->
 		<div class="user-modal">
 			<span class="user-modal-span">Actuellement en</span>
 			<a href="#" class="user-div current-active flex">
@@ -182,7 +181,6 @@
 					<span class="current-email"></span>	
 				</div>
 			</a>
-
 			<span class="user-modal-span">Vos comptes</span>
 			<div class="current-account-div">
 				<a href="#" class="account-links flex align-center">
@@ -192,7 +190,6 @@
 					<span>Convert to business</span>
 				</a>
 			</div>
-
 			<span class="user-modal-span">Plus d'a</span>
 			<div class="current-account-div">
 				<a href="#" class="account-links flex align-center">
@@ -205,6 +202,27 @@
 			</div>
 		</div>
 
+		<!-- Notifiication modal -->
+		<div class=="notification">
+			<div class="notification-item flex gap2">
+				<div class="addedItem-picture">
+					<img src="{{ added_listing.image.url }}" alt="" />
+				</div>
+				<div class="addedItem-title">
+					<h3>{{ added_listing.title }}</h3>
+					<span>ID: {{ added_listing.id }}<span>
+				</div>
+			</div>
+			<div class="message-item flex gap2">
+				<div class="addedItem-picture">
+					<img src="{{ added_listing.image.url }}" alt="" />
+				</div>
+				<div class="addedItem-title">
+					<h3>{{ added_listing.title }}</h3>
+					<span>ID: {{ added_listing.id }}<span>
+				</div>
+			</div>
+		</div>
 	</body>
 
 	<footer>

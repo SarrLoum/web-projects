@@ -9,7 +9,7 @@ class ListingForm(forms.ModelForm):
 
     class Meta:
         model = Listing
-        fields = ("title", "category", "starting_bid", "image", "description")
+        fields = ("title", "starting_bid", "image", "description")
 
 
 class CommentForm(forms.ModelForm):

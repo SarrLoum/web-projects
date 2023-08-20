@@ -12,48 +12,79 @@
 		<!-- ==== LISTING DETAILS ==== -->
 		<div class="listing-details">
 			<!-- Title and Category -->
-			<div class="title-category">
-				<h4><strong>{{ listing.title }}</strong></h4>
-				<span>{{ listing.category }}</span>
+			<div 
+				style="position: relative" 
+				class="flex space-between"
+			>
+				<div class="title-category">
+					<h4><strong>{{ listing.title }}</strong></h4>
+					<span>{{ listing.category }}</span>
+				</div>
+				<div class="closed-signal-wrapper">
+					{% if not usr_is_owner %}
+						{% if not listing.active %}
+						<div class="closed-signal flex align-center gap2"><div class="closed "></div><span class="flex align-center" >closed</span></div>
+						{% else %}
+						<div class="closed-signal flex align-center gap2"><div class="isActive"></div><span class="flex align-center">active</span></div>
+						{% endif %}
+					{% else %}
+					<div class="closed-signal flex align-center gap2"><span>Your listing is closed</span></div>
+					{% endif %}
+				</div>
 			</div>
 			<hr />
 			<!-- Description -->
 			<div class="listing-description">
 				<p>{{ listing.description }}</p>
-				{% if not listing.active and not usr_is_owner %}
-				<span>THis listing is not actuve anymore</span>
-				{% endif%}
 			</div>
 			<hr />
 			<!-- == PURCHASE ACTION == -->
 			<div class="purchase-action">
 				<!--price details -->
 				<div class="price-details">
-					<span class="span0">Current price:</span>
-					<span class="span1"> US</span>
+					<div class="flex align-center gap">
+						<span class="span0">Current price:</span>
+						<span class="span1">US</span>
+					</div>
 					<span class="span2">${{ listing.starting_bid }}</span>
+
+					{% if not listing.active and not usr_is_owner %}
+					<div class="closedListing-details">
+						<span>THis listing is not active anymore</span>
+						<span> Winning bid: </span>
+						<span>Auction winner: </span>
+
+					</div>
+					{% endif%}
+	
 				</div>
 
 				<!-- PURCHASE BUTTON-->
 				<div class="purchase-btn">
 					{% if usr_is_owner %}
-					<!-- clause listing -->
-					<form action="" method="post">
-						{% csrf_token %} {% if listing.active %}
-						<input
-							class="btn-general btn-clause"
-							type="submit"
-							value="Close"
-						/>
+
+						{% if listing.active %}
+						<!-- clause listing -->
+						<form action="{% url 'close-listing' listing.id %}" method="post">
+							{% csrf_token %} 
+							<input
+								class="btn-general btn-clause"
+								type="submit"
+								value="Close"
+							/>
+						</form>
 						{% else %}
-						<input
-							disabled
-							class="btn-general btn-clause"
-							type="submit"
-							value="Closed"
-						/>
+						<form action="" method="post">
+							{% csrf_token %}
+							<input
+								disabled
+								class="btn-general btn-clause"
+								type="submit"
+								value="Closed"
+							/>
+						</form>
 						{% endif %}
-					</form>
+					
 					<!-- Check Bids -->
 					<form action="" method="post">
 						{% csrf_token %}

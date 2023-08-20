@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
+from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
@@ -11,8 +12,7 @@ from django.contrib import messages
 
 from .forms import ListingForm, CommentForm
 from .models import *
-from .util import get_price, is_owner, get_categories, search_on_category, ratings_level, similar_listings, get_category_view
-
+from .util import *
 
 def index(request):
     user = request.user
@@ -34,8 +34,6 @@ def index(request):
                             'name': enchere.category.key,
                         }
 
-
-
     return render(request, "auctions/index.html", {
         "active_listing": active_list,
         "categories": categoryList,
@@ -52,7 +50,6 @@ def category_img(request):
     categories = ImgCategory.objects.all()
 
     serialized_data = [category.serialize() for category in categories]
-
     return JsonResponse(serialized_data , safe=False)
 
 
@@ -116,20 +113,27 @@ def register(request):
 @login_required
 def new_listing(request):
     if request.method == "POST":
+        category_key = request.POST.get("category").strip()
+        print("choosen category on the form: ", category_key)
         listing_form = ListingForm(request.POST, request.FILES)
 
         if listing_form.is_valid():
-            category_key = listing_form.cleaned_data["category"]
-
-            category_name = Category.get_name(category_key)
-            category = Category.objects.get(key=category_name)
+            category = get_object_or_404(Category, key=category_key)  # Get the Category instance
 
             new_listing = listing_form.save(commit=False)
             new_listing.category = category
             new_listing.owner = request.user
             new_listing.save()
 
-            return redirect("index")
+            return render(request, "auctions/new_listing.html", {
+                "added_listing": new_listing,
+                "is_added": True
+
+            })
+
+        else:
+            print("Error occcured on the form", listing_form.errors)
+
     else:
         listing_form = ListingForm()
 
@@ -139,28 +143,23 @@ def new_listing(request):
 
 
 def listing_page(request, listing_id):
-    # get listing id and render all its details 
-    listing = Listing.objects.get(pk=listing_id)
+    listing = Listing.objects.get(pk=listing_id)        # Retrieve listing 
 
-    # Check if the listing is posted(owned) by the current user 
+
+    # is listing posted(owned) by the current user?
     user = request.user 
     owner = is_owner(listing, user)
-
-
     if user.is_authenticated:
-        # Mark as viewed
+        # Mark as viewed by user
         viewed, created = RecentlyViewed.objects.get_or_create(listing=listing, user=user)
         viewed.save()
 
-    # Get all the comments of the listing and the ratings 
+    # Get the comments/ratings
     comments = listing.comments.all()
     ratings = ratings_level(comments)
+    comment_form = CommentForm()    # Set the comment form
 
-    # Get similar listings
-    similars = similar_listings(listing)
-
-    # listing's comment form
-    comment_form = CommentForm()
+    similars = similar_listings(listing)    # Get similar listings
 
 
     return render(request, "auctions/listing.html", {
@@ -174,11 +173,16 @@ def listing_page(request, listing_id):
 
 
 def close_listing(request, listing_id):
-    # Get the listing and close it
-    listing = Listing.objects.get(pk=listing_id)
-    listing.active = False
-    listing.save()
+    # Get the listing or return a 404 error page if not found
+    listing = get_object_or_404(Listing, pk=listing_id)
 
+    # Ensure that the user requesting the closure is the owner of the listing
+    if listing.owner != request.user:
+        return HttpResponseForbidden("You are not the owner of this listing.")
+
+    # Update the active status of the listing using F expression
+    listing.active = False
+    close_listing_notifications()
     return HttpResponseRedirect(reverse("listing-page", args=(listing_id, )))
 
 
@@ -212,27 +216,33 @@ def watchlist(request):
 
 
 def add_bid(request, listing_id):
-
     listing = Listing.objects.get(pk=listing_id)
-    # If it is a POST (method) we need to process the data
+
     if request.method == "POST":
-        amount = int(request.POST['bidding'])
-        #Get listing's current price
+        try:
+            amount = float(request.POST['bidding'])
+        except (ValueError, KeyError):
+            messages.error(request, 'Invalid bid amount.')
+            return HttpResponseRedirect(reverse("listing-page", args=(listing_id, )))
+
         current_price = get_price(request, listing_id)
 
         if amount > current_price:
             new_bidding = Bid(bid=amount)
-
-            # add isting id and user id
             new_bidding.listing = listing
             new_bidding.user = request.user
-            new_bidding.save() 
-        
+            new_bidding.save()
+
+            listing.winning_bid = amount
+            listing.save()
+
+            close_listing_notifications()
+
             messages.success(request, 'Bid submitted successfully.')
-            return HttpResponseRedirect(reverse("listing-page", args=(listing_id, )))
         else:
-            messages.error(request, 'Invalid submission, Your bid is lower than the current price.')
-            return HttpResponseRedirect(reverse("listing-page", args=(listing_id, )))
+            messages.error(request, 'Invalid submission, your bid is lower than the current price.')
+
+    return HttpResponseRedirect(reverse("listing-page", args=(listing_id, )))
 
 
 def add_comment(request, listing_id):
@@ -272,4 +282,5 @@ def category_view(request, category_name):
 def get_user(request):
     user = request.user
     user_data = user.serialize() if user.is_authenticated else None
-    return JsonResponse({"user": user_data}, status=200)
+    notifications = Notification.objects.filter(Q(listing_owner=user) | Q(recipients=user))
+    return JsonResponse({"user": user_data, "notifications": notifications}, status=200)

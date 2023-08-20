@@ -1,61 +1,330 @@
-{% extends "auctions/layout.html" %} {% block body %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>{% block title %}Auctions{% endblock %}</title>
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+			integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+			crossorigin="anonymous"
+		/>
+		<link href="{% static 'auctions/styles.css' %}" rel="stylesheet" />
 
-<main id="main" class="new-listing-page">
-	<form
-		action="{% url 'new_listing' %}"
-		method="post"
-		enctype="multipart/form-data"
-	>
-		{% csrf_token %}
+		<style>
+			/* Add custom CSS for sticky footer */
+			html,
+			body {
+				height: 100%;
+				margin: 0;
+				padding: 0;
+			}
+			body {
+				display: flex;
+				flex-direction: column;
+			}
+			main {
+				flex: 1;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="newListing-header flex align-center justify-center">
+			<a href="{% url 'index' %}" class="auction-logo-auth">
+				<img
+					src="http://localhost:8000/static/auctions/media/auctions.svg"
+					alt=""
+				/>
+			</a>
+		</header>
+		<main id="main" class="new-listing-page">
+			<h1 class="addListing-h1">Complete your listing</h1>
+			<form
+				action="{% url 'new_listing' %}"
+				method="post"
+				enctype="multipart/form-data"
+			>
+				{% csrf_token %}
 
-		<!-- Title -->
-		<div class="form-group">
-			<label for="id_title">Title:</label>
-			<input type="text" name="title" id="id_title" required />
-		</div>
+				<!-- Image -->
+				<div class="flex align-center space-between">
+					<div class="flex gap0">
+						<h3 class="addListing-label">PHOTOS & VIDEOS</h3>
+						<img src="" alt="" />
+					</div>
+					<div class="flex gap">
+						<a href="#" class="import-btn flex gap3">
+							<img src="trash" alt="" />
+							<span>Remove all</span>
+						</a>
+						<a href="#" class="import-btn flex gap3">
+							<img src="mobil" alt="" />
+							<span>Import from mobile</span>
+						</a>
+						<a href="#" class="import-btn flex gap3">
+							<img src="link" alt="" />
+							<span>Import from web</span>
+						</a>
+					</div>
+				</div>
 
-		<!-- Category -->
-		<div class="form-group">
-			<label for="id_category">Category:</label>
-			<select name="category" id="id_category" required>
-				{% for choice in listing_form.category.field.choices %}
-				<option value="{{ choice.0 }}">{{ choice.1 }}</option>
-				{% endfor %}
-			</select>
-		</div>
+				<div class="form-group flex gap10">
+					<div class="image1-wrapper"></div>
 
-		<!-- Starting Bid -->
-		<div class="form-group">
-			<label for="id_starting_bid">Starting Bid:</label>
-			<input
-				type="number"
-				name="starting_bid"
-				id="id_starting_bid"
-				required
-				step="any"
-			/>
-		</div>
+					<div class="imageInputs-wrapper">
+						<div class="image-upload flex align-center justify-center">
+							<label for="imageInput" id="uploadImage-label" class="imageInput-icon">
+								<img
+									src="static/auctions/media/add.svg"
+									alt=""
+								/>
+							</label>
+							<input
+								type="file"
+								name="image"
+								id="imageInput"
+								accept="image/*"
+								multiple
+								required
+							/>
+						</div>
+					</div>
+				</div>
 
-		<!-- Image -->
-		<div class="form-group">
-			<label for="id_image">Image:</label>
-			<input
-				type="file"
-				name="image"
-				id="id_image"
-				accept="image/*"
-				required
-			/>
-		</div>
+				<!-- Title -->
+				<div class="input-wrapper">
+					<div class="flex align-center space-between">
+						<div class="">
+							<h3 class="addListing-label">TITLE & STARTING BID</h3>
+						</div>	
+						<div class="editListing-btn flex gap3">
+							<img src="link" alt="" />
+							<span>Edit all options</span>
+						</div>
+					</div>
 
-		<!-- Description -->
-		<div class="form-group">
-			<label for="id_description">Description:</label>
-			<textarea name="description" id="id_description" required></textarea>
-		</div>
+					<div class="form-group margin-top1">
+						<label for="id_title">Item title:</label></br>
+						<input type="text" name="title" id="id_title" required />
 
-		<!-- Submit Button -->
-		<input type="submit" value="create" />
-	</form>
-</main>
-{% endblock %}
+						<label for="id_title">First price:</label></br>
+						<input 
+							style="width: 35%;" 
+							type="number"
+							name="starting_bid"
+							id="id_starting_bid"
+							required
+							step="any"
+						/>
+					</div>
+				</div>
+
+				<!-- Category -->
+				<div class="input-wrapper">
+					<div class="flex gap0">
+						<h3 class="addListing-label">CATEGORY</h3>
+					</div>
+					<div class="category-list-wrapper">
+						<div class="choosen-category-div">
+							<span>Category:</span>
+							<button class="choosen-category" id="choosen-category">Choose a category</button>
+						</div>
+
+						<div class="category-options">
+							<input type="hidden" name="category" id="category-input" required/>
+							<ul id="category-options-ul" class="flex gap3">
+								<div>
+									<li><button class="category-option" value="art">Collectibles & art</button></li>
+									<li><button class="category-option"  value="electronics">Electronics</button></li>
+									<li><button class="category-option"  value="fashion">Fashion</button></li>
+									<li><button class="category-option"  value="home">Home & garden</button></li>
+									<li>
+										<button class="category-option"  value="automobile">Auto Parts & Accessories</button>
+									</li>
+								</div>
+								<div>
+									<li><button class="category-option"  value="sports">Sporting good</button></li>
+									<li><button class="category-option"  value="toys">Toys & hobbies</button></li>	
+									<li>
+										<button class="category-option"  value="musical">Musical instruments & gear</button>
+									</li>
+									<li><button class="category-option"  value="other">Other categories</button></li>
+								</div>
+							</ul>
+						</div>
+					</div>
+				</div>  
+
+				<!-- Description -->
+				<div class="input-wrapper">
+					<div class="flex gap0">
+						<h3 class="addListing-label">Description</h3>
+					</div>
+					<div class="textarea-container">
+						<div class="toolbar-wrapper flex space-between align-center">
+							<div class="toolbar">
+								<button class="toolbar-btn" data-format="bold">Bold</button>
+							</div>
+							<div class="toolbar-html flex align-center gap0">
+								<input type="checkbox" name="descript°-html" id="descript°-html" />
+								<label for="descript°-html flex align-center">Show HTML code <span class="info-icon"><span></label>
+							</div>
+						</div>
+						<textarea
+							name="description"
+							id="id_description"
+							required
+						></textarea>
+					</div>
+				</div>
+
+				<!-- Submit Button -->
+				<div class="flex column align-center">
+					<div class="add-listing-wrapper">
+						<h4>List it for free</h4>
+						<p>A final value fee apllies when your item sells</p>
+						<p>By selecting List it, you agree to accept the <a href="#">Auctions User Agreement</a> <a href="#">Payment Terms of Use </a> and <a href="#">Marketing Terms of Services</a>, acknowledge reading the <a href="#">User Terms of Notice</a>
+							and assure full responsability of the term offered and the content of your listing</p>
+					</div>
+					<button class="list-it" type="submit">List it</button>
+					<a href="#" class="save-it" >Save it for later</a>
+					<a href="#" class="preview">Preview</a>
+				<div>
+			</form>
+		</main>
+
+		{% if is_added %}
+			<div class="listing-added-modal">
+				<div class="listing-modal-content">
+					<div class="notification-item flex gap2">
+						<div class="addedItem-picture">
+							<img src="{{ added_listing.image.url }}" alt="" />
+						</div>
+						<div class="addedItem-title">
+							<h3>{{ added_listing.title }}</h3>
+							<span>ID: {{ added_listing.id }}<span>
+						</div>
+					</div>
+					<div class="addedItem-action flex column align-center gap2">
+						<button class="addedItem-btns">
+							<span>View listing</span>
+						</button>
+						<button class="addedItem-btns">
+							<span>Create similar</span>
+						</button>
+						<button class="addedItem-btns">
+							<span>Tell us what you think</span>
+						</button>
+					</div>
+
+					<div class="flex align-center justify-center">
+						<button id="close-added-modal" class="close-added-modal">Done</button>
+					</div>
+				</div>
+			</div>
+			<script>
+				const addedListingModal = document.querySelector(".listing-added-modal");
+				const closeListingModal = document.querySelector("#close-added-modal");
+
+				closeListingModal.addEventListener("click", () => {
+					addedListingModal.style.display = "none";
+				})
+			</script>
+		{% endif %} 
+
+
+		<script>
+			const imageInput = document.getElementById("imageInput");
+			const imagePreview1 = document.querySelector(".image1-wrapper");
+
+		
+			imageInput.addEventListener("change", function (event) {
+				console.log("image selected");
+				imagePreview1.innerHTML = ""; // Clear previous preview
+		
+				const selectedImages = event.target.files;
+				const firstImage = selectedImages[0];
+		
+				for (const selectedImage of selectedImages) {
+					if (selectedImage === firstImage) {
+						displayImage(selectedImage, true);
+					} else {
+						displayImage(selectedImage, false);
+					}
+				}
+			}); 
+		
+			function displayImage(imageFile, isFirstimage) {
+				//Wrapper for the first selected image
+				const imagePreview1 = document.querySelector(".image1-wrapper");
+				const imageInputsWrapper = document.querySelector(".imageInputs-wrapper");
+
+				// Selected file reader
+				const reader = new FileReader();
+				reader.onload = function () {
+					let imageElement = document.createElement("img");
+					imageElement.src = reader.result;
+					imageElement.classList.add("image-item");
+
+					// Wrapper for other selected images
+					let imageElementWrapper = document.createElement("div")
+					imageElementWrapper.classList.add("image-wrapper")
+
+
+					if (isFirstimage) {
+						imagePreview1.appendChild(imageElement);
+					} else {
+						imageElementWrapper.appendChild(imageElement);
+						imageInputsWrapper.insertBefore(imageElementWrapper, imageInputsWrapper.firstChild);
+					}	
+				};
+						
+				reader.readAsDataURL(imageFile);
+			}
+		</script>
+		<script>
+			const chooseCategoryBtn = document.querySelector("#choosen-category");
+			const categoriesWrapper = document.querySelector("#category-options-ul");
+			const categories = document.querySelectorAll(".category-option")
+			const categoryInput = document.querySelector("#category-input");
+
+			var isClicked = false;
+			chooseCategoryBtn.addEventListener("click", (event) => {
+				event.preventDefault();
+				isClicked = !isClicked;
+
+				isClicked ? categoriesWrapper.style.display = "flex" 
+					: categoriesWrapper.style.display = "none";
+
+				categories.forEach((category) => {
+					category.addEventListener("click", (event) => {
+						chooseCategoryBtn.innerHTML = category.innerHTML;
+						categoriesWrapper.style.display = "none";
+						categoryInput.value = category.value;
+						console.log("Category Input value: ", categoryInput.value)
+					})
+				})
+			})
+		</script>
+		<footer>
+			<div class="footer-new-listing flex justify-center">
+				<div class="footer-term-div3 flex align-center justify-center">
+					<span
+						>Copyright © 1995-2023 eBay Inc. Tous droits réservés.
+						<a class="footer-term" href=""
+							>Conditions d'utilisation</a
+						>,
+						<a class="footer-term" href=""
+							>Avis sur les données personnelles</a
+						>,
+						<a class="footer-term" href=""
+							>Conditions d'utilisation des services de
+							paiement</a
+						>, <a class="footer-term" href="">cookies</a> et
+						<a class="footer-term" href="">AdChoice</a>
+					</span>
+				</div>
+			</div>
+		</footer>
+	</body>
+</html>

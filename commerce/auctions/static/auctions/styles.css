@@ -32,6 +32,10 @@ button {
 .align-center {
 	align-items: center;
 }
+
+.gap {
+	gap: 1em;
+}
 .gap0 {
 	gap: 5em;
 }
@@ -85,6 +89,10 @@ header {
 	padding-left: 1em;
 	padding-right: 1em;
 }*/
+
+.info-icon {
+	background-image: url("static/auctions/media/info-icon.svg");
+}
 
 .auction-logo {
 	width: 9.88em;
@@ -2709,4 +2717,403 @@ footer {
 
 .negative-left {
 	margin-left: -2em;
+}
+
+.closed-signal {
+	position: absolute;
+	top: -2.85em;
+	right: -0.1em;
+}
+
+.closed,
+.isActive {
+	width: 1.25em;
+	height: 1.25em;
+	border-radius: 6.25em;
+}
+
+.closed-signal span {
+	color: #a6a5a5;
+	font-size: 1.25em;
+	font-style: normal;
+	font-weight: 400;
+	margin-bottom: 0.11em;
+}
+
+.closed {
+	background: #f64949;
+}
+.isActive {
+	color: #50e481;
+	background: #50e481;
+	opacity: 0;
+	transition: opacity 1s ease-in-out;
+}
+
+.newListing-header {
+	/*position: fixed;
+	top: 0;*/
+}
+.newListing-header a img {
+	scale: 0.95;
+}
+.new-listing-page {
+	padding-left: 10em;
+	padding-right: 10em;
+}
+
+.addListing-h1 {
+	color: #212529;
+	font-family: "Inter";
+	font-size: 1.25rem;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+	margin-bottom: 1.5em;
+}
+
+.addListing-label {
+	color: #212529;
+	font-family: "Inter";
+	font-size: 1rem;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+}
+.import-btn span,
+.editListing-btn span {
+	color: #41413f;
+	font-family: "Inter";
+	font-size: 0.82rem;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+
+.form-group input {
+	width: 100%;
+	height: 2.5em;
+	border-radius: 0.25em;
+	margin-bottom: 1.25em;
+	border: 1.5px solid #d9d9d9;
+	outline-color: #d5fbfb;
+}
+
+.imageInput-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 3em;
+	height: 3em;
+	border-radius: 6.25em;
+}
+
+.imageInput-icon:hover {
+	background: rgba(217, 217, 217, 0.5);
+}
+
+.imageInputs-wrapper {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 0.5em;
+}
+.image1-wrapper {
+	width: 25.5em;
+	height: 30em;
+	border-radius: 0.5em;
+	background: blue;
+}
+
+.image-wrapper,
+.image-upload {
+	width: 11.5em;
+	height: 11.5em;
+	border-radius: 0.5em;
+	background: yellow;
+}
+
+.image1-wrapper .image-item {
+	width: 100%;
+	height: 100%;
+	border-radius: 0.5em;
+	object-fit: cover;
+}
+
+.image-wrapper .image-item {
+	width: 100%;
+	height: 100%;
+	border-radius: 0.5em;
+	object-fit: cover;
+}
+
+.image-upload input {
+	display: none;
+}
+.footer-new-listing {
+	height: 3em;
+	margin: 1em;
+	padding: 1em;
+	scale: 0.9;
+	cursor: pointer;
+}
+
+.editListing-btn {
+	margin-bottom: 0.5em;
+}
+
+.choosen-category-div span,
+.form-group label {
+	color: #41413f;
+	font-family: "Inter";
+	font-size: 0.88rem;
+	font-style: normal;
+	font-weight: 4500;
+	line-height: normal;
+	margin-bottom: 0.5em;
+}
+
+.choosen-category {
+	padding: 0.75em 0.5em;
+	border-radius: 0.5em;
+	margin-left: 2.5em;
+	border: transparent;
+	background: #c8e1fe;
+
+	color: #737372;
+	font-family: "Inter";
+	font-size: 0.88rem;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+}
+
+.choosen-category:hover,
+.choosen-category:focus {
+	outline: none;
+}
+
+.category-options {
+	margin-top: 1em;
+}
+.category-options ul {
+	width: 27em;
+	height: auto;
+	border-radius: 0.5em;
+	padding: 1em;
+	box-shadow: 0px 1px 5px 0.5px rgba(0, 0, 0, 0.15);
+	list-style: none;
+	display: none;
+}
+
+.category-option {
+	padding: 0.5em 0.75em;
+	border-radius: 0.5em;
+	border: transparent;
+	background: none;
+
+	color: #202020;
+	font-family: "Inter";
+	font-size: 0.88rem;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+}
+.category-option:hover,
+.category-option:focus {
+	outline: none;
+	background: #c8e1fe;
+}
+
+.toolbar-html label {
+	color: #737372;
+	font-family: "Inter";
+	font-size: 0.82rem;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+
+	margin-right: 0.5em;
+}
+
+.textarea-container textarea {
+	width: 100%;
+	height: 15em;
+	border: 1.5px solid #d9d9d9;
+	outline-color: #d5fbfb;
+	border-radius: 0.5em;
+	margin-top: 1em;
+}
+
+.form-group input,
+textarea {
+	color: #515150;
+	font-family: "Inter";
+	font-size: 0.88rem;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+
+.input-wrapper {
+	margin-bottom: 4em;
+}
+
+.add-listing-wrapper {
+	margin-bottom: 2.5em;
+}
+.add-listing-wrapper h4 {
+	text-align: center;
+	color: #41413f;
+	font-family: "Inter";
+	font-size: 1rem;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	margin-bottom: 0.5em;
+}
+.add-listing-wrapper p {
+	text-align: center;
+	color: #a6a5a5;
+	font-family: "Inter";
+	font-size: 0.75rem;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	margin-bottom: 1em;
+}
+.add-listing-wrapper > p a {
+	text-decoration: underline;
+}
+
+.list-it,
+.save-it,
+.preview {
+	min-width: 21em;
+	padding: 1em;
+	border-radius: 6.25em;
+	margin-bottom: 0.5em;
+
+	outline: none;
+	border: 1px solid #808080;
+	background: transparent;
+
+	color: #41413f;
+	text-align: center;
+	font-family: "Inter";
+	font-size: 0.9rem;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	text-decoration: none;
+}
+
+.list-it {
+	color: #fff;
+	border: transparent;
+	outline: none;
+	background-color: #3665f3;
+}
+
+.listing-added-modal {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background: rgb(0, 0, 0, 0.5);
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+}
+
+.listing-modal-content {
+	width: 24em;
+	height: auto;
+	padding: 1em;
+	border-radius: 0.5em;
+	background: #fff;
+}
+
+.addedItem-picture {
+	width: 7em;
+	height: 7em;
+	flex-shrink: 0;
+}
+
+.addedItem-picture img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.notification-item {
+	margin-bottom: 1em;
+}
+.addedItem-title h3 {
+	color: #212529;
+	font-family: "Inter";
+	font-size: 1.25rem;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+}
+
+.addedItem-title span {
+	color: #a6a5a5;
+	font-family: "Inter";
+	font-size: 0.82rem;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	margin-bottom: 1em;
+}
+
+.addedItem-action {
+	margin-top: 3.5em;
+	margin-bottom: 5em;
+}
+
+.addedItem-btns,
+.close-added-modal {
+	width: 16em;
+	padding: 0.45em 0.75em;
+	border-radius: 6.25em;
+	background: transparent;
+}
+
+.addedItem-btns span,
+.close-added-modal span {
+	text-align: center;
+	font-family: "Inter";
+	font-size: 0.94rem;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+}
+
+.addedItem-btns {
+	color: #3665f3;
+	border: 1px solid #3665f3;
+}
+
+.close-added-modal {
+	color: #fff;
+	background-color: #3665f3;
+}
+
+.addedItem-btns:focus,
+.close-added-modal:focus {
+	outline: none;
+}
+.margin-top0 {
+	margin-top: 0.25em;
+}
+.margin-top1 {
+	margin-top: 0.75em;
+}
+.margin-bottom0 {
+	margin-bottom: 0.5em;
 }

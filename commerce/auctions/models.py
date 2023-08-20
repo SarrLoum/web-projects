@@ -15,7 +15,7 @@ class User(AbstractUser):
             "email": self.email,
             "avatar": str(self.avatar.url) if self.avatar else None
         }
-
+    
 
 CATEGORIES = [
     ("art", "Collectibles & art"),
@@ -28,6 +28,8 @@ CATEGORIES = [
     ("toys", "Toys & hobbies"),
     ("other", "Other categories"),
 ]
+
+
 
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -44,6 +46,8 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+
 
 class ImgCategory(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="illustrations")
@@ -63,20 +67,21 @@ class ImgCategory(models.Model):
     def __str__(self):
         return self.category.name
 
+
+
 class Listing(models.Model):
     title = models.CharField(max_length=100)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, max_length=100, blank=True, null=True,related_name="listings")
     starting_bid = models.FloatField()
+    winning_bid = models.FloatField(blank=True, null=True)
     image = models.ImageField()
     description = models.CharField(max_length=200)
     publication_date = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True,related_name="listings")
     active = models.BooleanField(default=True)
     watchlist = models.ManyToManyField(User, blank=True, null=True, related_name="watchlistings")
-
     def __str__(self):
         return self.title
-
 
 
 
@@ -110,7 +115,25 @@ class Suggestion(models.Model):
         return self.name
 
 
+
 class RecentlyViewed(models.Model):
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="viewed_listings")
     timestamp = models.DateTimeField(auto_now_add=True)
+
+
+
+class Notification(models.Model):
+    title = models.CharField(max_length=100)
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE, blank=True, null=True)
+    listing_owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name="owner_notifications")
+    recipients = models.ManyToManyField(User, blank=True, null=True, related_name="notifications")
+
+
+
+class Message(models.Model):
+    text = models.CharField(max_length=100)
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE, blank=True, null=True)
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name="sender_messages")
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name="receiver_messages")
+

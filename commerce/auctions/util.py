@@ -5,23 +5,45 @@ from .models import *
 def get_price(resquest, id):
     # Get the starting bid 
     listing = Listing.objects.get(pk=id)
-    startingBid = listing.starting_bid
+    starting_bid = listing.starting_bid
+    winning_bid = listing.winning_bid
 
-    # Get all the bids made on that listing (highest bid)
-    bids = listing.bids.all()
     # Return the current price
-    if len(bids) == 0:
-        price = startingBid
-        return price
-        
-    price = bids.aggregate(Max("bid"))['bid__max']
-    return price
+    if winning_bid == 0:
+        return starting_bid
+    return winning_bid
 
 
 def is_owner(listing, user):
     if listing.owner == user:
         return True
     return False
+
+def close_listing_notifications(listing):
+    listing_bids = listing.bids.select_related('user')
+    recipients = {bid.user for bid in listing_bids}
+
+    notification = Notification(
+        title=f"The {listing.title} listing has been closed",
+        listing=listing,
+        listing_owner=listing.owner
+    )
+    notification.save()
+    notification.recipients.set(recipients)
+
+
+def bid_notifications(listing, amount):
+    listing_bids = listing.bids.select_related('user')
+    recipients = {bid.user for bid in listing_bids}
+
+    notification = Notification(
+        title=f"A new bid of ${amount:.2f} has been made on the {listing.title} listing",
+        listing=listing,
+        listing_owner=listing.owner
+    )
+    notification.save()
+    notification.recipients.set(recipients)
+
 
 
 def get_categories():
