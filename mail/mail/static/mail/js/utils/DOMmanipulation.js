@@ -321,7 +321,7 @@ export const noteApp = () => {
                                     <span>Take a note...</span>
                                 </button>
                                 <button id="newList" class="noteApp-btns">
-                                    <img src="static/icons/noteApp-icons/checkbox filled.svg" alt="" />
+                                    <img src="static/icons/noteApp-icons/checkbox filled1.svg" alt="" />
                                 </button>
                             </div>
                             <div id="noteApp-home" class="noteApp-body">

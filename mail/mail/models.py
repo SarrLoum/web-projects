@@ -50,13 +50,46 @@ class Email(models.Model):
             "spam": self.spam,
             "trash": self.trash,
         }
+
+class KeepNote(models.Model):
+    title = models.CharField(max_length=100, blank=True, null=True)
+    note = models.CharField(max_length=150, blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+
+class KeepNoteList(models.Model):
+    title = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+
+class NoteListItem(models.Model):
+    notelist = models.ForeignKey(KeepNoteList, on_delete=models.CASCADE)
+    note = models.CharField(max_length=150, blank=True, null=True)
+
+    def __str__(self):
+        return self.notelist
+
+
+
 class ParentLabelNote(models.Model):
     name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
 
 
 class LabelNote(models.Model):
     name = models.CharField(max_length=100)
     parent = models.ForeignKey(ParentLabelNote, on_delete=models.CASCADE, related_name="child_notes", blank=True, null=True)
+
+    def __str__(self):
+        return self.parent
+
 
 
 class WallPaper(models.Model):

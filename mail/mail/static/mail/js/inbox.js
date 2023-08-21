@@ -135,46 +135,29 @@ function compose_email() {
 
 function flexEmailsContainer() {
 	// Listen for clicks on the settings
+	var sidebar = document.querySelector(".side-bar");
 	const emailsContainer = document.querySelector(".emails-content");
 	const settingsContainer = document.querySelector(".settings-container");
+	const myAppsDIv = document.querySelector("#thirdPart-apps");
 	const settingsButton = document.querySelector("#settings");
 
 	settingsButton.addEventListener("click", function () {
-		let initialWidth = emailsContainer.offsetWidth;
-		var isFlexed = emailsContainer.dataset.flexed === "true";
-
 		if (getComputedStyle(settingsContainer).display === "none") {
-			let settingsWidth = parseFloat(
-				getComputedStyle(settingsContainer).width
-			);
-			let settingsMargin = parseFloat(
-				getComputedStyle(settingsContainer).marginLeft
-			);
-			let shrinkWidth = initialWidth - (settingsWidth + settingsMargin);
+			if (!sidebar.classList.contains("sidebar-flexed")) {
+				emailsContainer.style.maxWidth = "71%";
+			} else {
+				emailsContainer.style.maxWidth = "74.5%";
+			}
 
-			let newWidth =
-				shrinkWidth /
-					parseFloat(getComputedStyle(emailsContainer).fontSize) +
-				"em";
-
-			emailsContainer.style.maxWidth = isFlexed ? 56.5 + "em" : newWidth;
+			if (myAppsDIv.style.display === "block") {
+				emailsContainer.style.maxWidth = "61%";
+			} else {
+				emailsContainer.style.maxWidth = "71%";
+			}
 
 			settingsContainer.style.display = "block";
-
-			console.log("Clicked"); // Check if the event listener is triggered
-			console.log("Shrink Width:", shrinkWidth); // Check the calculated shrink width
-			console.log(
-				"Emails Container Width:",
-				emailsContainer.style.maxWidth
-			); // Check the width value applied to the emails container
-			console.log(
-				"Settings Container Display:",
-				settingsContainer.style.display
-			); // Check the display property value of the settings container
 		} else {
-			emailsContainer.style.maxWidth = isFlexed
-				? 76.5 + "em"
-				: 65.5 + "em";
+			emailsContainer.style.maxWidth = "100%";
 			settingsContainer.style.display = "none";
 		}
 	});
@@ -433,7 +416,10 @@ function asTrash(email) {
 }
 
 function thirdPartApps() {
+	var sidebar = document.querySelector(".side-bar");
 	const myAppsDIv = document.querySelector("#thirdPart-apps");
+	const emailsContent = document.querySelector(".emails-content");
+	const settingsContainer = document.querySelector(".settings-container");
 	const emailContentDiv = document.querySelector(
 		".content-settings-container"
 	);
@@ -441,7 +427,18 @@ function thirdPartApps() {
 
 	myAppsBtns.forEach((myAppBtn) => {
 		myAppBtn.addEventListener("click", () => {
-			emailContentDiv.style.maxWidth = 46.85 + "em";
+			if (!sidebar.classList.contains("sidebar-flexed")) {
+				emailContentDiv.style.maxWidth = 46.85 + "em";
+			} else {
+				emailContentDiv.style.maxWidth = 57.85 + "em";
+			}
+
+			const isSettingsDisplayed = settingsContainer.style.display;
+			if (isSettingsDisplayed === "block") {
+				emailsContent.style.maxWidth = "61%";
+			} else {
+				emailsContent.style.maxWidth = "100%";
+			}
 
 			myAppsDIv.style.display = "block";
 
@@ -527,20 +524,30 @@ function interactiveNav() {
 	var expandMore = document.querySelector("#expand-span");
 	var labelsInboxDraft = document.querySelectorAll(".inbox-count"); // Select all count spans
 
-	var emailsContent = document.querySelector(".emails-content");
-	var isFlexed = false;
+	const emailsContent = document.querySelector(".emails-content");
+	const settingsContainer = document.querySelector(".settings-container");
+	const emailContentDiv = document.querySelector(
+		".content-settings-container"
+	);
 
+	var isFlexed = false;
 	btn3bar.addEventListener("click", () => {
 		isFlexed = !isFlexed;
-		emailsContent.setAttribute("data-flexed", isFlexed ? "true" : "false");
+
 		if (isFlexed) {
 			labelBtn.classList.add("no-margin-left");
 			sidebar.classList.add("sidebar-flexed");
-
 			labelContent.classList.add("label-content-flexed");
-			emailsContent.classList.add("emails-content-sb-flexed");
-			emailsContent.style.width = 76.5 + "em";
+			emailContentDiv.classList.add("emails-content-sb-flexed");
 
+			emailContentDiv.style.maxWidth = 76.5 + "em";
+
+			const isSettingsDisplayed = settingsContainer.style.display;
+			if (isSettingsDisplayed === "block") {
+				emailsContent.style.maxWidth = "74.5%";
+			} else {
+				emailsContent.style.maxWidth = "100%";
+			}
 			navBtns.forEach((navBtn) => {
 				navBtn.classList.add("nav-button-flexed");
 			});
@@ -548,12 +555,13 @@ function interactiveNav() {
 				btnContent.classList.add("no-margin-left");
 			});
 
+			// Hide hide expand more and label nav
+			expandMore.style.display = "none";
+			labelNav.style.display = "none";
 			// Loop through all label spans and hide them
 			navLabels.forEach((label) => {
 				label.style.display = "none";
 			});
-			expandMore.style.display = "none";
-			labelNav.style.display = "none";
 			// Loop through all count spans and hide them
 			labelsInboxDraft.forEach((count) => {
 				count.style.display = "none";
@@ -561,8 +569,16 @@ function interactiveNav() {
 		} else {
 			labelBtn.classList.remove("no-margin-left");
 			sidebar.classList.remove("sidebar-flexed");
-			emailsContent.classList.remove("emails-content-sb-flexed");
-			emailsContent.style.width = 65.5 + "em";
+			emailContentDiv.classList.remove("emails-content-sb-flexed");
+
+			emailContentDiv.style.maxWidth = 65.5 + "em";
+
+			const isSettingsDisplayed = settingsContainer.style.display;
+			if (isSettingsDisplayed === "block") {
+				emailsContent.style.maxWidth = "74.5%";
+			} else {
+				emailsContent.style.maxWidth = "100%";
+			}
 
 			navBtns.forEach((navBtn) => {
 				navBtn.classList.remove("nav-button-flexed");
@@ -571,12 +587,14 @@ function interactiveNav() {
 				btnContent.classList.remove("no-margin-left");
 			});
 
+			// how expand more and labelNav
+			expandMore.style.display = "block";
+			labelNav.style.display = "block";
+
 			// Loop through all label spans and display them
 			navLabels.forEach((label) => {
 				label.style.display = "block";
 			});
-			expandMore.style.display = "block";
-			labelNav.style.display = "block";
 			// Loop through all count spans and display them
 			labelsInboxDraft.forEach((count) => {
 				count.style.display = "flex";

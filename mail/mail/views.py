@@ -1,4 +1,5 @@
 import json
+from django.core.cache import cache
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
@@ -8,20 +9,13 @@ from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import User, Email, WallPaper, MailerApp
+from .models import *
+from .utils import *
 
 
 def index(request):
     if request.user.is_authenticated:
-        # Authenticated users view their inbox
-        inboxes = Email.objects.filter(
-            Q(user=request.user) &
-            Q(archived=False) &
-            Q(starred=False) &
-            Q(spam=False) &
-            Q(trash=False)
-        )
-        total_inbox = inboxes.count()
+        total_inbox = inboxes_count(request.user)
 
         all_wallpapers = WallPaper.objects.all()[:7]
         return render(request, "mail/inbox.html", {
@@ -161,13 +155,7 @@ def login_view(request):
         email = request.POST["email"]
         password = request.POST["password"]
 
-        print("email:", email)
-        print("password:", password)
-
         user = authenticate(request, username=email, password=password)
-        print("user:", user)
-
-
         if user is not None:
             login(request, user)
             return HttpResponseRedirect(reverse("index"))
@@ -186,7 +174,7 @@ def logout_view(request):
 def register(request):
     if request.method == "POST":
         email = request.POST["email"]
-
+        
         # Ensure password matches confirmation
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
@@ -220,6 +208,82 @@ def validate_credentials(request):
             return JsonResponse({'user': user.serialize(), 'valid': True, 'message': 'Email is valid'})
         except User.DoesNotExist:
             return JsonResponse({'valid': False, 'message': 'Email is not valid'})
+
+
+
+def search_mail(request):
+    if request.method == "POST":
+        query = request.POST.get("q")
+
+        result = search_query(query)
+
+    return JsonResponse(result, status=200)
+
+
+
+
+from django.http import JsonResponse
+from django.core.cache import cache
+import json
+from itertools import chain
+from .models import KeepNote, KeepNoteList, NoteListItem
+
+def get_notes(request):
+    cached_data = cache.get('cached_notes')
+
+    if cached_data is None:
+        # If cached data is not available, fetch data from the database
+
+        # Fetch all KeepNote instances and KeepNoteList instances ordered by timestamp
+        notes = KeepNote.objects.all().order_by("-timestamp")
+        note_lists = KeepNoteList.objects.all().order_by("-timestamp")
+
+        # Combine notes and note lists into a single list
+        combined_data = list(chain(notes, note_lists))
+
+        # Sort the combined list by timestamp in descending order
+        combined_data.sort(key=lambda obj: obj.timestamp, reverse=True)
+
+        # Create a dictionary containing the combined and sorted data
+        notes_data = {
+            "combined_data": combined_data
+        }
+
+        # Cache the data for an hour (3600 seconds)
+        cache.set('cached_notes', json.dumps(notes_data), timeout=3600)
+
+    else:
+        notes_data = json.loads(cached_data)
+
+    return JsonResponse(notes_data)
+
+
+def add_notes(request, noteType):
+    if request.method == "POST":
+        if noteType == "note":
+            title = request.POST.get("title")
+            note = request.POST.get("note")
+
+            new_note = KeepNote(title=title)
+            new_note.note = note
+            new_note.save()
+
+        else:
+            title = request.POST.get("title")
+            note_items = request.POST.getlist("noteItems")
+
+            new_note_list = KeepNoteList(title=title)
+            new_note_list.save()
+
+            for note_item in note_items:
+                notelist_item = NoteListItem(notelist=new_note_list, note=note_item)
+                notelist_item.save()
+
+    # Update the cache after adding a new note or note list
+    # update_cached_notes()
+
+    return JsonResponse({'message': 'Note created/edited successfully'})
+
 
 
 

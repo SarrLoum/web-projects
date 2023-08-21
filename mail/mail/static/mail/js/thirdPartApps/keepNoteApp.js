@@ -8,6 +8,8 @@ import {
 export const KeepNoteApp = () => {
 	// Container Element
 	const myAppsDIv = document.querySelector("#thirdPart-apps");
+	const settingsContainer = document.querySelector(".settings-container");
+	const emailsContent = document.querySelector(".emails-content");
 	const emailContentDiv = document.querySelector(
 		".content-settings-container"
 	);
@@ -41,6 +43,11 @@ export const KeepNoteApp = () => {
 		myAppsDIv.style.display = "none";
 		noteAppWrapper.style.display = "none";
 		emailContentDiv.style.maxWidth = `${maxWidth + 18.65}em`;
+
+		const isSettingsDisplayed = settingsContainer.style.display;
+		if (isSettingsDisplayed == "block") {
+			emailsContent.style.maxWidth = "71%";
+		}
 	});
 
 	var noteMap = {
@@ -106,6 +113,7 @@ export const KeepNoteApp = () => {
 			console.log("title working :", noteMap.title);
 		});
 
+		// add event listener to the body input
 		let itemIndex = 0;
 		listNoteInput.addEventListener("input", () => {
 			let tempInputValue = listNoteInput.value;
@@ -118,7 +126,7 @@ export const KeepNoteApp = () => {
 				let noteItem = noteItemWidget(false, itemIndex);
 				noteListItemsDiv.appendChild(noteItem);
 				//  get the new note item input
-				const currentNoteItem = document.querySelector(
+				const currentNoteItem = noteListItemsDiv.querySelector(
 					`#noteList-item${itemIndex}`
 				);
 
@@ -129,50 +137,84 @@ export const KeepNoteApp = () => {
 			}
 		});
 
-		// Note List items checkboxes
+		const checkedNotesDiv = document.querySelector(".checked-notes");
 		const checkedNotesWrapper = document.querySelector(
 			".checked-notes-wrapper"
 		);
-		const checkedNotesDiv = document.querySelector(".checked-notes");
-		const noteItems = document.querySelectorAll(".noteItem");
+		const notesCountSpan = document.querySelector(".checked-count");
 
-		let itemIndex2 = 0;
-		noteItems.forEach((noteItem) => {
-			console.log("Element note item: ", noteItem);
+		// Note List items checked
+		//let itemIndex2 = 0;
+		let checkedCount = 0;
+		noteListItemsDiv.addEventListener("click", (event) => {
+			const target = event.target;
+			const noteItem = target.closest(".note-Item");
 
-			noteItem.addEventListener("mouseenter", () => {
-				console.log("mouse entered note item");
-				const closeNoteItem = noteItem.querySelector(".close-noteItem");
-				closeNoteItem.style.display = "flex";
-			});
+			if (noteItem) {
+				const noteInput = noteItem.querySelector("input");
 
-			noteItem.addEventListener("click", (event) => {
-				console.log("mouse entered note item");
-				let target = event.target;
-				if (target.classList.contains("close-noteItem")) {
+				if (
+					target.classList.contains("close-noteItem") ||
+					target.classList.contains("close-icon")
+				) {
+					// Handle close button click
 					noteItem.remove();
+				} else if (
+					target.classList.contains("item-checkbox") ||
+					target.classList.contains("checkbox-icon")
+				) {
+					console.log("note input: ", noteInput);
+					console.log("note input id: ", noteInput.id);
+					console.log("note input value: ", noteInput.value);
+
+					// Handle checkbox click
+					const inputValue = noteInput.value;
+
+					console.log("InputValue = ", inputValue);
+					noteItem.remove();
+
+					//++itemIndex2;
+					++checkedCount;
+					let noteItemChecked = noteItemWidget(true, null, noteInput.id);
+					checkedNotesDiv.appendChild(noteItemChecked);
+
+					notesCountSpan.textContent = `${checkedCount} completed item${
+						checkedCount > 1 ? "s" : ""
+					}`;
+					checkedNotesWrapper.style.display = "block";
+
+					const currentNoteItem = document.querySelector(
+						`#${noteInput.id}`
+					);
+					currentNoteItem.value = inputValue;
 				}
+			}
+		});
 
-				if (target.classList.contains("item-checkbox")) {
-					console.log("checked Btn clicked");
-					const noteValue = noteItem.querySelector("input").value;
-					var isChecked = target.classList.contains("checked");
-					if (!isChecked) {
-						noteItem.remove();
+		checkedNotesWrapper.addEventListener("click", (event) => {
+			const target = event.target;
+			const noteItem = target.closest(".note-Item");
 
-						++itemIndex2;
-						checkedNotesDiv.style.display = "flex";
-						let noteItemChecked = noteItemWidget(true, itemIndex2);
-						checkedNotesDiv.appendChild(noteItemChecked);
+			if (noteItem) {
+				const noteInput = noteItem.querySelector("input");
 
-						//  get the new note item input
-						const currentNoteItem = document.querySelector(
-							`#noteList-item${itemIndex}`
-						);
-						currentNoteItem.value = noteValue;
+				if (
+					target.classList.contains("close-noteItem") ||
+					target.classList.contains("close-icon")
+				) {
+					// Handle close button click
+					noteItem.remove();
+					checkedCount--;
+					notesCountSpan.textContent = `${checkedCount} completed item${
+						checkedCount > 1 ? "s" : ""
+					}`;
+
+					if (checkedCount === 0) {
+						notesCountSpan.textContent = "";
+						checkedNotesWrapper.style.display = "none";
 					}
 				}
-			});
+			}
 		});
 
 		const addNoteBtn = document.querySelector("#add-note-list");
@@ -189,5 +231,5 @@ export const KeepNoteApp = () => {
 	const noteMenu = document.querySelectorAll("#note-menu");
 	const pinNote = document.querySelectorAll("#pin-note");
 
-	noteMenu.addEventListener("click", () => {});
+	//noteMenu.addEventListener("click", () => {});
 };
