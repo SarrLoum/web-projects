@@ -87,7 +87,7 @@ AUTH_USER_MODEL = 'mail.User'
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379/1',  # Adjust the URL as needed
+        'LOCATION': 'redis://127.0.0.1:6379/1',  # Update with your Redis details
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         }

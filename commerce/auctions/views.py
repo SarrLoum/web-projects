@@ -14,6 +14,9 @@ from .forms import ListingForm, CommentForm
 from .models import *
 from .util import *
 
+
+
+
 def index(request):
     user = request.user
     # Create an objects of all the active listing
@@ -128,15 +131,11 @@ def new_listing(request):
             return render(request, "auctions/new_listing.html", {
                 "added_listing": new_listing,
                 "is_added": True
-
             })
-
         else:
             print("Error occcured on the form", listing_form.errors)
-
     else:
         listing_form = ListingForm()
-
     return render(request, "auctions/new_listing.html", {
         "listing_form": listing_form
     })
@@ -182,7 +181,8 @@ def close_listing(request, listing_id):
 
     # Update the active status of the listing using F expression
     listing.active = False
-    close_listing_notifications()
+    close_listing_notifications(listing)
+    auction_winner_notification(listing)
     return HttpResponseRedirect(reverse("listing-page", args=(listing_id, )))
 
 
@@ -214,7 +214,7 @@ def watchlist(request):
         "watched": watched
     })
 
-
+@login_required
 def add_bid(request, listing_id):
     listing = Listing.objects.get(pk=listing_id)
 
@@ -225,7 +225,7 @@ def add_bid(request, listing_id):
             messages.error(request, 'Invalid bid amount.')
             return HttpResponseRedirect(reverse("listing-page", args=(listing_id, )))
 
-        current_price = get_price(request, listing_id)
+        current_price = get_price(listing)
 
         if amount > current_price:
             new_bidding = Bid(bid=amount)
@@ -233,10 +233,10 @@ def add_bid(request, listing_id):
             new_bidding.user = request.user
             new_bidding.save()
 
-            listing.winning_bid = amount
+            listing.winning_bid = new_bidding
             listing.save()
 
-            close_listing_notifications()
+            bid_notifications(listing, amount)
 
             messages.success(request, 'Bid submitted successfully.')
         else:
@@ -269,7 +269,18 @@ def search(request):
         query = request.POST["q"]
         on_category = request.POST["search-category"]
 
-        search_on_category(query, on_category)
+        try:
+            if on_category == "all categories":
+                category = None
+            else:
+                category = Category.object.get(key=on_category)
+        except category.DoesNotExist:
+            pass
+        result = search_on_category(query, category)
+
+        return render(request, "search_result.html", {
+            "search_result": result
+        })
 
 
 
@@ -282,5 +293,13 @@ def category_view(request, category_name):
 def get_user(request):
     user = request.user
     user_data = user.serialize() if user.is_authenticated else None
-    notifications = Notification.objects.filter(Q(listing_owner=user) | Q(recipients=user))
-    return JsonResponse({"user": user_data, "notifications": notifications}, status=200)
+    return JsonResponse({"user": user_data}, status=200)
+
+
+def get_notifications(request):
+    user = request.user
+    notifications = Notification.objects.filter(Q(listing_owner=user) | Q(recipients=user)).order_by("-timestamp")
+    notification_data = [notification.serialize() for notification in notifications]
+    return JsonResponse({"notifications": notification_data}, status=200)
+
+

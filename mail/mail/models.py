@@ -56,23 +56,35 @@ class KeepNote(models.Model):
     note = models.CharField(max_length=150, blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.title
+    def serialize(self):
+        keep_note_data = {
+            "title": self.title,
+            "note": self.note,
+            "wichType": "new note",
+            "timestamp": self.timestamp.strftime('%Y-%m-%d %H:%M:%S')
+
+        }
+
+        return keep_note_data
 
 
 class KeepNoteList(models.Model):
     title = models.CharField(max_length=100, blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
-    def __str__(self):
-        return self.title
+    def serialize(self):
+        note_items = NoteListItem.objects.filter(notelist=self)
+        notelist_data = {
+            "title": self.title,
+            "noteItems": [note_item.note for note_item in note_items],
+            "wichType": "new noteList",
+            "timestamp": self.timestamp.strftime('%Y-%m-%d %H:%M:%S')
+        }
+        return notelist_data
 
 class NoteListItem(models.Model):
-    notelist = models.ForeignKey(KeepNoteList, on_delete=models.CASCADE)
     note = models.CharField(max_length=150, blank=True, null=True)
-
-    def __str__(self):
-        return self.notelist
-
+    notelist = models.ForeignKey(KeepNoteList, on_delete=models.CASCADE)
 
 
 class ParentLabelNote(models.Model):

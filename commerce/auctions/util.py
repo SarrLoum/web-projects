@@ -2,22 +2,24 @@ from django.db.models import Max, Q
 from .models import *
 
 
-def get_price(resquest, id):
+
+def get_price(listing):
     # Get the starting bid 
-    listing = Listing.objects.get(pk=id)
     starting_bid = listing.starting_bid
     winning_bid = listing.winning_bid
 
     # Return the current price
-    if winning_bid == 0:
+    if winning_bid is None or winning_bid.bid == 0:
         return starting_bid
-    return winning_bid
+    return winning_bid.bid
 
 
 def is_owner(listing, user):
     if listing.owner == user:
         return True
     return False
+
+
 
 def close_listing_notifications(listing):
     listing_bids = listing.bids.select_related('user')
@@ -32,6 +34,22 @@ def close_listing_notifications(listing):
     notification.recipients.set(recipients)
 
 
+
+def auction_winner_notification(listing):
+    winning_bid = listing.winning_bid
+    winner = Bid.objects.get(bid=winning_bid).select_related("user")
+
+    notification = Notification(
+        title=f"Congratulations you've won the auction {listing.title}!!!! \n Winning Bid: {winning_bid}",
+        listing=listing,
+        listing_owner=listing.owner,
+    )
+    notification.save()
+    notification.recipients.add(winner)  # Add the winner as a recipient
+
+
+
+
 def bid_notifications(listing, amount):
     listing_bids = listing.bids.select_related('user')
     recipients = {bid.user for bid in listing_bids}
@@ -43,6 +61,7 @@ def bid_notifications(listing, amount):
     )
     notification.save()
     notification.recipients.set(recipients)
+    
 
 
 
@@ -64,8 +83,20 @@ def get_categories():
     return categoryList
 
 
+
 def search_on_category(query, category):
-    pass
+    base_query = Listing.objects.select_related('category', 'owner')
+
+    if category:
+        base_query = base_query.filter(category=category)
+
+    if query:
+        query_filter = Q(title__icontains=query) | Q(description__icontains=query)
+        base_query = base_query.filter(query_filter)
+
+    result = base_query.filter(active=True)
+    
+    return result
 
 def ratings_level(comments):
     ratings = []

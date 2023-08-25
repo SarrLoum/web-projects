@@ -51,7 +51,11 @@
 								href="{% url 'listing-page' viewed_listing.listing.id %}"
 								>{{ viewed_listing.listing.title }}</a
 							>
+							{% if viewed_listing.listing.winning_bid.bid > viewed_listing.listing.starting_bid %}
+							<span>${{ viewed_listing.listing.winning_bid.bid }}</span>
+							{% else %}
 							<span>${{ viewed_listing.listing.starting_bid }}</span>
+							{% endif %}
 						</div>
 					</div>
 				</li>
@@ -137,7 +141,12 @@
 								href="{% url 'listing-page' listing.id %}"
 								>{{ listing.title }}</a
 							>
+							{% if listing.winning_bid.bid > listing.starting_bid %}
+							<span>${{ listing.winning_bid.bid }}</span>
+							{% else %}
 							<span>${{ listing.starting_bid }}</span>
+							{% endif %}
+
 						</div>
 					</div>
 				</li>
@@ -174,7 +183,11 @@
 							href="{% url 'listing-page' listing.id %}"
 							>{{ listing.title }}</a
 						>
+						{% if listing.winning_bid.bid > listing.starting_bid %}
+						<span>${{ listing.winning_bid.bid }}</span>
+						{% else %}
 						<span>${{ listing.starting_bid }}</span>
+						{% endif %}
 					</div>
 				</div>
 			</li>

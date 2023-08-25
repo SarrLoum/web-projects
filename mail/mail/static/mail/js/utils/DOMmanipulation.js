@@ -1,3 +1,5 @@
+import { loadNote } from "./components.js";
+
 export const emailElement = (email) => {
 	// Change background color if the email is read
 	let color = email.read ? "#f2f6fc;" : "#fff";
@@ -286,9 +288,68 @@ export const respondOnEmail = (email) => {
 		});
 };
 
-export const noteApp = () => {
+export const noteApp = async () => {
 	const noteAppContainer = document.createElement("div");
 	noteAppContainer.classList.add("noteApp-wrapper");
+
+	var notesData = null;
+	const response = await fetch("/notes");
+	if (response.status === 200) {
+		const result = await response.json();
+		notesData = result.combined_data;
+		console.log("Notes data: ", notesData);
+	}
+
+	let notesHTML = "";
+
+	if (!notesData) {
+		notesHTML = `
+        <div id="noteApp-home" class="noteApp-body">
+            <div class="folder-image-container flex align-center justify-center">
+                <div class="folder-image">
+                    <img src="static/icons/noteApp-icons/folder icon.svg" alt=""/>
+                </div>
+            </div>
+            <div class="noteApp-slogan">
+                <h1>No notes yet</h1>
+                <p>Your notes from Google keep will
+                    show up here</p>
+            </div>
+            <div class="flex justify-center">
+                <div class="flex column gap7">
+                    <a href="https://play.google.com/store/apps/details?id=com.google.android.keep" target="_blank" class="plateform-btn flex align-center gap5">
+                        <img src="static/icons/noteApp-icons/android icon.svg" alt=""/>
+                        <span>Android devices</span>
+                    </a> 
+                    <a href="https://apps.apple.com/app/id1029207872" target="_blank" class="plateform-btn flex align-center gap5">
+                        <img src="static/icons/noteApp-icons/ios icon.svg" alt=""/>
+                        <span>iPhone & iPad</span>
+                    </a>
+                    <a href="https://keep.google.com" target="_blank" class="plateform-btn flex align-center gap5">
+                        <img src="static/icons/noteApp-icons/web icon.svg" alt=""/>
+                        <span>Web app</span>
+                    </a>
+                    <a href="https://chrome.google.com/webstore/detail/google-keep-chrome-extens/lpcaedmchfhocbbapmcbpinfpgnhiddi" target="_blank" class="plateform-btn flex align-center gap5">
+                        <img src="static/icons/noteApp-icons/chrome extension.svg" alt=""/>
+                        <span>chrome extension</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    `;
+	} else {
+		notesHTML = `
+        <div id="noteApp-body" class="noteApp-body">
+            <div id="addNote-wrapper" class="addNote-wrapper">
+                ${notesData
+					.map((note) => {
+						return loadNote(note, note.wichType);
+					})
+					.join("")}
+            </div>
+        </div>
+    `;
+	}
 
 	let childElement = `
 
@@ -324,42 +385,8 @@ export const noteApp = () => {
                                     <img src="static/icons/noteApp-icons/checkbox filled1.svg" alt="" />
                                 </button>
                             </div>
-                            <div id="noteApp-home" class="noteApp-body">
-                                <div class="folder-image-container flex align-center justify-center">
-                                    <div class="folder-image">
-                                        <img src="static/icons/noteApp-icons/folder icon.svg" alt=""/>
-                                    </div>
-                                </div>
-                                <div class="noteApp-slogan">
-                                    <h1>No notes yet</h1>
-                                    <p>Your notes from Google keep will
-                                        show up here</p>
-                                </div>
 
-                                <div class="flex justify-center">
-                                    <div class="flex column gap7">
-                                        <a href="https://play.google.com/store/apps/details?id=com.google.android.keep" target="_blank" class="plateform-btn flex align-center gap5">
-                                            <img src="static/icons/noteApp-icons/android icon.svg" alt=""/>
-                                            <span>Android devices</span>
-                                        </a> 
-                                        <a href="https://apps.apple.com/app/id1029207872" target="_blank" class="plateform-btn flex align-center gap5">
-                                            <img src="static/icons/noteApp-icons/ios icon.svg" alt=""/>
-                                            <span>iPhone & iPad</span>
-                                        </a>
-                                        <a href="https://keep.google.com" target="_blank" class="plateform-btn flex align-center gap5">
-                                            <img src="static/icons/noteApp-icons/web icon.svg" alt=""/>
-                                            <span>Web app</span>
-                                        </a>
-                                        <a href="https://chrome.google.com/webstore/detail/google-keep-chrome-extens/lpcaedmchfhocbbapmcbpinfpgnhiddi" target="_blank" class="plateform-btn flex align-center gap5">
-                                            <img src="static/icons/noteApp-icons/chrome extension.svg" alt=""/>
-                                            <span>chrome extension</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="noteApp-body" class="noteApp-body">
-                                <div id="addNote-wrapper" class="addNote-wrapper"></div>
-                            </div>
+                            ${notesHTML}
                         </div>
                     </div>
                     
@@ -455,5 +482,13 @@ export function subjectRe(email) {
 		return email.subject;
 	} else {
 		return `Re: ${email.subject}`;
+	}
+}
+
+export function getCookie(name) {
+	const value = `; ${document.cookie}`;
+	const parts = value.split(`; ${name}=`);
+	if (parts.length === 2) {
+		return parts.pop().split(";").shift();
 	}
 }

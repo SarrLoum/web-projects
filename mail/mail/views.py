@@ -5,12 +5,13 @@ from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.db.models import  Q
 from django.http import JsonResponse
+from django.core import serializers
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
 from .models import *
-from .utils import *
+from .util import *
 
 
 def index(request):
@@ -210,7 +211,7 @@ def validate_credentials(request):
             return JsonResponse({'valid': False, 'message': 'Email is not valid'})
 
 
-
+@csrf_exempt
 def search_mail(request):
     if request.method == "POST":
         query = request.POST.get("q")
@@ -221,12 +222,6 @@ def search_mail(request):
 
 
 
-
-from django.http import JsonResponse
-from django.core.cache import cache
-import json
-from itertools import chain
-from .models import KeepNote, KeepNoteList, NoteListItem
 
 def get_notes(request):
     cached_data = cache.get('cached_notes')
@@ -239,16 +234,25 @@ def get_notes(request):
         note_lists = KeepNoteList.objects.all().order_by("-timestamp")
 
         # Combine notes and note lists into a single list
-        combined_data = list(chain(notes, note_lists))
+        combined_data = []
+
+        for note_list in note_lists:
+            if note_list.title is not None:
+                serialized_notelist = note_list.serialize()
+                combined_data.append(serialized_notelist)
+
+        for note in notes:
+            if note.title is not None:
+                serialized_note = note.serialize()
+                combined_data.append(serialized_note)
 
         # Sort the combined list by timestamp in descending order
-        combined_data.sort(key=lambda obj: obj.timestamp, reverse=True)
+        combined_data.sort(key=lambda obj: obj['timestamp'], reverse=True)
 
         # Create a dictionary containing the combined and sorted data
         notes_data = {
             "combined_data": combined_data
         }
-
         # Cache the data for an hour (3600 seconds)
         cache.set('cached_notes', json.dumps(notes_data), timeout=3600)
 
@@ -258,19 +262,29 @@ def get_notes(request):
     return JsonResponse(notes_data)
 
 
+
+@csrf_exempt
 def add_notes(request, noteType):
+    data = json.loads(request.body.decode("utf-8"))
+
     if request.method == "POST":
         if noteType == "note":
-            title = request.POST.get("title")
-            note = request.POST.get("note")
+            title = data.get("title")
+            note = data.get("note")
+
+            print("title", title)
+            print("note", note)
 
             new_note = KeepNote(title=title)
             new_note.note = note
             new_note.save()
 
+            serialized_note = new_note.serialize()
+            return JsonResponse({'note': serialized_note, 'message': 'Note created/edited successfully'})
+
         else:
-            title = request.POST.get("title")
-            note_items = request.POST.getlist("noteItems")
+            title = data.get("title")
+            note_items = data.get("noteItems")  # Use getlist to get a list of note items
 
             new_note_list = KeepNoteList(title=title)
             new_note_list.save()
@@ -279,10 +293,11 @@ def add_notes(request, noteType):
                 notelist_item = NoteListItem(notelist=new_note_list, note=note_item)
                 notelist_item.save()
 
-    # Update the cache after adding a new note or note list
-    # update_cached_notes()
+            return JsonResponse({'message': 'Note list created/edited successfully'})
 
-    return JsonResponse({'message': 'Note created/edited successfully'})
+    # If the request is not a POST request, return an error response
+    return JsonResponse({'error': 'Invalid request method'})
+
 
 
 

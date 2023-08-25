@@ -3108,6 +3108,15 @@ textarea {
 .close-added-modal:focus {
 	outline: none;
 }
+
+.notification {
+	display: none;
+}
+
+.notification .notification-item {
+	scale: 0.75;
+}
+
 .margin-top0 {
 	margin-top: 0.25em;
 }

@@ -5,7 +5,7 @@ import {
 	noteItemWidget,
 } from "../utils/components.js";
 
-export const KeepNoteApp = () => {
+export const KeepNoteApp = async () => {
 	// Container Element
 	const myAppsDIv = document.querySelector("#thirdPart-apps");
 	const settingsContainer = document.querySelector(".settings-container");
@@ -14,7 +14,7 @@ export const KeepNoteApp = () => {
 		".content-settings-container"
 	);
 	// Load the note app
-	var noteAppContainer = noteApp();
+	var noteAppContainer = await noteApp();
 	myAppsDIv.innerHTML = "";
 	myAppsDIv.appendChild(noteAppContainer);
 
@@ -57,14 +57,19 @@ export const KeepNoteApp = () => {
 
 	// for new note
 	newNoteBtn.addEventListener("click", () => {
-		noteAppHome.style.display = "none";
 		noteListBtnDiv.style.display = "none";
 
-		addNoteWrapper.innerHTML = "";
+		//addNoteWrapper.innerHTML = "";
 		noteAppBody.style.display = "block";
 
 		var noteForm = loadNoteForm();
-		addNoteWrapper.appendChild(noteForm);
+
+		const firstChild = addNoteWrapper.firstChild;
+		if (firstChild) {
+			addNoteWrapper.insertBefore(noteForm, firstChild);
+		} else {
+			addNoteWrapper.appendChild(noteForm);
+		}
 
 		const noteListDiv = document.querySelector(".noteList-div");
 		const noteTitleInput = document.querySelector("#noteList-title");
@@ -79,27 +84,57 @@ export const KeepNoteApp = () => {
 		});
 
 		const addNoteBtn = document.querySelector("#add-note-list");
+		const noteControlBtns = document.querySelector(".noteControl-Btns");
 		addNoteBtn.addEventListener("click", () => {
 			noteListBtnDiv.style.display = "flex";
-			noteListDiv.style.display = "none";
+			noteListDiv.classList.add("mynote-Item");
+
+			addNoteBtn.classList.add("hide-it");
+			noteControlBtns.classList.add("hide-it");
 
 			console.log("New note title:", noteMap.title);
 			console.log("New note body:", noteMap.note);
+
+			const requestData = {
+				title: noteMap.title,
+				note: noteMap.note,
+			};
+			fetch("addNotes/note", {
+				method: "POST",
+				headers: {
+					"content-type": "application/json",
+				},
+				body: JSON.stringify(requestData),
+			})
+				.then((response) => response.json())
+				.then((data) => {
+					console.log(data); // Check the response from the server
+				});
 		});
 	});
 
+	var noteListMap = {
+		title: "",
+		notes: [],
+	};
+
 	// FOR ADDING A NEW NOTE LIST
 	listNoteBtn.addEventListener("click", () => {
-		noteAppHome.style.display = "none";
 		noteListBtnDiv.style.display = "none";
 
 		// Clean the wrapper content
-		addNoteWrapper.innerHTML = "";
+		//addNoteWrapper.innerHTML = "";
 		noteAppBody.style.display = "block";
 
 		// Load add note list form
 		var noteForm = loadListNoteForm("new note");
-		addNoteWrapper.appendChild(noteForm);
+
+		const firstChild = addNoteWrapper.firstChild;
+		if (firstChild) {
+			addNoteWrapper.insertBefore(noteForm, firstChild);
+		} else {
+			addNoteWrapper.appendChild(noteForm);
+		}
 
 		// Containers and input element
 		const noteListDiv = document.querySelector(".noteList-div");
@@ -109,7 +144,7 @@ export const KeepNoteApp = () => {
 
 		// add event listener to the tilte input
 		noteTitleInput.addEventListener("input", () => {
-			noteMap.title = noteTitleInput.value;
+			noteListMap.title = noteTitleInput.value;
 			console.log("title working :", noteMap.title);
 		});
 
@@ -134,6 +169,9 @@ export const KeepNoteApp = () => {
 				currentNoteItem.value = listNoteInput.value;
 				listNoteInput.value = "";
 				currentNoteItem.focus();
+				currentNoteItem.addEventListener("change", () => {
+					noteListMap.notes.push(currentNoteItem.value);
+				});
 			}
 		});
 
@@ -159,6 +197,12 @@ export const KeepNoteApp = () => {
 				) {
 					// Handle close button click
 					noteItem.remove();
+					const noteIndex = noteListMap.notes.indexOf(
+						noteInput.value
+					);
+					if (noteIndex !== -1) {
+						noteListMap.notes.splice(noteIndex, 1); // Remove the note from the array
+					}
 				} else if (
 					target.classList.contains("item-checkbox") ||
 					target.classList.contains("checkbox-icon")
@@ -173,9 +217,20 @@ export const KeepNoteApp = () => {
 					console.log("InputValue = ", inputValue);
 					noteItem.remove();
 
+					const noteIndex = noteListMap.notes.indexOf(
+						noteInput.value
+					);
+					if (noteIndex !== -1) {
+						noteListMap.notes.splice(noteIndex, 1); // Remove the note from the array
+					}
+
 					//++itemIndex2;
 					++checkedCount;
-					let noteItemChecked = noteItemWidget(true, null, noteInput.id);
+					let noteItemChecked = noteItemWidget(
+						true,
+						null,
+						noteInput.id
+					);
 					checkedNotesDiv.appendChild(noteItemChecked);
 
 					notesCountSpan.textContent = `${checkedCount} completed item${
@@ -218,18 +273,38 @@ export const KeepNoteApp = () => {
 		});
 
 		const addNoteBtn = document.querySelector("#add-note-list");
+		const noteControlBtns = document.querySelector(".noteControl-Btns");
 		addNoteBtn.addEventListener("click", () => {
 			noteListBtnDiv.style.display = "flex";
-			noteListDiv.style.display = "none";
+			noteListDiv.classList.add("mynote-Item");
+			addNoteBtn.classList.add("hide-it");
+			noteControlBtns.classList.add("hide-it");
 
-			console.log("New note title:", noteMap.title);
-			console.log("New note body:", noteMap.note);
+			console.log("New note title:", noteListMap.title);
+			console.log("New note body:", noteListMap.notes);
 		});
 	});
 
-	// Note Items button
-	const noteMenu = document.querySelectorAll("#note-menu");
-	const pinNote = document.querySelectorAll("#pin-note");
+	// Note Items event listeners
+	const noteItems = document.querySelectorAll(".mynote-Item");
+
+	noteItems.forEach((noteItem) => {
+		const noteControlBtns = noteItem.querySelector(".noteControl-Btns");
+		const addNoteBtn = noteItem.querySelector("#add-note-list");
+		const noteMenuDiv = noteItem.querySelector(".noteMenu-div");
+
+		noteItem.addEventListener("mouseenter", () => {
+			noteControlBtns.classList.remove("hide-it");
+		});
+
+		noteItem.addEventListener("mouseleave", () => {
+			noteControlBtns.classList.add("hide-it");
+		});
+
+		noteMenuBtn.addEventListener("click", () => {
+			noteMenuDiv.style.display = "block";
+		});
+	});
 
 	//noteMenu.addEventListener("click", () => {});
 };

@@ -1952,6 +1952,7 @@ textarea {
 }
 
 .noteList-div {
+	position: relative;
 	width: 100%;
 	border-radius: 0.5rem;
 	border: 1px solid #dadce0;
@@ -1964,6 +1965,43 @@ textarea {
 	box-shadow: 0px 1px 3px 0.5px rgba(0, 0, 0, 0.15);
 }
 
+.noteControl-Btns {
+	position: absolute;
+	top: 0.25em;
+	right: 0.35em;
+}
+
+.noteMenu-div {
+	width: 8em;
+	border-radius: 0.5rem;
+	padding-top: 0.25em;
+	padding-bottom: 0.25em;
+	border: 1px solid #dadce0;
+
+	background: #fff;
+	box-shadow: 0px 1px 3px 0.5px rgba(0, 0, 0, 0.15);
+
+	position: absolute;
+	top: 0.15em;
+	right: 0.15em;
+	z-index: 1;
+
+	display: none;
+}
+
+.noteMenu-Btns {
+	width: 100%;
+	padding: 0.5em 1em;
+
+	color: rgba(0, 0, 0, 0.75);
+	text-align: left;
+	font-family: "Inter";
+	font-size: 0.75rem;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+}
+
 .note-titleInput,
 .note-bodyInput {
 	margin-bottom: 0.25em;
@@ -1973,6 +2011,8 @@ textarea {
 	max-width: 14.5em;
 	border: transparent;
 	outline: none;
+
+	background: transparent;
 
 	color: #5f6368;
 	font-family: "Inter";
@@ -1986,6 +2026,8 @@ textarea {
 	width: 100%;
 	border: transparent;
 	outline: none;
+
+	background: transparent;
 
 	color: #5f6368;
 	font-family: "Inter";
@@ -2007,7 +2049,6 @@ textarea {
 	color: #5f6368;
 	font-size: 0.88rem;
 }
-
 .add-noteList {
 	position: relative;
 	padding: 0.5em 0.75em;
@@ -2065,12 +2106,22 @@ textarea {
 	text-decoration: line-through;
 }
 
+.control-btns,
 .close-noteItem {
 	padding: 0.2em;
 }
 
 .NoteCheckbox-btn {
 	padding: 0.3em;
+}
+
+.hide-it {
+	display: none;
+}
+
+.mynote-Item {
+	margin-top: 1em;
+	margin-bottom: 1.25em;
 }
 
 .negative-left {

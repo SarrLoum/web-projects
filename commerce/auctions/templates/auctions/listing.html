@@ -46,7 +46,11 @@
 						<span class="span0">Current price:</span>
 						<span class="span1">US</span>
 					</div>
-					<span class="span2">${{ listing.starting_bid }}</span>
+					{% if listing.winning_bid.bid > listing.starting_bid %}
+					<span  class="span2">${{ listing.winning_bid.bid }}</span>
+					{% else %}
+					<span  class="span2">${{ listing.starting_bid }}</span>
+					{% endif %}
 
 					{% if not listing.active and not usr_is_owner %}
 					<div class="closedListing-details">
@@ -224,9 +228,11 @@
 							href="{% url 'listing-page' listing.id %}"
 							>{{ listing.title }}</a
 						>
-
+						{% if listing.winning_bid.bid > listing.starting_bid %}
+						<span>${{ listing.winning_bid.bid }}</span>
+						{% else %}
 						<span>${{ listing.starting_bid }}</span>
-
+						{% endif %}
 						<!-- <div class="description">{{ listing.description }}</div> -->
 					</div>
 				</div>

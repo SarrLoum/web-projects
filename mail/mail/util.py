@@ -23,12 +23,18 @@ def inboxes_count(user):
 
 def search_query(query):
     query_result1 = User.objects.filter(
-        Q(firstname__contains=query),
-        Q(lastname__contains=query),
-        Q(Email__contains=query)
+        Q(firstname__contains=query) |
+        Q(lastname__contains=query) |
+        Q(Email__contains=query) 
     )
 
-    pass
+    query_result2 = Email.objects.filter(
+        Q(subject__contains=query) |
+        Q(body_contains=query)
+    )
+
+    final_result = list(chain(query_result1, query_result2))
+    return final_result
 
 
 # Define the update_cached_notes function to update the cache

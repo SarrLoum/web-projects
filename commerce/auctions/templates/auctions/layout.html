@@ -71,8 +71,8 @@
 
 				<form
 					class="grow flex gap3 align-center"
-					action=""
-					method="get"
+					action="{% url 'search' %}"
+					method="POST"
 				>
 					{% csrf_token %}
 					<div class="search-bar grow">
@@ -88,7 +88,7 @@
 						/>
 						<div class="search-category">
 							<select name="search-category">
-								<option value="All categories">
+								<option value="all categories">
 									All categories
 								</option>
 								<option value="art">Collectibles / art</option>
@@ -102,8 +102,9 @@
 									Musical instruments / gear
 								</option>
 								<option value="sports">Sporting good</op>
-								<option value="toys">Toys / hobbies</option>
-							</select>
+									<option value="toys">Toys / hobbies</option>
+								<option value="other">Other categories</option>
+								</select>
 						</div>
 					</div>
 					<div class="submit-search">

@@ -18,5 +18,6 @@ urlpatterns = [
     path("wallpaper/<int:pk>", views.change_wallpaper, name="wallpaper"),
 
     # API Routes for KeepNote App
-    path("notes/<str:noteType>", views.get_notes, name="get-notes"),
+    path("notes", views.get_notes, name="get-notes"),
+    path("addNotes/<str:noteType>", views.add_notes, name="add-notes"),
 ]

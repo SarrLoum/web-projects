@@ -1,4 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
+	// gGet current user's notifications
+	const notifications = getNotifications();
+	console.log("user's notifications: ", notifications);
+
 	// Callthe show user model function
 	showUserModal();
 
@@ -224,6 +228,15 @@ async function getCurrentUser() {
 	if (response.status === 200) {
 		const data = await response.json();
 		return data.user;
+	}
+	return null;
+}
+
+async function getNotifications() {
+	const response = await fetch("/notifications");
+	if (response.status === 200) {
+		const data = await response.json();
+		return data.notifications;
 	}
 	return null;
 }

@@ -227,7 +227,8 @@
 				const closeListingModal = document.querySelector("#close-added-modal");
 
 				closeListingModal.addEventListener("click", () => {
-					addedListingModal.style.display = "none";
+					addedListingModal.remove()
+					//addedListingModal.style.display = "none";
 				})
 			</script>
 		{% endif %} 
