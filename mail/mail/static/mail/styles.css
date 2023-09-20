@@ -411,20 +411,22 @@ button:focus {
 	flex-grow: 1;
 }
 .search-form {
-	display: flex;
-	align-items: center;
-	height: 2.94em;
 	max-width: 45.5em;
+	height: 2.94em;
 	padding: 0.25em;
 	border-radius: 6.25em;
 	background: var(--search-bar);
+}
+
+.search-form div {
+	height: 100%;
 }
 .search-theme-change {
 	fill: rgba(255, 255, 255, 0.2);
 	backdrop-filter: blur(0.5px);
 }
 
-.search-form input {
+.search-form > div input {
 	height: 100%;
 	border: transparent;
 	outline: none;

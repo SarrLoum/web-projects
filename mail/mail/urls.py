@@ -16,6 +16,8 @@ urlpatterns = [
     path("emails/<int:email_id>", views.email, name="email"),
     path("emails/<str:mailbox>", views.mailbox, name="mailbox"),
     path("wallpaper/<int:pk>", views.change_wallpaper, name="wallpaper"),
+    path("search_mail", views.search_mail, name="search-email"),
+    path("recent_search", views.get_user_search_history, name="recent-search"),
 
     # API Routes for KeepNote App
     path("notes", views.get_notes, name="get-notes"),

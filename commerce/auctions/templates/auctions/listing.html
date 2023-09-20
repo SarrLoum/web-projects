@@ -44,14 +44,15 @@
 				<div class="price-details">
 					<div class="flex align-center gap">
 						<span class="span0">Current price:</span>
-						<span class="span1">US</span>
+						<div>
+							<span class="span1">US</span>
+							{% if listing.winning_bid.bid > listing.starting_bid %}
+							<span  class="span2">${{ listing.winning_bid.bid }}</span>
+							{% else %}
+							<span  class="span2">${{ listing.starting_bid }}</span>
+							{% endif %}
+						</div>
 					</div>
-					{% if listing.winning_bid.bid > listing.starting_bid %}
-					<span  class="span2">${{ listing.winning_bid.bid }}</span>
-					{% else %}
-					<span  class="span2">${{ listing.starting_bid }}</span>
-					{% endif %}
-
 					{% if not listing.active and not usr_is_owner %}
 					<div class="closedListing-details">
 						<span>THis listing is not active anymore</span>

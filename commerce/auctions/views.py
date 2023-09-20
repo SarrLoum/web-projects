@@ -2,6 +2,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.db.models import Q
+from django.core.exceptions import ObjectDoesNotExist  # Import the correct exception classclear
+
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
@@ -142,8 +144,7 @@ def new_listing(request):
 
 
 def listing_page(request, listing_id):
-    listing = Listing.objects.get(pk=listing_id)        # Retrieve listing 
-
+    listing = Listing.objects.get(pk=listing_id)    # Retrieve listing 
 
     # is listing posted(owned) by the current user?
     user = request.user 
@@ -159,8 +160,6 @@ def listing_page(request, listing_id):
     comment_form = CommentForm()    # Set the comment form
 
     similars = similar_listings(listing)    # Get similar listings
-
-
     return render(request, "auctions/listing.html", {
         "listing": listing,
         "usr_is_owner": owner,
@@ -186,6 +185,8 @@ def close_listing(request, listing_id):
     return HttpResponseRedirect(reverse("listing-page", args=(listing_id, )))
 
 
+
+@login_required(login_url='login')  # Redirects unauthenticated users to the 'login' view
 def add_watchlist(request, listing_id):
     # Get Listing Objects and current user 
     listing = Listing.objects.get(pk=listing_id)
@@ -206,6 +207,7 @@ def rm_watchlist(request, listing_id):
     return HttpResponseRedirect(reverse("listing-page", args=(listing_id, )))
 
 
+
 def watchlist(request):
     current_user = request.user
     user = User.objects.get(pk=current_user.id)
@@ -214,7 +216,9 @@ def watchlist(request):
         "watched": watched
     })
 
-@login_required
+
+
+@login_required(login_url='login')  # Redirects unauthenticated users to the 'login' view
 def add_bid(request, listing_id):
     listing = Listing.objects.get(pk=listing_id)
 
@@ -245,6 +249,8 @@ def add_bid(request, listing_id):
     return HttpResponseRedirect(reverse("listing-page", args=(listing_id, )))
 
 
+
+@login_required(login_url='login')  # Redirects unauthenticated users to the 'login' view
 def add_comment(request, listing_id):
 
     listing = Listing.objects.get(pk=listing_id)
@@ -264,25 +270,24 @@ def add_comment(request, listing_id):
 
 
 
+
 def search(request):
     if request.method == "POST":
-        query = request.POST["q"]
-        on_category = request.POST["search-category"]
+        query = request.POST.get("q", "")  # Use get() to handle missing key
+        on_category = request.POST.get("search-category", "all")
+        
+        category = None  # Initialize the category variable
+        
+        if on_category != "all":
+            try:
+                category = Category.objects.get(key=on_category)
+            except ObjectDoesNotExist:
+                pass
 
-        try:
-            if on_category == "all categories":
-                category = None
-            else:
-                category = Category.object.get(key=on_category)
-        except category.DoesNotExist:
-            pass
         result = search_on_category(query, category)
-
-        return render(request, "search_result.html", {
-            "search_result": result
+        return render(request, "auctions/search_result.html", {
+            "search_results": result,
         })
-
-
 
 
 def category_view(request, category_name):
@@ -294,7 +299,6 @@ def get_user(request):
     user = request.user
     user_data = user.serialize() if user.is_authenticated else None
     return JsonResponse({"user": user_data}, status=200)
-
 
 def get_notifications(request):
     user = request.user

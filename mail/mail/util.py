@@ -23,9 +23,9 @@ def inboxes_count(user):
 
 def search_query(query):
     query_result1 = User.objects.filter(
-        Q(firstname__contains=query) |
-        Q(lastname__contains=query) |
-        Q(Email__contains=query) 
+        Q(first_name__contains=query) |
+        Q(last_name__contains=query) |
+        Q(email__contains=query) 
     )
 
     query_result2 = Email.objects.filter(

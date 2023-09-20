@@ -1,8 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-	// gGet current user's notifications
-	const notifications = getNotifications();
-	console.log("user's notifications: ", notifications);
-
+	// Get current user's notifications
+	getUserNotification();
 	// Callthe show user model function
 	showUserModal();
 
@@ -82,6 +80,9 @@ document.addEventListener("DOMContentLoaded", function () {
 		countriesBtn.addEventListener("mouseenter", () => {
 			countriesDiv.style.display = "flex";
 		});
+		countriesDiv.addEventListener("mouseleave", () => {
+			countriesDiv.style.display = "none";
+		});
 	}
 
 	if (main.classList.contains("category-art")) {
@@ -151,6 +152,56 @@ function activeListingSignal() {
 
 	// Start the initial loop
 	toggleFade();
+}
+
+async function getUserNotification() {
+	const notifications = await getNotifications();
+	console.log("user's notifications: ", notifications);
+	const notifDiv = document.querySelector("#notification-div");
+	const notifBtn = document.querySelector(".notif-btn");
+	const notifIcon = document.querySelector(".notif-icon");
+
+	const firstChild = notifDiv.firstChild;
+	notifications.forEach((notif) => {
+		const notifItem = notifElement(notif);
+		if (firstChild) {
+			notifDiv.insertBefore(notifItem, firstChild);
+		} else {
+			notifDiv.appendChild(notifItem);
+		}
+	});
+
+	notifBtn.addEventListener("click", () => {
+		console.log("notif btn is clicked");
+		notifDiv.style.display = "block";
+	});
+
+	/*document.body.addEventListener("click", (event) => {
+		const target = event.target;
+		const notifDiv = document.querySelector("#notification-div");
+		if (target !== notifDiv && !notifDiv.contains(target)) {
+			notifDiv.style.display = "none";
+		}
+	});*/
+}
+function notifElement(notif) {
+	const notifItem = document.createElement("a");
+	notifItem.href = `/listing/${notif.listing.id}`;
+
+	notifItem.classList.add("notification-item", "flex", "gap");
+
+	let childElement = `
+		<div class="addedItem-picture">
+			<img src="${notif.listing.image}" alt="" />
+		</div>
+		<div class="addedItem-title notifItem-title">
+			<h3>${notif.title}</h3>
+			<span>ID:
+			${notif.listing.id}<span>
+		</div>
+	`;
+	notifItem.innerHTML = childElement;
+	return notifItem;
 }
 
 async function showUserModal() {

@@ -145,6 +145,7 @@ class Notification(models.Model):
         listing_data = self.listing.serialize() if self.listing else None
         return {
             "id": self.id,
+            "title": self.title,
             "listing": listing_data,
             "listingOwner": self.listing_owner.username if self.listing_owner else None,
             "recipients": recipients_list,

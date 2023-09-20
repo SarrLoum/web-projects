@@ -46,8 +46,9 @@
 				<a href="#">Vendre</a>
 				<a href="#">Objet-suivis</a>
 				<a href="#">Mon Auctions</a>
-				<a href="#"
+				<a class="notif-btn" href="#"
 					><img
+						class="notif-icon"
 						src="http://localhost:8000/static/auctions/media/circle_notifications.svg"
 						alt=""
 				/></a>
@@ -88,7 +89,7 @@
 						/>
 						<div class="search-category">
 							<select name="search-category">
-								<option value="all categories">
+								<option value="all">
 									All categories
 								</option>
 								<option value="art">Collectibles / art</option>
@@ -203,25 +204,12 @@
 			</div>
 		</div>
 
-		<!-- Notifiication modal -->
-		<div class=="notification">
+
+		<!-- Notification modal -->
+		<div id="notification-div" class="notification-div">
 			<div class="notification-item flex gap2">
-				<div class="addedItem-picture">
-					<img src="{{ added_listing.image.url }}" alt="" />
-				</div>
-				<div class="addedItem-title">
-					<h3>{{ added_listing.title }}</h3>
-					<span>ID: {{ added_listing.id }}<span>
-				</div>
 			</div>
-			<div class="message-item flex gap2">
-				<div class="addedItem-picture">
-					<img src="{{ added_listing.image.url }}" alt="" />
-				</div>
-				<div class="addedItem-title">
-					<h3>{{ added_listing.title }}</h3>
-					<span>ID: {{ added_listing.id }}<span>
-				</div>
+			<div class="message-item hide-it flex gap2">
 			</div>
 		</div>
 	</body>

@@ -213,12 +213,45 @@ def validate_credentials(request):
 
 @csrf_exempt
 def search_mail(request):
+    data = json.loads(request.body.decode("utf-8"))
+
     if request.method == "POST":
-        query = request.POST.get("q")
+        query = data.get("query")
 
+        # Store the user's search query in Redis cache
+        user_id = request.user.id
+        cache_key = f'user_search:{user_id}'
+        
+        # Retrieve the current list of search queries for the user
+        user_search_queries = cache.get(cache_key, [])
+        if not user_search_queries:
+            user_search_queries = []
+        user_search_queries.append(query)   # Add the new search query to the list (you may want to limit the list size)
+        # Store the updated list back in the cache
+        
+        cache.set(cache_key, user_search_queries)
         result = search_query(query)
+        return JsonResponse(result, status=200)
 
-    return JsonResponse(result, status=200)
+    else:
+        return JsonResponse(result, status=405)
+
+
+def get_user_search_history(request):
+    if request.user.is_authenticated:
+        user_id = request.user.id
+        cache_key = f'user_search:{user_id}'
+        
+        # Retrieve the user's search history from the cache
+        user_search_history = cache.get(cache_key, [])
+        
+        # Return the search history as a JSON response
+        return JsonResponse(user_search_history, status=200, safe=False)
+    else:
+        # Handle the case where the user is not authenticated
+        return JsonResponse({"error": "User not authenticated"}, status=401)
+        
+    
 
 
 
@@ -297,6 +330,9 @@ def add_notes(request, noteType):
 
     # If the request is not a POST request, return an error response
     return JsonResponse({'error': 'Invalid request method'})
+
+
+
 
 
 

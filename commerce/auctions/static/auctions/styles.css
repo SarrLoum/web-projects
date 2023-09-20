@@ -3109,12 +3109,30 @@ textarea {
 	outline: none;
 }
 
-.notification {
+.notification-div {
+	max-width: 23em;
+	padding: 1em;
+	border-radius: 0.5em;
+
+	scale: 0.75;
+
+	z-index: 1;
+	top: 0.25em;
+	right: 0.5em;
+
+	position: absolute;
 	display: none;
+
+	background: #fff;
+	box-shadow: 0px 1px 5px 0.5px rgba(0, 0, 0, 0.15);
 }
 
-.notification .notification-item {
-	scale: 0.75;
+.notification-item:hover {
+	text-decoration: none;
+}
+
+.hide-it {
+	display: none;
 }
 
 .margin-top0 {
@@ -3125,4 +3143,8 @@ textarea {
 }
 .margin-bottom0 {
 	margin-bottom: 0.5em;
+}
+
+.no-text-decoration:hover {
+	text-decoration: none;
 }

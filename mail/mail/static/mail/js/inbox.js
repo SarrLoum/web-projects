@@ -1,3 +1,4 @@
+import { searchEmail } from "./mailApp.js";
 import { KeepNoteApp } from "./thirdPartApps/keepNoteApp.js";
 import {
 	fetchCurrentUser,
@@ -51,6 +52,9 @@ document.addEventListener("DOMContentLoaded", function () {
 	// actvite toggle button and interactive nav
 	toggleButton();
 	interactiveNav();
+
+	// Handle email's search
+	searchEmail();
 
 	// Set the backgound image
 	setBackground();
@@ -689,7 +693,7 @@ async function changeBackground(userKey) {
 		wallPaperItem.addEventListener("click", () => {
 			// fetch the clicked wallpapers
 			getWallPaper(wallPaperItem.id);
-			const searchForm = document.querySelector("search-form");
+			const searchForm = document.querySelector(".search-form");
 			searchForm.classList.add(".search-theme-change");
 		});
 	});

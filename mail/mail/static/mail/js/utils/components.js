@@ -151,3 +151,18 @@ export const loadNote = (noteMap, wichType) => {
 
 	return noteListDiv;
 };
+
+
+export const recentSearchItem = (searchedItem) => {
+    const searchItemDiv = document.createElement("div");
+    searchItemDiv.classList.add("recentSearched-item");
+
+    let childElement = `
+        <img src="time-icon" alt="icon" /> <!-- Provide valid values for src and alt -->
+        <span class="searched-item">${searchedItem}</span>
+        <button class="rm-searchItem"></button>
+    `;
+
+    searchItemDiv.innerHTML = childElement;
+    return searchItemDiv;
+};

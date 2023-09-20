@@ -1,5 +1,34 @@
 {% extends "auctions/layout.html" %} {% block body %}
 
-<main id="search-resultPage" class="search-resultPage"></main>
+<main id="main" class="search-resultPage">
+	{% if search_results %}
+	<ul class="item-list grow no-margin negative-left grid-scaled">
+		{% for result in search_results %}
+		<li class="grid-items-scaled flex column">
+			<div class="list-item scale-zoom">
+				<a href="{% url 'listing-page' result.id %}">
+					<div class="img-wrapper scale-zoom2">
+						<img src="{{ result.image.url }}" alt="" /></div
+				></a>
+				<div class="item-details">
+					<a
+						class="title-link"
+						href="{% url 'listing-page' result.id %}"
+						>{{ result.title }}</a
+					>
+					{% if result.winning_bid.bid > result.starting_bid %}
+					<span>${{ result.winning_bid.bid }}</span>
+					{% else %}
+					<span>${{ result.starting_bid }}</span>
+					{% endif %}
+				</div>
+			</div>
+		</li>
+		{% endfor %}
+	</ul>
+	{% else %}
+	<h1>no result</h1>
+	{% endif %}
+</main>
 
 {% endblock %}
