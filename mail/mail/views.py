@@ -96,6 +96,10 @@ def mailbox(request, mailbox):
         emails = Email.objects.filter(
             user=request.user, recipients=request.user, archived=True
         )
+    elif mailbox == "important":
+        emails = Email.objects.filter(
+            user=request.user, recipients=request.user, important=True
+        )
     elif mailbox == "starred":
         emails = Email.objects.filter(
             user=request.user, recipients=request.user, starred=True
@@ -136,6 +140,8 @@ def email(request, email_id):
             email.read = data["read"]
         if data.get("archived") is not None:
             email.archived = data["archived"]
+        if data.get("important") is not None:
+            email.archived = data["important"]
         if data.get("starred") is not None:
             email.starred = data["starred"]
         if data.get("spam") is not None:
@@ -231,7 +237,7 @@ def search_mail(request):
         
         cache.set(cache_key, user_search_queries)
         result = search_query(query)
-        return JsonResponse(result, status=200)
+        return JsonResponse(result, status=200, safe=False)
 
     else:
         return JsonResponse(result, status=405)

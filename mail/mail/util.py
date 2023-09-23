@@ -28,12 +28,35 @@ def search_query(query):
         Q(email__contains=query) 
     )
 
-    query_result2 = Email.objects.filter(
-        Q(subject__contains=query) |
-        Q(body_contains=query)
-    )
+    # Check if the query corresponds to a user
+    user_result = User.objects.filter(
+        Q(first_name__contains=query) |
+        Q(last_name__contains=query) |
+        Q(email__contains=query) 
+    ).first()
 
-    final_result = list(chain(query_result1, query_result2))
+    # Initialize an empty list for serialized users
+    serialized_users = []
+
+    # If a user was found, serialize it
+    if user_result:
+        serialized_users.append(user_result.serialize())
+
+    # Filter emails based on recipients if user was found
+    if user_result:
+        query_result2 = Email.objects.filter(
+            Q(subject__contains=query) |
+            Q(body__contains=query) |
+            Q(recipients=user_result)
+        )
+
+        # Serialize Email objects using the custom method
+        serialized_emails = [email.serialize() for email in query_result2]
+    else:
+        query_result2 = Email.objects.none()
+        serialized_emails = []
+
+    final_result = list(chain(serialized_users, serialized_emails))
     return final_result
 
 

@@ -1,4 +1,5 @@
 import { loadNote } from "./components.js";
+import { getUserName, subjectRe, timesTamp } from "./utils.js";
 
 export const emailElement = (email) => {
 	// Change background color if the email is read
@@ -14,15 +15,19 @@ export const emailElement = (email) => {
 		email.id
 	}" role="button" data-email_id="${email.id}">
         <div class="checkbox-list flex">
-            <div id="checkbox" class="form-check icon-btn">
+            <button id="checkbox" class="checkbox form-check icon-btn">
                 <img src="http://localhost:8000/static/icons/checkbox not hover.svg" />
-            </div>
-            <div id="checkbox-star" class="form-check icon-btn">
-                <img src="http://localhost:8000/static/icons/star not hover.svg" />
-            </div>
-            <div id="checkbox-important" class="form-check icon-btn">
-                <img src="http://localhost:8000/static/icons/important not hover.svg" />
-            </div>
+            </button>
+            <button id="checkbox-star" class="checkbox-star form-check icon-btn">
+                <img src="http://localhost:8000/static/icons/${
+					email.starred ? "star filled" : "star not hover"
+				}.svg" />
+            </button>
+            <button id="checkbox-important" class="checkbox-important form-check icon-btn">
+                <img src="http://localhost:8000/static/icons/${
+					email.important ? "important filled" : "important not hover"
+				}.svg" />
+            </button>
         </div>
         <span class="sender-preview preview-font ${
 			!email.read ? "unread" : ""
@@ -436,59 +441,3 @@ export const emptyMailbox = (mailbox) => {
 	emailsView.innerHTML = content;
 	return emailsView;
 };
-
-export const fetchCurrentUser = async () => {
-	try {
-		const response = await fetch("/user");
-		const user = await response.json();
-		return user;
-	} catch (error) {
-		console.error("Error fetching current user:", error);
-		throw error;
-	}
-};
-
-export function timesTamp(timestamp) {
-	// Split the email timestamp and split it to an array of date and time
-	let pubDate = timestamp.split(", ");
-	let pubYear = pubDate[0].slice(7); //2023
-	let dateTamp = pubDate[0].slice(0, 6); //Feb 23
-
-	// Get the browser current date (local date and time)
-	let currentDate = new Date();
-	let currentYear = currentDate.getFullYear() + "";
-	let today = (currentDate + "").slice(4, 15);
-
-	// Return the correct date format
-	if (pubDate[0] == today) {
-		return pubDate[1];
-	} else if (pubYear == currentYear) {
-		return dateTamp;
-	} else {
-		return pubDate[0];
-	}
-}
-
-export function getUserName(userEmail) {
-	let user = userEmail.split("@");
-	let userName = user[0];
-
-	console.log(userName);
-	return userName;
-}
-
-export function subjectRe(email) {
-	if (email.subject.startsWith("Re: ")) {
-		return email.subject;
-	} else {
-		return `Re: ${email.subject}`;
-	}
-}
-
-export function getCookie(name) {
-	const value = `; ${document.cookie}`;
-	const parts = value.split(`; ${name}=`);
-	if (parts.length === 2) {
-		return parts.pop().split(";").shift();
-	}
-}

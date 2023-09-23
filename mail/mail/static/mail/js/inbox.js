@@ -1,15 +1,15 @@
 import { searchEmail } from "./mailApp.js";
 import { KeepNoteApp } from "./thirdPartApps/keepNoteApp.js";
+import { displayEmails, subjectRe } from "./utils/utils.js";
+import { userLog, userApps, respondOnEmail } from "./utils/DOMmanipulation.js";
 import {
 	fetchCurrentUser,
-	emailElement,
-	viewEmail,
-	userLog,
-	userApps,
-	respondOnEmail,
-	emptyMailbox,
-	subjectRe,
-} from "./utils/DOMmanipulation.js";
+	asRead,
+	asArchived,
+	asStarred,
+	asSpam,
+	asTrash,
+} from "./utils/apiCalls.js";
 
 document.addEventListener("DOMContentLoaded", function () {
 	// Use buttons to toggle between views
@@ -26,6 +26,9 @@ document.addEventListener("DOMContentLoaded", function () {
 	document
 		.querySelector("#starred")
 		.addEventListener("click", () => load_mailbox("starred"));
+	document
+		.querySelector("#important")
+		.addEventListener("click", () => load_mailbox("important"));
 	document
 		.querySelector("#spam")
 		.addEventListener("click", () => load_mailbox("spam"));
@@ -169,22 +172,33 @@ function flexEmailsContainer() {
 
 function load_mailbox(mailbox) {
 	// Show the mailbox and hide other views
-	document.querySelector("#mailbox-view").style.display = "block";
+	const emailView = document.querySelector("#mailbox-view");
+	const contentHeader0 = document.querySelector(".content-header0");
+	emailView.style.display = "block";
+
+	// Clear the mailbox view
+	emailView.innerHTML = "";
 
 	// Show the mailbox name
-	document.querySelector(
-		"#mailbox-view"
-	).innerHTML = `<div class="mailbox-header">
-	<div class="mailbox-container">
-		<div class="mailbox">
-			<img src="static/icons/primary inbox.svg" alt="" />
-			<h6>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}
-			</h6>
-		</div>
-	</div></div>`;
+	if (mailbox === "inbox") {
+		contentHeader0.style.display = "none";
+		emailView.innerHTML = `<div class="mailbox-header">
+		<di class="mailbox-container">
+			<div class="mailbox">
+				<img src="static/icons/primary inbox.svg" alt="" />
+				<h6>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h6>
+			</div>
+		</di</div>`;
 
-	//Show all emails of the mailbox
-	load_emails(mailbox);
+		// Show all emails of the mailbox
+		load_emails(mailbox);
+	} else {
+		contentHeader0.style.display = "flex";
+		//document.querySelector(".mailbox-header").style.display = "none";
+
+		// Show all emails of the mailbox
+		load_emails(mailbox);
+	}
 }
 
 function send_email(event) {
@@ -214,209 +228,9 @@ function load_emails(mailbox) {
 	fetch(`/emails/${mailbox}`)
 		.then((response) => response.json())
 		.then((emails) => {
-			// Create an empty email section
-			let emailSection = "";
-			// Iterate through emails
-			emails.forEach((email) => {
-				// For each email create div inside a li element
-				let eachEmail = emailElement(email);
-
-				// Append email inside the email section
-				emailSection += eachEmail;
-			});
-			// Emails list container
-			const emailsContainer =
-				document.createElement(
-					"div"
-				); /*`<div class="emails-container"></div>`*/
-			emailsContainer.innerHTML = `<ul class="emails-list">${emailSection}</ul>`;
-
-			// empty mailbox view
-			let emptyView = emptyMailbox(mailbox);
-
-			// Append the emails list to the email view container
-			const emailView = document.querySelector("#mailbox-view");
-
-			// Render ddinamically the mailbox view wheither it's empty or not
-			if (emails.length === 0) {
-				emailView.appendChild(emptyView);
-			} else {
-				emailView.appendChild(emailsContainer);
-			}
-			// LOAD THE EMAIL WHEN IT'S CLICKED
-			// First get the HTMLCollection of all the emails element
-			let elements = document.querySelectorAll(".email");
-
-			// Loop through the collection
-			Array.from(elements).forEach((element) => {
-				element.addEventListener("click", function (event) {
-					if (event.target.closest(".form-check")) {
-						event.preventDefault();
-						console.log(
-							"checkbox is clicked ========>>>>>>>>>>><<"
-						);
-					} else if (!event.target.closest(".email .form-check")) {
-						// The click event occurred on some other element, display the email view
-						console.log("email clicked");
-						const id = element.dataset.email_id;
-						view_email(id);
-						asRead(id);
-						const headerDefaultBtns = document.querySelector(
-							"#header-left-default"
-						);
-						const emailHeaderBtns =
-							document.querySelector("#header-left-email");
-						const paginationBtn =
-							document.querySelector("#pagination-btn");
-						const splitBtn = document.querySelector("#split-btn");
-
-						headerDefaultBtns.style.display = "none";
-						emailHeaderBtns.style.display = "flex";
-						paginationBtn.style.display = "none";
-						splitBtn.style.display = "none";
-
-						const goBackBtn = document.querySelector(".go-back");
-						const navBtns =
-							document.querySelectorAll(".nav-button");
-
-						goBackBtn.addEventListener("click", () => {
-							emailHeaderBtns.style.display = "none";
-							headerDefaultBtns.style.display = "flex";
-							paginationBtn.style.display = "flex";
-							splitBtn.style.display = "flex";
-
-							// Show the mailbox and hide other views
-							const emailView =
-								document.querySelector("#emails-view");
-							emailView.innerHTML = "";
-							const mailboxView =
-								document.querySelector("#mailbox-view");
-							mailboxView.style.display = "block";
-
-							/*navBtns.forEach((navBtn) => {
-								if (navBtn.classList.contains("active")) {
-									//load_mailbox(navBtn.id);
-								}
-							});*/
-						});
-					}
-				});
-			});
+			// display the emails
+			displayEmails(emails);
 		});
-}
-
-function view_email(email_id) {
-	fetch(`/emails/${email_id}`)
-		.then((response) => response.json())
-		.then((email) => {
-			// Show the mailbox and hide other views
-			document.querySelector("#mailbox-view").style.display = "none";
-
-			// Create a div that display the emmail and all its details
-			let displayEmail = viewEmail(email);
-
-			const root = document.documentElement;
-			const emailView = document.querySelector("#emails-view");
-			emailView.innerHTML = displayEmail;
-			root.style.setProperty("--email-color", "#fff");
-
-			// add event listener to the archive and response button
-			document.body.addEventListener("click", function (event) {
-				if (event.target.id == "archive-email") {
-					asArchived(email);
-				} else if (event.target.id == "response-email") {
-					respondEmail(email);
-				}
-			});
-		});
-}
-
-function respondEmail(email) {
-	document.querySelector("#rf-btns").style.display = "none";
-	respondOnEmail(email);
-
-	// Load the compose modal with respond properties
-	document.body.addEventListener("click", (event) => {
-		if (event.target.id === "full-img") {
-			document.querySelector(".respond-wrapper").style.display = "none";
-			document.querySelector(".other-instance").style.display = "block";
-			document
-				.querySelector(".respond-container")
-				.classList.add("align-instance");
-
-			compose_email();
-			let subject = subjectRe(email);
-
-			document.querySelector(
-				"#compose-recipients"
-			).value = `${email.sender.email}`;
-
-			document.querySelector(
-				"#response-subject"
-			).innerHTML = `${subject}`;
-			const responseSubject = document.querySelector("#compose-subject");
-			responseSubject.value = `${subject}`;
-			responseSubject.setAttribute("hidden", true);
-
-			console.log("sender email:", email.sender.email);
-		} else if (event.target.id === "close-compose") {
-			document.querySelector(".respond-wrapper").style.display = "block";
-			document.querySelector(".other-instance").style.display = "none";
-		}
-	});
-}
-
-function asRead(email_id) {
-	fetch(`/emails/${email_id}`, {
-		method: "PUT",
-		body: JSON.stringify({
-			read: true,
-		}),
-	});
-}
-
-function asArchived(email) {
-	//let bool = !email.archived;
-	const email_id = email.id;
-	fetch(`/emails/${email_id}`, {
-		method: "PUT",
-		body: JSON.stringify({
-			archived: !email.archived,
-		}),
-	});
-}
-
-function asStarred(email) {
-	//let bool = !email.archived;
-	const email_id = email.id;
-	fetch(`/emails/${email_id}`, {
-		method: "PUT",
-		body: JSON.stringify({
-			starred: !email.starred,
-		}),
-	});
-}
-
-function asSpam(email) {
-	//let bool = !email.archived;
-	const email_id = email.id;
-	fetch(`/emails/${email_id}`, {
-		method: "PUT",
-		body: JSON.stringify({
-			spam: !email.spam,
-		}),
-	});
-}
-
-function asTrash(email) {
-	//let bool = !email.archived;
-	const email_id = email.id;
-	fetch(`/emails/${email_id}`, {
-		method: "PUT",
-		body: JSON.stringify({
-			trash: !email.trash,
-		}),
-	});
 }
 
 function thirdPartApps() {

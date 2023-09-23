@@ -27,12 +27,21 @@
 				</div>
 				<!-- Email search bar-->
 				<div class="search-bar">
-					<form class="mail-searchForm" action="">
-						<div id="searchEmail-form" class="search-form">
+					<form class="search-form" action="">
+						<div id="searchInput-Div" class="search-formInput">
 							<div class="flex align-center">
 								<div class="search-icons-btn"><img src="static/icons/search.svg" /></div>
 								<input class="search-input grow" type="text" name="query" placeholder="Search email"/>
 								<div class="search-icons-btn"><img src="static/icons/tune.svg" /></div>
+							</div>
+							<div class="recentSearches-wrapper">
+								<div class="narrow-searchWrapper">
+									<button class="narrow-searchBtn">pièces jointes</button>
+									<button class="narrow-searchBtn">7 derniers jours</button>
+									<button class="narrow-searchBtn">de moi</button>
+								</div>
+
+								
 							</div>
 						</div>
 					</form>
@@ -153,7 +162,7 @@
 							</button>
 						</li>
 						<li>
-							<button name="mailbox" class="nav-button" id="spam">
+							<button name="mailbox" class="nav-button" id="draft">
 								<div class="button-content">
 									<img
 										class="nav-icons"
@@ -176,7 +185,6 @@
 							<button
 								name="mailbox"
 								class="nav-button expand-btn"
-								id="spam"
 							>
 								<div class="button-content">
 									<img
@@ -189,6 +197,18 @@
 							</button>
 						</li>
 						<div class="nav-expand-wrapper" id="expand-wrapper">
+							<li>
+								<button name="mailbox" class="nav-button" id="important">
+									<div class="button-content">
+										<img
+											class="nav-icons"
+											id="spam-icon"
+											src="static/icons/important.svg"
+											alt=""
+										/><span class="nav-label">important</span>
+									</div>
+								</button>
+							</li>
 							<li>
 								<button name="mailbox" class="nav-button" id="spam">
 									<div class="button-content">
@@ -250,7 +270,31 @@
 			<div class="content-settings-container">
 				<div class="emails-content grow" data-flexed="false">
 					<!-- === CONTENT BODY BUTTONS(headers)-->
-					<div class="content-hearder">
+					<div class="content-header0 flex align-center gap3">
+						<button id="haha" class="search-filtersBtn flex align-center gap2">
+							<span>De</span>
+							<img src="static/icons/arrow-down.svg" />
+						</button>
+						<button id="haha" class="search-filtersBtn flex align-center gap2">
+							<span>Indifférente</span>
+							<img src="static/icons/arrow-down.svg" />
+						</button>
+						<button id="haha" class="search-filtersBtn flex align-center gap2">
+							<span>Contient une pièce jointe</span>
+							<img src="static/icons/arrow-down.svg" />
+						</button>
+						<button id="haha" class="search-filtersBtn flex align-center gap2">
+							<span>A</span>
+							<img src="static/icons/arrow-down.svg" />
+						</button>
+						<button id="haha" class="search-filtersBtn flex align-center gap2">
+							<span>Non lu</span>
+							<img src="static/icons/arrow-down.svg" />
+						</button>
+						<button class="mail-advancedSearch">advanced search</button>
+					</div>
+
+					<div class="content-hearder flex space-between">
 						<div id="header-left-default" class="left-button">
 							<button class="combined-btn">
 								<div class="flex">

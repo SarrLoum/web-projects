@@ -410,23 +410,52 @@ button:focus {
 	flex-shrink: 1;
 	flex-grow: 1;
 }
+
 .search-form {
+	position: relative;
 	max-width: 45.5em;
+}
+.search-formInput {
+	max-width: 100%;
 	height: 2.94em;
 	padding: 0.25em;
 	border-radius: 6.25em;
 	background: var(--search-bar);
 }
 
-.search-form div {
+.search-formInput div {
 	height: 100%;
 }
+
+.recentSearches-wrapper {
+	display: none;
+}
+
+/* Style for the narrow search buttons within recent searches */
+.narrow-searchWrapper {
+	display: flex;
+	justify-content: space-between;
+}
+
+.narrow-searchBtn {
+	padding: 5px 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background-color: #f5f5f5;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+.narrow-searchBtn:hover {
+	background-color: #e0e0e0;
+}
+
 .search-theme-change {
 	fill: rgba(255, 255, 255, 0.2);
 	backdrop-filter: blur(0.5px);
 }
 
-.search-form > div input {
+.search-formInput > div input {
 	height: 100%;
 	border: transparent;
 	outline: none;
@@ -632,13 +661,19 @@ button:focus {
 }
 
 .content-hearder {
-	display: flex;
-	justify-content: space-between;
 	height: 3em;
 	padding-left: 1em;
 	padding-right: 1em;
 	margin-top: 0.25em;
 	margin-bottom: 0.25em;
+	margin-right: 1em;
+}
+
+.content-header0 {
+	height: 3em;
+	padding-left: 0.5em;
+	padding-right: 1em;
+	margin-top: 0.5em;
 	margin-right: 1em;
 }
 
@@ -2135,4 +2170,26 @@ textarea {
 
 .no-padding {
 	padding: 0;
+}
+
+.search-filtersBtn {
+	padding: 0.4em 0.75em;
+	border-radius: 0.5em;
+	border: 1px #747775 solid;
+
+	background-color: #fff;
+	color: #444746;
+}
+
+.search-filtersBtn span {
+	font-family: "Inter";
+	font-size: 0.875em;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+
+.mail-advancedSearch {
+	padding: 0.5em 0.75em;
+	border-radius: 6.25em;
 }

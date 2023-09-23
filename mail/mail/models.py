@@ -24,6 +24,7 @@ class Email(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     read = models.BooleanField(default=False)
     archived = models.BooleanField(default=False)
+    important = models.BooleanField(default=False)
     starred = models.BooleanField(default=False)
     spam = models.BooleanField(default=False)
     trash = models.BooleanField(default=False)
@@ -46,6 +47,7 @@ class Email(models.Model):
             "timestamp": self.timestamp.strftime("%b %d %Y, %I:%M %p"),
             "read": self.read,
             "archived": self.archived,
+            "important": self.important,
             "starred": self.starred,
             "spam": self.spam,
             "trash": self.trash,

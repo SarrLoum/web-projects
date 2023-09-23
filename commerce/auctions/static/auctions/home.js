@@ -94,9 +94,21 @@ document.addEventListener("DOMContentLoaded", function () {
 		categBtnHover();
 	}
 
-	if (main.classList.contains("category")) {
+	if (main.classList.contains("category") ||
+		main.classList.contains("search-resultPage")
+	) {
 		footer1.style.display = "none";
 		footer2.style.display = "flex";
+
+		const hrLines = document.querySelectorAll(".hr-line")
+		const topNav = document.querySelector(".topnav")
+	
+		hrLines.forEach((hr) => {
+			hr.style.display = "none";
+		})
+
+		topNav.style.display = "none";
+
 	}
 
 	if (

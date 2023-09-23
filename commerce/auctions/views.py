@@ -287,6 +287,7 @@ def search(request):
         result = search_on_category(query, category)
         return render(request, "auctions/search_result.html", {
             "search_results": result,
+            "query": query,
         })
 
 

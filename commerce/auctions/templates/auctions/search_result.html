@@ -1,34 +1,180 @@
 {% extends "auctions/layout.html" %} {% block body %}
 
-<main id="main" class="search-resultPage">
-	{% if search_results %}
-	<ul class="item-list grow no-margin negative-left grid-scaled">
-		{% for result in search_results %}
-		<li class="grid-items-scaled flex column">
-			<div class="list-item scale-zoom">
-				<a href="{% url 'listing-page' result.id %}">
-					<div class="img-wrapper scale-zoom2">
-						<img src="{{ result.image.url }}" alt="" /></div
-				></a>
-				<div class="item-details">
-					<a
-						class="title-link"
-						href="{% url 'listing-page' result.id %}"
-						>{{ result.title }}</a
-					>
-					{% if result.winning_bid.bid > result.starting_bid %}
-					<span>${{ result.winning_bid.bid }}</span>
+<main id="main" class="search-resultPage flex">
+	<!-- Searhc Result category -->
+	<div class="categorySearch-menu">
+		<!-- Explorer par category -->
+		<div class="flex space-between align-center margin-top2">
+			<h5 class="categorySeach-header">Catégorie</h5>
+			<img src="http://localhost:8000/static/auctions/media/expand_more1.svg" alt=""/>
+		</div>
+		<span class="tout-span">Tout</span>
+
+		<ul class="categorySearch-ul">
+			<li class="flex space-between">
+				<a href="#"><span>Animalerie</span></a>
+			</li>
+			<li class="flex space-between">
+				<a href="#"><span>Auto, moto-pièces,     Accessoires</span></a>
+			</li>
+			<li class="flex space-between">
+				<a href="#"><span>Arts, antiquités</span></a>
+			</li>
+			<li class="flex space-between">
+				<a href="#"><span>Maison</span></a>
+			</li>
+			<li class="flex space-between">
+				<a href="#"><span>Equipements professionnels</span></a>
+			</li>
+			<li class="flex space-between">
+				<a href="#"><span>Timbres</span></a>
+			</li>
+			<li class="flex space-between">
+				<a href="#"><span>Collections</span></a>
+			</li>
+			<li class="flex space-between">
+				<a href="#"><span>Téléphone, mobilité</span></a>
+			</li>
+			<li class="flex space-between">
+				<a href="#"><span>Plus</span></a
+				><img
+					src="http://localhost:8000/static/auctions/media/expand_more.svg"
+					alt=""
+				/>
+			</li>
+		</ul>
+
+		<div class="flex space-between align-center margin-top2">
+			<h5 class="categorySeach-header">Etat</h5>
+			<img src="http://localhost:8000/static/auctions/media/expand_more1.svg" alt=""/>
+		</div>
+
+		<ul class="category-navs-ul">
+			<li class="flex ">
+				<input type="checkbox" name="neuf" />
+				<label href="#">Neuf <span></span></label>
+			</li>
+			<li class="flex ">
+				<input type="checkbox" name="neuf" />
+				<label href="#">Occasion <span></span></label>
+			</li>
+			<li class="flex ">
+				<input type="checkbox" name="neuf" />
+				<label href="#">Non spécifié <span></span></label>
+			</li>
+		</ul>
+	</div>
+
+	<!-- Searhc Results -->
+	<div class="menu-searchResult grow shrink">
+		<!-- Searhc Result Headers -->
+		<div class="searchResut-header">
+				<!-- Searhc Result first header -->
+			<div class="searchResult-header1">
+				<div class="flex space-between">
+					<div class="leftBtns-SRH1">
+						<div class="btn-group" role="group" aria-label="Basic outlined example">
+							<button type="button" class="btn myBtn-outline btn-outline-active">Toutes les annonces</button>
+							<button type="button" class="btn myBtn-outline">Enchère</button>
+							<button type="button" class="btn myBtn-outline">Achat immédiat</button>
+						</div>
+					</div>
+					<script>
+						const announceTypeBtns = document.querySelectorAll(".myBtn-outline");
+
+						announceTypeBtns.forEach((announceTypeBtn) => {
+							announceTypeBtn.addEventListener("click", () => {
+								announceTypeBtns.forEach((btn) => {
+									btn.classList.remove("btn-outline-active");
+								});
+								announceTypeBtn.classList.add("btn-outline-active");
+							});
+						});
+					</script>
+
+					<div class="rightBtns-SRH1 flex gap2">
+						<button class="filter-searchBtn flex justify-center align-center">
+							<span>Pertinance</span>
+							<img src="http://localhost:8000/static/auctions/media/expand_more1.svg" alt=""/>
+						</button>
+						<button class="filter-searchBtn flex justify-center align-center">
+							<img src="http://localhost:8000/static/auctions/media/expand_more1.svg" alt=""/>
+							<img src="http://localhost:8000/static/auctions/media/expand_more1.svg" alt=""/>
+						</button>
+					</div>
+				</div>
+				<div class="searchResult-count">
+					{% if search_results %}
+					<span><strong>{{ search_results.count}}</strong> Résultats pour <strong>{{ query }}</strong></span>
 					{% else %}
-					<span>${{ result.starting_bid }}</span>
+					<span><strong>{{ search_results.count}}</strong> Résultats pour <strong>{{ query }}</strong></span>
 					{% endif %}
 				</div>
 			</div>
-		</li>
-		{% endfor %}
-	</ul>
-	{% else %}
-	<h1>no result</h1>
-	{% endif %}
-</main>
 
+			<!-- Searhc Result second header -->
+			{% if search_results %}
+				<div class="searchResult-header2 flex align-center gap1">
+					<div class="flex align-center gap10">
+						<button class="filter-searchBtn flex justify-center align-center">
+							<span>Etat</span>
+							<img src="http://localhost:8000/static/auctions/media/expand_more1.svg" alt=""/>
+						</button>
+						<button class="filter-searchBtn flex justify-center align-center">
+							<span>Prix</span>
+							<img src="http://localhost:8000/static/auctions/media/expand_more1.svg" alt=""/>
+						</button>
+						<button class="filter-searchBtn flex justify-center align-center">
+							<span>Format d'achat</span>
+							<img src="http://localhost:8000/static/auctions/media/expand_more1.svg" alt=""/>
+						</button>
+					</div>
+					<span class="all-filters">Tous les filters</pan>
+				</div>
+			{% else %}
+				<div class="searchResult-header2">
+					<h5 class="noResult-h5">Aucun résultat correspondant n'a été trouvé</h5>
+		
+					<div class="search-noResult flex space-between align-center">
+						<span>Enregistrez cette recherche pour recevoir des alertes et des notifications par e-mail lorsque de nouveaux objets sont disponibles.</span>
+						<button class="save-searchQuery flex align-center gap2">
+							<img src="http://localhost:8000/static/auctions/media/heart-line.svg" alt=""/>
+							<span>Enregister cette recherche</span>
+						</button>
+			
+					</div>
+				</div>
+			{% endif %}
+		</div>
+		<!-- Searhc Result items -->
+		{% if search_results %}
+		<ul class="item-list grow no-margin negative-left grid-scaled">
+			{% for result in search_results %}
+			<li class="grid-items-scaled flex column">
+				<div class="list-item scale-zoom">
+					<a href="{% url 'listing-page' result.id %}">
+						<div class="img-wrapper scale-zoom2">
+							<img src="{{ result.image.url }}" alt="" /></div
+					></a>
+					<div class="item-details">
+						<a
+							class="title-link"
+							href="{% url 'listing-page' result.id %}"
+							>{{ result.title }}</a
+						>
+						{% if result.winning_bid.bid > result.starting_bid %}
+						<span>${{ result.winning_bid.bid }}</span>
+						{% else %}
+						<span>${{ result.starting_bid }}</span>
+						{% endif %}
+					</div>
+				</div>
+			</li>
+			{% endfor %}
+		</ul>
+		{% endif %}
+
+	</div>
+</main>
 {% endblock %}
+

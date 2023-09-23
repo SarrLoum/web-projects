@@ -20,6 +20,9 @@ button {
 .grow {
 	flex-grow: 1;
 }
+.shrink {
+	flex-shrink: 1;
+}
 .column {
 	flex-direction: column;
 }
@@ -2050,8 +2053,7 @@ h5 {
 }
 
 .category-navs {
-	width: 13.875em;
-	height: 58.6875em;
+	max-width: 13.875em;
 	flex-shrink: 0;
 }
 
@@ -2092,6 +2094,7 @@ h5 {
 
 .category-content {
 	padding-left: 1em;
+	flex-shrink: 1;
 }
 
 .categ-discovery .discovery-title > h2 {
@@ -3141,10 +3144,177 @@ textarea {
 .margin-top1 {
 	margin-top: 0.75em;
 }
+
+.margin-top2 {
+	margin-top: 1em;
+	margin-bottom: 1.03125rem;
+}
+
 .margin-bottom0 {
+	margin-bottom: 0.5em;
+}
+.margin-bottom1 {
 	margin-bottom: 0.5em;
 }
 
 .no-text-decoration:hover {
 	text-decoration: none;
+}
+
+
+.search-resultPage {
+	padding: 1em;
+	margin-top: .75em;
+}
+
+.categorySearch-menu {
+	max-width: 13.875em;
+	flex-shrink: 0;
+}
+
+.categorySeach-header {
+	color: #3a3a3a;
+	text-align: center;
+	font-family: "Inter";
+	font-size: 0.94rem;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	margin: 0;	
+}
+
+.filter-searchBtn {
+	padding: 0.5rem 0.96em;
+	flex-shrink: 0;
+	border-radius: 6.25rem;
+	background: #f7f7f7;
+
+	border:transparent;
+	outline: none;
+
+	color: #3a3a3a;
+	font-family: "Inter";
+	font-size: 0.8125rem;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+
+.searchResult-header1 {
+	padding-bottom: 0.75em;
+	padding-left: .25em;
+	padding-top: 1em;
+}
+
+.searchResult-count {
+	margin-top: 0.75em;
+	margin-left: .25em;
+	color: #3a3a3a;
+	font-family: "Inter";
+	font-size: 0.94rem;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+
+.searchResult-header2 {
+	padding: 1.25em;
+	margin-left: .5em;
+	border-top: 1px solid rgba(0, 0, 0, 0.1);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.searchResult-header2 .all-filters {
+	color: #3a3a3a;
+	font-family: "Inter";
+	font-size: 0.94rem;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+
+}
+
+.myBtn-outline {
+	color: #3665f3;
+	border-color: #c7c7c7;
+}
+
+.myBtn-outline:hover,
+.btn-outline-active {
+	color: #3a3a3a;
+	background: #eeeeee;
+	outline: none;
+	border-color: #c7c7c7;
+}
+
+.myBtn-outline:focus {
+	outline: none;
+	box-shadow: none;
+}
+
+.filter-searchBtn:focus {
+	border:transparent;
+	outline: none;
+	background: #eeeeee;
+}
+
+
+.categorySearch-ul {
+	padding-left: .5em;
+}
+.categorySearch-ul li > a span,
+.tout-span {
+	color: #3665F3;
+	font-family: "Inter";
+	font-size: 0.86rem;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	margin-bottom: .75em;
+    cursor: pointer;
+}
+
+
+.noResult-h5 {
+	color: #3a3a3a;
+	text-align: left;
+	font-family: "Inter";
+	font-size: 1.12em;
+	font-style: normal;
+	line-height: normal;
+
+}
+
+
+.search-noResult span {
+	color: #3a3a3a;
+	text-align: left;
+	font-family: "Inter";
+	font-size: 0.81em;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	max-width: 40em;
+}
+
+.save-searchQuery {
+	padding: .5em .75em;
+	margin-right: 5em;
+	border-radius: .25em;
+	border: transparent;
+	outline: none;
+	background: #3665f3;
+}
+
+.save-searchQuery:focus {
+	border: transparent;
+	outline: none;
+}
+
+.save-searchQuery span {
+	color: #fff;
+	font-family: "Inter";
+	font-size: 0.94em;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
 }
