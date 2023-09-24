@@ -40,7 +40,7 @@ export const displayEmails = (emails) => {
 	// Append the emails list to the email view container
 	const emailView = document.querySelector("#mailbox-view");
 
-	// Render ddinamically the mailbox view wheither it's empty or not
+	// Render dinamically the mailbox view wheither it's empty or not
 	if (emails.length === 0) {
 		emailView.appendChild(emptyView);
 	} else {
@@ -74,6 +74,7 @@ const handleClickOnEmail = () => {
 				const id = element.dataset.email_id;
 				view_email(id);
 				asRead(id);
+
 				const headerDefaultBtns = document.querySelector(
 					"#header-left-default"
 				);
@@ -81,11 +82,14 @@ const handleClickOnEmail = () => {
 					document.querySelector("#header-left-email");
 				const paginationBtn = document.querySelector("#pagination-btn");
 				const splitBtn = document.querySelector("#split-btn");
+				const contentHeader0 =
+					document.querySelector(".content-header0");
 
 				headerDefaultBtns.style.display = "none";
 				emailHeaderBtns.style.display = "flex";
 				paginationBtn.style.display = "none";
 				splitBtn.style.display = "none";
+				contentHeader0.style.display = "none";
 
 				const goBackBtn = document.querySelector(".go-back");
 				const navBtns = document.querySelectorAll(".nav-button");
